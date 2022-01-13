@@ -1,0 +1,122 @@
+<!-- 运算符 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+</body>
+
+<script type="text/javascript">
+    var a = 1;//数值型
+    var b = '1';//字符串
+    // 比较运算符
+    console.log(a==b);//true
+    console.log(a===b);//false ,因为 三等需要‘值’跟‘类型’都相等
+    console.log(a!=b)//数值!=不等于b是错的
+    // 逻辑运算符
+    a<10&&b>2 // 表示 and
+    a==10 || b==2 // 表示 or
+    !(a==y) // 表示 not
+    // 目运算符
+    ?:// 如果XX 则执行问号后面
+    // 选择语句(单双选)
+    if(条件){
+        语句体
+    }
+————————————————————————————————————
+    if(条件){
+            语句体1;
+        else{
+            语句体2;
+        }
+    }
+——————————————————————————————————
+    if(条件){
+            语句体1
+        else if{
+            语句体2;
+        }
+        else if{
+            语句体3;
+        }
+    }
+—————————————————————————————————
+    switch(表达式){
+        case 值1:
+            语句体1;
+            breack;
+        case 值1:
+            语句体1;
+            breack;
+        default:
+            语句体1;
+            [breack;]
+    }
+
+
+
+    // 循环语句 
+    while(条件判断语句) {
+            循环体语句
+            控制条件语句//避免死循环
+    }
+
+
+
+
+    do {//先执行再判读
+            循环体语句
+            控制条件语句
+        while(条件判断语句) {
+                循环体语句
+                控制条件语句//避免死循环
+              }   
+    }
+
+
+    for(初始化语句;条件判断语句;控制条件语句){
+        循环体语句;
+    }
+
+
+    // 死循环   
+    while(true){}
+    for(;;){}
+
+    // 停止循环
+    break;
+
+    // 继续循环
+    contiune;
+    
+    // 算数运算符
+    console.log(a+b);
+    console.log(a-b);
+    console.log(a*b);
+    console.log(a%b);
+    // 赋值扩展运算符
+    console.log(b=a+2);
+    console.log(b=a/2);
+    console.log(b=a*2);
+    console.log(b=a%2);
+
+
+// 数组
+    // 隐式创建 
+var 深圳 = [1,2,3]
+    // 直接实例化
+var 深圳 = new Array(1,2,3)
+    // 创建数组并指定长度
+var 深圳 = new Array(size)
+
+
+
+
+
+</script>
+</html>

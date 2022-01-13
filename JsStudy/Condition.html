@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>三目运算符、三元运算符、条件运算符 || 一元运算符</h1>
+
+</body>
+    <script type="text/javascript">
+
+//三目运算符、三元运算符、条件运算符 语法
+//条件 (表达式) ? (表达式) : (表达式)
+
+console.log(true ? 1 : 2)
+console.log(false ? 1 : 2)
+//——————————————————————————————————————————————————————————————
+
+var age =26
+var beverage = (age >= 21) ? "Beer" : "Juice";
+console.log(beverage);
+
+
+var a = 100
+var b = 50
+var result = a > 100 ? b = 666 : b =333 // 因为是 false ,所以用的是 b = 333 的表达式
+
+console.log(b);
+
+var e = "0"
+e = e ? parseInt(e) : e + 100
+console.log(e)
+
+//一元运算符 语法 + - 把数据转为数字类型, 只操作一个数据
+
++true
+-true
+-''
++"s"
++undefined
+-"123"
+
+//例如
+
+
+100 + ''
+
+
+
+
+
+</script>
+
+
+</html>

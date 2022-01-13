@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时间函数</title>
+</head>
+
+<body >
+    <H1>时间函数,语法为执行类型(函数,时间)</H1>
+
+    <button type="button" onclick="toBaidu()">打开谷歌</button>
+
+    <hr>
+
+    <button type="button" onclick="init()">开始循环刷新时间</button>
+    <button type="button" onclick="stop()">暂停循环刷新时间</button>
+      <!-- 用于赋值👇 -->
+    <h2 id="time"></h2> 
+
+
+    <!-- 定时循环执行方法二 -->
+    <button type="button" onclick="hello()">定时执行</button>
+
+
+</body>
+
+
+<script type="text/javascript">
+
+//需要包含两个参数： 参数 1 为执行的函数，参数 2 为事件单位（毫秒）
+
+// 1. 延时执行 
+        //写法一
+        setTimeout(function() {
+            console.log("3秒后执行");
+        },3000);
+
+        //写法二    
+        function toBaidu(){
+            setTimeout(test,3000);
+        }
+        function test(){   
+            window.open("http://www.google.com");
+    }
+
+
+
+//2.循环执行
+//方法一
+        //打印当前时间
+        console.log(new Date().toLocaleTimeString());
+
+
+        //点击获取当前时间
+        function init(){ //只要调用这个方法就赋值给上面的 h2
+
+            var time1 =  new Date().toLocaleTimeString(); //每一秒执行一次(循环)
+
+            document.getElementById("time").innerHTML = time1;//找到 h2 元素，并赋值给它一个时间函数
+
+            iiid = setTimeout(init,1000); //settimeout会自动返回一个 id
+        }
+
+        function stop(){
+            clearTimeout(iiid);
+        }
+
+//方法二
+
+    function hello(){
+        setInterval(function(){
+            console.log("你好,我是定时循环执行!");
+        },1000);
+    }
+
+
+
+
+
+</script>
+
+</html>

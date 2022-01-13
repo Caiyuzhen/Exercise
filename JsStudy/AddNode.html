@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>操作 Dom 节点</title>
+    <h4>操作 Dom 节点</h4>
+
+</head>
+<body>
+    <button onclick="addPara();">添加段落</button>
+    <button onclick="addImg();">添加图片</button>
+    <button onclick="addTxt();">添加文本框</button>
+    <button onclick="addOptions();">添加下拉框选项</button>
+    <select name="music">
+        <option value="-1">你内心中的一首歌</option>
+        <option value="0">千与千寻</option>
+        <option value="1">夕阳之歌</option>
+        <option value="2">光辉岁月</option>
+    </select>
+
+    <hr/>
+<!-- 把上面的内容添加到 👇 的 container -->
+    <div id="container"></div>
+
+
+
+
+</body>
+
+
+<script text="text/javascript">
+
+//🌟 创建节点
+//1.createElement() —— 创建一个新的节点，需要传入节点的标签名称，返回创建的元素对象
+//2.createTextNode() —— 创建一个文本节点，传入文本内容
+//3.innerHtml —— 在指定位置创建一个节点
+
+//🌟 插入节点
+//1.write() —— 将任意字符插入到文档中
+//2.insertBefore —— 向元素中添加新的子节点
+//3.inserBefore() —— 想指定的节点前面插入新节点 ｜ newItem、exsitingItem
+//4.🤔.appendChild(🔥) 将文本 🔥 放进 🤔 标签内
+
+
+//🌟 创建节点
+
+//添加文本
+
+
+function addPara(){
+
+//1.方式一(定义式)
+    var h3 = document.createElement("h3");//👈 创造 h3 元素
+    console.log(h3);
+
+    var txt = document.createTextNode("这是在 h3 标签内创建的纯文本");//👈 创建文本节点 createTextNode
+    console.log(txt); 
+
+    h3.appendChild(txt);//现在 h3 标签跟 文本 还是分离的，👇是将 文本 放入 h3 标签内
+    console.log(h3);
+
+    //👇 获取容器
+    var rong = document.getElementById("container");
+    rong.appendChild(h3);
+
+//2.方式二(定义式)
+    var div = document.getElementById("container");
+    var p = document.createElement("p"); // 创建 h3 元素
+    p.innerHTML = "这也是一段文本";        //给 h3 元素 赋值
+    div.appendChild(p);
+    
+//3.方式三 (比较特殊-拼接字符串方式)
+    var qi = document.getElementById("container");
+    var x = "<p>这是拼接标签的文本</p>";
+    qi.innerHTML += x; //在赋值之前先把原来的值拿过来，否则会覆盖 ——> 追加 +=
+}
+
+// ____________________
+
+
+
+//添加图片
+
+function addImg(){
+    var imgrongqi = document.getElementById("container"); 
+
+//1.方式一(定义式)
+    var img = document.createElement("img"); //创建图片标签
+    img.src = "img/ac286647423435.587a5c0763114.png"; //设置图片标签的属性(图片路径)
+    console.log(img);
+
+    img.width = 100; //设置宽高属性
+    img.height = 100; //设置宽高属性
+
+    imgrongqi.appendChild(img) //将图片置入到图片容器内
+
+
+//2.方式二(定义式)
+    var img = document.createElement("img");//创建 img 类型的元素
+    img.setAttribute("src","img/ac286647423435.587a5c0763114.png"); //设置 img 的属性
+    imgrongqi.appendChild(img); //将图片置入到容器内
+
+//3.方式三(拼接字符串方式)
+    var img3 = "<img src='img/ac286647423435.587a5c0763114.png' />";
+    imgrongqi.innerHTML += img3; //因为是把字符串放到 html 内,所以要用 += 来追加
+
+}
+
+
+//添加文本框
+
+function addTxt(){
+    var div = document.getElementById("container");
+
+//1.方式一(定义式)
+
+    var inp = document.createElement("input");//创建 input 元素
+    inp.type="text";           //指定 input 类型为文本框(类型)
+    inp.value = "今天天气晴朗";  //给文本框赋值(内容)
+    div.appendChild(inp);
+
+
+//2.方式二(定义式)
+
+    var inp = document.createElement("input");
+    inp.setAttribute("type", "text");
+    inp.setAttribute("value","今天月亮晴朗☀️");
+    div.appendChild(inp);
+
+//3.方式三(拼接字符串方式)
+
+    var inp = "<input type='text' value='今天饿了'/>";
+    div.innerHTML += inp;
+
+}
+
+//添加下拉框
+
+function addOptions(){
+var music = document.getElementsByName("music")[0];//通过 name 属性值获取下拉框对象[0]为取得数组第一个
+
+//1.方案一
+
+    
+    var opt = document.createElement("option");//创建下拉选项 option 类型
+
+    opt.value ="2";             //设置添加到哪儿
+    opt.text = "新添加的一首歌";   //设置值
+    music.appendChild(opt);     //给下拉框添加下拉选项
+
+
+
+//2.方式二
+
+    var opt = document.createElement("option");
+
+    opt.value ="2";       //设置添加到哪儿
+    opt.text = "🪐星星";   //设置值
+
+    music.options.add(opt);    //将新增加的 option 添加到下拉列表中
+
+//3.方案三
+
+    var opt = "<option value='2' >🌟18岁<option/>";
+    music.innerHTML += opt;
+
+
+}
+
+
+
+
+
+</script>
+
+</html>

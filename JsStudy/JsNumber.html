@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数组</title>
+</head>
+<body>
+    <h1>学习</h1>
+    <h4>可以放入【数值、字符串、布尔】</h4>
+</body>
+
+
+<!-- 定义数组 -->
+<script type="text/javascript">
+
+// 1.隐式定义 
+    var arr = [1,'a',true];//可以放入【数值、字符串、布尔】
+    console.log(arr);
+
+    var arr2 = ['a','dog','cat']
+
+// 2.直接实例化
+    var arr3 = new Array(1,2,3);
+    console.log(arr3);
+
+// 3.创建数组并指定长度
+    var arr4 = new Array(5);//纯数字则为指定长度
+    console.log(arr4);
+
+
+// 操作
+// 4.获取数组长度
+    console.log(arr3.length)
+
+// 5.修改数组长度(可以任意修改)    
+    arr4.length = 5;
+    console.log(arr4);
+
+//🌟利用索引，获取数组中的元素，索引可以越界
+    console.log(arr3[0]); //0 为第一个
+
+//🌟设置元素
+    arr3[3] = '张三';
+    console.log(arr3[3]);
+//🌟设置属性,定义非正整数的索引，所以长度不会被改变（备注：负数、小数则会默认显示为属性）
+    arr2['uname'] = 'admin';
+    console.log(arr2);
+
+console.log("========");
+
+//遍历数组 ♻️ for 循环
+    for (var i = 0; i < arr2.length; i++ ) {
+        console.log(arr2[i]);
+        }
+        console.log("---");
+        console.log("---");
+// for ... in 写法, 索引(0~无线），但是拿不到空值（undefinend)
+    for (var index in arr2){
+        console.log(arr2);
+        console.log(arr2[index]);
+        console.log("---------");
+    }
+
+console.log("========");
+
+// for...each 只有数组才有，索引(0~无线）但是拿不到空值（undefinend)，拿不到属性
+    arr2.forEach(function(element1,index){
+        console.log(element1);
+        console.log(index);
+        console.log("---------");
+    })
+
+
+
+
+
+
+</script>
+</html>

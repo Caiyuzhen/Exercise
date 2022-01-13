@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bom window 对象方法</title>
+
+    <H1>系统对话框</H1>
+    <button type="button" onclick="TestAle()">消息框</button>
+    <button type="button" onclick="textPrompt()">输入框</button>
+    <button type="button" onclick="textSure()">确认框</button>
+
+    <button type="button" id="w1">打开新窗口</button>
+    <button type="button" id="w2">新窗口打开指定页面</button>
+    <button type="button" id="w3">覆盖并打开</button>
+    <button type="button" id="w4">关闭窗口</button>
+
+
+
+</head>
+<body>
+
+
+    <script type="text/javascript">
+
+// 1.消息框
+    function TestAle(){
+        alert("HelloWorld");
+    }
+
+
+
+//2.输入框(有两个参数：一个显示的标题文本信息，另一个是输入文本的返回结果) 🌟
+    function textPrompt () {
+        var username = prompt("请输入用户名",""); //大标题 + 返回的内容，// prompt 为系统定义
+        console.log(username); //会打印在控制台
+    }
+
+
+
+//3.确认框 （要定义变量来接收 True 跟 False） 🌟
+    function textSure (){
+        var flag = confirm("确认删除该条记录？"); // confirm 为系统定义，为 true 或 false 的布尔值
+            if (flag) {
+                alert("🍻删除成功！")
+            } else {
+                alert("🌛没事别瞎点！")
+            }
+
+    }
+
+//4.打开新窗口
+    document.getElementById("w1").onclick = function () {
+        window.open();
+    }
+
+//5.新窗口打开指定页面
+document.getElementById("w2").onclick = function () {
+        window.open("http://www.google.com");
+    }
+
+//6.打开并覆盖当前页面
+document.getElementById("w3").onclick = function () {
+        window.open("http://www.google.com","_self");
+    }
+
+//7.关闭
+document.getElementById("w4").onclick = function () {
+        window.close();
+    }
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>

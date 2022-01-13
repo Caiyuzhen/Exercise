@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+    <script type="text/javascript">
+        var obj = {
+            name:"李逵",
+            age:18,
+            like:function(){
+                console.log("羽毛球");
+            },
+            cats:['嘟嘟','饭团'],//数组类型
+            dog:{
+                name:"二狗",
+                age:1,
+            },
+        };
+
+        obj.height = 180; //直接赋值给 obj
+    
+
+
+        console.log(obj);
+        console.log(obj.dog.name);
+        console.log(obj.like());//调用函数
+
+    </script>
+    
+</body>
+</html>

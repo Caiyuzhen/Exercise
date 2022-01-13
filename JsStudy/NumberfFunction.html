@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数组方法</title>
+    <H1>如何操作数组</H1>
+</head>
+<body>
+    
+</body>
+<!-- 几种操作数组的方法 -->
+<script type="text/javascript">
+
+    var arr = [1,2,'a',3,'b']
+    // 🌟 Push 添加到最后面
+    arr.push('c');
+    // 🌟 Push 添加到最前面
+    arr.unshift('0');
+    console.log(arr);
+
+
+    //删除最前面
+    arr.pop();
+    //删除最后面
+    arr.shift();
+    console.log(arr);
+
+
+    //反转数组
+    var arr2 = arr.reverse()
+    console.log(arr2);
+
+    //转为字符串,（ ，）可以换为 （ - ）、（ 😄 ）等
+    var str = arr.join(',');
+    console.log(str);
+
+    //数组索引
+    var index = arr.indexOf('a');
+    console.log(index);
+
+    //数组截取(从第几个截取到第几个)(选择括号内的),不改变原来的数组
+    var arr3 = arr.slice(2,5);
+    console.log(arr3);
+
+    //剪接数组，会改变原来的数组,打印的是剪出来的，原来的数组也会被剪去打印出来的这个数组
+    var cat = [10,20];
+    var arr4 = cat.splice(1,2,'aa','bb')
+    console.log(arr4);
+    console.log(cat);
+
+    //数组合并
+    var dog = [100,200];
+    var arr5 = cat.concat(dog)
+
+
+
+
+
+
+
+</script>
+
+
+
+</html>

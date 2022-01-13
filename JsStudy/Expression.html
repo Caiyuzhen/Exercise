@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+
+<script type="text/javascript">
+
+//赋值运算符
+var j = 10;
+
+
+
+//算术运算符
+var k = 1+2;
+
+
+
+//复合运算符 +=  -=  *=  /=  **=
+var a = 1;
+var o = 1;
+a += 1; //表示 a = a+1
+o -= 1;//表示 o = o-1
+
+console.log(o); //
+
+
+//自增 自减 运算符  ==  --  
+var x = 3;
+z = x++; //相当于 z = x, x += 1 (都是 +1, 相当于 x 自己加个 1 )
+// console.log(x,z) // 4 3
+
+
+
+var c = 3;
+y = c--; //先执行 y = c , 再 c 自己 = c-1
+console.log(c,y); // 2 3
+
+var g = 3;
+m = g; 
+console.log(m,g); //2 2
+
+
+
+
+// 可选链的操作 ? 不确定里面有没有相应的属性
+
+var obj = {
+    name: 'abc',
+}
+console.log(obj.type?.a)
+
+
+
+
+//扩展运算符 复制一个对象的数据
+var obj2 = {
+    name:'abc',
+    age:18,
+    child:{
+        baby:'c'
+    }
+}
+console.log(obj2)
+var obj3 = {
+    ...obj2,
+}
+
+console.log(obj3)
+obj3.child.baby = 'g' //一起改
+
+
+    
+</script>
+
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>练习用</title>
+    <H1>事件练习用</H1>
+
+    <button type="button" onclick="test()">方法二</button> //一定要加括号！！
+    <button type="button" id="jimmy">方法三</button>
+
+    <input type="text" placeholder="点我点我" id="des">
+
+    <!-- 下拉菜单 -->
+    <hr>
+       城市： <select id ="city">
+                <option>北京</option>
+                <option>上海</option>
+                <option>广州</option>
+                <option>深圳</option>
+    </select>
+    <!-- 一个 div -->
+    <hr>    
+    <div id="one">这是一个 div </div>
+
+    <hr>
+    <input type="text" placeholder="按下我 & 松开我" id="try2">
+</head>
+ 
+<body>
+
+
+<!-- 
+    //常用事件类型：
+    // onblur 失焦
+    // onfocus 聚焦
+    // onclick 点击
+    // onchange 改变内容
+    // onmouseover 鼠标移动到XX元素上方
+    //onmouseout 从某个元素上移开
+    //onkeyup 按键松开
+    //onkeydown 按键按下 
+-->
+
+
+    <script type="text/javascript">
+
+
+    //点击事件 （方法 1）//在 html 的 onclick 类型里要加（ ）！
+        function test(){
+            console.log("啦啦啦")
+        };
+    // 点击事件 （方法 2-1）
+        var lol = document.getElementById("jimmy");
+        lol.onclick = function (){
+            console.log("你好呀");
+        }
+
+    //输入框练习（方法 1 为例）
+        var lianxi = document.getElementById("des");
+        lianxi.onblur = function () {
+            console.log("失焦了");
+        }
+    //改变内容事件（方法 2-2)
+    document.getElementById("city").onchange = function () {
+        console.log("下拉框的值改变了")
+    }
+
+    //悬停事件 （方法 2-1）
+    var xuanting = document.getElementById("one");
+    xuanting.onmouseover = function (){
+        console.log("悬停啦");
+    }
+    xuanting.onmouseout = function (){
+        console.log("移开啦");
+    }
+
+    //键盘按下事件 （方法 2-2）
+    document.getElementById("try2").onkeydown = function(){
+        console.log("按下拉");
+    }
+    document.getElementById("try2").onkeyup = function(){
+        console.log("松开啦");
+    }
+
+
+    </script>
+
+</body>
+</html>

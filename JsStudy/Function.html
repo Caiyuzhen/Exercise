@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>函数</title>
+    <h1>函数</h1>
+    <p>函数也是一种对象
+        </p>
+    <p>函数包含几部分知识：函数定义、函数调用、函数作用域 https://www.bilibili.com/video/BV19P4y1G7fC?p=50
+        </p>
+</head>
+<body>
+    
+</body>
+<script type="text/javascript">
+    // 🚀 方法一：声明式函数 --- function 函数名（[参数列表]）{
+
+         // }
+
+         function test() {
+             console.log("函数声明语句");
+         }
+         test(); //🍎调用函数
+
+
+         function test2(a) {
+             console.log(a);
+         }
+         test2(1); //🍎 调用并把结果 1 这个参数传进去
+
+
+
+    // 🚀 方法二： 函数定义表达式（把函数赋予一个变量）--- var 变量名 = function([]){
+
+        // }
+
+        var test3 = function () {
+            console.log("函数定义表达式");
+        }
+        test3();
+
+        var test4 = function (a,b) {
+            console.log(a,b);
+        }
+        test4(2,20);
+    
+
+    
+    // 🚀 方法三： Function 构造函数(函数套函数) --- var 变量名 = new Function （'a','b','c');
+
+        var test5 = new Function('a','b','c','return(a+b)'); //return（a+b）不是参数,最终会返回 return 的结果
+            
+        var num = test5(1,2,3);
+        console.log(num);
+
+
+
+
+
+
+</script>
+</html>
