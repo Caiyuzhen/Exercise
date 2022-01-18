@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+             margin: 0;
+             padding: 0;
+             font-family: sans-serif;
+        }
+        main {
+            background: hsl(0deg, 0%, 10%);
+            width: 100vw;
+            height: 100vh;
+            display: grid;
+            place-items: center
+            ;
+        }
+        .container {
+            text-align: center;
+        }
+        h1 {
+            font-size: 72px;
+            color: white;
+        }
+        h2 {
+            font-size: 24px;
+            color: white;
+            margin-top: 18px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="container">
+            <h1 class="title">Welcome</h1>
+            <h2 class="subtitle">HacaScript Web Animation API</h2>
+    </main>
+</div>
+
+
+<script>
+    // 传入变量
+    let title = document.querySelector(".title");
+    let fadeAndMove = [
+        {
+            opacity: 0,
+            transform:`translateY(-20px)`,
+        },
+        {
+            opacity: 1,
+            transform:`translateY(0px)`,
+        },
+    ];
+    let titleTiming = {
+        duration: 2000,
+        easing: "ease-in-out",
+    };
+// 执行动画👇 const 为定义标题的动画时间,然后传给副标题
+const titleChange = title.animate(fadeAndMove, titleTiming);
+
+// 获取副标题的 dom 元素,然后从 -0.5 的初始宽度拓展到 initial 的宽度
+ let expand = [
+     {
+         letterSpacing: "-0.5em",
+         opacity: 0,
+     },
+     {
+         letterSpacing: "initial",
+         opacity: 1,
+     },
+];
+
+
+//  将标题动画的执行时间传给副标题
+    let subtitleTiming = {
+        duration: titleChange.effect.getComputedTiming().duration / 2,
+        easing: "ease-in-out",
+    };
+// 鼠标点击才播放, 先暂停动画
+const subTitleChange = subtitle.animate(expand, subtitleTiming);
+subTitleChange.pause();
+
+//  监听鼠标时间, 当鼠标点击时才生效
+    document.addEventListener("click", () => {
+    if (subTitleChange.playStates !== "finished" ) {
+        subTitleChange.play();
+        }
+    });
+        </script>
+    </body>
+</html>

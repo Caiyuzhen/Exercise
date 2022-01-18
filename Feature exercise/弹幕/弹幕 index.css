@@ -1,0 +1,62 @@
+* {
+    /* 清除自带边距 */
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body {
+    /* 盒模型弹性布局, 水平居中 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.barrage {
+    width: 600px;
+}
+
+/* 视频部分, 相对定位 */
+.barrage .video {
+    position: relative;
+    width: 100%;
+}
+.barrage .video canvas {
+    position: absolute;
+    top: 10;
+    left: 0;
+    width: 100%;
+}
+/* 弹幕输入框部分 */
+.barrage .submit {
+    display: flex;
+    width: 100%;
+    height: 40px;
+}
+.barrage .submit input {
+    /* 清除 form 表单自带的轮廓 */
+    outline: 0;
+    width: 500px;
+    padding: 10px;
+    border: 1px solid #e7e7e7;
+}
+.barrage .submit button {
+    outline: 0;
+    border: 0;
+    width: 124px;
+    color: #ffffff;
+    background:linear-gradient(45deg,#016eff 70%,#1296ea);
+    cursor: pointer;
+}
+/* 按钮点击后的样式👇 */
+.barrage .submit .btn_active {
+	color: #bbb;
+	background: #e7e7e7;
+	/* 鼠标变禁止点击状态 */
+	cursor: not-allowed;
+}
+
+
+
+
+
+

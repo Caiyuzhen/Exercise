@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<title>无标题文档</title>
+        <style type="text/css">
+                div{
+                    width:200px;
+                    word-break:break-all;
+                    border:1px solid rgb(175, 175, 175);
+                    overflow:hidden; 
+                    transition-timing-function: cubic-bezier(0.75,0.75, 1, 1);
+                    background-color: rgb(175, 175, 175)
+                    
+                  }
+        </style>
+        
+         <script type="text/javascript">
+                var t = true;
+                 var obj,a;
+                 function openclose(openclose){
+                 var h = obj.offsetHeight;
+                 h += openclose*5;
+                if(h>=150){
+                    clearInterval(a);
+                 obj.style.height = "150px";
+                t = true;
+                }
+                else if(h<=50){
+                  clearInterval(a);
+                 obj.style.height = "50px";
+                    t = true;
+                 }
+                else obj.style.height = h + "px";
+                }
+
+              
+                function getlink(){
+                obj.onclick = function(){
+                     clearInterval(a);
+                a = setInterval("openclose(1)" , 5);
+                    }
+                 }
+                window.onload = function(){
+                obj = document.getElementById("box")
+                obj.style.height = "50px";
+                     getlink();
+                }
+                  function getlink(){
+                obj.onclick = function(){
+                    clearInterval(a);
+                  if(obj.offsetHeight>=150)
+                     a=setInterval("openclose(-1)",5);
+                 else
+                    a = setInterval("openclose(1)" , 5);
+                  }
+                }
+          </script>
+</head>
+<body>
+
+<div id="box">
+<a href="#">展开</a>
+</div>
+
+
+
+
+<!-- <body>
+    <style>
+        .body{width:100%; height:320px; margin:0 auto; overflow:hidden;}
+           .content{width:500px; padding:3px 5px; font-size:16px; color:#333;}
+           .content span{width:100%; height:30px; line-height:30px; display:block;}
+           .btn_more{width:500px;}
+          .btn{width:55px; height:30px; text-align:center; line-height:30px; display:block; color:red; text-decoration:none;}
+    </style>
+  
+    <script>
+          function show(){
+              document.getElementById("more").style.display = "block";
+              document.getElementById('btn').innerHTML="收起-";
+              document.getElementById('btn').href="javascript:hide();";
+          }
+  
+          function hide(){
+              document.getElementById('more').style.display='none';
+              document.getElementById('btn').innerHTML="展开+";
+              document.getElementById('btn').href="javascript:show();";
+          }
+    </script>
+  
+      <div class="body">
+        <div class="content">
+          <span>测试测试测试测试测试测试1</span>
+          <span>测试测试测试测试测试测试2</span>
+          <span>测试测试测试测试测试测试3</span>
+              <span>测试测试测试测试测试测试4</span>
+  
+          <div id="more" class="more" style="display:none;">
+            <span>更多更多更多更多更多更多更多更多1</span>
+            <span>更多更多更多更多更多更多更多更多2</span>
+          </div>
+        </div>
+  
+           <div class="btn_more">
+          <a href="javascript:show();" id="btn" class="btn">展开+</a>
+           </div>
+       </div> -->
+</body>
+</html>
+

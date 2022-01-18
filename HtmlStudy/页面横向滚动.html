@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS 实现鼠标滚轮横向滚动特效</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+      }
+      .container {
+        display: flex;
+        overflow-x: scroll;
+      }
+      .page {
+        width: 100vw;
+        height: 100vh;
+        flex-shrink: 0;
+      }
+      .page:nth-child(1){
+          background: rgb(117, 230, 164);
+      }
+      .page:nth-child(2){
+          background: rgb(109, 140, 241);
+      }
+      .page:nth-child(3){
+          background: rgb(238, 134, 221);
+      }
+    </style>
+
+    </head>
+    <body>
+        <main>
+            <div class="container">
+                <div class="page">page1</div>
+                <div class="page">page2</div>
+                <div class="page">page3</div>
+            </div>  
+    </main>
+    <script>
+        // 👇在变量中保存返回的结果
+        let container = document.querySelector(".container");
+        container.addEventListener("wheel", (event) => {
+                // 👇阻止默认的滚轮事件
+                event.preventDefault();
+                container.scrollLeft += event.deltaY;
+        });
+    </script>
+</body>
+</html>

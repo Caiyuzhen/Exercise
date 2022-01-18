@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background: rgb(247, 247, 247);
+            color: rgb(24, 24, 24);
+            font-family: sans-serif;
+        }
+        article {
+            /* 固定栏 */
+            /* column-count: 3; */
+            /* 根据空间显示栏数 */
+            column-width: 200px;
+            column-gap: 24px;
+            column-rule: 2px solid hsl(0dge, 0%, 30%);
+        }
+        h3{
+            column-span: all;
+            background-color: rgb(235, 235, 235);
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <article>
+            <p>
+                This blog investigates how Flutter communicates with native code and explores the complexities, challenges, and risks involved. As an example, we want to get a list of tasks from a native SDK and display them on screen.
+                Most cross-platform frameworks also follow a similar communication path, so the lessons learnt here mostly apply for them as well.
+            </p>
+            <h3>大标题</h3>
+            <p>
+                Before we begin on the native side, we need to register a channel to communicate on:Now we must register the call handler to say we can accept getTasks calls on our new tasks channel and implement what happens when its called:
+            </p>
+            <p>
+                Then, decode the arguments and ensure that they meet what we are expecting, then call the desired native SDK function. If the parameters don’t match what we are expecting, then we have to through an error.
+            </p>
+        </article>
+    </main>
+    
+</body>
+</html>

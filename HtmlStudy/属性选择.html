@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<!-- 
+    属性选择器：
+    [data-src] 【属性名称】-> 单独选择某个属性
+    [data-src = "啦啦啦"] 【属性名称=属性值】-> 选择这个属性+具体值 -->
+    <style>
+        [data-src]{
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+             }
+
+        [data-src = "啦啦啦"]{
+            border: 10px solid aquamarine;
+             }
+    </style>
+
+    <div data-src="">
+     </div>
+    <div data-src="啦啦啦">
+    </div>
+
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- form属性：
+    1.action：将表单提交至XXX地址
+    2. 提交的方法：get、post
+        -get 方法，将表单的数据放置到链接地址上，可以直接被 console 看到，效率高但不安全；
+        -post 方法，表单的数据放置到请求的 body 里面，不直接显示，安全但是效率低，可以提交比较大的数据（如图片）；
+        --账号密码用：post
+        --搜索用：get
+    -->
+    <!-- 账号密码👇 -->
+    <form action="" method="POST">
+        <input type="text" name="username" placeholder="请输入用户名" id="" value=""/>
+        <input type="password" name="password" placeholder="请输入密码" id="" value=""/>
+        <input type="submit" name="登录"/>
+    </form>
+<!-- 百度搜索👇 -->
+    <form action="http://www.baidu.com/s" method="GET">
+        <input type="text" value="wd" placeholder="请输入搜索的内容" id="" value=""/>
+        <input type="submit" value="搜索"/>
+    </form>
+
+</body>
+</html>
