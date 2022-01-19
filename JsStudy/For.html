@@ -17,24 +17,44 @@
 
 //写法一:
 for (var i = 4; i>3 && i <=10; i++) { 
-    console.log(i);
+    // console.log(i);
 }
 
 //写法二:
 var a = 4;
 for(; a>3 && a <=10; a++) { // 就算没有 var 的话也需要 ; 分号
-    console.log(a)
+    // console.log(a)
 }
 
-//与 if 相结合, 当数字 = 7 时停止循环
 
+
+//停止循环
+//与 if 相结合, 当数字 = 7 时停止循环
 for (var c = 0; c <=10; c++) { 
     if(c === 5){
         break;
     }
-console.log(c)
+// console.log(c);
 }
 
+
+//与 if 相结合, 当数字 = 7 时候, 继续循环下一个条件,
+for (var kk = 0; kk <=10; kk++) { 
+    if(kk === 5){
+        continue;
+    }
+
+console.log(kk);
+}
+
+
+//嵌套循环
+for(var z = 0; z <=10; z++) {
+    for(var s = 0; s <=10; s++){
+        console.log(z + '-' +s)
+        console.log(z * s)
+    }
+}
 
 </script>
 </html>
