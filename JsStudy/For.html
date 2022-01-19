@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For</title>
+</head>
+<body>
+
+
+</body>
+
+
+
+<script type="text/javascript">
+
+//写法一:
+for (var i = 4; i>3 && i <=10; i++) { 
+    console.log(i);
+}
+
+//写法二:
+var a = 4;
+for(; a>3 && a <=10; a++) { // 就算没有 var 的话也需要 ; 分号
+    console.log(a)
+}
+
+//与 if 相结合, 当数字 = 7 时停止循环
+
+for (var c = 0; c <=10; c++) { 
+    if(c === 5){
+        break;
+    }
+console.log(c)
+}
+
+
+</script>
+</html>
