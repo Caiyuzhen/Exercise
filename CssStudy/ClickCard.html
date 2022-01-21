@@ -49,66 +49,77 @@
     
     <style>
         .group {
-
-        display: flex;
-        align-items: center;
-        justify-content:center;
-        gap: 3.5rem;
+            display: flex;
+            align-items: center;
+            justify-content:center;
+            gap: 3.5rem;
         }
 
         .circle {
-        width: 12rem;
-        height: 12rem;
-        border-radius: 16px;
-        background-color: #dbdfff;
-        display:flex;
-        justify-content:center;
-        transition: all .2s ease-out;
-        position: relative;
-            margin:0 auto 0  auto;
-            margin-top:2rem; 
-            
-        }
+            width:50vw;
+            height:45vw;
+            top: 0;
+            border-radius: 16px;
+            background-color: #E0E2FA;
+            display:flex;
+            justify-content:center;
+            transition: all .2s ease-out;
+            position: relative;
+                margin:0 auto 0  auto;
+                margin-top:2rem; 
+
+         // transform: translateY(-8px);
+        }      
+
         .content {
-        position: absolute;
-        text-align: center;
-        top: 3.6rem;
-        bottom: 0;
-        right: 0;
-        left: 0;
-        width: 75%;
-        margin: auto;
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            text-align: center;
+            width: 50%;
+            height:50vw;
+            top: 60%;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            margin: auto;
+            align-items: center;
         }
 
         .icon {
-        margin-bottom: 4px;
-        color: #7c7c7c;
+            width:15vw;
+            height:15vw;
+            margin-bottom: 4px;
+            color: #7B83EA;
         }
 
         .text {
-        font-size: 16px;
-        text-align: center;
-        color: #666666;
+
+            height:15vw;
+            width: 50%;
+            font-size: 16px;
+            text-align: center;
+            color: #646A73;
+            justify-content:center;
         }
 
         .circle:hover {
-        top: -8px;
-        box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-        border-radius: 12px;
-        transition: all .2s ease-out;
-        background-color: #4b39b2;
+          top: -8px;
+          box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+          border-radius: 12px;
+          transition: all .2s ease-out;
+          background-color: #4954E6;
         }
 
         .circle:hover .icon {
-        margin-bottom: 4px;
-        color: #f8f8f8;
+            margin-bottom: 4px;
+            color: #f8f8f8;
         }
 
         .circle:hover .text {
-        margin-bottom: 4px;
-        color: #f8f8f8;
+            margin-bottom: 4px;
+            color: #f8f8f8;
         }
-
     </style>
     
     
