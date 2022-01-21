@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="//at.alicdn.com/t/font_2151960_pa8w78751uo.js"></script>
+    <script>
+          function ClickButton() {
+        var link = document.getElementById("clickme");
+          console.log(link);
+        }
+    </script>
+    
+    
+    <style type="text/css">
+        .icon {
+           width: 3.5em; height: 3.5em;
+           vertical-align: -0.15em;
+           fill: currentColor;
+           overflow: hidden;
+        }
+    </style>
+    
+    
+    <div class="group">
+       <a class="circle" href="https://innos.io" id="clickme" target="_blank">
+          <div class="content">
+             <svg class="icon" aria-hidden="true">
+             <use xlink:href="#icon-apple"></use>
+             </svg>
+             <div class="text">Mac</div>
+          </div>
+       </a>
+    
+    
+       <a class="circle" href="https://innos.io" id="clickme" target="_blank">
+          <div class="content">
+             <svg class="icon" aria-hidden="true">
+             <use xlink:href="#icon-windows"></use>
+             </svg>
+             <div class="text">Windows</div>
+          </div>
+       </a>
+    </div>
+    
+    <style>
+        .group {
+
+        display: flex;
+        align-items: center;
+        justify-content:center;
+        gap: 3.5rem;
+        }
+
+        .circle {
+        width: 12rem;
+        height: 12rem;
+        border-radius: 16px;
+        background-color: #dbdfff;
+        display:flex;
+        justify-content:center;
+        transition: all .2s ease-out;
+        position: relative;
+            margin:0 auto 0  auto;
+            margin-top:2rem; 
+            
+        }
+        .content {
+        position: absolute;
+        text-align: center;
+        top: 3.6rem;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        width: 75%;
+        margin: auto;
+        }
+
+        .icon {
+        margin-bottom: 4px;
+        color: #7c7c7c;
+        }
+
+        .text {
+        font-size: 16px;
+        text-align: center;
+        color: #666666;
+        }
+
+        .circle:hover {
+        top: -8px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        border-radius: 12px;
+        transition: all .2s ease-out;
+        background-color: #4b39b2;
+        }
+
+        .circle:hover .icon {
+        margin-bottom: 4px;
+        color: #f8f8f8;
+        }
+
+        .circle:hover .text {
+        margin-bottom: 4px;
+        color: #f8f8f8;
+        }
+
+    </style>
+    
+    
+    
+</body>
+</html>
