@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表单</title>
+</head>
+<body>
+    <!-- 所有标签都有的属性
+        id 标识元素的唯一性
+        name 用来提交数据给后台
+        style 设置元素的样式
+        class 设置元素的样式名
+    -->
+    <!-- Form
+        action 提交表单地址,必须设置表单的 name 属性，否则无法获取数据
+        method 提交方式
+            Get 提交 🌟 （不需要服务器支持，会把参数带在 url 地址栏，不安全，传递的数据有限，请求快两倍，因为有缓存，数据会放在浏览器内）
+            Post 提交 🌟（需要服务器支持，不会把参数带在 url 地址栏，会存放在一个请求体内，安全，用于登录账号密码，数据量限制与服务器相关所以相对也比较长）
+    -->
+    <H1>表单</H1>
+        <H4>提交</H4>
+        <!-- //提交地址 -->
+            <form action="http://www.google.com" method="get">
+                姓名：<input type="text" name="uname">
+                <button>提交</button>
+            </form>    
+
+            <form action="">
+                邮箱：<input type="text">
+                <button>按钮</button>
+            </form>    
+</body>
+</html>
