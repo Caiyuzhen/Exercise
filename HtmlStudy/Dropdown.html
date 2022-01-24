@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>下拉框</title>
+</head>
+
+<!-- 
+    select 下拉框标签
+        multiple     下拉框的多选属性
+        size         设置下拉框可见选项数
+        disabled      禁用
+    option            下拉框的选项标签
+        selected      默认选中项
+        value         提交到服务器的选项值(🍟如何设置的是 value 则提交的是 value 值, 如果未设置则提交的是 option 标签的值)
+        disabled      禁用
+
+
+
+ -->
+<body>
+    <select name="city" disabled="disabled">
+        <option>北京</option>
+        <option>上海</option>
+        <option>广州</option>
+        <option>深圳</option>
+        <option>武汉</option>
+        <option>长沙</option>
+        <option>南京</option>
+        <option>成都</option>
+    </select>
+
+    <select name="city" multiple="multiple" size="3">
+        <option>北京</option>
+        <option>上海</option>
+        <option>广州</option>
+        <option>深圳</option>
+        <option>武汉</option>
+        <option>长沙</option>
+        <option>南京</option>
+        <option>成都</option>
+    </select>
+
+    <select name="city">
+        <option value="bj">北京</option>
+        <option value="sh">上海</option>
+        <option value="gz">广州</option>
+        <option value="sz">深圳</option>
+        <option value="wh">武汉</option>
+        <option value="ch">长沙</option>
+        <option value="nj" selected="selected">南京</option>
+        <option value="cd" disabled="disabled">成都</option>
+    </select>
+
+
+</body>
+</html>
