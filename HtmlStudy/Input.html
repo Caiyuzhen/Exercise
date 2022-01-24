@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Input (没有 Name 则无法提交数据!!)
+            type 类型
+                    text 文本框
+                    password 密码框
+                    radio 单选框
+                        需要标记同样的 name 才知道是一组互斥的选项
+                    checkbox 复选框
+                    Button 类型
+                        button 普通按钮
+                        submit 提交按钮
+                        reset 重置按钮
+                        date 日期框
+            value 元素的默认值
+            readonly 只读
+            maxlength 最大输入长度
+            file 上传文件(文件域)
+                如果是上传文件则需要放置在 Form 表单内,并且 Form 表单需要设置一个 enctype="multipart/form-data” 属性,并且需要用 post 请求(因为为大的请求);
+            hidden 隐藏域(提交表单后会给后台发数据但不会显示在前端)
+            disable 禁用
+ 
+
+
+    
+    -->
+    <!-- action XXX 为提交地址 -->
+    <form action="http://www.google.com" method="post"> 
+        文本框1: <input type="text" value="默认值" readonly name="Uname">
+        <br>
+        文本框2: <input type="text" value="默认值" maxlength="10">
+        <br>
+        密码框: <input type="password" value="默认值" maxlength="10">
+        <br>
+        单选: <input type="radio" value="1" name="check">是 <input type="radio" value="2" name="check">否
+        <br>
+        复选: <input type="radio" value="3" name="select">是 <input type="radio" value="4" name="select">否
+        <br>
+        上传文件: <input type="file">
+        <br>
+        隐藏域: <input type="hidden" value="admin">
+        <br>
+        普通按钮: <input type="button" value="普通按钮">
+        <br>
+        提交按钮: <input type="submit" value="提交按钮">
+        <br>
+        重置按钮: <input type="reset" value="重置按钮">
+        <br>
+        日期按钮: <input type="date">
+        <br>
+        <input type="submit" value="不可提交按钮" disabled="disabled">
+    </form> 
+
+</body>
+</html>
