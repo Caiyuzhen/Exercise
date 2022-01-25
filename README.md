@@ -1,4 +1,4 @@
-# Exercise
+# Git
 
 `git status` 查看当前工作目录下的文件修改状态
 `git add <files>` 添加修改文件
