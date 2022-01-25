@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组合选择器</title>
+</head>
+<body>
+    <!-- 
+        组合选择器
+            后代选择器(派生选择器) —— 以[空格]分隔,  语法为 [ #XXX 或 .XXX   XXX ]
+                选择指定元素的所有后代
+
+
+            子代选择器 —— 以[ 大于号 ]分隔, 语法为 [ #XXX 或 .XXX > XXX ]
+                选择指定元素“始祖”的第一代元素
+
+
+            相邻兄弟选择器 —— 以[ + ]分隔, 语法为 [ #XXX 或 .XXX + XXX标签 ]
+                选择指定元素的下一个元素(向下找一级,只找一个)
+
+
+            普通(合集)兄弟选择器 —— 以[波浪线]分隔,  语法为 [ #XXX
+                选择指定元素往后的同级元素(只会向后找,不包含找到的那个)
+        -->
+
+        <style type="text/css">
+
+            .food li {
+                background-color: burlywood;
+                border: 1px solid
+            }
+
+            .food > li {
+                border: 2px solid;
+                border-color: aqua;
+            }
+            #d + div {
+                color:rebeccapurple;
+            }
+            #film ~ li{
+                color: blue;
+            }
+
+
+        </style>
+
+        <H1>食物</H1>
+        <ul class="food">
+            <li>水果
+                <ul>
+                    <li>🍌香蕉</li>
+                    <li>🍎苹果</li>
+                    <li>🍐雪梨</li>
+                </Ul>
+            </li>
+            <li>蔬菜
+                <ul>
+                    <li>🥬白菜</li>
+                    <li>🌽玉米</li>
+                    <li>🥕胡萝卜</li>
+                </ul>
+            </li>
+        </ul>
+
+
+        <H2>兄弟选择器</H2>
+            <div id="d">
+                <ul>
+                    <li id="film">Meta</li>
+                    <li>谷歌</li>
+                    <li>奈飞</li>
+                </ul>
+            </div>
+            <div>相邻兄弟2</div>
+            <div>相邻兄弟3</div>
+            <p>相邻兄弟4</p>
+
+
+        
+    
+</body>
+</html>
