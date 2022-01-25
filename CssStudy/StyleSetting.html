@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<head>
+    <html lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>语法</title>
+    <!-- 
+        优先级: 就近原则, (自上而下)谁离元素近就生效谁的
+        内部样式 <style></style>
+        外部样式 <link rel="stylesheet" type="text/css" href="css/xxx.css">
+
+
+        通用选择器( 🍎 优先级: 行内style > id > class > emement > * ):
+            * {}                通用选择器(选择所有颜色)
+            标签名 {}            元素选择器或标签选择器
+            #id {}              选择指定 id (🍎 id 不能为数字!!,id 一般都唯一)
+            class {}            类选择器,选择指定类名
+            #special,.cls2, pre {}  组合(分子)选择器,多个选择器以[,]隔开
+        派生选择器(选择后代)
+    -->
+    <style type="text/css">
+        p {
+            color: rgb(55, 19, 138);
+        }
+
+        * {
+            color: rgb(55, 19, 138);
+        }
+        div {
+            color: rgb(246, 152, 255);
+            width: 160px;
+            height: 160px;
+            background-color: rgb(39, 39, 184);
+        }
+        #special{
+            background-color: rgb(255, 240, 152);
+        }
+        .cls1{
+            background-color:#666666;
+        }
+        #special2,.cls2,pre {
+            background-color:#6fe4c5;
+            color: rgb(252, 81, 81);
+            border:12px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="special"> 01 </div>
+    <div> 02 </div>
+    <div  class="cls1"> 03 </div>
+    <div id="special2"> 01 </div>
+    <div  class="cls2"> 03 </div>
+    <p>一段内容一段内容</p>
+    <p>一段内容一段内容</p>
+    <p>一段内容一段内容</p>
+
+    <pre>很长的内容
+
+        很长的内容
+    </pre>
+ 
+    </pre>
+</body>
+</html>
