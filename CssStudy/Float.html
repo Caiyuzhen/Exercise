@@ -8,34 +8,47 @@
 </head>
 <body>
     <!-- 
-        float 属性
-            none
-            left
-            right
-        只有横向浮动,没有纵向
-        会将元素的 diaplsy 属性改为 block
-        浮动元素的后一级元素会围绕前一个元素(比如文字绕图片)
-        浮动元素的前一级元素不受到影响
+        float 属性 (可以让两个任意元素并排放(如 div ))
+                none
+                left
+                right
+            只有横向浮动,没有纵向
+            会将元素的 diaplsy 属性改为 block
+            浮动元素的后一级元素会围绕前一个元素(比如文字绕图片)
+            浮动元素的前一级元素不受到影响
+        清除浮动
+            <div style="clear: both;"></div>
 
      -->
     <style type="text/css">
         #div1{
             width:100px;
             height:100px;
-            background-color:#333333;
+            background-color:#6c48d8;
             float:left;
         }
         #div2{
             width:100px;
             height:100px;
-            background-color:#333333;
-            float:left;
+            background-color:#f2a445;
+            float:right;
+        }
+        img{
+            width: 120px;
+            float: left;
         }
     </style>
 
 
-<div id="div1">浮动内容1</div>
-<div id="div2">浮动内容2</div>
+    <div id="div1">浮动内容1</div>
+    <div id="div2">浮动内容2</div>
+
+<hr>
+    <div style="clear: both;"></div>
+    <div>
+    一个单词有若干个字母组成，一组数字有若干个单数组成。跟在字符或字符簇后面的花括号({})用来确定前面的内容的重复出现的次数.
+    <img src="../JsStudy/Img/fun.jpg" alt="">
+    </div>
 
 </body>
 </html>

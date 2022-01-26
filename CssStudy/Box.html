@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- border  (可以单独设置上下左右一段线的显示与否与颜色样式)
+            点状样式    dotted
+            线状样式    solid
+            虚线       dashed
+            双重线     doubble
+            无         none
+        合并边框
+            collspace 一般是表格会用到
+    
+    -->
+
+    <style type="text/css">
+        #div1{
+            border: 3px #f56f6f dotted;
+        }
+        #div2{
+            border: 3px dashed;
+            border-color:rgb(100, 17, 152);
+            border-width: 4px;
+        }
+        #div3{
+            border-style: double;
+            border-color:rgb(17, 152, 138);
+            border-width: 4px;
+        }
+        #div4{
+            border-style: dashed solid dotted none;
+            border-width: 4px;
+            border-color:#f56f6f #766ff5 #2df598 #d72b98;
+        }
+        table{
+            border-collapse:collapse;
+            border-style: dotted
+        }
+        
+        
+    </style>
+
+    <div id="div1">
+        这是一段文本
+    </div>
+
+    <br>
+
+    <div id="div2">
+        这是一段文本
+    </div>
+
+    <br>
+
+    <div id="div3">
+        这是一段文本
+    </div>
+
+    <br>
+
+    <div id="div4">
+        这是一段文本
+    </div>
+    
+    <br>
+    
+    <table border="2" cellpadding="22" >
+        <tr><th>表头</th><th>表头</th></tr>
+        <tr><td>1</td><td>2</td></tr>
+        <tr><td>3</td><td>4</td></tr>
+    </table>
+
+    
+</body>
+</html>
