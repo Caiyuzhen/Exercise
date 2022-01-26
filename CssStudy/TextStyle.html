@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+        <!--
+            文本样式  
+                color             颜色
+                text-align        对齐方式 
+                text-decoration   上中下划线(可以同时设置)
+                    overline;
+                    underline;
+                    line-through;
+                    none          去除文本修饰, 比如 a 标签的下划线
+                text-indent:XXx   首行缩进(比如博客开头的场景会用到)
+         -->
+
+
+    <style type="text/css">
+        #div1{
+            color: rgb(215, 94, 176);
+        }
+        #div2{
+            /* text-align: left;
+            text-align: center; */
+            text-align: right;
+        }
+        #div3{
+            text-decoration: overline;
+            /* text-decoration: underline; */
+            /* text-decoration: line-through; */
+        }
+        #div4{
+            text-decoration: overline underline line-through;
+        }
+        a{
+            text-decoration: none;
+        }
+        #p1{
+            text-indent: 2em;
+        }
+    </style>
+<body>
+    <div id="div1">文本1</div>
+    <div id="div2">文本2</div>
+    <div id="div3">文本3</div>
+    <div id="div4">文本3</div>
+
+    <a href="https://github.com/">跳转</a>
+
+    <p id="p1">这是一段文字,首行需要缩进</p>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        float 属性
+            none
+            left
+            right
+        只有横向浮动,没有纵向
+        会将元素的 diaplsy 属性改为 block
+        浮动元素的后一级元素会围绕前一个元素(比如文字绕图片)
+        浮动元素的前一级元素不受到影响
+
+     -->
+    <style type="text/css">
+        #div1{
+            width:100px;
+            height:100px;
+            background-color:#333333;
+            float:left;
+        }
+        #div2{
+            width:100px;
+            height:100px;
+            background-color:#333333;
+            float:left;
+        }
+    </style>
+
+
+<div id="div1">浮动内容1</div>
+<div id="div2">浮动内容2</div>
+
+</body>
+</html>

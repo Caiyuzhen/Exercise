@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        display 规定元素生成的类型
+            block           块级元素,元素前后会有换行符,可以设置元素的宽高跟边距,会自动换行
+            none            元素被隐藏
+            inline          行内元素,元素前后没有换行符,不可以设置宽高跟边距
+            inline block    行内块级元素
+    -->
+
+    <style>
+        #p1{
+            display: block;
+            width: 25px;
+            height: auto;
+            background-color: rgb(76, 80, 196);
+        }
+        #p2{
+            display: none;
+        }
+        #div1{
+            background-color:#ddb7ff;
+            display: inline-block;
+            width: 225px;
+            border-radius: 4px;
+            padding: 12px;
+        }
+        #div2{
+            background-color:#f7c9a6;
+            display: inline;
+        }
+        #div3{
+            background-color:#9fc9fc;
+        }
+
+    </style>
+
+</body>
+
+    <span id="p1">辣椒辣椒辣椒</span>
+    <span id="p2">白开水</span>
+    <span id="p3">喜茶</span>
+
+
+    <hr>
+
+    <div id="div1">第一个内容</div>
+    <div id="div2">第二个内容</div>
+    <div id="div3">第三个内容</div>
+
+</html>
