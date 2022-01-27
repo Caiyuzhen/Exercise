@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flex布局</title>
+</head>
+<body>
+    <!-- Flew 布局
+        左右
+            默认为自左向右,对齐左边,
+            居中对齐     justify-content:center;
+            靠右对齐     justify-content:flex-end;
+            左右两边对齐      justify-content:space-between 
+            左右两边对齐且两边预留的边距 X2 等于元素的间距   justify-content:space-around  
+            所有间距相等  justify-content:space-evenly;
+        垂直
+            垂直居中  align-items:center;
+            垂直对齐底部   align-items:flex-end;
+        排列方向
+            垂直 ⬇️ 排列元素  flex-direction:column;
+        换行(默认不换行,会等分元素)
+            flex-wrap:wrap
+
+
+    
+    -->
+    <style type="text/css">
+        .boxgroup { 
+            display: flex;
+            height:100vh;
+        }
+        .box{
+            background-color:#444493;
+            border: 1px solid;
+            border-color:#ffffff;
+            width: 100px;
+            height: 100px;
+            color:#ffffff;
+        }
+    </style>
+
+    <!-- 快捷键为.box*3 -->
+    <div class="boxgroup">
+        <div class="box">1</div>
+        <div class="box">2</div>
+        <div class="box">3</div>
+    </div>
+    
+</body>
+</html>
