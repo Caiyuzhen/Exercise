@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>综合练习</title>
+</head>
+<body>
+    <script type="text/javascript">
+
+
+        var a = "-2"
+        b = a + ''
+        c = +b 
+        console.log(c)
+
+
+
+//———————————————————————————————————————————————————————————
+
+        var result = "100" //100
+
+        result += 100  // "100"字符 + "100"字符=100100, 如果是数字才是 200!🌟
+
+        result = -result / 2 + '' // (-100100/2 = -50050 ), (-50050 + ''= '-50050')
+
+        result = +result > 500 // -50050 > 500 不成立
+
+        console.log(result)
+
+
+//———————————————————————————————————————————————————————————
+
+        var d = "燃茶"
+        var k = 100
+
+        var output01;
+
+        output01 = +d > 1 || k                     // +d = 字符串转化后为 false, 因为没法转化为数字类型, 所以输出 output01 = k = 100
+        output01 = (output01 - 200) <  0 &&  parseInt(d)  // -100 小于 0  所以为 true, parseInt 这里会解析为 Nan,所以这里 output = Nan
+        output01 = output01 || !output01  // Nan 会化为 false, ! 会取反,所以为 !Nann = true
+        console.log(output01)
+
+
+   
+
+//———————————————————————————————————————————————————————————
+        // 取出属性名以及属性值,并进行拼接, 拼接成 name=小明,age=34,...👇
+        var Person = {
+            name: 'Jimmy',
+            age: 34,
+            gender: 'Male',
+            girlfriend:'Amy',
+        }
+
+        //1.声明储存数据的变量
+        var result02 = "";
+
+        //2.从对象内取出值 , key 为 对象的key,XXX[key] 为对象的值, 
+        for ( var key in Person){
+            var temp = key + "=" + Person[key] + "," //声明一个变量来存这些拼接的值,因为是 for 循环,所以会循环拼接
+            result02 += temp  //赋值给 result02 这个变量
+        }
+        console.log(result02)
+
+
+//———————————————————————————————————————————————————————————
+        console.log("————")
+
+        //3.极致的做法,需要去除末尾的,用 if else 来判断(额外补充🌟!)
+        var account = 0
+
+        for ( var key in Person){
+            if(account === 4,account++){
+                var temp = key + "=" + Person[key]  //声明一个变量来存这些拼接的值,因为是 for 循环,所以会循环拼接, 这里指到第四次就不再末尾加“,”
+            }else{
+                var temp = key + "=" + Person[key] + "," //不是第四次循环就会加上“,”
+            }
+                 result02 += temp  //赋值给 result02 这个变量
+            
+        }
+        console.log(result02)
+        
+
+        console.log("————")
+
+
+
+
+
+ //———————————————————————————————————————————————————————————
+        //大于 18 岁设置一个朋友,朋友的关系根据年龄去改变
+
+        var person02 = {
+            name: 'Kim',
+            age: 18,
+            gender: 'Male',
+        }
+
+// if else 方法
+        if (person02.age < 18 ){
+            // person02['girlfriend'] = null //🌟赋值给 person02 这个对象(方法一)
+            person02.girlfriend = null      //🌟赋值给 person02 这个对象(方法二)
+        }else if(person02.age >= 18 && person02.age < 25){    //同时小于 25
+            person02.girlfriend = "Amy"  //添加 key 与 valus
+        }else if (person02.age < 30 && person02.age>=25){
+            if('girlfriend' in person02){
+                delete person02['girlfriend'] //需要删除上一步产生的 girdfriend 数据!删除 girlfriend
+            }
+            person02.wife = "Amy" //添加 key 与 valus, 吧 girlfriend 变为 wife
+        }else{
+            person02.child = {
+                name:'Little-Boy',
+                age:3,
+                gender:'Male',
+            }
+        }
+        console.log(person02)
+
+        
+
+//switch 方法
+
+        switch (true){
+            case person02.age < 18 :
+                person02.girlfriend = null
+                break;
+            case person02.age >= 18 && person02.age <25:
+                person02.girlfriend = "Amy"
+                break;
+            case person02.age < 30 && person02.age >= 25:
+                if('girlfriend' in person02){
+                    delete person02["girlfriend"]
+                }
+                person02.wife = "Amy"
+                break;
+            default:
+                person02.child = {
+                    name: "Little-Boy",
+                    age: 3,
+                    gender: "male",
+                }
+        }
+        console.log(person02)
+
+
+
+ 
+
+
+    </script>
+</body>
+</html>

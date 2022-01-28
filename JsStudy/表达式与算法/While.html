@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>While 语句</title>
+</head>
+<body>
+    <h1>While 语句</h1>
+    <!-- 
+        for 跟 while 的场景:
+            for                    是不知道变量的, while 是已知变量的
+            for (var XX in XX )    只跟对象配合使用,用来打印对象
+            for of
+        While         直接判断
+        do while      先执行后判断
+        in            也可以用来判断 XX 是否在对象内,比如 if('type' in person){}else{}
+    -->
+
+    <script type="text/javascript">
+
+        var a = 0 
+        while (a < 10) {
+
+            console.log(a)
+            a++
+        }
+
+
+        var c =10
+        do{
+            c++
+        }while (c <11)
+        console.log(c)
+
+    // 声明对象
+        var person = {
+            name: "John",
+            age:18,
+            gender: "male",
+            height:178,
+        }
+
+    //打印对象的属性值(for会遍历对象的所有属性值)
+        for (var key in person){
+            console.log(key)
+        }
+
+        console.log("--------------------------------")
+
+    //打印对象的 Key + 属性值 (for 会遍历整个对象)
+    for (var key in person){
+        console.log(key,person[key]);
+    }
+
+        console.log("--------------------------------")
+
+    //只想打印对象的一部分属性
+    for (var key in person){
+        if (key === "gender"){
+            break;
+        }
+        console.log(key,person[key]);
+    }
+
+        console.log("--------------------------------")
+
+    //只想改变对象的一部分属性(比如当循环到 age 时候, 把 age 改成 20)
+    for (var key in person) {
+        if(key === "age") { //这一步相当于过滤出了 key = age 的条件!🌟🌟
+            person[key] = 20
+        }
+    }
+    console.log(person.age);
+
+    // in 语法是判断 XX 是否在对象内
+    if('type' in person){
+        console.log("有 type")
+    }else{
+        console.log("没有type")
+    }
+
+
+
+    </script>
+
+</body>
+</html>

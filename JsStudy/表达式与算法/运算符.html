@@ -1,0 +1,134 @@
+<!-- 运算符 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>运算符</title>
+</head>
+<body>
+    <div></div>
+<!-- 比较运算符
+            console.log(a==b);//true
+            console.log(a===b);//false ,因为 三等需要‘值’跟‘类型’都相等
+            console.log(a!=b)//数值!=不等于b是错的            
+    算术运算符
+        var a = 1
+        var b = a+2;
+        console.log(a+b);
+        console.log(a-b);
+        console.log(a*b);
+        console.log(a%b);
+    
+        //赋值运算符
+        var j = 10;
+
+
+    复合运算符 +=  -=  *=  /=  **=
+        var a = 2;
+        var o = 1;
+        a += 1; //表示 a = a+1
+        o -= 1;//表示 o = o-1
+
+
+    自增 自减 运算符  ==  --  
+        var x = 3;
+        z = x++;          相当于 z = x, x += 1 (都是 +1, 相当于 x 自己加个 1 )
+        console.log(x,z)  结果为 4 3
+
+        var c = 3;
+        y = c--;          先执行 y = c , 再 c 自己 = c-1
+        console.log(c,y); 结果为2 3
+
+        var g = 3;
+        m = g; 
+        console.log(m,g);  结果为2 2
+
+
+    可选链的操作 ? 不确定里面有没有相应的属性可以用到
+
+        var obj = {
+            name: 'abc',
+        }
+        console.log(obj.type?.a)
+
+
+    赋值扩展运算符
+        console.log(b=a+2);
+        console.log(b=a/2);
+        console.log(b=a*2);
+        console.log(b=a%2);
+
+    逻辑运算符 🌟 ,🌟当条件为 true 才会返回值,返回了则不会继续算
+        !  逻辑非,表示 not
+            !(a==y)   
+
+            console.log(!null)   负负得正
+
+
+        || 逻辑或,表示 and (一个表达式正确即可为 true)
+            a<10 && b>2     
+            
+            console.log(true || false)
+    
+            console.log(false && false)
+
+
+        && 逻辑且,表示 or (全部表达式正确才可为 true)
+            
+            a==10 || b==2  
+
+            console.log(true && false)
+            
+            console.log(false && false)
+                
+
+    扩展运算符 复制一个对象的数据
+        var obj2 = {
+            name:'abc',
+            age:18,
+            child:{
+                baby:'c'
+            }
+        }
+        console.log(obj2)
+        var obj3 = {
+            ...obj2,
+        }
+
+        console.log(obj3)
+        obj3.child.baby = 'g'    //一起改
+
+
+    一元运算符 
+            语法 + - 
+            会把数据转为数字类型, 只操作一个数据 
+
+
+    三目运算符、三元运算符、条件运算符都是一样的,只是叫法不一样
+            条件 (表达式) ? (表达式) : (表达式)
+            
+            ?: 如果XX 则执行问号后面
+ -->
+</body>
+
+<script type="text/javascript">
+    var a = 1;    //数值型
+    var b = '1';  //字符串
+
+    // 死循环   
+    while(true){}
+    for(;;){}
+
+    // 停止循环
+    break;
+
+    // 继续循环
+    contiune;
+
+
+
+
+</script>
+</html>
