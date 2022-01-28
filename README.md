@@ -11,3 +11,7 @@
 `git pull origin <branch>` 将远程仓库的代码同步到本地仓库
 <br>
 `git checkout -b <branch>` 在本地创建新分支
+<br>
+`git stash` 在本地暂存一个版本
+<br>
+ 
