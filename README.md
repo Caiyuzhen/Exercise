@@ -12,6 +12,10 @@
 <br>
 `git checkout -b <branch>` 在本地创建新分支
 <br>
-`git stash` 在本地暂存一个版本
+`git stash` 在本地暂存一个版本(本地跟仓库都有新内容的话是无法合入的)
 <br>
+`git stash clear` 清除暂存的版本
+`git restore <files>`清除工具区内对当前版本的 commit 文件(还未加入本地版本库)
+<br>
+`git stash pop` 拉回暂存的版本 
  
