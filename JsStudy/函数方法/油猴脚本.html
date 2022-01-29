@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+
+//改变元素颜色
+    (function() {
+        let PageStyle = document.getElementsByClassName('card-main');
+        PageStyle.setAttribute('style','color:red');
+    })();
+
+    (function() {
+            let PageTsxtStyle = document.getElementsByClassName('editable non-empty');
+            PageTsxtStyle.setAttribute('style','color:white');
+     return;
+        })();
+
+
+//改变知乎页面
+    (function() {
+            let PageStyle = document.getElementsByTag('card-main');
+            PageStyle.setAttribute('style','background-color: #333333;');
+        })();
+
+//改样式
+// 方法一
+    GM_addStyle('.search-panel-input{background-color:#333333!important}')
+
+    GM_addStyle('.card-main{background-color: #1E1E1E}')
+
+// 方法二  反引号,引入变量法
+GM_addStyle(`
+    ..LSSPK *{color:${c}!important}
+`)
+
+GM_addStyle(`
+    .card *{background-color:${b}}
+`)
+
+
+
+
+
+//例子 —— 改变背景色 _____________________________________________________________
+
+// ==UserScript==
+// @name         Zen 的新脚本
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  改变背景色
+// @author       Zen
+// @match        https://innos.io/space/68003907-707c-b0e6-50b1-f81e4aa54f63?ps=f7caf14a-b6db-4661-a886-a4e64a6b0424
+// @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
+// @grant        GM_addStyle
+// ==/UserScript==
+
+let a = '#333';
+let b = '#E6E6E6';
+let c = '#1E1E1E';
+let d = '#1C1C1C';
+
+//改变 topbar 背景色
+GM_addStyle(`
+    .LSSPK{background-color:${d}!important}
+`)
+
+GM_addStyle(`
+    ._3V9t5.cards-wrapper{background-color:${d}!important}
+`)
+
+
+
+
+GM_addStyle(`
+    .card-topbar-container{background-color:${d}}
+`)
+
+//改变搜索框背景色
+GM_addStyle(`
+    .search-panel-input *{background-color:${c}!important}
+`)
+
+
+//Card space 底部背景色
+
+GM_addStyle(`
+    .animated-card-list.parallel{background-color:${a}}
+`)
+
+GM_addStyle(`
+    .scale-container{background-color:${a}}
+`)
+
+GM_addStyle(`
+    .card-container{background-color:${a}}
+`)
+
+GM_addStyle(`
+    .animated-card-list{background-color:${a}}
+`)
+
+GM_addStyle(`
+    .parallel{background-color:${a}}
+`)
+
+GM_addStyle(`
+    .parallel{background-color:${a}}
+`)
+
+
+//sidebar 背景色
+
+GM_addStyle(`
+    .sidebar._1ptWh{background-color:${a}!important}
+`)
+
+GM_addStyle(`
+    .GD-n- *{background-color:${a}}
+`)
+
+GM_addStyle(`
+    ._3l7aC *{background-color:${a}!important}
+`)
+
+
+//Card 背景色变深色
+GM_addStyle(`
+    .card-main{background-color:${c}!important}
+`)
+
+GM_addStyle('.card-main{background-color: #1E1E1E}')
+
+GM_addStyle(`
+    .animated-card-list.enable .card-container:${c}!important}
+`)
+
+
+//所有文本变白色
+GM_addStyle(`
+    .card *{color:${b}}
+`)
+
+
+    </script>
+    
+</body>
+</html>
