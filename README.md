@@ -12,7 +12,7 @@
 <br>
 `git checkout -b <branch>` 在本地创建新分支
 <br>
-`git stash` 在本地暂存一个版本(本地跟仓库都有新内容的话是无法合入的)
+`git stash` 在本地暂存一个版本(本地跟仓库都有新内容的话是无法合入仓库的的,拉取的话同理也一样,需要 commit一下)
 <br>
 `git stash clear` 清除暂存的版本
 <br>
