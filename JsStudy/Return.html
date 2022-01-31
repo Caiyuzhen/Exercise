@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>函数的返回值</title>
+    <!-- return 
+            
+            return 是函数专用的的返回值 ,return 只能跟一个值或表达式 
+            可以直接返回[数字][布尔][字符串][对象][函数(函数返回函数)]值或[表达式]
+                有两个数字的话,则会返回后方的值, 比如👇 下面只会返回逗号后面的数值或者返回运算过后的表达式
+                    function a() {
+                        return 1,2
+                    }       
+            return 后面的语句不会再执行
+        function 
+            函数内也可以再定义函数
+            函数是一等公民
+                    既可以作为函数的参数被传, 
+                    也可以从函数被返, 修改并分配给变量
+                    
+
+   
+    -->
+    <script type="text/javascript"></script>
+
+    <script>
+        function sum(x,y){
+            var result = x+y;
+                return result; //返回一个表达式
+        }
+
+        function a() {
+                    // return 1,2
+                    return 1+3 //会返回表达式的结果
+                }
+                console.log(a())
+
+
+        function b(x,y){
+            return x+y
+            console.log(666,999) //因为在 return 后面，所以这句不会执行
+        }
+        console.log(b(666,999))
+
+
+        //如果不是用 return  🌟
+        function sum01(x,y){
+            var result = x + y //会返回 undefined
+        }
+        console.log(sum01(2,5)) //输出不能输入
+
+
+        //如果不是用 return ，得这样传参才有值 🌟
+        function sum02(x,y){
+            result2 = x + y
+        }
+        sum02(2,5)
+        console.log(result2)
+
+
+// _____________________________________________________________
+
+
+        //👇通常的写法为用一个变量去接收函数的结果 🌟🌟
+        var temp;
+        function sum05(x,y){
+            var result05 = x + y
+            return result05
+        }
+        temp = sum05(2,5)
+        console.log(temp)
+
+
+    
+// _____________________________________________________________
+
+
+        function gg(){
+            //函数里边再定义函数
+            function abcc(){
+                console.log('你好') //如果没有定义 return ，那就默认为 console 的结果
+            }
+            return abcc //因为这里没有定义要返回什么（表达式还是逻辑运算什么的,所以是 undefined）
+        }
+
+        var temp22 = gg()()   // gg()()相当于变成函数 y()， 然后执行它,这里第二个函数
+        console.log(temp22)
+
+
+
+console.log("___________________________________________________")
+// ______________________________________________________________
+
+    
+        var A = 1
+        var OBJ = {
+            name: "xx",
+        }
+        console.log(A)
+        console.log(OBJ,name)
+
+
+
+console.log("___________________________________________________")
+// ______________________________________________________________
+
+
+        function ABC(x) {
+            var result88 = x
+            return result88
+        }
+        function T(){
+            var result99 = 100
+            return result99
+        }
+        //👇这里因为固定了结果，所以console不用传参也不会报错
+        console.log(ABC(T()) + "个人") //🌟会先执行内部的函数,T 执行的结果会传入上一层函数，如果为 undefined 就不处理
+
+
+console.log("___________________________________________________")
+// ______________________________________________________________
+
+
+        function sum06(x,y){
+            var result888 = x + y
+            return result888
+        }
+
+        function multi(x,y){
+            return x * y
+        }
+
+        multi(2,sum06(3,6))
+        console.log(multi(2,sum06(3,6))) //👈需要传参！
+
+        //👇这里因为并没有固定结果，所以 console 如果不传参就会报错
+        // console.log(multi(2,sum06())
+
+console.log("___________________________________________________")
+// ______________________________________________________________
+
+
+    function go(x,y){
+        var aoe = x + y
+        console.log(aoe)
+        return aoe //return 往下就不会再执行了！🌟
+
+        var boc = x * y
+        console.log(boc)
+    }
+    go(3,6)
+
+
+console.log("___________________________________________________")
+// ______________________________________________________________
+
+    function test(xx){
+        if(typeof xx === 'number'){ 
+            console.log(xx)
+            return true
+        }else if (typeof xx === 'string'){
+            return xx + "你好呀"
+        }else{
+            console.log(xx)
+        }
+    }
+    test(true)
+    // test('true')
+
+
+
+
+console.log("__________成绩单_________________________________________")
+// ______________________________________________________________
+
+    var result007  //用这个变量来承接分数
+    var exam //用这个变量来来判断成绩好坏
+
+    //判断成绩的函数    
+    function achievement分数(result007){  
+
+        if (typeof result007 === 'number'){  //类型必须得是数字类型
+            
+            if (result007>=90 && result007 < 100) {
+                exam = "优秀";
+
+            } 
+            else if (result007 >= 60 && result007 < 90){
+                exam = "良好";
+
+            }
+            else if (result007 < 60) {
+                exam =  "不及格";
+
+             }
+        }else if(typeof result007 !== 'number'){
+            console.log('请输入数字，👋再见')
+        }   
+    }
+
+    achievement分数("是")
+    achievement分数(98)
+    console.log(exam)
+
+
+  
+        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

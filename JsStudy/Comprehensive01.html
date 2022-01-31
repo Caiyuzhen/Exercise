@@ -105,7 +105,7 @@ console.log("_____________________________________________________________")
             person02.girlfriend = null      //🌟赋值给 person02 这个对象(方法二)
         }else if(person02.age >= 18 && person02.age < 25){    //同时小于 25
             person02.girlfriend = "Amy"  //添加 key 与 valus
-        }else if (person02.age < 30 && person02.age>=25){
+        }else if(person02.age < 30 && person02.age>=25){
             if('girlfriend' in person02){
                 delete person02['girlfriend'] //需要删除上一步产生的 girdfriend 数据!删除 girlfriend
             }
