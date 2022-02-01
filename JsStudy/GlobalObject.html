@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全局对象&This</title>
+    <H1>全局对象&This</H1>
+</head>
+<body>
+    <!-- 
+        1.全局 Window 方法跟属性
+
+            parseInt() //将数字返回整数
+            parseFloat() //将字符串转化为数字字符
+            console.log() //打印结果
+            window //全局封装好的属性和方法
+            window.alert("别打开我")
+            //也可以写成
+            alert("别惹我") 
+            ...
+            全局变量只要声明了变量就会变成 window 的属性之一
+
+        2.This 关键字
+            特征
+                只在函数中有,除箭头函数外(箭头函数中没有这个标识符)
+                函数执行时会自动声明
+                可以理解成一个变量或标识符
+            使用方式
+                🌟 如果没有通过对象来调用的话， this 指向全局作用域中的 window
+                🌟 通过对象来调用的话， this 指向的是对象本身
+
+
+
+     -->
+
+
+    <script type="text/javascript">
+        function abc(){
+            console.log("well")
+        }
+        
+        function test(){
+            console.log(this) 
+        }
+        test()
+
+
+        const obj = {
+            test,  //简写的方式，相当于把 test()这个方法给到了 obj 的变量
+            name:"小兰",
+            abc(){
+                console.log(this)  //🌟如果没有通过对象来调用的话， this 指向全局作用域中的 window
+            },
+            walk:() => { //对象里边的箭头函数写法比较特殊
+                        console.log(this)
+                    },
+            
+        }
+        obj.test() //🌟通过对象来调用的话， this 指向的是对象本身
+        obj.walk() //箭头函数的话无论怎么样都会往外找，然后变成 window 🌟🌟
+
+        // —————————————————————————————————————————————————————————————————
+        
+        const arrowFunc = () => console.log(this) //往外找，所以只能找到 window
+        arrowFunc()
+
+
+console.log("————————————————————————————————")
+
+    var aa = { //声明一个对象
+       b:function(){ //对象内声明函数
+            var go = () =>{
+                console.log(this) //this 指向的是 aa 这个对象
+            }
+            go()
+        }
+    }
+    aa.b() 
+
+    var newobj = aa.b //把 aa 这个对象的 b 函数赋值给 newobj 这个变量
+    newobj() //为 window ，因为 b 函数被调用出来后，没了上层的 aa 对象
+
+
+
+
+
+    </script>
+</body>
+</html>
