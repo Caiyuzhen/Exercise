@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>构造函数</title>
+    <H1>构造函数</H1>
+        <pre>应用场景: 
+        需要创造多个同样结果的对象, 但是数据不一样 (类似复用组件)
+        </pre>
+        <!-- 
+            构造函数：
+                语法：
+                    不能用箭头函数的方法来写构造函数!
+                    构造函数的名称首字母需要大写(约定俗成,好辨认)
+                    创造【类】的时候要用 this 关键字
+                    调用构造函数的时候需要用 new 来定义【实例化】,会创造一个对象,否则 this 会指向 window
+                          但是普通函数也会经历这些过程,如果先前没有定义构造对象那系统会自动帮你定义
+                    🌟 如果构造函数内没有非空的话则返回刚创建的函数对象
+                        有非空对象的话
+                            🌟有 return， 只返回 return
+                            🌟有 cosole，返回 console 跟函数本身
+                    函数内封装 new.target 的话,调用时则指向函数本身,比如:
+                        function Test(){
+                            console.log(new.target)
+                        }
+                        var y = new Test)()
+                同理，对象也能创造构造函数
+                    例子
+                        const obj = new Object(){
+
+                        }
+         -->
+</head>
+<body>
+    <script type="text/javascript">
+
+        function CatConstructor(name,age) { //构造函数名称的首字母需要大写
+            this.name = name 
+            this.age = age
+            this.miao = function() { 
+                console.log("喵喵叫")
+            }
+            return {age} // 🌟有 return， 只返回 return
+            // console.log(name+age) //🌟有 cosole，返回 console 跟函数本身
+
+        }
+        
+        const cat1 = new CatConstructor('嘟嘟',2) //用 new 来调用先前定义好的构造函数 【实例化】
+        console.log(cat1)
+
+        //效果👇，可以快速的创建对象
+        var cat2 = new CatConstructor('饭团',1)
+        console.log(cat2)
+
+        var cat3 = new CatConstructor('叮咚',0.5)
+        console.log(cat3)
+
+        console.log(cat1,cat2,cat3)
+
+
+console.log("_____________________________________________________________")
+
+
+        //同理，对象也能创造构造函数
+
+        const obj = new Object();
+        console.log(obj)
+
+
+console.log("_____________________________________________________________")    
+        
+        //new.target 指向函数本身
+    
+        function test02(x){
+            console.log(new.target) //new 指向函数本身
+        }
+        var t = new test02(1)
+
+        console.log(t)
+
+console.log("备注_____________________________________________________________")    
+        //🌟🌟嵌套函数内如何使用 return 接收结果
+        function uuu(x,y){
+            function aabb(x,y){
+                const ppp = x + y
+                return ppp
+            }
+            return aabb(x,y)
+        }
+        var 结果 = uuu(167,89)
+        console.log(结果)
+
+
+
+console.log("练习1_____________________________________________________________")    
+//还没完全正确
+//定义一个构造函数，用 new 方法创造一个对象，对象有 name 属性跟 tellMyName 的方法，执行 tellMyName 的话就输出 name 属性到控制台
+        function Test05(name){
+            this.name = name;
+            this.tellMyName = function(name){
+                let result = this.name
+                return result
+            }
+            // return this.tellMyName()
+            console.log(this.tellMyName)
+        }
+
+        var someone = new Test05('老高')
+        console.log(someone)
+
+
+console.log("练习2_____________________________________________________________")    
+
+         function Cat(name,type){
+             this.name = name
+             this.type = type
+             console.log(this)
+         }
+
+        //  new Cat("土豆", "田园猫")
+        //  Cat("土豆", "田园猫")
+        //  new Cat()
+
+         console.log(new Cat("土豆", "田园猫"))
+         console.log(Cat("土豆", "田园猫"))
+         console.log(Cat())
+
+
+
+
+
+
+    </script>
+</body>
+</html>
