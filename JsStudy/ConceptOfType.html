@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>构造函数与类型</title>
+    <H1>构造函数与类型</H1>
+</head>
+<body>
+    <!-- 
+        流程：
+            1.创造[类]
+            2.实例化
+        
+        类型(也是一种构造函数)
+            实例
+                数据类型 (系统内置))
+                    String
+                    Number
+                    Boolean
+                    Symbol
+                    null
+                    undefined
+                对象类型 (系统内置)
+                    Object
+                        window (静态方法,静态属性)
+                        人
+                        文档
+                        ...
+                函数类型
+                    Function
+                        instanceof(静态方法) 可以用来判断一个函数是不是构造函数生成的
+                        Object.is(静态方法) 判断两个标识符是不是指向同一个内存地址的对象
+                数组类型
+                    Array
+
+     -->    
+
+    <script type="text/javascript">
+
+
+//——————————————————————————————————————————————————————
+    console.log("——————————————————————————————————————————————————————")
+
+    const str = new String(1) //会返回对象，数据存在于对象中，比如 '1'
+    console.log(str)
+
+    const num = new Number(1) //会返回对象，数据存在于对象中，比如 1
+    console.log(num)
+
+    const boolean = new Boolean(1) //会返回对象，数据存在于对象中，比如 true
+    console.log(boolean)
+
+    const sum = new Function('a','b','return a + b')
+    console.log(sum)
+    console.log(sum(2,6)); //8
+
+
+
+//——————————————————————————————————————————————————————
+console.log("——————————————————————————————————————————————————————")
+
+    console.log(window) //window 这个构造函数指向的是 Window 这个对象
+
+
+
+//——————————————————————————————————————————————————————
+console.log("——————————————————————————————————————————————————————")
+
+    function Cat(name) {
+                this.name = name;
+            }
+
+            var cat1 = new Cat('饭团')
+            var cat2 = new Cat('嘟嘟')
+
+//instanceof 可以用来判断一个函数是不是构造函数生成的
+
+            console.log(cat1 instanceof Cat)//如果是 true 则是该构造函数的实例， false 则不是
+
+
+
+    </script>
+</body>
+</html>

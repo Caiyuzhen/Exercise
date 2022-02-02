@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>函数也是一种对象</title>
+    <h1>函数也是一种对象</h1>
+</head>
+    <!--
+        可以把函数当作一种特殊的对象
+        
+        每个函数都有三个固有属性,可以用访问属性的方式去看到
+            length 函数的行参数量
+                console.log(XXX.length)
+            prototype 指向的是对象,原型链
+                console.log(XXX.prototype)
+            name 函数的名称
+                console.log(XXX.name)
+        
+
+        
+      -->
+<body>
+    <script type="text/javascript">
+        
+        function test() {
+
+        }
+        console.log(test)
+
+        test.level = 1   //相当于给 test 添加多一个 console 的方法
+        console.log(test.level)
+
+        test.go = () => {  //相当于给 test 添加多一个 console 的方法
+            console.log('gogogo')
+        }
+        test.go()
+
+        //编译器内置的构造函数(静态方法 static method),一般是在构造函数内才会自己改函数的属性
+        // —— Object.is 判断两个标识符是不是指向同一个内存地址的对象
+
+        const a = {}
+        const b = {}
+        const c = a
+        console.log(Object.is(a, b))
+        console.log(Object.is(a, c))
+
+
+        
+
+
+
+    </script>
+    
+</body>
+</html>
