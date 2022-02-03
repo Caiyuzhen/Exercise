@@ -92,7 +92,14 @@
             console.log(false && false)
                 
 
-    扩展运算符 复制一个对象的数据
+    扩展运算符 复制一个对象内的数据🌟
+        var obj1 = {
+            name:'abc',
+            age:18,
+            child:{
+                baby:'c'
+            }
+        }
         var obj2 = {
             name:'abc',
             age:18,
@@ -102,7 +109,7 @@
         }
         console.log(obj2)
         var obj3 = {
-            ...obj2,
+            ...obj1,...obj2,
         }
 
         console.log(obj3)

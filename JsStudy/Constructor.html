@@ -84,7 +84,7 @@ console.log("_____________________________________________________________")
         console.log(t)
 
 console.log("备注_____________________________________________________________")    
-        //🌟🌟嵌套函数内如何使用 return 接收结果
+        //🌟🌟🌟遗留问题,嵌套函数内如何使用 return 接收结果
         function uuu(x,y){
             function aabb(x,y){
                 const ppp = x + y
@@ -98,20 +98,21 @@ console.log("备注_____________________________________________________________
 
 
 console.log("练习1_____________________________________________________________")    
-//还没完全正确
+//🌟遗留问题,还没完全正确,构造函数内的值如何返回？而不是返回一整个函数
 //定义一个构造函数，用 new 方法创造一个对象，对象有 name 属性跟 tellMyName 的方法，执行 tellMyName 的话就输出 name 属性到控制台
         function Test05(name){
-            this.name = name;
-            this.tellMyName = function(name){
-                let result = this.name
-                return result
+            this.name = name
+            this.tellMyName = function(fn){
+                let key = this.name
+                  fn(this[key])
             }
             // return this.tellMyName()
             console.log(this.tellMyName)
         }
 
-        var someone = new Test05('老高')
-        console.log(someone)
+        const someone = new Test05('老高')
+        // console.log(someone)//👈错误，打印的话不会执行函数
+        someone.tellMyName( item => console.log(item) )
 
 
 console.log("练习2_____________________________________________________________")    
