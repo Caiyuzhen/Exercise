@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>匿名函数与立即执行函数</title>
+    <H1>匿名函数与立即执行函数</H1>
+</head>
+<!-- 
+    匿名函数
+        好处:
+           1.使用完后会被垃圾回收机制给回收掉
+           2.可以立即使用
+        类型:
+           1.立即执行匿名函数(IIFE)
+                不一定要作为参数传入函数中使用,可以在某个作用域中作为立即执行函数使用
+                        例如
+                            (function(){
+                                console.log("立即执行的匿名函数")
+                            })()  //加圆括号来调用，也可以传参\
+                        //特殊写法
+                            !function(){}()
+                            +function(){}()
+                            -function(){}()
+                            ~function(){}()
+           2.执行符匿名函数
+                没有标识符定义的函数统,只写在执行符内,称为匿名函数,比如下面的方法二跟三
+
+ -->
+<body>
+    <script type="text/javascript">
+
+    //1.立即执行匿名函数(IIFE)
+        (function(k){
+             console.log("立即执行的匿名函数"+'+'+"k")
+        })("我是参数") //加圆括号来调用
+
+        //特殊写法
+        !function(){}()
+        +function(){}()
+        -function(){}()
+        ~function(){}()
+
+    //2.执行符匿名函数
+        //常规互传函数：
+        function go() {
+            console.log("我是go函数")
+        }
+        function test(f){ //f 作为函数被传入
+            f() //f 作为函数被调用
+        }
+        test(go) //把 go() 函数传入里边
+
+        
+        //方式二：//函数被写在执行符里了，没有标识符
+        function test2(f){
+            f()
+        }
+        test2(function(){console.log("我执行了")}) 
+
+
+        //方式三：//函数被写在执行符里了，没有标识符
+        function test2(f){
+            f()
+        }
+        test2(()=>console.log("我执行了"))
+
+
+
+
+    </script>
+    
+</body>
+</html>
