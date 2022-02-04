@@ -12,9 +12,10 @@
 </body>
 
 
-<!-- 定义数组 -->
+<!-- 数组的使用方式 -->
 <script type="text/javascript">
-
+    
+//🍋 定义
 // 1.隐式定义 
     var arr = [1,'a',true];//可以放入【数值、字符串、布尔】
     console.log(arr);
@@ -30,7 +31,7 @@
     console.log(arr4);
 
 
-// 操作
+// 🍎 操作
 // 4.获取数组长度
     console.log(arr3.length)
 
@@ -44,11 +45,12 @@
 //🌟设置元素
     arr3[3] = '张三';
     console.log(arr3[3]);
+
 //🌟设置属性,定义非正整数的索引，所以长度不会被改变（备注：负数、小数则会默认显示为属性）
     arr2['uname'] = 'admin';
     console.log(arr2);
 
-console.log("========");
+console.log("——————————————————————————————————");
 
 //遍历数组 ♻️ for 循环
     for (var i = 0; i < arr2.length; i++ ) {
@@ -56,6 +58,7 @@ console.log("========");
         }
         console.log("---");
         console.log("---");
+        
 // for ... in 写法, 索引(0~无限），但是拿不到空值（undefinend)
     for (var index in arr2){
         console.log(arr2);

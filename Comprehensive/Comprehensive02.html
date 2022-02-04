@@ -97,7 +97,7 @@ const objfunc1 = (x11,y11) => {
                 var result02 = key + '=' + y11[key]
                 y11 += result02
           }
-          newObj = result01 + result02 
+          newObj = result01 + '' + result02 
           console.log(newObj) //🌟遗留问题，为什么是是 undefined，如何把两个对象合并到一个对象内？
           return newObj
 
@@ -107,6 +107,10 @@ const objfunc1 = (x11,y11) => {
 }
 
 objfunc1(obj011, obj022)
+
+
+
+
 
 
 console.log("2————————————————————————————————————————")
@@ -167,8 +171,12 @@ function combine2(x, y,flashback) {
     combine2(1,3,false)
 
 
+
+
+
 console.log("4————————————————————————————————————————")
-//练习4————————————————————————————————————————————————    
+//练习4————————————————————————————————————————————————  
+
 //判断obj2.loop的输出是什么
 //用构造函数的方法创建相同的对象
 //每一个构造函数的 loop 执行方法输出后变成【属性值】而不是【属性名】，输出的方式要通过传入的函数来实现
@@ -184,10 +192,9 @@ var obj = {
         }
     }
 };
-obj.loop((item)=>{
-    console.log(item) // = console.log(item(x))
+obj.loop((item)=>{console.log(item) // = console.log(item(x)) ,相当于执行了🍎（fn）这个函数
 })
-
+ 
 
 
 //用构造函数的方法重构
@@ -196,7 +203,7 @@ function NewObj(name, age) { //首字母大写！
     this.name = name
     this.age = age
     this.loop = function(fn){  //创建一个构造函数内的方法 🌟
-        for(let key in this){ //循环遍历一下对象本身，然后👇判断
+        for(let key in this){ //循环遍历一下对象本身（要用 this！)，然后👇判断
             if(typeof this[key] !== 'function'){   //要先判断一下是不是函数的属性
                 fn(this[key]) //传参数让它去输出属性值,必须得用 this, 因为构造函数内，每次创造出来的对象都不一样!🌟
             }  
@@ -204,11 +211,136 @@ function NewObj(name, age) { //首字母大写！
     }
 }
 const NewObj007 = new NewObj('小明',30) //传入参数定义函数的属性名，因为这个函数不会有返回值
-NewObj007.loop( item => console.log(item) )//调用新创造的这个函数的方法
+NewObj007.loop( x => console.log(x) )//调用新创造的这个函数的方法(🍎像防御执行了(fn)这个函数
 
 
 
 
+
+
+
+console.log("5————————————————————————————————————————")
+//练习5————————————————————————————————————————————————  
+
+//定义一个构造函数，有两个参数，可以设置成任意属性或方法
+//当通过 new 调用时会返回对象本身
+//如果不是通过 new 调用，会把传入的两个参数合并成一个字符串并返回
+
+function WellObj(x,y) {
+    if(typeof new.target === 'function'){ //先判断一下是不是通过 new 方法来调用的，new.target 指向函数本身
+    this.name = x
+    this.age = y
+    this.done = function(){
+    }
+  }else{
+      const result = x + '' + y  // 如果是 x + y 那就是计算和
+      return result
+  }
+}
+
+console.log(new WellObj(1,2))       //通过 new 调用
+console.log(WellObj(1,2))       //不通过 new 调用
+
+
+console.log("6————————————————————————————————————————")
+//练习6————————————————————————————————————————————————  
+
+function K(name,age){
+    this.name = 'Zen'  //如果传入了参数，则使用的是原先内置的值
+    this.age = 18
+    return {  //会输出 return
+         baby: 'Tiddy'
+    }
+}
+console.log(new K('好奇',20))
+
+
+console.log("7————————————————————————————————————————")
+//练习7————————————————————————————————————————————————  
+    
+
+function A(x){ //x='aa'
+    this.name = x //'aa'
+    this.go = () => {console.log(this) //这里的 this 指向 A() 这个对象，箭头函数的 this 只通过作用域来查找，而其他的函数通过如何调用来查找
+    }   
+    (() => {console.log(this)})()} //🌟立即执行函数
+
+
+
+//判断下面几种调用方式打印出来的结果
+const zz = new A('aa') //🌟通过 A()的方法来调用的 this， 所以指向 A()
+
+zz.go() //A()在上面已经定义好了，所以 this 也指向 A()
+
+const test = zz.go //同理，A()在上面已经定义好了，所以 this 也指向 A()
+test()
+
+A() //只执行了立即执行函数,因为 A()是个普通函数，这里箭头函数内找上一层的话就是 window 
+    
+    
+
+
+console.log("8————————————————————————————————————————")
+//练习8————————————————————————————————————————————————  
+
+//声明一个空对象，定一个函数，设置一个参数
+//每次函数执行时传入的数据一开始放入这个空对象内，属性名用数字字符的形式，序号依次递增
+//同时函数在每次添加到对象的属性后，会把对象中已有的属性和值按照 key-value 的字符串形式依次输出到控制台
+
+const Obj88 ={} //Obj88 本身是常量不会变,但是它里边的属性还是可以变的
+
+let count = 0//用于计数,每次加一个
+
+//方法 1-1   箭头函数
+// let Add = (x) => {
+//     Obj88[count] = x //Obj88 的 count 数量属性等于 x ！！🌟
+//     count ++
+//     for (let key in Obj88) {
+//         console.log(key + '-' + obj88[key])
+//     }   
+// }
+
+//方法 2-1   函数内转赋值对象
+function Add(x)  {
+    Obj88[count] = x //将 x 赋值给 Obj88,访问的全局 Obj88 对象,修改的是同一份数据
+    count++  //序号依次递增,一开始是 0
+    for(let key in Obj88) { //访问全局作用域的 Obj88 对象 
+        console.log(key + '-' + Obj88[key])
+    } 
+}
+
+//方法 2-2   定义参数并传参,参数为 Obj88 这个对象
+// function Add(x,y)  {
+//    y[count] = x //将 x 赋值给 Obj88,访问的全局 Obj88 对象,修改的同一份数据
+//     count++  //序号依次递增,一开始是 0
+//     for(let key in y) { //访问全局作用域的 Obj88 对象 
+//         console.log(key + '-' + y[key])
+//     } 
+// }
+
+// Add("啦啦",Obj88) //传参,参数为 Obj88
+
+Add('啦啦')
+Add('唧唧')
+Add('唧唧2')
+
+
+console.log("9————————————————————————————————————————")
+//练习9————————————————————————————————————————————————  
+
+let aaa = 100 //aaa 仍然指向 100 这个内存地址
+let bbb = function(){
+    x = 300 //把 aaa 传进来, 让 x 先变成 100 , 后变成 300
+    return x
+}
+console.log(bbb(aaa))
+
+
+
+
+
+
+    
     </script>
 </body>
 </html>
