@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数组的基础方法</title>
+    <H1>数组的基础方法</H1>
+
+    <!-- 
+        每个数组方法的关注点
+            1.作用
+            2.如何用
+            2.是否修改原数组
+            4.console 返回什么
+
+        push 
+            1.从数组【末尾】加入新数据(或者是合并数组)
+            2.array.push(1,2,3)
+            3.会
+            4.返回数组的总长度
+        pop
+            1.从数组【末尾】拿出新数据,并删除拿出的这个数据
+            2.array.pop()  ——  不用传参,每次拿一个
+            3.会
+            4.返回被拿出的这个数据
+        shift
+            1.从数组【头部】删除第一个数据
+            2.array.shift()  ——  不用传参,每次删一个
+            3.会
+            4.返回被拿出的这个数据
+        unshift
+            1.在数组【头部】添加一个或多个数据
+            2.array.unshift(1,2,3)
+            3.会
+            4.返回数组的总长度
+        slice
+            1.从数组【某一处】数复制一份数据出来
+            2.array.slice(1,3)复制 1～3 位的数据 && array.slice(-1) 复制倒数第一个数据
+            3.不会
+            4.返回数组的总长度
+            
+
+
+
+     -->
+
+     <script type="text/javascript">
+
+        let arr = []
+        arr.push(1,2,'你','我')
+        let arr3 = [9,1,6,2]
+    
+        //特殊用法，将数组 A 合并到数组 B 内
+        arr.push(...arr3)
+        console.log(arr)
+
+console.log("————————")
+//————————————————————
+
+        let arr6 = [5,6,7,8]
+        // console.log(arr6.push())
+        console.log(arr6.pop())
+
+
+        let arr2 = [9,8,7]
+        arr2.shift()
+        console.log(arr2)
+        console.log(arr,arr.unshift(666,888))
+
+        //特殊用法，与 while 循环结合，每次删除一个元素
+        let myFish = ['angel','clown','surgeon']
+        console.log(myFish)
+
+        while (typeof ( i = myFish.shift()) !== 'undefined') {
+            console.log(i);
+        }
+
+        let a = [
+             1,
+             2,
+             4,
+         ]
+         console.log(a.slice(-1))//倒数第一个
+         console.log(a.slice(0))//第一个
+
+
+console.log("01练习————————————————————————————")
+//01练习————————————————————————————————————————
+
+        //定义一个函数,接收一个参数可以传入一个数组,数组有三个数据
+        //如果数组的长度 length 是双数那么把第一个、和最后一个数据取出来，并添加回去 【1，2，3】->【1，1，2，3，3】
+        //如果是单数，则取最前跟最后一个并形成新的数组
+        let ChangeArray = [
+            1,
+            2,
+            3,
+        ]
+
+        let Change = function(ChangeArray){ //用数组本身作为函数的变量！！
+
+            let len = ChangeArray.length //定义一个判断奇偶数的变量
+
+            if (len % 2 === 0){ //判断奇偶数，能整除 2 则为偶数, % 为求模，能整除就为 0 ，不能整除就为 1
+                
+                console.log('偶数') 
+                    const head = ChangeArray[0] //定义一个变量取出头部数据
+                    const end = ChangeArray[len-1] //尾部数据等于总长度-1
+
+                    ChangeArray.push(end) //把变量值传到数组最后一个
+                    ChangeArray.unshift(head) //把变量值传到数组最前一个
+
+                    return ChangeArray
+
+            } else {
+                
+                console.log('奇数')
+                //方法一
+                    const yy = ChangeArray.shift()
+                    const xx = ChangeArray.pop()
+                    return [xx, yy]
+
+                //方法二
+                    // let NewArray = [
+                    //     ChangeArray.pop(),
+                    //     ChangeArray.shift()
+                    // ]
+                // console.log(NewArray)
+            }
+        }
+
+        console.log(Change([1,6,9,8]))
+
+        
+
+
+
+
+
+
+
+
+
+
+
+     </script>
+</head>
+<body>
+    
+</body>
+</html>
