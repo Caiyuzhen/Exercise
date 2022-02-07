@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基础函数语法</title>
+</head>
+<body>
+    <!-- 
+        函数是什么
+            函数也是应引用类型的数据 (指向的同一个内存空间地址)
+        
+        函数可以如何声明
+            函数也可以赋值给对象的属性(对象中可以防函数):
+            对象={
+                属性=>数据,
+                方法=>函数,
+            }
+
+            函数名不能与变量名重复(因为它们都是标识符)
+    
+    -->
+
+    <script type="text/javascript">
+
+        function fine(){
+            console.log("Well")
+            console.log("Hello")
+            
+        }
+
+        var fine02 = fine
+        fine02()
+
+        //执行对象中的方法
+        var person = {} 
+        person.hello = fine             //👈用函数赋值给它了!
+        // console.log(person.hello)    //👈左边这样只会输出函数!
+        person.hello()                  //🌟 👈把它放当函数来执行!
+
+
+console.log("____")
+
+        //通常的写法,在方法后面定义函数👇
+        var obj = {
+            hello: function(){         //👈这里的函数就不需要加名字了,因为已经给了前面那个属性
+
+            }, //👈记得写
+        
+            go(){
+
+            }, //👈记得写
+        };
+
+
+console.log("____")
+// ————————————————————————————————————————————————————
+
+        //练习1:嵌套循环,两两乘尽
+        var locked = false
+        function results (){
+            for (var i = 0; i < 10 ;i++)
+                for(var j = 0; j < 10 ; j++){
+
+                console.log(i + '-' + j)
+            }
+        }
+    
+        results()
+
+
+        
+console.log("____")
+// ————————————————————————————————————————————————————
+        //练习2:定义一个对象,对象有个方法,当执行这个方法时,输出 9-9,9-8,9-7
+        var dance = {
+            name: "Ming",
+            age:function(){
+                for ( var i = 9; i < 10; i++)
+                    if(i===9){
+                        break;
+                    }
+                    for (var j=7; j < 10; j++){
+                        if(j===10){
+                            break;
+                        }
+                        console.log(i + '-' + j)
+                    }
+            }
+        }
+        dance.age()
+
+
+
+    
+
+
+
+
+    </script>
+    
+    
+</body>
+</html>

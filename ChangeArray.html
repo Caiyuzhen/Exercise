@@ -50,7 +50,7 @@
                 有删除的话返回的是被删除部分数据组成的新数组
                 没删除反回的就是空数组
 
-        slice
+        slice (语法为左闭右开,左边包含,右边不包含!🌟,比如下面 1、3 就是包含第一个数据,不包含第三个)
             1.从数组【某一处】数复制一份数据出来
             2.语法
                 array.slice(1,3)复制 1～3 位的数据  
@@ -94,7 +94,7 @@ console.log("——————————————————————�
         let myFish = ['angel','clown','surgeon']
         console.log(myFish)
 
-        while (typeof ( i = myFish.shift()) !== 'undefined') {
+        while (typeof ( i = myFish.shift()) !== 'undefined') { //🌟
             console.log(i);
         }
 
@@ -123,8 +123,8 @@ console.log("splice————————————————————�
         Jam.splice(2,0, '新世界') //第二位为 0 的话则是不删除元素
         console.log(Jam)
 
-console.log("slice————————————————————————————————————————————————")
-//slice————————————————————————————————————————————————————————————
+console.log("slice (浅拷贝)————————————————————————————————————————————————")
+//slice (浅拷贝)————————————————————————————————————————————————————————————
 
     //slice (浅拷贝)
         let Figma = [
@@ -135,16 +135,31 @@ console.log("slice————————————————————�
             5,
             6,
             {
-                name: 'lululemon',
-            },
-            {
-                name:2,
-            },//引用类型的数据都是同一份,都是浅拷贝 [内存空间地址是一样的]
+                name:'小明',
+            },//引用类型的数据[数组、对象]都是同一份,都是浅拷贝 [内存空间地址是一样的]
         ]
-        console.log([Figma.length4])
-        console.log(Figma.slice(0,3))
+        console.log(Figma[Figma.length -1]) //取得最后一份数据 🌟注意这里的语法!🌟
+        console.log(Figma.slice(0,3)) //拷贝的是数组,所以是引用类型,是浅拷贝
+
+        
+console.log("slice (左闭右开)————————————————————————————————————————————————")
+//slice (左闭右开)————————————————————————————————————————————————————————————
 
 
+        let home = [
+            'chlid',
+            'cat',
+            'parent',
+            'dog',
+            'flower',
+            'car',
+            'money',
+            'computer',
+            'water'
+         ]
+
+        console.log(home.slice(1,4))
+        
 
 
 

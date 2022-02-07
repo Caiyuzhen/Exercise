@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>函数的参数</title>
+    <H1>函数的参数</H1>
+</head>
+<body>
+<!--
+    函数的参数是什么?
+        概念上可以理解为"管道",或者说是函数的变量
+        传入数据后执行另一头的方法
+    参数的特性?
+        参数需要在函数定义时就设置好
+        参数一定得传
+        传参顺序等于定义好的参数位置
+        传参等于自动声明变量  divvv(66,2) 相当于 var a = 66, b = 2 
+    参数的类别?
+        定义函数时的参数叫[行参]
+        执行函数时传入的参数叫[实参]
+    
+
+
+ -->
+    <script type="text/javascript">
+
+        //设置函数的参数
+        function speak(x){
+            console.log(x)
+        }
+        speak("不错哦")
+        speak("挺好的哦")
+
+
+        function out(x,y,z,abc,kk){
+            console.log(x)
+            console.log(y)
+            console.log(z)
+            console.log(abc)
+            console.log(kk)
+        }
+        out(1,2,3,4,5)
+
+        //除法函数
+        function divvv(a,b){
+            var result = a / b
+            console.log(result)
+        }
+
+        divvv(66,2) //相当于 var a = 66, b = 2 (自动声明变量)
+
+
+
+        //对象内的函数也可以设置参数
+        var obj = {
+            walk: function(x,y){
+                //
+            },
+            speak(x){
+                //
+            }
+        }
+
+        //复合函数🌟
+        function testFn(x){
+            x() //👈左边实际上会变成一个函数,x会变成函数名! hello 会作为实参传进去
+        }
+        function hello(){
+            console.log("hello")
+        }
+        testFn(hello)
+
+
+
+
+
+    </script>
+    
+</body>
+</html>
