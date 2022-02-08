@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>迭代数组的方法</title>
+    <H1>迭代数组的方法</H1>
+
+    <!--
+        关注点
+            1.作用
+            2.如何用
+            2.是否修改原数组
+            4.console 返回什么 
+
+
+        特征总结
+            传参都是函数
+        
+        Foreach  
+            1.callback 回调 获取整个数组的元素
+            2.
+            3.
+            4.
+
+
+
+        //Map 
+        //Some 
+        //Filter 
+        //Every
+     -->
+    <script type="text/javascript">
+
+console.log("======================我是分割线==========================")
+
+    const arr = ['a', 'b', 'c']
+    arr.forEach( x => console.log(x) ) //🌟立即执行函数, 数组内的数据会被作为函数的 [实参] 传进去!,数组有几个数据,传入的函数就会执行几次
+    arr.forEach( (x,index,arr) => console.log(x,index,arr) ) //[inde x跟 arr 非必选] 获得数组的元素、索引位、数组本身
+    arr.forEach( function(xx){
+        console.log(xx,this)//指向的是👇这个对象
+    } ,{name:'小明'})
+       
+
+
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
