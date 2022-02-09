@@ -12,16 +12,18 @@
 
 //🌟遗留问题,嵌套函数内如何使用 return 接收结果
 
-        function uuu(x,y){
+function uuu(x,y){
             function aabb(x,y){
                 const ppp = x + y
-                return ppp
+                return ppp//无法返回这个 ppp
             }
-            return aabb(x,y)
+            // return aabb(x,y)//返回的是结果
+            return aabb()//返回的是整个函数
         }
+        // var 结果 = uuu(167,89)
+        // console.log(结果)
 
-        var 结果 = uuu(167,89)
-        console.log(结果)
+        aabb(167,89)
 
 
 
