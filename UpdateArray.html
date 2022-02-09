@@ -9,6 +9,9 @@
     <H1>迭代数组的方法</H1>
 
     <!--
+        特征总结
+            传参都是函数
+
         关注点
             1.作用
             2.如何用
@@ -16,14 +19,24 @@
             4.console 返回什么 
 
 
-        特征总结
-            传参都是函数
         
         Foreach  
-            1.callback 回调 获取整个数组的元素
+            1.用来把数组的数据依次提取出来, callback 回调, 获取整个数组的元素, 中途不能停止, 没法被 return 来停止整个索引
+            2.arr.forEach( (x,index,arr) => console.log(x,index,arr) , {x:xxx})
+            3.不修改
+            4.没有定义的话返回的是 undefined
+
+        Map (编程内叫映射)
+            1.可以用来[整体串改数据], callback 回调, 获取整个数组的元素, 并且返回到新定义的数组中
+            2.arr.map( (x,index,arr) => console.log(x,index,arr) , {x:xxx})
+            3.3.不修改
+            4.没有定义的话返回的是 undefined
+
+        Some 
+            1.检测函数内是否包含某个值(有一个就成立),返回 true or false, true 的话立即结束这个数组函数
             2.
-            3.
-            4.
+            3.不修改
+            4.true or false
 
 
 
@@ -36,13 +49,56 @@
 
 console.log("======================我是分割线==========================")
 
+
     const arr = ['a', 'b', 'c']
     arr.forEach( x => console.log(x) ) //🌟立即执行函数, 数组内的数据会被作为函数的 [实参] 传进去!,数组有几个数据,传入的函数就会执行几次
-    arr.forEach( (x,index,arr) => console.log(x,index,arr) ) //[inde x跟 arr 非必选] 获得数组的元素、索引位、数组本身
-    arr.forEach( function(xx){
-        console.log(xx,this)//指向的是👇这个对象
-    } ,{name:'小明'})
-       
+    // arr.forEach( (x,index,arr) => console.log(x,index,arr) ) //[inde x跟 arr 非必选] 获得数组的 [元素]、[索引位]、[数组本身]
+    // arr.forEach( function(xx){
+    //     console.log(xx,this)//回调函数指向的是👇这个对象
+    // } ,{name:'小明'})
+
+
+console.log("======================我是分割线==========================")
+
+
+    const array = [1,4,9,6]
+
+    const array002 = array.map( x=>x*2 ) //写法一
+    console.log(array002)
+
+    const array03 = array.map( function(x) { return x*3 }) //写法二
+    console.log(array03)
+
+
+
+    // const array04 = array.map( (x,index,array04) => console.log(x,index,array04)) //与 foreach 一样, 可以定义索引位以及数组本身
+    // console.log(array04)
+
+
+console.log("======================我是分割线==========================")
+
+    //比如检测是否有大于 2 的元素
+    const array05 = [1,2,3,4,5,6,7,8,9]
+
+    const result = array05.some( function(x) { return x>10 })
+    console.log(result)
+
+
+
+
+    //比如检测是否有 orange
+    const fruits = ['apple', 'orange', 'banana','mango', 'guava']
+
+    function checkResult (x,y){  //定义两个变量,一个传数组,另一个传是否包含的这个值🌟
+        return x.some( result02 => y === result02 );//写错了
+        // return x.some( function(y) { return })
+    }
+    console.log(fruits,'orange')
+
+
+
+
+    
 
 
 
