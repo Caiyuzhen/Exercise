@@ -5,12 +5,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>迭代数组的方法</title>
-    <H1>迭代数组的方法</H1>
+    <title>查询数组的方法</title>
+    <H1>查询数组的方法</H1>
 
     <!--
         特征总结
             传参都是函数
+            都不改变原数组, 都是检查数组
 
         关注点
             1.作用
@@ -18,25 +19,43 @@
             2.是否修改原数组
             4.console 返回什么 
 
+        //数组内的一种函数定义 
+        // (x) => {return typeof x === 'string'}
+        //相当于这种写法?
+        // (x,y) => {
+        //     return x + y
+        // }
 
         
         Foreach  
             1.用来把数组的数据依次提取出来, callback 回调, 获取整个数组的元素, 中途不能停止, 没法被 return 来停止整个索引
             2.arr.forEach( (x,index,arr) => console.log(x,index,arr) , {x:xxx})
             3.不修改
-            4.没有定义的话返回的是 undefined
+            4.没有定义的话返回的是 undefined, 有定义的话依次返回数组内的元素
 
         Map (编程内叫映射)
-            1.可以用来[整体串改数据], callback 回调, 获取整个数组的元素, 并且返回到新定义的数组中
+            1.可以用来[整体串改数据], callback 回调, 获取整个数组的元素, 并且返回到 [新数组] 中
             2.arr.map( (x,index,arr) => console.log(x,index,arr) , {x:xxx})
             3.3.不修改
-            4.没有定义的话返回的是 undefined
+            4.没有定义的话返回的是 undefined, 有的话返回一个新数组
 
         Some 
             1.检测函数内是否包含某个值(有一个就成立),返回 true or false, true 的话立即结束这个数组函数
-            2.
+            2.arr.some( (x,index,arr) => console.log(x,index,arr) , {x:xxx})
             3.不修改
             4.true or false
+        
+        Filter
+            1.过滤出能回调回真值的数据进行返回(符合条件的进行返回)
+            2.arr.filter( (x,index,arr) => console.log(x))
+            3.不修改
+            4.没有定义的话返回的是 undefined, 有的话返回这个新数组
+
+        Every
+            1.判断整个数组是否 [都符合] 某个条件,符合的话就返回 true, 只要有一个不符合就返回 false
+            2.arr.every( (x,index,arr) => console.log(x))
+            3.不修改
+            4.没有定义的话返回的是 undefined, 有的话返回这个新数组
 
 
 
@@ -47,7 +66,7 @@
      -->
     <script type="text/javascript">
 
-console.log("======================我是分割线==========================")
+console.log("======================我是 forEach 分割线==========================")
 
 
     const arr = ['a', 'b', 'c']
@@ -58,16 +77,21 @@ console.log("======================我是分割线==========================")
     // } ,{name:'小明'})
 
 
-console.log("======================我是分割线==========================")
+console.log("======================我是 Map 分割线==========================")
 
 
     const array = [1,4,9,6]
 
-    const array002 = array.map( x=>x*2 ) //写法一
+    const array002 = array.map( x=>x*2 ) //写法一, 将回调的值赋予变量
     console.log(array002)
+    console.log(array.map(x=>x)) //返回了数组本身
+    // console.log(array.map(x=>x>4)) //要判断有没有大于 4 的 应该用 some 来写!
 
-    const array03 = array.map( function(x) { return x*3 }) //写法二
+
+    const array03 = array.map( function(x) { return x*3 }) //写法二, 将回调的值赋予变量
     console.log(array03)
+
+    console.log(array.map( function(x) { return x*3 }) ) // 一样的, 直接打印 cb 的值就是个新数组
 
 
 
@@ -75,14 +99,13 @@ console.log("======================我是分割线==========================")
     // console.log(array04)
 
 
-console.log("======================我是分割线==========================")
+console.log("======================我是 Some 分割线==========================")
 
     //比如检测是否有大于 2 的元素
     const array05 = [1,2,3,4,5,6,7,8,9]
 
-    const result = array05.some( function(x) { return x>10 })
+    const result = array05.some( function(x) { return x>10 }) //判断数组内的值有没有 >10 的
     console.log(result)
-
 
 
 
@@ -91,14 +114,132 @@ console.log("======================我是分割线==========================")
 
     function checkResult (x,y){  //定义两个变量,一个传数组,另一个传是否包含的这个值🌟
         return x.some( result02 => y === result02 );
-
     }
+
     console.log(checkResult(fruits,'orange'))
 
 
 
 
-    
+console.log("======================我是 Filter 分割线==========================")
+
+
+    const newMath = [1,2,3,4,5,6,7]
+
+    function checkMath (x,y){ 
+        return x.filter( result => y <= result) //相当于 result 取的是 3 <= 的
+    }
+
+    console.log(checkMath(newMath,3)) //判断大于几,就写几
+
+
+
+    const personAha = ['Jimmy','Lucy','Zen','Amy','Hank','Tim','Jack']
+
+    let Over = (x,y) =>  {      //判断哪个人名字母大于 4 位
+        return x.filter( result => result.length >= y )  //result.length 相当于数组的返回值(人名)大于 y
+    }
+
+    console.log(Over(personAha,4))
+
+
+
+
+console.log("======================我是 Every 分割线==========================")
+
+const chin = [1,2,3,4,5,6,7]
+
+const chinResult = chin.every( x=> x>=2 ) //判断数组内所有值是否都大于等于 2
+
+console.log(chinResult)
+
+
+
+
+
+console.log("======================我是 🔥 练习 🔥 分割线==========================")
+
+//用三种函数来判断一个数组内是否包含 string 字符串 🌟🌟很关键
+
+const strArr = ['hello', 3,'world',9,2,false,true]
+
+
+//方法一 (🌟直接判断然后提取)
+
+function filterStr(x){
+    return x.filter( (y) => {return typeof y === 'string'}) //🌟🌟 y 为结果, 判断返回的这个值是否满足等于 字符串 的条件
+}
+
+console.log(filterStr(strArr))
+
+
+
+
+
+//方法二 (🌟先遍历再判断,比较蠢的方法)
+
+function filterStr02(x){
+    const result = []
+
+    x.forEach((y) => {   //y 来接收 返回 的数据
+        if(typeof y === "string"){
+            result.push(y)  //把 返回 的数据 push 到 result[] 中
+        }
+    })
+    return result //很关键! 不然外面无法读取他的值
+}
+
+console.log(filterStr02(strArr))
+
+
+
+
+//方法三(🌟)
+
+function filterStr03(x){
+    const result02 = []
+
+    x.map((y)=>{
+        if(typeof y === "string"){
+            result02.push(y) 
+        }
+    })
+    return result02 
+}
+
+console.log(filterStr03(strArr))
+
+
+
+//方法四(🌟自制野方法)
+
+function filterStr04(x){
+    return x.filter( result=> result.length >= 2) 
+}
+
+console.log(filterStr04(strArr))
+
+
+
+
+
+
+//定义一个函数,判断数组内是否没有、是否全部包含、是否有一个包含布尔值,分别返回 0 ,2, 1
+
+const exercise = [1,'ming',true,{name:'jimmy'},8,false,4,2]
+
+function chekExercise(x) {
+    if( x.every( (y) => {return typeof y !== 'bolean'}) ){ //判断过滤出来的类型是否 [全部不包含] 布尔值
+        console.log('0')
+    }else if( x.every( (y) => {return typeof y === 'bolean'}) ){ //判断过滤出来的类型是否 [全部包含] 布尔值
+        console.log('2')
+    }else if( x.some( (y) => {return typeof y === 'bolean'}) ){ //判断过滤出来的类型是否 [包含一个] 布尔值
+        console.log('1')
+    }
+}
+
+
+chekExercise(exercise)
 
 
 
