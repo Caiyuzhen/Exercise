@@ -101,7 +101,7 @@ console.log("======================我是 Map 分割线=========================
 
 console.log("======================我是 Some 分割线==========================")
 
-    //比如检测是否有大于 2 的元素
+    //比如检测是否有大于 10 的元素
     const array05 = [1,2,3,4,5,6,7,8,9]
 
     const result = array05.some( function(x) { return x>10 }) //判断数组内的值有没有 >10 的
@@ -222,13 +222,11 @@ console.log(filterStr04(strArr))
 
 
 
-
-
 //定义一个函数,判断数组内是否没有、是否全部包含、是否有一个包含布尔值,分别返回 0 ,2, 1
 
 const exercise = [1,'ming',true,{name:'jimmy'},8,false,4,2]
 
-function chekExercise(x) {
+function checkExercise(x) {
     if( x.every( (y) => {return typeof y !== 'bolean'}) ){ //判断过滤出来的类型是否 [全部不包含] 布尔值
         console.log('0')
     }else if( x.every( (y) => {return typeof y === 'bolean'}) ){ //判断过滤出来的类型是否 [全部包含] 布尔值
@@ -238,8 +236,7 @@ function chekExercise(x) {
     }
 }
 
-
-chekExercise(exercise)
+checkExercise(exercise)
 
 
 
