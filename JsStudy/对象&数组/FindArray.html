@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>索引数组的方法</title>
+    <H1>索引数组的方法</H1>
+</head>
+<body>
+    <!-- 
+        关注点
+            1.作用
+            2.如何用
+            3.是否修改原数组
+            4.console 返回什么 
+
+
+        Find 返回一个索引值 (找到一个满足条件的元素就立马返回) ,跟之前的不一样,之前是返回一个数组
+            1.索引到满足条件的元素
+            2.array.find( (x) => x>10)
+            3.不修改
+            4.返回找到的数据,没有的话就是 undefined
+
+
+        Includes  
+            1.看一个数组内是否包含某个值,有的返回 true, 没有的话返回 false
+            2.const found2 = array.includes(3)
+            3.不修改
+            4.有的话返回 true ,没有的话就是 false
+
+
+        Concat 合并成新数组
+            1.将一个或多个数组合并为一个[新数组],也可以把新的数据传进去
+            2.const array4 = array2.concat(array3)
+            3.不修改
+            4.返回合并后的新数组
+
+        Fill
+            1.把一种数据替换整个数组或部分数组
+            2.const array8 = array7.fill('森林',2,5)      2、5 表示替换的范围,左闭右开,第一个包含,最后一个不包含
+            3.会修改原数组
+            4.返回修改后的原数组
+
+        CopyWithin
+            1.用数组自己的某些数据复制出来再覆盖回自己身上的某些数据
+            2.const array10 = array9.copyWithin(0,3,4)   2、5 表示要复制的范围,左闭右开,第一个包含,最后一个不包含, 0 表示从哪个开始覆盖, 只写 2 的话就表示从 2 后面开始全部都复制
+            3.会修改原数组
+            4.返回修改后的原数组
+
+        Join
+            1.把数组内的数据转成字符串并拼接起来
+            2.const array14 = array13.join('')   默认为逗号,('') 为空,里边想用什么字符连接起来就填什么字符
+            3.不修改
+            4.返回数组内的值
+    -->
+
+    <script type="text/javascript">
+
+
+        const array = [1,2,3,4,5,6,7,8,9]
+
+//———————————————— find ————————————————————————————————
+        const found = array.find( (x) => x>3)
+        console.log(found) //4
+
+
+
+//———————————————— includes ————————————————————————————
+        const found2 = array.includes(3)
+        console.log(found2)  //true
+
+
+//———————————————— contact ——————————————————————————————
+        const array2 = [1,2,3,4,5,6,7]
+        const array3 = ['啦啦','叮叮']
+        const array4 = array2.concat(array3)
+        console.log(array4)
+
+        const array5 = array4.concat("直接把一个内容合并进去")
+        console.log(array5) 
+
+
+//———————————————— fill ——————————————————————————————
+        const array7 = [1,2,3,4,5,6,7]
+        const array8 = array7.fill('森林',2,5)
+        console.log(array8)
+
+
+//———————————————— copyWithin —————————————————————————
+
+        const array9 = [1,2,3,'复制这个',5,6,7]
+        const array10 = array9.copyWithin(0,3,4)
+        console.log(array10)
+
+        const array11 = [1,2,3,'复制这个',5,6,7]
+        const array12 = array11.copyWithin(0,3)
+        console.log(array12)
+
+
+//———————————————— Join —————————————————————————————
+
+        const array13 = ['小明','发送一条评论']
+        const array14 = array13.join('')
+        console.log(array14)
+
+
+
+
+    </script>
+    
+</body>
+</html>

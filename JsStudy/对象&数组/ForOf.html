@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For of 方法-迭代数组内的数据</title>
+    <H1>For of 方法-迭代数组内的数据</H1>
+</head>
+
+    <!-- 
+        for of 
+            用来遍历数组(以及一些特殊的对象), 作用跟 map 、 for each 差不多
+            不同点在于, for of 可以使用 break 跟 continue , map 、 for each 可以在 cb 函数内写条件
+
+        for in
+            用来遍历对象的属性
+
+        keys
+            用来返回数组内的索引位
+
+        values
+            返回数组内的值
+
+        entries
+            把数组的索引位跟值一起返回
+
+     -->
+
+<body>
+    <script type="text/javascript">
+
+
+//—————————————————————— for in ——————————————————————————
+console.log("————————————————————————————————————————")
+
+
+    const array = [1,2,3,4,5,6,7,8,9,10,11]
+
+    for(let item of array) {
+        console.log(item)
+    }
+
+
+
+//—————————————————————— for of ——————————————————————————
+console.log("————————————————————————————————————————")
+
+    const person = {
+        name: '小明',
+        age: 30,
+    }
+
+    for(let item in person){
+        console.log(item) //name、age， 相当于属性名
+        console.log(person[item]) //person.name、person.age， 相当于属性值
+    }
+
+
+// ————————————————————— for of  —————————————————————————————
+console.log("————————————————————————————————————————")
+
+    const array1 = [
+        {name:'Ming'},
+        996,
+        "Js"
+    ]
+    for(let item of array1) {
+        console.log(item)
+    }
+
+
+
+// ——————————————— keys()   ———————————————————————————————————
+console.log("————————————————————————————————————————")
+
+    const array2 = ['草莓','西瓜','苹果']
+
+    const result = array2.keys()
+
+    for(let item of result){
+        console.log(item)
+    }
+
+
+// ——————————————— values()   ———————————————————————————————————
+console.log("————————————————————————————————————————")
+    
+
+    const array3 = ['火箭','宇航员','空间站']
+
+    const result2 = array3.values()
+
+    for(let item of result2){
+        console.log(item)
+    }
+
+
+// ——————————————— entries()   ———————————————————————————————————
+console.log("————————————————————————————————————————")
+
+
+    const array4 = ['汽水','奶茶','咖啡']
+
+    const result5 = array4.entries()
+
+    for(let item of result5){
+        console.log(item)
+}
+
+    </script>
+</body>
+</html>

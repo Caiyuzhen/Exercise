@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数组排序</title>
+    <H1>数组排序</H1>
+</head>
+<!--         
+        关注点
+            1.作用
+            2.如何用
+            3.是否修改原数组
+            4.console 返回什么 
+        
+        Sort  (假设 a 比 b 大, 用 a-b, 降序为负,升序为正)
+            1.排序(没有指定函数的话,会默认转化为字符串, 基本都要定义函数传参),比较的是 Unicode 编码号的大小
+            2.升序
+                array.sort(function(a,b){
+                  return a - b        
+                })
+              倒序
+                array.sort(function(a,b){
+                  return b - a        
+                })
+            3.修改原数组
+            4.返回改后的原数组
+
+    
+        Reverse
+            1.给数组掉个头
+            2.Array.reverse();
+            3.修改原数组
+            4.返回改后的原数组
+
+-->
+
+
+<body>
+    <script type="text/javascript">
+
+        // 给数组掉头
+        let aa = [87, 42, 6, 18]
+        aa.reverse();
+        console.log(aa)
+
+
+//_____________________________________________________________
+
+
+//给数组排序(没有指定函数的话，会默认转化为字符串)
+        let array = [87, 42, 6, 18]
+
+        //方法一
+        function comp(a,b){ //比较函数
+            if (a<b){
+                return -1;
+            }
+            if (a>b){
+                return 1;
+            }
+            return 0;
+        }
+        array.sort(comp);
+
+
+        //方法二(整合的写法，函数表达式)
+        array.sort(function(a,b){
+            return a - b        
+        })
+
+
+        //方法三（如果是比较的数字而非字符串，可以简化这么写
+        function comp2(a,b){
+            return a - b;
+        }
+        array.sort(comp2)
+
+
+        //方法四（整合的写法，箭头函数）
+        array.sort((a,b) => a-b)
+
+
+        console.log(array)
+
+
+
+
+
+//给年龄排序(降序)
+        let family = [
+            {age:32}, 
+            {age:16}, 
+            {age:48},
+            {age:3}
+        ]
+
+        const familyAge = family.sort((a,b) => {
+            return b.age - a.age
+        })
+
+        console.log(familyAge)
+
+
+
+
+
+//基于英文首字母排序
+
+    const items = [
+        {name:'Edward', value: 21 },
+        {name:'And', value: 98 },
+        {name:'Sharpe', value: 37 },
+        {name:'Zeros', value: 37 },
+    ]
+
+    let nameSort = items.sort(function(a, b){
+        let nameA = a.name.toUpperCase();  //取首字母
+        let nameB = b.name.toUpperCase(); //取首字母
+        if(nameA < nameB){
+            return -1;
+        }
+        if(nameA > nameB){
+            return 1;
+        }
+        return 0;
+    })
+
+    console.log(nameSort)
+    
+
+    
+console.log("======================练习==========================")
+//======================练习==========================
+
+//定义一个函数，传入一个数组参数，把分数按降序排列
+//把同学的姓名按照同样的分数高度顺序返回出来
+
+let array05 = [
+    {name:'小明',score:60},
+    {name:'小花',score:59},
+    {name:'小亮',score:98},
+    {name:'小李',score:88},
+    {name:'小章',score:57},
+    {name:'小钟',score:42},
+    {name:'小陈',score:92},
+]
+
+function result(x){
+    x.sort(function(a,b){
+        return b.score - a.score})    
+    return x.map((y) => y.name) //🌟🌟直接返回对象的 name ,组成新数组,因为上面排过序了，所以再把名字返回出来的话是按照上面的顺序来排的
+}
+
+
+console.log(result(array05))
+
+    </script>
+</body>
+</html>

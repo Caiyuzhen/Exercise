@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>判断&计算数组的方法</title>
+    <H1>判断&计算数组的方法</H1>
+</head>
+<body>
+    <!-- 
+        特征总结
+            传参都是函数
+            都不改变原数组, 都是检查数组
+
+        关注点
+            1.作用
+            2.如何用
+            3.是否修改原数组
+            4.console 返回什么 
+        
+        Reduce
+            1.加总,求总和的作用
+            2.  const arr01 = (x,y) => x + y
+                let result02 = arr.reduce( function(x,y,z,a) { return x+y } )
+
+                x 为累加的总值
+                y 为当前运行到的值 (第一次循环的话 y 为第二位, x 为第一位),如果传参(a)了话,第一次循环的 z 就为 a ,总值会把它加上
+                z 为索引位
+                a  为哪个数组
+            3.不修改
+            4.
+
+            
+     -->
+<script type="text/javascript">
+
+
+console.log("======================我是 reduce 分割线==========================")
+
+const arr = [1,2,3,4,5,6]
+
+//求总和,写法一, 执行函数的时候再用 reduce 方法🌟
+const result = (x,y) => x + y //没传参的话 , x 为总和, y 当前值,然后这样加(第一次1+2=3,然后第二次3+3=6,第三次6+4=10,第四次10+5=15,第五次15+6=21)
+
+console.log(arr.reduce(result))  //21
+
+
+//求总和,写法二,在函数内封装 reduce 方法🌟
+let result02 = arr.reduce( 
+    function(x,y) { return x+y } //没传参的话 , x 为总和, y 当前值, 然后这样加(第一次1+2=3,然后第二次3+3=6,第三次6+4=10,第四次10+5=15,第五次15+6=21)
+)
+
+console.log(result02) //21
+
+
+console.log(arr.reduce((x,y,current12221, array1221) => { return x+y },21))//1 为初始值,所以 return 回来后会再加上 21, =42
+
+
+
+
+
+//计算元素出现的次数 🌟
+
+let personalName = ['Alice', 'Bob', 'Tiff','Bruce','Alice', 'Bob', 'Tiff','Jimmy','Alice', 'Bob', 'Tiff']
+
+
+let countedName = personalName.reduce(function(y,name){ ///y 为累计总值，name 为 当前是什么值，系统定好了的
+    if (name in y){
+        y[name] ++; //如果提出来的 name 包含在 y 内，则加 1
+    }else{
+        y[name] = 1;
+    }
+    return y;
+},{})
+
+console.log(countedName) 
+
+
+//把元素做一个分类 🌟
+
+let people = [
+    {name:'Alice', age:42},
+    {name:'Max', age:32},
+    {name:'Jimmy', age:32},
+    {name:'Tim', age:26},
+    {name:'Jane', age:26},
+    {name:'Zen', age:26}
+]
+
+
+//没很懂
+function groupBy(whitchArray,y){ //whitchArray 为对应的数组， y 为判断要用哪个属性来分类
+    return whitchArray.reduce(function(aa,obj){
+        const key = obj[y] // key 等于 （从当前值内提取出来的属性）,key = age
+        if (!aa[key]){ //如果 age 在提取出来的总值内，则给到空数组
+            aa[key] = []; 
+        };
+        aa[key].push(obj); //把 age 推到 当前值内？
+        return aa //返回总值
+    },{});
+}
+
+let groupPeople = groupBy(people,'age')
+console.log(groupPeople)
+
+
+
+console.log("======================我是分割线==========================")
+//======================我是分割线==========================
+
+//算对象内的总和 🌟🌟
+const array009 = [
+    {score:60},
+    {score:80},
+    {score:100}
+]
+
+
+//方法一
+const total007 = (x,y) => {
+    return {        //这样每次返回的都是痛一个对象结构
+        score:x.score + y.score //sorce:60、80、90
+    }
+}
+
+console.log(array009.reduce(total007).score) //先返回一个对象，再从对象中提取出 score
+
+
+//方法二
+const total008 = (x,y) => 
+    x + y.score
+
+console.log(array009.reduce(total008,0))
+
+
+
+
+console.log("======================练习==========================")
+//======================练习==========================
+
+//计算年龄总和
+const family = [
+    {mon:{age:45}},
+    {daddy:{age:46}},
+    {son:{age:18}},
+    {dauther:{age:20}}
+    ]
+
+
+    const totalAge = family.reduce((x,y) =>{
+        let z;
+            for (key in y){  //需要先把对象的[属性名]取出来 🌟, y 相当于每次循环出来的对象
+                z = key //取出来的对象名赋值给一个变量(分别为 mom、daddy 等,统一变为 z)
+            }
+            return x + y[z].age
+        }
+        ,0)
+        console.log(totalAge)
+
+
+//计算总和
+const arrayMany = [[1,2],[5,11],[8,9],[3,8]]
+
+const totalNumber = arrayMany.reduceRight((x,y) =>{
+    let temp = 0 //先把第一个数据存起.
+    temp = y.reduceRight((a,b)=>a+b,0) //返回的第一个数据的和，即为[3+8]、[9+9]...
+    return x + temp //加总值上上一次回函数的数据, 11 + 18+...
+},0)
+
+
+const array03 = array.map( function(x) { return x*3 })
+
+
+console.log(totalNumber)
+
+
+
+
+</script>
+</body>
+</html>
