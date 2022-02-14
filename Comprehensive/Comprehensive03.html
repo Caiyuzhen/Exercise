@@ -256,17 +256,28 @@ console.log(decision(MixArr,"string"))
 console.log("—————————————————  练习9 ——————————————————")
 
 //定义一个函数,两个参数,能传入一个 [数组] 跟 [类型数据]
-//函数执行时会把[原数组]中[所有][非]这种类型数据的数据都删除掉 -> 搜集出这些数据
+//函数执行时会把[原数组]中[所有][非]这种类型数据的数据都删除掉 -> 搜集出这些数据然后匹配后进行删除
 //被删除的数组会组成一个[新数组]
 //返回这个被删除的[新数组]
+let arr010 = [1,2,'3','d',6,true,'b',9,23]
 
 function desicionArr (arr,type){
-    const indexArr = []
+    const indexArr = [] //用来承接哪个位置需要裁切
+    let Count = 0; //初始值为 0 ,每次裁切数据后都会少一位
 
-    x.forEach((a,b)=>{
-        if ( typeof a !== y) //不是这个类型
-            indexArr.push(b)  //🌟🌟把不是的这些索引位添加到 indexArr 这个空数组中,然后对比两个数组来用 splice 裁切
+    arr.forEach((a,b)=>{ //遍历出 arr 的索引位置, b 相当于市索引位
+        if ( typeof a !== type) //不是 y 这个类型
+            indexArr.push(b)  //🌟🌟把不是的这些索引位添加到 indexArr 这个空数组中 (这个数组变成一个索引位), 然后对比两个数组来用 splice 裁切
     })
+
+    indexArr.forEach((c)=>{  //遍历出它的索引位, 因为上一步存进去的是索引位,所以这里遍历出来就是索引位
+        arr.splice(c-Count,1) // splice 需要用索引位去切,,每次裁切数据后都会少一位,1 表示每次裁 1 位
+        Count++
+    })
+    console.log(arr)
+}
+
+desicionArr(arr010,'number')
 
 
 
