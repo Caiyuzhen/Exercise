@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>综合练习(数组)</title>
 </head>
-<H1>综合练习(数组)</H1>
+<!-- <H1>综合练习(数组)</H1> -->
 <body>
     <script type="text/javascript">
 
@@ -201,12 +201,11 @@ console.log(Sum(array009))
 
 
 
-
 //—————————————————————— 练习7 ——————————————————————————
 console.log("—————————————————  练习7 ——————————————————")
 
 
-//定义一个函数，可以传入一个字符串，可以把字符串拆分成一个个字符，用倒叙放入一个数组内并返回
+//定义一个函数，可以传入一个字符串，可以把字符串拆分成一个个字符，用倒序放入一个数组内并返回
 
 function Separate(x){
 
@@ -225,6 +224,49 @@ console.log(Separate('老弟'))
 //—————————————————————— 练习8 ——————————————————————————
 console.log("—————————————————  练习8 ——————————————————")
 
+
+//定义一个函数,两个参数,能传入一个 [数组] 跟 [类型数据]
+//函数执行时,判断数组里边有没有 string、number 类型的数据
+//有 string、number 类型的数据的话,就把所有数据变成这个类型
+//如果没有该类型的数据的话,就把数组清空
+//最后返回这个原始数组
+
+const MixArr = [1,2,'火箭',true]
+const MixArr2 = [false,true]
+
+function decision (x,y) { // x 为数组, y 为不同类型的值
+
+    const istype = x.some(ele => typeof ele === y)
+
+    if (istype) { //为 true
+        x.fill(y) //填充数组为 y 这种类型的数据
+    } else {
+        x.length = 0
+    }
+    return x
+}
+
+console.log(decision(MixArr,"string"))
+
+
+
+
+
+//—————————————————————— 练习9 ——————————————————————————
+console.log("—————————————————  练习9 ——————————————————")
+
+//定义一个函数,两个参数,能传入一个 [数组] 跟 [类型数据]
+//函数执行时会把[原数组]中[所有][非]这种类型数据的数据都删除掉 -> 搜集出这些数据
+//被删除的数组会组成一个[新数组]
+//返回这个被删除的[新数组]
+
+function desicionArr (arr,type){
+    const indexArr = []
+
+    x.forEach((a,b)=>{
+        if ( typeof a !== y) //不是这个类型
+            indexArr.push(b)  //🌟🌟把不是的这些索引位添加到 indexArr 这个空数组中,然后对比两个数组来用 splice 裁切
+    })
 
 
 
