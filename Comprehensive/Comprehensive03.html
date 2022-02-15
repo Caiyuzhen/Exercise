@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>综合练习(数组)</title>
+    <H1>综合练习(数组)</H1>
 </head>
 <!-- <H1>综合练习(数组)</H1> -->
 <body>
@@ -300,31 +301,31 @@ let arr011 = [
                 5,
                 [6,'true',1],
                 [6,10],
-                true,
-            ]
+                false,
+                            ]
 
 function Result (CountArr) {
-    let total = 0; //用来承接加总的值
-    let newArr = []//用来承接便利出来的「数组内的数组」的值?
+    let total = 0; //用来承接加总的值,每次拿出一些数字都计算一下值
+    let newArr = []//用来承接遍历出来的[非数字类型]的的值
 
     arr011.forEach((ele)=>{
         if (typeof ele ==="number") {
             total += ele
         } else if ( ele instanceof Array ) { //判断是不是数组
-            ele.forEach((yyy)=>{  //如果是数组则遍历它,注意这里是 ele ! 遍历出来的 ele = [数组!]
+            ele.forEach((yyy)=>{  //如果是数组则遍历它里边的数字,注意这里是 ele ! 遍历出来的 ele = [数组!]
                 if(typeof yyy === 'number') {//数组内的数组遍历完后,是否有[数字]
                     total += yyy
                 }else {
-                    newArr.push(ele) //上面已经把 ele 内含有数字的加总起来了, 剩下的就是不含数字的 ele
+                    newArr.push(yyy) //上面已经把 ele 内含有数字的加总起来了, 剩下的就是不是数字的 ele, 然后全部放到空数组中
                 }
             })            
         }else {
-            newArr.push(ele) //其他的也一起丢进去
+            newArr.push(ele) //其他的也一起丢进空数组中
         }
 
     })
     console.log(total,newArr)
-    return newArr
+    return newArr //返回对象
 }
 Result(arr011)
 

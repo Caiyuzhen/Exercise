@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>构造函数&原型</title>
+    <H1>构造函数&原型</H1>
+</head>
+
+<!-- 
+    函数的固有属性:
+        length 定义的参数个数
+        name 函数名  定义时标识符的名称
+        prototype (注意:任何[函数]、[数组]跟[对象]都有这个属性,但是箭头函数没有这个属性)
+
+    函数定义的时候会发行的事:
+        内存中产生一个函数数据   —— prototype 指向 ——>  产生一个对象 {constructor}
+    用 new 方法执行函数时会发生的事:
+        1.在内存中创建一个新对象 {}
+        2.把这个新对象的[[prototype]]指向该构造函数的 prototype 指向的对象 (更改指向)
+        3.把这个新对象赋值给 this 关键字
+        4.如果实例上有的属性不会往构造函数的 prototype 属性指向的对象上去找
+        
+
+ -->
+
+<body>
+    <script type="text/javascript">
+console.log("————传统写法————")
+//写法一 (函数方法封装在实例内)
+    function Dog(){
+        this.bark = function(){
+            console.log("吃饭了")
+        }
+    }
+
+    const dog1 = new Dog();//这个实例会带上之前 bark 的方法,然后会产生一个相同的内存地址
+    const dog2 = new Dog();//这个实例会带上之前 bark 的方法,然后会产生一个相同的内存地址
+
+    console.log(dog1.bark === dog2.bark) //false,缺点就在这里,浪费内存
+
+
+
+
+console.log("————函数组件写法————")
+//写法二 (共享某个函数方法)
+    function back2(){
+        console.log("吃饭了")
+    }
+
+    function Dog2(){
+        this.bark = back2 //赋值给函数
+    }
+
+    const Bigdog3 = new Dog2();
+    const Bigdog4 = new Dog2();
+
+    console.log(Bigdog3.bark === Bigdog4.bark) //true,省内存
+
+
+
+
+console.log("————函数的 Dog2 {constructor} 对象————")
+//函数的 Dog2 constructor 对象
+
+console.log(Dog2.prototype)
+
+
+
+console.log("————给函数的 Cat {constructor} 对象添加一些方法————")
+//给函数的 constructor 对象设置一些方法
+
+
+function Cat(){  //构造函数
+    this.bark = Catbrak
+}
+
+function Catbrak(){ //外部方法
+    caches.log("喵喵叫")
+}
+
+
+Cat.prototype.swim = function(){ 
+    console.log("swimming")
+}
+
+const BigCat = new Cat()
+
+BigCat.swim()
+
+
+console.log(BigCat.__proto__)//尽量不要用 __XX__ 这个方法,因为可能会被废弃
+
+
+
+    </script>
+
+
+</body>
+</html>
