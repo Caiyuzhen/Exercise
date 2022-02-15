@@ -90,7 +90,7 @@ let array3 = [
     {name:'小章',score:57},
     {name:'小钟',score:42},
     {name:'小陈',score:92},
-]
+    ]
 
 function rankin(arr,str) {
     let temp = array3.filter(x => x.score <= 80) //x 加不加括号都可以
@@ -123,7 +123,10 @@ console.log("—————————————————  练习4 ——
 //定义一个函数，传入两个参数，第一个为数组，第二个为某个数据，执行时传入对应的数组和数据
 //筛选出数【组内】有多少个和你【传入的数据】【相等】的数据，统计总数，返回数量
 
-let array06 = [[1,2,3,'well',12,'6',true,'apple',],[1,2,'火箭',12,'空间站','apple', 12, 'banana','6', 'guava']]
+let array06 = [
+                [1,2,3,'well',12,'6',true,'apple',],
+                [1,2,'火箭',12,'空间站','apple', 12, 'banana','6', 'guava'],
+            ]
 
 function total (arr,y){
     let array07 = [] //用来承接筛选出来的数据的数组
@@ -264,22 +267,66 @@ let arr010 = [1,2,'3','d',6,true,'b',9,23]
 function desicionArr (arr,type){
     const indexArr = [] //用来承接哪个位置需要裁切
     let Count = 0; //初始值为 0 ,每次裁切数据后都会少一位
+    const resultArr = []//用来承接 splice 裁切出来的数据
 
-    arr.forEach((a,b)=>{ //遍历出 arr 的索引位置, b 相当于市索引位
+    arr.forEach((a,b)=>{ //遍历出 arr 的索引位置, b 相当于索引位
         if ( typeof a !== type) //不是 y 这个类型
             indexArr.push(b)  //🌟🌟把不是的这些索引位添加到 indexArr 这个空数组中 (这个数组变成一个索引位), 然后对比两个数组来用 splice 裁切
     })
 
     indexArr.forEach((c)=>{  //遍历出它的索引位, 因为上一步存进去的是索引位,所以这里遍历出来就是索引位
-        arr.splice(c-Count,1) // splice 需要用索引位去切,,每次裁切数据后都会少一位,1 表示每次裁 1 位
-        Count++
+        resultArr.push(...arr.splice(c-Count,1)) // splice 需要用索引位去切,每次裁切数据后都会少一位,1 表示每次裁 1 位
+        //👆用上面的空数组来承接 splice 返回的新数组
+        Count++  //每删掉一位数据就 +1    
     })
-    console.log(arr)
+    console.log(arr) //剩下的数组
+    return resultArr
 }
 
-desicionArr(arr010,'number')
+console.log(desicionArr(arr010,'number')) //裁掉的数据
 
 
+
+
+//—————————————————————— 练习10 ——————————————————————————
+console.log("—————————————————  练习10 ——————————————————")
+
+//定义一个函数,传入一个数组,可以计算出数组中所有数字类型数据的总和的值
+//并把所有非数字类型的数据组成一个新的数组并返回
+//🌟instanceof Array 用来判断一个数据内包不包含数组!🌟
+let arr011 = [
+                1,
+                [1,2],
+                5,
+                [6,'true',1],
+                [6,10],
+                true,
+            ]
+
+function Result (CountArr) {
+    let total = 0; //用来承接加总的值
+    let newArr = []//用来承接便利出来的「数组内的数组」的值?
+
+    arr011.forEach((ele)=>{
+        if (typeof ele ==="number") {
+            total += ele
+        } else if ( ele instanceof Array ) { //判断是不是数组
+            ele.forEach((yyy)=>{  //如果是数组则遍历它,注意这里是 ele ! 遍历出来的 ele = [数组!]
+                if(typeof yyy === 'number') {//数组内的数组遍历完后,是否有[数字]
+                    total += yyy
+                }else {
+                    newArr.push(ele) //上面已经把 ele 内含有数字的加总起来了, 剩下的就是不含数字的 ele
+                }
+            })            
+        }else {
+            newArr.push(ele) //其他的也一起丢进去
+        }
+
+    })
+    console.log(total,newArr)
+    return newArr
+}
+Result(arr011)
 
     </script>
 </body>
