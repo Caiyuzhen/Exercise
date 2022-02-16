@@ -102,7 +102,7 @@ console.log("备注_____________________________________________________________
 
 
 console.log("练习1_____________________________________________________________")    
-//🌟关键问题：构造函数内的值如何返回？而不是返回一整个函数
+//🌟关键问题：构造函数内的值如何返回？而不是返回一整个函数? -》用变量赋值,然后返回变量
 
 //定义一个构造函数，用 new 方法创造一个对象，对象有 name 属性跟 tellMyName 的方法
 //name 的属性值由执行构造函数时传入
@@ -111,8 +111,7 @@ console.log("练习1____________________________________________________________
         function Test05(name){
             this.name = name
             this.tellMyName = function(){
-
-                 console.log(this.name)
+                console.log(this.name)
                 return this.name //很关键，不然函数内部无法访问这个结果！
             }
             console.log(this.tellMyName()) //打印这个函数的结果,但是需要上面有 return 否则为 undefined！

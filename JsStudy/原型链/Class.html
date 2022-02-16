@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 定义 Function</title>
+    <H1>Class 定义 Function</H1>
+    <!-- 
+        Class 类
+
+            What?
+                类声明
+                共性
+                    有 name 属性
+                    有 length 属性
+                    有 prototype 属性
+
+                特点:
+                    不会有作用域提升的效果 (函数内的变量会被提前声明,函数内的函数也会更加的提前声明,函数内函数的变量也是)
+                    受块级作用域的影响
+                    也是一等公民,既可以作为参数传入函数,也可以返回值从函数中返回
+                    🌟🌟在[类]中定义的方法,得等到[类]被执行后才会被执行
+                    🌟🌟只要方法有属性,constructor 就得定义参数!
+            How?
+                语法:   
+                    class Zen {
+                        XXX
+                    }
+                    跟构造函数不一样, 这个一定要用 new 来调用,不然会报错
+
+
+                如何定义 class 的属性和方法?
+                    class Zen
+                        constructor.(XXX){ //方法一:用 constructor
+                            this.name = name
+                        }
+                        abc = 123 //写法而:直接赋值,写死的
+
+
+                    🌟🌟要在 class 中写静态属性、静态数组、静态方法: 1.得用 static  2.得用赋值 = XXX, 否则会报错
+                        场景比如:狗的所有品质
+
+
+     -->
+</head>
+<body>
+    <script type="text/javascript">
+
+
+//写法一:类声明
+        class Dog {
+            constructor(name,age,fn){  //constructor 是固定的名称,不能修改!
+                this.name = name;
+                this.age = age;
+                this.fn = fn;
+            }
+            swim(){ // class 的方式在花括号内添加函数的话可以不用写 function
+                console.log("swimming")
+            }
+            static drink(){
+                console.log("100Ml")
+            }
+            static species = [
+                '英短',
+                '美短',
+                '高地',
+            ]
+            static abc = 996 //要在 class 中写静态属性: 1.得用 static  2.得用赋值 =
+        }
+        console.log(Dog.prototype)
+        console.log(Dog.abc)
+        Dog.drink()
+
+
+
+        //基于类去新建函数
+        
+        const dog = new Dog('饭团',1,function(){console.log(bark)});
+        console.log(dog)
+
+
+
+//写法二:类表达式
+        const Cat = class {
+            // constructor(name,age,fn){ 
+            //     this.name = name;
+            //     this.age = age;
+            //     this.fn = fn;
+            // }
+        }
+
+        console.log(typeof Cat) //function,其实 class 也是一种函数
+
+
+//练习
+        //定义一个函数,有一个 name 属性和一个 tellMyName [原型方法], 每个实例调用 tellMyName 方法后都会输出实例自己的 name 的属性值
+
+        class NameResult {
+            constructor(name){
+                this.name = name
+            }
+            tellMyName(){
+                console.log(this.name)
+            }
+        }
+
+        const newName = new NameResult("王小明")
+        console.log(newName)
+
+
+
+        //定义一个类型,该类型有两个属性, name 跟 age, 函数上有一个 init 静态方法, 可传两个参数
+        //init 这个方法执行后会返回这个类型的实例, 而传入的这两个参数分别就是这个实例的 name 跟 age 的属性值
+
+        class Person {
+
+            constructor(name,age){//类似构造函数的 funciton (X,Y){}
+                this.name = name
+                this.age = age
+            }
+
+            static init(name,age) { //🌟🌟只要方法有属性,constructor 就得定义参数!
+                return new Person(name,age) //🌟🌟返回类的实例!!
+            }
+        }
+        const Result2 = new Person("八戒",23)
+        console.log(Result2)
+
+
+
+
+    </script>
+
+</body>
+</html>
