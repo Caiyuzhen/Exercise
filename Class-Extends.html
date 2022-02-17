@@ -6,8 +6,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>类的继承</title>
     <H1>类的继承</H1>
+    <!-- 
+    
+    Extends
+        What
+            类之间需要有的属性或方法的继承
+            子类(or 派生类)继承父类(基类、超类)
+        
+        How
+           在子类中写 XX extends 父类
+
+           派生类如果不写 constructor 方法, 就会调用基类的 constructor ,基类的(constructot)属性跟方法派生类都有
+
+    Super()
+        What   
+             指向父类的关键字
+        How
+            XX extends 父类 {
+                constructor(){
+                    super()
+                }
+             }
+
+    -->
 </head>
 <body>
+    <script type="text/javascript">
+    
+    
+    class Cat{   //父类、基类
+        constructor(name,age,fn){
+            this.name = name
+            this.age = age
+            this.action = fn
+
+        }
+        miao(){
+            console.log("miaomiao")
+        }
+        static species = ['British','China','Japan','USA']
+        static run() {
+            console.log("running")
+        }
+    }
+
+    class ChinaCat extends Cat {    //子类 or 派生类: 集成了 Cat 这个父类
+        constructor(){
+            super()     // 🌟子类写了 constructor 的话第一时间要写上 Super! 
+        }
+    }
+
+
+    const chinaCat001 = new ChinaCat('嘟嘟',2,function(){console.log("起飞了")});
+    console.log(chinaCat001)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+    
+
+
     
 </body>
 </html>
