@@ -9,8 +9,13 @@
     <H1>Number 的包装类型</H1>
 
     <!-- 
-        包装类型 —— 系统内置,用于包装原始值的构造函数
+        包装类型 —— 系统内置,用于包装原始值的构造函数,直接使用的话可以转化数据类型
             Number  String  Boolean
+
+            强制转化数据类型
+                console.log(String('你好'))
+                console.log(Boolean({}))
+                console.log(Number('123'))
 
             Number
 
@@ -35,11 +40,6 @@
                     isInteger() ———— 判断一个数是否为整数
                         用法
                             Number.isInteger(XX)
-
-
-
-
-
 
      -->
 
@@ -66,9 +66,9 @@
 
 
 console.log("——————判断一个数是否为整数——————")
-// ——————判断一个数是否为整数——————
+// ————————————判断一个数是否为整数————————————
         function deci(x,y){
-            if(Number.isInteger(x/y)){
+            if(Number.isInteger(x/y)){QQQ 
                 return "结果为整数";
             }
             return "结果不为整数";
@@ -76,15 +76,23 @@ console.log("——————判断一个数是否为整数——————"
         console.log(deci(6,8))
 
 
-
 console.log("——————返回全球化的数字——————")
-// ——————返回全球化的数字——————
+// ————————————返回全球化的数字————————————
 
         function Text(x){
-            return x.toLocaleString('zh-Hans-CN-u-nu-hanidec')
+            return x.toLocaleString('zh-Hans-CN-u-nu-hanidec') //返回本地化文字
         }
 
         console.log(Text(124))
+
+
+console.log("——————转化数据类型——————")
+// ————————————转化数据类型————————————
+
+        console.log(String('你好'))
+        console.log(Boolean({}))
+        console.log(Number('123'))
+
 
     </script>
     

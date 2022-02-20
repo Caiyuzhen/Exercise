@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String 的包装类型</title>
+    <H1>String 的包装类型</H1>
+</head>
+
+    <!-- 常用的几种字符串方法 
+
+        可以配合正则表达式的 4 种方法：
+
+        search() ——
+
+
+        replace() ——
+
+
+        split —— 通过 XX 方法把字符串分开, 比如 split('')或(' '),前一个是获得一个个字母,后者是获得一个个单词!🌟🌟,跟数组的 join 方法刚好相反
+    
+
+        match() ——
+
+
+————————————————————————————————————————————————————————————————————————————————
+
+
+        length —— 获取字符串的长度
+
+
+        includes —— 查找字符串中是否包含某个单词或词组,返回 true of false，区分大小写
+
+
+        trim —— 去除【首尾】的空白、换行符、不间断的空格
+
+
+        toUpperCase —— 所有字符串全部变成大写
+
+
+        toLowerCase —— 所有字符串全部变成小写
+
+
+        slice() —— 从第几位往后，提取字符串出来，左闭右开，负数的话则从末尾开始算！传 2 位的话则是一个区间
+
+
+        substring() —— 从第几位往后，提取字符串出来,看起来同上,差异就这点：负数的时候是为 0 而不是从末尾开始找
+
+
+        indexOf() —— 从某一处开始查找字符串的位置, 找到为具体的数字，找不到为 -1, 一开始就找到则为 0, 或者是用来计算某个字符串出现的次数
+
+
+        lastIndexOf() —— 从反向开始查找字符串的位置（很乱，没搞懂）
+
+
+        codePointAt() ——
+
+        chart At() ——
+
+        startWith() ——
+
+        endWith() ——
+
+        includes() —— 合并字符串
+
+        repeat() ——
+
+        padStart() ——
+
+        padEnd() ——
+
+    -->
+
+
+<body>
+    <script type="text/javascript">
+
+
+//获取字符串的长度
+    const A = 'Bluebells'
+    console.log(A.length)
+
+
+//把字符串分开
+    const B = 'The quick brown fox jumps over the lazy dog'
+    const charts = B.split(' ')
+    console.log(charts)
+
+
+//查找字符串中是否包含某个单词或词组
+    const C = 'To be, or not to be, that is the question.'
+    console.log(C.includes('not to'))
+
+
+//去除【首尾】的空白、换行符、不间断的空格
+    const D = '       Well done,   hello world     '
+    console.log(D.trim())
+
+
+//所有字符串全部变成大写
+    const E = 'The quick brown fox jumps over the lazy dog'
+    console.log(E.toUpperCase())
+
+
+//所有字符串全部变成小写
+    const F = 'THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG'
+    console.log(F.toLowerCase())
+
+
+//从第几位往后，提取字符串出来，左闭右开，负数的话则从末尾开始算！传 2 位的话则是一个区间
+    const G = 'The morning is upon us'
+    console.log(G.slice(5)) //morning is upon us
+    console.log(G.slice(-7)) //upon us
+    console.log(G.slice(4,11)) //morning
+
+
+//从第几位往后，提取字符串出来,看起来同上
+    const H = 'The morning is upon us' 
+    console.log(H.substring(5))
+    console.log(H.substring(-3))
+    console.log(H.substring(4,11))
+
+
+//从某一处开始查找字符串的位置
+    const I = "Widget with id dog blablabla id"
+    const Result = I.indexOf('dog') //15
+    console.log(Result)
+
+    console.log(I.indexOf('id',2))// id 第一次出现在 1 ，第二次出现在 12,第二次从 2 开始找
+
+//计算某个字符串出现的次数
+    const str2 = 'To be or not to be, that is the question.'
+    let x = 0
+    let y = str2.indexOf('e')
+
+    while (y !== -1){ //-1为找不到，所以意思为找完为止
+        x++
+        y = str2.indexOf('e', y + 1)
+    }
+
+    console.log(x) //4 个 e
+
+
+//从反向开始查找字符串的位置（很乱，没搞懂）
+    const J = "Widget z with id dog blablabla id"
+    const Result3 = J.lastIndexOf('id',5) 
+    console.log(Result3)
+
+    </script>
+</body>
+</html>
