@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number 的包装类型</title>
+
+    <H1>Number 的包装类型</H1>
+
+    <!-- 
+        包装类型 —— 系统内置,用于包装原始值的构造函数
+            Number  String  Boolean
+
+            Number
+
+                原型方法
+                    toFixed(2) ———— 保留几位小数点,小数点后面一位 4 舍 5 入，大于等于 4 的话向小数点前一位进 1
+                        用法
+                            ObjXX.toFixed()
+
+                    toPrecision(2) ———— 保留几位数字,小数点后面一位 4 舍 5 入，大于等于 4 的话向小数点前一位进 1
+                        用法
+                            ObjXX.toPrecision()
+                    
+                    toLocaleTimeString ———— 全球化作用,返回当地的文字
+                        用法
+                            X.toLocaleString()
+
+                静态方法
+                    parseInt('12A31') ————解析出一个元素内的数字,到非数字的地方停止
+                        用法
+                            Number.parseInt()
+
+                    isInteger() ———— 判断一个数是否为整数
+                        用法
+                            Number.isInteger(XX)
+
+
+
+
+
+
+     -->
+
+
+    
+</head>
+<body>
+    <script type="text/javascript">
+        const ObjZ = 12345.6780
+        const ObjA = 1234.5678
+        const ObjB = 123.456
+        const ObjC = 12.3
+        const ObjD = ['12997asa']
+
+        console.log(ObjZ.toFixed())
+        console.log(ObjA.toFixed())
+        console.log(ObjB.toFixed())
+
+
+        console.log(ObjC.toPrecision(2))
+
+        console.log(parseInt(ObjD))
+
+
+
+console.log("——————判断一个数是否为整数——————")
+// ——————判断一个数是否为整数——————
+        function deci(x,y){
+            if(Number.isInteger(x/y)){
+                return "结果为整数";
+            }
+            return "结果不为整数";
+        }
+        console.log(deci(6,8))
+
+
+
+console.log("——————返回全球化的数字——————")
+// ——————返回全球化的数字——————
+
+        function Text(x){
+            return x.toLocaleString('zh-Hans-CN-u-nu-hanidec')
+        }
+
+        console.log(Text(124))
+
+    </script>
+    
+</body>
+</html>
