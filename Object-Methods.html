@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object 的相关方法们</title>
+
+    <H1>Object 的相关方法们</H1>
+
+</head>
+    <!-- 
+        一、对象方法
+            判断两个对象是否为同一个内存空间地址的对象
+                Object.is([].[])
+                Object.is('XX','XX')
+                Object.is({},{})
+            
+            返回对象内的 key 数据组成的数组
+                Object.keys( obj )
+
+            返回对象内的 value 数据组成的数组
+                Object.values( obj )
+            
+            返回对象内的 key、value 数据组成的数组,有[多少对]就返回[多少个数组],类似 for...in 数组的方法
+                Object.entries( obj )
+
+            基于对象生成一个原型,再用这个原型产生出新的对象(比较少用)
+                object.create( obj )
+                object.create( null ) 创建出一个没有原型的对象
+
+            返回实例自有的 key 数据组成的数组
+                Object.getOwnPropertyNames( obj )
+
+            冻结对象,不能改对象中的属性值
+                Object.freeze( obj )
+            
+            把一个对象的属性、方法复制到另外一个对象上 (相当于把两个对象合并成一个)
+                Object.freeze( obj )
+
+        二、原型方法🌟
+            
+            检测某个方法是否是定义在实例上的🌟 是的话返回 true
+                hasOwnProperty
+            
+                用法
+                    let Obj7 = { b:123 }
+                    console.log('toString'in Obj7) 如果原型上有这个值也会返回 true
+                    console.log(Obj7.hasOwnProperty('b'))
+
+            检测某个对象是不是在对象原型链上的其中一个对象 (A 是不是 B 的原型)
+                isPrototypeOf
+
+                用法
+                    Bar.prototype.isPrototypeOf(buzz)
+
+
+            将对象转为 [object] 字符串并进行返回
+                toSrting
+
+                用法
+                    MyDog.toString()
+
+
+            返回对象中的属性名跟值,一般方法被JavaScript自动调用,你也可以自己写方法去覆盖它
+                ValueOf
+
+                用法
+                    num.valueOf( Obj )
+
+
+
+
+
+
+
+
+     -->
+
+
+
+
+<body>
+    <script type="text/javascript">
+
+    //返回对象内的 key 数据组成的数组
+        const obj = {
+            a:'something',
+            b:42,
+            c:false,
+        };
+
+        console.log(Object.keys(obj)); //[a,b,c]
+
+
+    //返回对象内的 value 数据组成的数组
+    const obj2 = {
+            a:'something',
+            b:42,
+            c:false,
+        };
+
+        console.log(Object.values(obj2)); //['something',42,false]
+
+
+    //返回对象内的 key、value 数据组成的数组
+    const obj3 = {
+            a:'something',
+            b:42,
+            c:false,
+        };
+
+        console.log(Object.entries(obj2)); //[Array(2), Array(2), Array(2)]
+
+
+    //基于对象生成一个原型,再用这个原型产生出新的对象(比较少用)
+    const person = {
+        name: 'Ming',
+        age:25,
+    }
+
+    const me = Object.create(person);
+
+    console.log(me)
+
+
+    //返回实例自有的 key 数据组成的数组
+    const obj4 = {
+        0: "a", 
+        1: "b", 
+        2: "c",
+    }
+
+    const well = Object.getOwnPropertyNames(obj4)
+    console.log(well) //[0,1,2]
+
+    //合并两个对象
+    const ObjA = {
+        a:1,
+        b:2,
+    }
+
+    const ObjB = {
+        c:false,
+        d:'铃铛',
+    }
+
+    const ObjC = Object.assign(ObjA, ObjB)
+    console.log(ObjC)
+
+
+    
+console.log('————————————————————')
+//————————————————————————————————
+
+
+    //检测某个方法是否是定义在实例上的🌟 是的话返回 true
+
+    let Obj7 = { b:123 }
+    console.log('toString'in Obj7) //如果原型上有这个方法也会返回 true
+    console.log(Obj7.hasOwnProperty('toString')) //false
+
+
+
+console.log('————————————————————')
+//————————————————————————————————
+    //检测某个对象是不是在对象原型链上的其中一个原型， A 是否是 B 的一个原型
+
+    const Obj8 = {}
+    const Obj9 = Object.prototype
+    console.log(Obj9.isPrototypeOf(Obj8)) //true
+
+
+//————————————————————————————————  A 是否是 B 的一个原型
+    function Foo() { }
+    function Bar() { }
+
+    Bar.prototype = Object.create(Foo.prototype)
+
+    var buzz = new Bar()
+
+    console.log(Bar.prototype.isPrototypeOf(buzz)) //true
+    console.log(Foo.prototype.isPrototypeOf(Bar)) //false
+    console.log(Bar.prototype.isPrototypeOf(Foo)) //false
+
+
+//将对象转为 [object] 字符串并进行返回
+
+    function Dog(name,color){
+        this.name = name;
+        this.color = color;
+    }
+
+    let MyDog = new Dog("Gabby", "Yellow")
+
+    console.log(MyDog.toString()) //【object object】
+
+
+//返回对象中的属性名跟值,一般方法被JavaScript自动调用,你也可以自己写方法去覆盖它
+
+    const Obj10 = {
+        name: "Ming",
+        money: 10999,
+        age:25,
+    }
+    console.log(Obj10.valueOf()) //
+
+
+    </script>
+</body>
+</html>
