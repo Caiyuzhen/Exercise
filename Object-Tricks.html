@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>对象方法的小技巧</title>
+    <!-- <H1>对象方法的小技巧</H1> -->
+</head>
+
+    <!-- 
+        简写赋值 —— 赋值的简写方式
+            let x = "XXX"
+            let y = { 
+                x    //相当于 x:"XXX"
+            }
+
+        //————————————————————————————————————————
+
+            function aa(){
+            }
+
+            let bb = {
+                aa   //相当于 function aa(){}
+            }
+
+        可计算属性 —— 对象的属性名可以用变量或表达式来表示
+            let nameKey = 'name'
+            let person = {
+                [nameKey]:'Matt'
+            }
+
+        解构赋值        
+
+
+        
+    -->
+
+
+<body>
+    <script type="text/javascript">
+
+//赋值的简写方式
+        let x = "Ming"
+        let y = { 
+            x
+        }
+        console.log(y)
+
+
+
+        function aa(){
+        }
+
+        let bb = {
+            aa
+        }
+        console.log(bb)
+
+
+//对象的属性名可以用[变量或表达式]来表示
+        let nameKey = 'name'    
+        let person = {
+                [nameKey + 'abc']:'Matt'
+        }
+        console.log(person)
+
+//函数的属性名也可以用[变量或表达式]来表示
+        const MethodKey = '说'    
+
+        let SomeOne = {
+            [MethodKey](x) {
+                console.log('x')
+            }
+        }
+        //写到这里🌟
+
+
+    </script>
+</body>
+</html>

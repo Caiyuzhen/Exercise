@@ -9,22 +9,16 @@
 </head>
 
     <!-- 
-
-
-
-
-
-
-
+        🌟[[Prototype]]  跟 prototype 不一样!!前者对象数组函数都有，后者只有函数才有!🌟
+        方括号 P 属性 [[Prototype]] ————>对象{} 、 数组[] 能看到， 函数function(){} 的 .__proto__ 看不到
+        类能通过 .prototype 看到 constructor， prototype 出来的 constructor 是类独有的！🌟
+        构造函数的 protopie 是可以被修改的，而 class 不行
+        只往上找，不往下找
 
      -->
 <body>
     <script type="text/javascript">
-        //🌟[[Prototype]]  跟 prototype 不一样!!前者对象数组函数都有，后者只有函数才有!🌟
-        //方括号 P 属性 [[Prototype]] ————>对象{} 、 数组[] 能看到， 函数function(){} 的 .__proto__ 看不到
-        //类能通过 .prototype 看到 constructor， prototype 出来的 constructor 是类独有的！🌟
-        //构造函数的 protopie 是可以被修改的，而 class 不行
-        //只往上找，不往下找
+ 
         console.log({},[],function(){}.prototype)
 
 // ——————————————————————————————————————————————————————————————————————————————
