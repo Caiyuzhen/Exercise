@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>类与原型链-综合练习</title>
+    <H1>类与原型链-综合练习</H1>
+</head>
+<body>
+    <script type="text/javascript">
+
+    //定义一个类, 在创建实例的时候可以传入一个参数, 是任意长度的字符串(长文本带逗号)
+    //这个参数的值会保留在实例的 text 属性上, 这个类的每个实例都能调用 [原型] 上一个叫做 splitStr 的方法
+    //只要调用这个[Class 内的原型方法]就能把实例 text 属性中的字符串按照逗号分隔成一个数组进行返回
+
+    class Water {
+        constructor(text) {
+            this.text = text;
+        }
+        waterBrand(){
+            return this.text.split(',') //1.记得写 return!  2.访问变量用 this!🌟🌟
+        }
+    }
+
+    const drink = new Water("天气晴朗,阳光明媚,食物美味");
+
+    console.log(drink.waterBrand())
+
+
+
+    //创建一个新的类型,继承自数组的构造函数,这个类型的实例有一个原型方法 push
+    //每个实例调用这个方法可以把传入的参数存到实例的 cache 属性中
+    //cache 指向的是一个普通的对象, 每次存入的数据以数字为 key , 从 0 开始依次递增
+
+
+
+
+    class Change extends Array{ //直接继承[系统数组]的原型对象!!!🌟🌟
+        constructor() {
+            super();
+            this.cash = {} //定义对象, 跟函数一样!
+            this.count = 0 //定义默认值, 跟函数一样!
+        }
+        push(x){
+            this.cash[this.count] = x //🌟递增!!!🌟
+            this.count++;
+        }
+    }
+
+    const result = new Change()
+    result.push(11)
+    result.push(3)
+    console.log(result)
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>

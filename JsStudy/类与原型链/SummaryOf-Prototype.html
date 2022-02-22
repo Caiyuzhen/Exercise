@@ -15,8 +15,6 @@
                 例子
                     console.log([] instanceof Array) //true
 
-
-
         🌟总结:
             一、数组、函数都是继承于 Object 这个对象
             二、用户定义的所有父类都是继承于 Object 这个对象
@@ -36,7 +34,13 @@
 
         class Cat {}
         const cat = new Cat
-        console.log(cat.hasOwnProperty())
+        console.log(cat.hasOwnProperty()) //继承了原型方法(有父子集成关系的前提下)
+
+        console.log(Array.prototype) //一堆数组的方法
+        console.log(Function.prototype) //看不到,因为是内部代码
+        console.log(String.prototype) //一堆方法
+        console.log(Number.prototype) //一堆方法
+        console.log(Boolean.prototype) //一堆方法
 
 
 
