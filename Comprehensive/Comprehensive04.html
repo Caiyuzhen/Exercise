@@ -10,9 +10,12 @@
 <body>
     <script type="text/javascript">
 
+//练习1—————————————————————————————————
+console.log("练习1————————————————————")
     //定义一个类, 在创建实例的时候可以传入一个参数, 是任意长度的字符串(长文本带逗号)
     //这个参数的值会保留在实例的 text 属性上, 这个类的每个实例都能调用 [原型] 上一个叫做 splitStr 的方法
     //只要调用这个[Class 内的原型方法]就能把实例 text 属性中的字符串按照逗号分隔成一个数组进行返回
+
 
     class Water {
         constructor(text) {
@@ -28,41 +31,56 @@
     console.log(drink.waterBrand())
 
 
+    
 
-    //创建一个新的类型,继承自数组的构造函数,这个类型的实例有一个原型方法 push
-    //每个实例调用这个方法可以把传入的参数存到实例的 cache 属性中
+
+//练习2—————————————————————————————————
+console.log("练习2————————————————————")
+    //创建一个新的类型,继承自 [数组] 的构造函数,这个类型的实例有一个原型方法 push
+    //每个实例调用这个方法可以把传入的参数 x 存到实例的 cache 属性中
     //cache 指向的是一个普通的对象, 每次存入的数据以数字为 key , 从 0 开始依次递增
 
+    //Tips:      
+    // 🌟🌟如何赋值, 先索引再赋值, 比如  arr[1] = 'lululemon'
 
-
-
-    class Change extends Array{ //直接继承[系统数组]的原型对象!!!🌟🌟
-        constructor() {
-            super();
-            this.cash = {} //定义对象, 跟函数一样!
-            this.count = 0 //定义默认值, 跟函数一样!
+    class Change extends Array {
+        constructor(){
+            super() //记得定义这个!因为改了 Array 的原型方法!🌟
+            this.cache = {} //先定义一个空数组!
+            this.count = 0
         }
         push(x){
-            this.cash[this.count] = x //🌟递增!!!🌟
-            this.count++;
+            this.cache[this.count] = x  //🌟 this.count 相当于 (索引位 0 = x ), 每次递增!!!🌟
+            this.count++ 
         }
     }
 
     const result = new Change()
-    result.push(11)
-    result.push(3)
+    result.push(11)  //每次只会调用 Change()的原型方法而不会调用 Array()的原型方法, 有遮蔽的作用
+    result.push(120)
     console.log(result)
 
 
 
 
+//练习3—————————————————————————————————
+console.log("练习3————————————————————")
+    //用 [构造函数] 的方式定义三个方法, 同时让三个方法依次形成继承关系(父-子-孙)
+    //提示:修改构造函数的 prototype 属性为其他类型的实例
+    //用 instanceof Object 来检测
 
+    function A(){} //父
+    function B(){} //子
+    function C(){} //孙
 
+    B.prototype = new A() //让 B 继承于 A,顺序不能错!先有[子]再有[孙]
+    C.prototype = new B() //让 C 继承于 B
 
+    const ccc = new C()
+    console.log( ccc instanceof B) //true
 
-
-
-
+    //额外说一点, 可以直接改原型, 比如👇
+    ccc.__proto__ = {}
 
 
     </script>
