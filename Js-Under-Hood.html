@@ -11,6 +11,11 @@
 
         作用域有三种:全局、块级、函数作用域
 
+
+        何为闭包？
+            函数内 Closeure 类型的 [[Scopes]]  
+            闭包是一种作用域类型
+
      -->
 </head>
 <body>
@@ -51,7 +56,8 @@
 
 
 
-//——————————————————————————————————————————————
+//案例1 ——————————————————————————————————————————————
+console.log("//案例1 ————————————————————————————————")
     let aaa = 100
     let bbb = 2000
     function test(){
@@ -62,15 +68,18 @@
     test() 
     console.log("执行完成")
 
-//——————————————————————————————————————————————
+//案例2 (闭包）——————————————————————————————————————————————
+console.log("//案例2 ————————————————————————————————")
     let AA = 100
     let BB = 2000
 
-    function text2(){
+    function test2(){
         const innerA = 6
         const innerB = 88
-        const well = function go(){
-            console.log(innerA)
+        const well = {
+            go(){
+                console.log(innerA)
+            }
         }
         console.log(well)
     }
