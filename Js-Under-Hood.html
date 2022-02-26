@@ -12,9 +12,11 @@
         作用域有三种:全局、块级、函数作用域
 
 
-        何为闭包？
-            函数内 Closeure 类型的 [[Scopes]]  
+        何为闭包？—— 一种特殊的作用域
+            二级函数内部 [[Scope]] 属性引用的 内部对象的作用域链就是闭包作用域 ———— Closeure 类型的 [[Scopes]]  
             闭包是一种作用域类型
+        何时产生闭包？
+            当二级函数内部引用了外部对象的数据 ———— 也叫函数作用域
 
      -->
 </head>
@@ -57,7 +59,7 @@
 
 
 //案例1 ——————————————————————————————————————————————
-console.log("//案例1 ————————————————————————————————")
+console.log("案例1 ————————————————————————————————")
     let aaa = 100
     let bbb = 2000
     function test(){
@@ -68,22 +70,89 @@ console.log("//案例1 ———————————————————
     test() 
     console.log("执行完成")
 
-//案例2 (闭包）——————————————————————————————————————————————
-console.log("//案例2 ————————————————————————————————")
+
+    
+//案例2 (闭包）————————————————————————————————————————————
+console.log("案例2 ————————————————————————————————")
     let AA = 100
     let BB = 2000
 
-    function test2(){
+    const test2 = function (){
         const innerA = 6
         const innerB = 88
         const well = {
             go(){
-                console.log(innerA)
+                console.log(innerA) // innerA 就是一个闭包作用域🌟🌟
             }
         }
         console.log(well)
     }
     test2()
+
+
+
+
+
+//案例3 (闭包）—————————————————————————————————————————
+console.log("//案例3 ————————————————————————————————")
+
+    const test3 = function() {
+        let innerA = 6 //执行完后就会被销毁！
+        let innerB = 88 //执行完后就会被销毁！
+        function go3(x){
+            console.log(innerA) //6
+            innerA = x //不会被销毁，因为下面的变量 CC 还有调用 go()函数！！！🌟
+        }
+        return go3 //很关键！反比的是 go3 这个函数！
+    }
+
+    const CC = test3() // CC = go3()，因为下面 return 的是 go3()
+    CC(100) //很关键，这一步只打印了 innerA = 6 的状况
+    CC(200) //很关键，这一步只打印了 innerA = 100 的状况
+    
+
+
+//案例4 (常见闭包场景）🌟🌟🌟—————————————————————————————————————————
+console.log("案例4【常见闭包场景】🌟🌟🌟 ————————————————————————————————")
+
+    function cacheArr(){
+
+        const cache=[]  //🌟🌟🌟闭包的第一个对象，持续的增删改查，并且🌟只能通过下面三个函数才能访问这一组闭包数据！非常安全,可以避免写在全局内和它人的产生冲突！
+        return { //🌟🌟🌟返回闭包对象，相当于执行 cacheArr 函数后就会返回 cache[]这个数组
+            add(x){
+                cache.push(x) //用到了 cache，所以产生了闭包对象
+            },
+            delete(x) { 
+                cache.pop()  //用到了 cache，所以产生了闭包对象
+            },
+            log(){
+                console.log(cache)  //用到了 cache，所以产生了闭包对象
+            }
+        }
+    }
+
+    const AAA = cacheArr() //
+    AAA.add(1)
+    AAA.add('添加')
+    AAA.delete()//把‘添加’给拿走了
+    AAA.log()
+
+
+//练习 —————————————————————————————————————————
+console.log("练习 ————————————————————————————————")
+
+let foo = function(){
+    let i = 0;
+    return function(){
+        console.log(i++) //这时候 i 还是为 0 ！
+    }
+}
+
+let f1 = foo();//一开始，i = 0
+let f2 = foo();//一开始 i = 0
+f1() // 0
+f2() // 0
+f1()
 
 
     </script>
