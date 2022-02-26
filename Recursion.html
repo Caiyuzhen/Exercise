@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>函数的递归</title>
+    <H1>函数的递归</H1>
+    <!-- 
+        What？
+            递归就是函数自己调用自己
+        How?
+            需要让递归有一个出口，在某种条件下不在执行
+
+            阶乘, 比如 5! = 5X4X3X2X1 的乘积
+
+
+
+
+     -->
+</head>
+<body>
+    <script type="text/javascript">
+
+//错误的递归（没有出口)—————————————————
+console.log("错误的递归（没有出口)—————")
+
+        function test(){
+            console.log(1)
+            test() //自己调用了自己，因此产生了递归
+        }
+
+//正确的有条件的递归（如阶乘函数）—————————————————
+console.log("正确的有条件的递归（如阶乘函数）—————")
+
+function factorial (num){
+    if(num <= 1){
+        return 1; //这里相当于是递归的出口！有条件就会结束
+    }else {
+        return num * factorial(num - 1) //这里相当于是递归！几个 return 回一直等待，最后一起返回
+    }
+}
+
+console.log(factorial(5))
+
+
+
+
+    </script>
+    
+</body>
+</html>
