@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>同步跟异步执行(时间函数) & 线程</title>
+    <H1>同步跟异步执行(时间函数)  & 线程</H1>
+    <button onclick="delayAlert();">点我执行延时函数</button>
+    <button onclick="clearAlert();">点我清除延时函数</button>
+    <!--
+        总结
+            先执行同步函数再执行异步函数
+
+        同步
+            依次执行
+
+        单线程
+            线程 Thread ———— CPU 的最小工作单元
+            JS 编译器就是单线程的, 一行行又上自下执行
+
+        异步
+            让函数在未来某一刻执行
+
+            HOW ？
+                定时器
+                    What？
+                        setTimeout(function(x){ },3000,x) 延迟多久(多少毫秒)执行,里边是个 cb 函数
+                    
+                        clearTimeout(id) 取消
+
+
+                        setInterval(function(x){ },3000,x) 循环执行
+
+                        clearInterval(id) 取消定时器
+
+                    特征
+                        每次执行后都会返回一个正整数 id
+                        如果不设置第二个参数的话,默认为 0 秒延迟
+                        🌟🌟如果设置为 0 的话,会等其他代码执行完后才执行本函数!!(异步的代码会比同步的代码后执行！)
+
+     -->
+</head>
+<body>
+
+    <script type="text/javascript">
+//延时函数 setTimeout ——————————————————————————————————
+console.log("延时函数 ————————————————————")
+
+
+//写法一
+setTimeout(function(){
+    console.log("延时 0.4 秒执行")
+},400)
+
+
+//写法二
+function test(x){
+    console.log(x)
+}
+setTimeout(test,100,"延时 0.1 秒执行")
+
+
+
+
+
+//写法三：通过 button 触发
+
+let lal
+
+function delayAlert(){
+    lal = window.setTimeout(slowAlert,3000);
+}
+
+function slowAlert(){
+    alert("延时 8 秒执行，别碰我！")
+}
+
+function clearAlert(){
+    window.clearTimeout(lal) //点击后在 3 秒内取消这个函数
+}
+
+
+
+//写法四
+
+setTimeout(console.log,300,"直接延时 0.3 秒执行")
+
+
+
+//写法五 （让它停止运行）
+const id3 = setTimeout(console.log,5000,"直接停止运行")
+clearTimeout(id3)
+
+
+
+
+//循环函数 setInterval ——————————————————————————————————
+console.log("循环函数 setInterval ————————————————————")
+
+
+
+//写法一
+function well(x){
+    console.log(x)
+}
+
+const id = setInterval(well, 2000,"直接清除这个函数，让它不起作用");
+clearInterval(id);//直接清除这个函数，让它不起作用
+console.log(id)
+
+//写法二
+
+const id2 = setInterval(console.log,1000,"循环 5 次再停止")
+//循环执行 5 次再停止
+setTimeout(function() {
+    clearInterval(id2)
+},6000) //6000 - 1000= 5s
+
+
+
+//练习
+function go(){
+    console.log(2)
+    setTimeout(console.log,2000,3)
+}
+console.log(1) //1
+go() //2
+setTimeout(x => console.log(x),500,4)
+
+//1
+//2
+//4
+//3
+
+
+
+
+    </script>
+
+
+    
+</body>
+</html>
