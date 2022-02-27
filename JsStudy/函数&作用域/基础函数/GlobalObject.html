@@ -36,7 +36,6 @@
                 🌟 箭头函数内所有的 this 只通过作用域来查找，🌟 找上一层 this 的作用域！！没有的话默认指向全局 window,🌟而其他的函数通过如何调用来查找
 
 
-
      -->
 
 
@@ -54,7 +53,7 @@
             test,  //简写的方式，相当于把 test()这个方法给到了 obj 的变量
             name:"小兰",
             abc(){
-                console.log(this)  //🌟如果没有通过对象来调用的话， this 指向全局作用域中的 window
+                console.log(this)  //🌟如果没有通过对象(or 函数）来调用的话， this 指向全局作用域中的 window
             },
             walk:() => { //对象里边的箭头函数写法比较特殊
                         console.log(this)
@@ -98,7 +97,7 @@ const func = {
         const showThis = () => { //略过箭头函数往外找
             console.log(this) //箭头函数内的 this 往上一层找, 因为下面是通过 func() 来调用这个函数的，所以所以指向 func() 这个对象
                 function innerShow(){
-                    console.log(this) //🌟🌟 指向 window ，因为隔多了一层，所以不是通过对象的方式来调用它！
+                    console.log(this) //🌟🌟🌟 指向 window ，因为隔多了一层，所以不是通过对象的方式来调用它！
                     }
                 innerShow() //打印出 func() 这个对象
         }
@@ -125,7 +124,7 @@ func2 = {
         showThis2() 
     }
 }
-func2.test2() //外层是个普通函数，因为实在全局去使用这个函数的，所以指向的是 window
+func2.test2() //外层是个普通函数，因为是在全局去使用这个函数的，所以指向的是 window
 
 
 
