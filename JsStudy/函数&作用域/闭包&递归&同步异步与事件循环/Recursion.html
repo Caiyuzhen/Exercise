@@ -33,15 +33,28 @@ console.log("错误的递归（没有出口)—————")
 //正确的有条件的递归（如阶乘函数）—————————————————
 console.log("正确的有条件的递归（如阶乘函数）—————")
 
-function factorial (num){
-    if(num <= 1){
-        return 1; //这里相当于是递归的出口！有条件就会结束
-    }else {
-        return num * factorial(num - 1) //这里相当于是递归！几个 return 回一直等待，最后一起返回
+// function factorial (num){
+//     if(num <= 1){
+//         return 1; //这里相当于是递归的出口！有条件就会结束
+//     }else {
+//         return num * factorial(num - 1) //这里相当于是递归！几个 return 回一直等待，最后一起返回
+//     }
+// }
+// console.log(factorial(5))
+
+//修改为 switch case 的写法
+function factorial02 (num){
+    switch (true) {
+        case num <= 1: 
+            return 1
+            break;
+        default: 
+            return num * factorial02(num-1)
     }
 }
 
-console.log(factorial(5))
+
+console.log(factorial02(5))
 
 
 
