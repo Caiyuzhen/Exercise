@@ -1,4 +1,6 @@
 {
     "editor.suggest.snippetsPreventQuickSuggestions": false,
-    "aiXcoder.showTrayIcon": true
+    "aiXcoder.showTrayIcon": true,
+    "editor.fontSize": 18,
+    "editor.cursorWidth": 3
 }
