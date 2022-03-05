@@ -22,14 +22,16 @@
         Reduce 🌟
             1.加总,求总和的作用
             2.  const arr01 = (x,y) => x + y
+            
                 let result02 = arr.reduce( function(x,y,z,a) { return x+y } )
+                箭头函数的写法？
+                let result02 = arr.reduce((x,y) => x + ,0)🌟 初始值为 0!！！
 
                 x 为累加的总值
                 y 为当前运行到的值 (第一次循环的话 y 为第二位, x 为第一位),如果传参(a)了话,第一次循环的 z 就为 a ,总值会把它加上
                 z 为索引位
                 a  为哪个数组
             3.不修改
-            4.
 
             
      -->
@@ -164,7 +166,7 @@ const arrayMany = [[1,2],[5,11],[8,9],[3,8]]
 
 const totalNumber = arrayMany.reduceRight((x,y) =>{
     let temp = 0 //先把第一个数据存起.
-    temp = y.reduceRight((a,b)=>a+b,0) //返回的第一个数据的和，即为[3+8]、[9+9]...
+    temp = y.reduceRight((a,b)=>a+b,0) //初始值为 0 ！！然后持续返回的第一个数据的和，即为[3+8]、[9+9]...
     return x + temp //加总值上上一次回函数的数据, 11 + 18+...
 },0)
 
