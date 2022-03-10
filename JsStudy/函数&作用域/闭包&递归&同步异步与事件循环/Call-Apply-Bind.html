@@ -11,7 +11,7 @@
     🌟 都是用来改变或调用函数中的 this 指向,看起来一般是用在改变一级函数的指向？
     三者都不会改变原来的函数！
 
-    一、call
+    一、call  ————  call一个函数内的参,方法或参数的复用🌟🌟
         How?
             XXX.call(this,x,y,...)
             this 的第一个参数是 this 指向的数据 (在调用的时候才生效！不会改变原来的函数！)
@@ -23,24 +23,24 @@
             立即执行
     
 
-    二、apply
+    二、apply —— 方法或参数的复用🌟🌟
         How?
             XXX.apply(this,[x,y,...])
-            跟 call 类似，但最多只能传两个参数，this 的第一个参数是 this 指向的数据,第二个是所有实参的数组  (在调用的时候才生效！不会改变原来的函数！)
+            跟 call 类似，但最多只能传两个参数，this 的第一个参数是 this 指向的数据,第二个是【所有实参】的【数组】  (在调用的时候才生效！不会改变原来的函数！)
 
         特点
             立即执行
 
-    三、bind
+    三、bind ———— 方法或参数的复用🌟🌟
         How？
             XXX.bind(this,x,y,...)
 
         What 场景?
-            🌟返回的是一个闭包的函数，这时候的 this 就会指向函数本身  (在调用的时候才生效！不会改变原来的!数！)
+            🌟返回的是一个闭包的函数，这时候的 this 就会指向函数本身  (在调用的时候才生效！不会改变原来的参数！)
             可以保存一份闭包的函数数据
 
         特点
-            返回函数，后续可调用
+            不会立即执行，会返回函数，后续可调用
  -->
 
 
@@ -70,7 +70,7 @@ console.log("call 例子2——————————————————�
     }
 
     function Food(x, y) {
-        Product.call(this, x, y) //相当于利用 Product() 这个函数的参数来定义本函数的参数,🌟🌟 用 call 方法把原本指向 Product() 构造函数的 this 改成指向 Food()!
+        Product.call(this, x, y) //相当于利用 Product() 这个函数的参数来再加多一个 this 参数来定义本函数的参数,🌟🌟 用 call 方法把原本指向 Product() 构造函数的 this 改成指向 Food()!
         this.category = 'food'   //相当于在Product() 这个函数的参数的基础上再加多一个参数
     }
 
@@ -116,10 +116,10 @@ console.log("call 例子3——————————————————�
 
 
     const array = ['a', 'b']
-    const x = [0,1,2]
-    array.push.apply(array, x) //[a, b,0,1,2]
-    console.info(array) //
+    const xx = [0,1,2]
 
+    array.push.apply(array, xx) //[a, b,0,1,2]
+    console.info(array) //
 
 
 
@@ -147,7 +147,7 @@ console.log("bind 例子2——————————————————�
     const person = {
         name2: "小明",
         age: function(name2){
-            return this.name2; //🌟🌟🌟,因为下面的 console 在全局内去调用出 age() 这个方法，所以下面的 this 指向的是 windows !谁调用我就指向谁，箭头函数的话则略过一层往上找
+            return this.name2; //🌟🌟🌟,因为下面的 console 在全局内去调用出 age() 这个方法，所以下面的 this 指向的是 windows !谁调用我（windows）就指向谁，箭头函数的话则略过一层往上找
         },
     }
 
