@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math方法</title>
+    <!-- 
+            Math 一个内置的对象, 包含了很多数学属性跟方法
+
+            常用属性
+            Math.PI  =  3.1415926...
+
+            常用方法
+                一、找极值数据
+                        找最小的参数
+                            Math.min( ) 
+                        找最大的参数
+                            Math.max( )
+                二、处理区间的数据
+                        随机返回一个浮点数[小数],包括 0 但不包括 1
+                        Math.random( )* 10
+                三、取整
+                        向下取整, 比如 14.1 、14.9 就会取为 14
+                            Math.floor( )
+                        向上取整, 比如 14.1 、14.9 就会取为 15
+                            Math.ceil( )
+                        四舍五入
+                            Math.round( )
+                四、取绝对值 
+                        负数变为正数,正数还是正数
+                            Math.abs( )
+                五、平方
+                        平方和( x 的 y 次方 )
+                            Math.pow( )
+                        开平方
+                            Math.sqrt( )
+                六、JS 精度问题
+                    console.log(0.1+0.2)=0.300000000000000004
+                    因此前面可以用 toFixed (2)  来保留几位小数点
+     -->
+</head>
+<body>
+    <script type="text/javascript">
+
+        //返回一个最小参数
+           console.log(Math.min(1,2,30) )
+
+        //返回一个 5～15 之间的整数(不包含 10)
+            console.log(parseInt(Math.random() * 10 + 5 )) //🌟表示 5～ 15 区间的数！，首先取得的 0～10 ，取完后再 + 5 ，🌟 用 parseInt 转为整数
+        
+        //向下取整
+            console.log(Math.floor(14.8))
+        
+        //绝对值
+            console.log(Math.abs(-14.8))
+
+        //开平方
+            console.log(Math.sqrt(100))
+
+        
+            console.log((0.1+0.2).toFixed(2))
+
+        //练习： 
+        //定义一个函数，传入两个参数，两个参数限定它的范围
+        //执行后会返回这个限定范围内的任意整数
+
+
+
+
+
+
+    </script>
+</body>
+</html>
