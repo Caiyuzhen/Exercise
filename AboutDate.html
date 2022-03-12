@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date 构造函数</title>
+    <H1>Date 构造函数</H1>
+</head>
+<!-- 
+    地理知识
+        GMT 格林尼治标准时间
+        GMT + 8 = 北京时间
+
+        UTC 协调世界时间(现在在使用的世界标准时间),因为地球自转会变慢 0.1 秒
+
+        GMT = UTC + 0
+        UTC + 8 = 北京时间
+
+        CST 北京标准时间 = UTC + 8
+        PST 太平洋标准时间 = UTC + 8
+
+
+    Date (内置的时间对象,包含了一堆静态方法)
+        不需要具体时间,只需要记录一个相对时间
+
+        Date.now(1995, 5, 17)
+            计算经过了多长毫秒 (又叫时间戳)
+        Date.parse( )
+            把某个时间字符串转为毫秒数
+            ISO 写法：'1995-05-17T03:24:00'
+
+ -->
+
+
+<body>
+    <script type="text/javascript">
+    //计算点击后过了多长时间 , 比如 > 3000ms
+            console.log( Date.now(1995, 5, 17) )
+            
+        //使用场景(计算经过了多久)
+            const firstClick = Date.now()
+            const secondClick = Date.now()
+            
+            const result = firstClick - secondClick
+
+    //不需要具体时间，只需要算过了多少毫秒
+            const result2 = Date.parse('1995-05-17T03:24:00')
+            console.log(result2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+
+    
+</body>
+</html>

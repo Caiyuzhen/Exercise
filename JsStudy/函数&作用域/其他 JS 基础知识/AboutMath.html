@@ -65,6 +65,18 @@
         //定义一个函数，传入两个参数，两个参数限定它的范围
         //执行后会返回这个限定范围内的任意整数
 
+            //范围题的技巧：都转化为 0 开头的范围
+            //比如     4 ～ 10    10 ~ 20
+            //范围就是  0 ~ 6      0 ~ 10
+            function result(x,y){
+                const max = Math.max(x,y)
+                const min = Math.min(x,y)
+                const randomResult = parseInt(Math.random() * (max-min) + min)
+
+                return randomResult
+            }
+
+            console.log(result(10,20))
 
 
 
