@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模板字符串</title>
+    <H1>模板字符串</H1>
+    <!-- 
+        相当于高级版的字符串：
+            What?
+                1.保留换行符,可以定义跨行的字符串
+
+                2.可以使用变量(字面量标识符)、或其他表达式
+
+                3.会把传入的数据全部都转为字符串
+
+                4.也可以用来作为执行符来传参
+        
+        转义符：
+            What?
+                1.让符号只是显示为符号
+            
+            
+        这几个都怎么用：   
+            How?
+                反撇号：
+                    ` `
+                插值：
+                    ${}
+                转义符：
+                    \"\" ——>  ""
+                    
+
+
+
+
+     -->
+
+</head>
+<body>
+    <script type="text/javascript">
+
+
+
+//————————————————————————————————————————————————
+        
+        const abc = '666\"\"'
+        
+        const str = 
+        `这是一个表达式 ${Math.random()}
+            非常优秀的
+                ${abc}
+                    ${new Date(1+2)}
+                        字符串`
+
+        console.log(str);
+
+
+//————————————————————————————————————————————————
+console.log("—————————————————————————————————————")
+
+    
+    function sayHello(a,...args) { //🌟🌟用拓展运算符搜集所有参数
+        console.log(a,args) 
+        console.log(args) //🌟🌟结合下面用模板字符串跟差值{}的传参方式，把参数都存入到 args
+    }
+
+    const a = 666
+    const b = 888
+    sayHello`123 + ${a} + ${b}`
+    // sayHello`${a} + ${b}`
+
+
+    </script>
+
+</body>
+</html>
