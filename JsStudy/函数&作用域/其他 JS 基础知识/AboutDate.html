@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date 世界时间构造函数</title>
+    <H1>Date 世界时间构造函数</H1>
+</head>
+<!-- 
+    地理知识
+        GMT 格林尼治标准时间
+        GMT + 8 = 北京时间
+
+        UTC 协调世界时间(现在在使用的世界标准时间),因为地球自转会变慢 0.1 秒
+
+        GMT = UTC + 0
+        UTC + 8 = 北京时间
+
+        CST 北京标准时间 = UTC + 8
+        PST 太平洋标准时间 = UTC + 8
+
+
+    Date (内置的时间对象,包含了一堆静态方法)
+
+        场景一、不需要具体时间,只需要记录一个相对时间：
+
+            Date.now(1995, 5, 17)
+                计算经过了多长毫秒 (又叫时间戳)
+
+            Date.parse( )
+                把某个时间字符串转为毫秒数
+                ISO 写法：'1995-05-17T03:24:00'
+
+        场景二、需要具体的时间
+            new Date()
+                const today = new Date //记录代码执行的当前时间
+                const today1 = new Date(Date.now(1995-05-17))//记录传入时间戳的时间
+                const today2 = new Date('1995-05-17T03:24:00')//记录传入时间格式的字符串
+                const today3 = new Date(1995,05,17,3,24,0)//记录传入的时间参数（除了年月，其他可与选传）
+
+        场景三、需要获得时间格式(几号、周几)
+            .getFullYear()     //现在是是几几年
+            .getMonth          //现在是是几月，0 为一月, 2 为三月 🌟
+            .getDate()         //现在是是每个月的几号
+            .getDay()          //现在是星期几，0为周日， 2 为周三 🌟
+            .getHours()        //现在是是当地的几点钟
+            .getMinutes()      //现在是第几分钟
+            .getMilliseconds() //现在是多少毫秒
+
+            .getTime() //
+
+            备注：.getHours() 只记录本国时间,用 UTC 可以记录跨时区的时间,比如：
+            🌟看一下莫斯科(东二区)几点钟
+                .getUTChours()+2    //相当于格林尼治+2
+
+
+        场景四、把时间变成字符(比如发通知,最常用的是通过上面各种 get 单后拼接字符串)
+                .toISOString() //UTC 0 时区时间（英国）
+                .toString()    //GTM 时间当地时间（本国）
+            
+        
+ -->
+
+
+<body>
+    <script type="text/javascript">
+
+//场景一
+    //计算点击后过了多长时间 , 比如 > 3000ms
+            console.log( Date.now(1995, 5, 17) )
+            
+        //使用场景(计算经过了多久)
+            const firstClick = Date.now()
+            const secondClick = Date.now()
+            
+            const result = firstClick - secondClick
+
+        //不需要具体时间，只需要算过了多少毫秒
+                const result2 = Date.parse('1995-05-17T03:24:00')
+                console.log(result2)
+
+//场景二
+    //记录创建时间
+        const today = new Date //记录代码执行的当前时间
+        const today1 = new Date(Date.now(1995-05-17))//记录传入时间戳的时间
+        const today2 = new Date('1995-05-17T03:24:00')//记录传入时间格式的字符串
+        const today3 = new Date(1995,05,17,3,24,0)//记录传入的时间参数（除了年月，其他可与选传）  
+
+
+//场景三
+    //今天的日期格式？
+        const birthday = new Date('1995-05-17T03:24:00')
+        const whitch = birthday.getDay()
+        console.log(whitch)//周几，周 3
+
+        const nowTime = new Date()
+        console.log(nowTime.getDate())//今天是几号
+
+    //跨时区
+        const Москва = new Date() //记录现在这个时间
+        console.log(Москва.getUTCHours()+2) //相当于格林尼治+2
+
+
+//场景四
+    //把时间转为字符串
+        const noti = new Date()
+        console.log(noti.toISOString()) //UTC 0 时区时间（英国）
+        console.log(noti.toString())    //GTM 时间当地时间（本国）
+
+
+    //拼接字符串
+        //比如 年 + 月
+        const nowTime2 = new Date()
+        console.log(nowTime2.getFullYear() + '-' + (nowTime2.getMonth() + 1))//因为 getMonth 从 0 开始算，所以要 + 1🌟🌟
+
+//练习 1
+    //定义一个原型方法，调用这个方法后将会让每个实例都可以
+    //返回一个包含 Date 日期格式的信息数据
+    //  {
+    //     year:'XX',
+    //     month:'XXXX',
+    //     ...
+    // }
+
+    
+//原型方法
+        Date.prototype.backResult1 = function(){
+            return {
+                year:this.getFullYear(),
+                month:(this.getMonth() + 1), //因为 month 从 0 开始算
+                day:this.getDate(),
+                hour:this.getHours(),
+            }
+        }
+        const today4 = new Date()
+        console.log(today4.backResult1()) //🌟调用这个收集今天时间的方法！！
+
+//class 写法，没写对，后面再看看🌟🌟
+        // class AAA {
+        //     constructor(year,month,day,hour) {
+        //           this.year = year;
+        //           this.month = month;
+        //           this.day = day;
+        //           this.hour = hour;
+        //     }
+        // }
+
+        // AAA.prototype = function(year,month,day,hour){
+        //     return {
+        //         year:this.getFullYear(),
+        //         month:(this.getMonth() + 1), //因为 month 从 0 开始算
+        //         day:this.getDate(),
+        //         hour:this.getHours(),
+        //     }
+        // }
+
+        // const DD = new AAA(new Date())
+        // console.log(DD)
+
+
+//练习 2 计算距离出生过去多少个月了
+    
+
+        const x = new Date("1998/05/16").getTime()
+        const y = new Date().getTime()
+
+        const z = parseInt(Math.abs(x - y)/1000/60/60/24/7) //先获得 1秒，再转化为 1 分钟、1小时，天，周 （最后算出过了多少周）
+
+        console.log(z)
+
+
+
+
+    </script>
+
+</body>
+</html>

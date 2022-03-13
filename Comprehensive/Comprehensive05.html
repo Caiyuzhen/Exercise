@@ -35,7 +35,7 @@ console.log("练习01——————————————————")
 
 //练习02———————————————————————————————
 console.log("练习02——————————————————")
-    //判读以下函数依次输出的是什么
+    //判断以下函数依次输出的是什么
     function fn(){
         let a = 0
         // a = 0 ,如果不用 let & const 来定义的话， a 会被提升到全局！这样的话下面就不会产生闭包对象！因此每次 a都会+1
@@ -76,7 +76,7 @@ console.log("练习03——————————————————")
     
     //3
     //4
-    //2 //🌟遗留小疑问，问什么异步的 2 比 5 早执行？
+    //2 //🌟遗留小疑问，为什么 2 比 5 早执行？因为 2 的 setTimeout 在全局先定义，先进队列，其他两个是函数执行后才定义才进队列
     //5
     //1
 
@@ -122,11 +122,11 @@ setTimeout(function() {
         c:true,
     }
 
-    function Check(x){
+    function Check(x){ //x 用来传 obj
         const Result = {} //第一步就是建立要拷贝到的对象
             
-            Object.keys(x).forEach((yy,index)=>{ //第三步，用 Object 原型方法来找出对象的 key, 这里的 yy 为 key ,配合 Obj.key 能够获得值 value
-                if(typeof x[yy] === "Object"){ //第四步，判断 key 是不是 "Object"
+            Object.keys(x).forEach((yy,index)=>{ //第三步，用 Object 原型方法来找出对象的 key 组成的数组, 这里的 yy 为 key ,配合 Obj.key 能够获得值 value
+                if(typeof x[yy] === "Object"){ //第四步，判断 key 是不是 "Object"，x.key 就等于 value
                     Result[yy] = Check(x[yy])   //递归核心，让它重走一遍判断  //补充一点：每次递归都会产生一个新的活动对象跟执行环境对象
                 }   
                 else{
