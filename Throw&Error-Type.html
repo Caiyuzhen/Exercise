@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 基本的错误类型与 Throw </title>
+    <H1>基本的错误类型与 Throw </H1>
+</head>
+<!-- 
+    未定义
+    所有错误类型都基于 Error
+    
+        一、Uncaught           
+                ReferenceError  引用错误
+                    console.log(a)
+
+                TypeError       类型错误,不能调用
+                    a()
+
+                SyntaxError     语法错误
+                    const a = 1,
+        
+        二、InternalError
+                在底层 js 引擎排除异常时出现
+
+        三、EvalError 
+                在使用 eval 函数发生异常时出现
+        
+        四、RangeError
+                在数组越界时出现
+        
+        五、URIError
+                在使用 encodeURI 或 decodeURI 但醇儒了错误格式的 URI 时出现
+
+
+    抛出错误
+        使用场景(自定义函数库给别人用的时候,比如需要两个参数)
+        throw new Error("我是一个错误代码")
+
+
+ -->
+
+
+<body>
+
+    <script type="text/javascript">
+
+//抛出错误提示
+        // throw new TypeError("我是一个错误代码")
+
+
+//自定义错误类型的 class , 一定要有 name 跟 message 🌟
+        class CustomError extends Error {
+            constructor(message){ //🌟🌟要传参的就要写进 constructor ！！
+                super()
+                this.message = message
+                this.name = "bigError" //🌟固定参数
+            }
+        }
+
+        // throw new CustomError('我是一条错误信息描述')
+
+
+//要两个参数的错误提示
+        function test(){
+            if(arguments.length < 2) {
+                throw new CustomError("我需要两个参数")
+            }
+            console.log(arguments)
+        }
+        test(1,2)
+
+     
+
+        class SuperError extends Error{
+            constructor(message){
+                super()
+                this.message = message
+                this.name = "SuperError" //🌟固定参数
+            }
+        }
+
+        function test2(a,b) {
+            if(arguments.length === 0){
+                throw new SuperError("没有传参")
+           }
+            console.log(a,b)
+        }
+        console.log(99,88)
+
+
+        
+
+    </script>
+    
+
+
+
+
+</body>
+</html>
