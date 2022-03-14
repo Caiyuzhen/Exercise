@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS 基础知识补充练习</title>
+    <H1>JS 基础知识补充练习</H1>
+    
+</head>
+<body>
+    <script type="text/javascript">
+
+
+
+console.log("题目一 ————————————————————")
+//题目一 
+//控制台会输出什么？
+//被 setTimeout 设置为异步函数的这个 （）=> 箭头函数的作用域链、Scopes 属性中的数组和顺序
+    
+    const a =123
+
+    function test(){ //会跑到 Global Object 去
+        let a = 100
+        setTimeout(()=>{   //a 跟 this 都在箭头函数的闭包里边
+            a=300
+            console.log(this)  //Object  
+            console.log(a)   //300  
+        },5000)
+    }
+
+    test.call(({name: "天气晴朗"}))//把一个对象作为参数传入
+
+    //👇setTimeout 的 Scope 内部属性包含的数据：
+    //[{this:xx, a:xx}, {a} , {Global Object}]
+
+
+
+
+console.log("题目二 ————————————————————")
+//题目二
+//定义一个函数，用来生产 0～100 的随机数，但必须是偶数
+
+    function Result(){
+
+        //先定义一个变量来获取随机数
+        const randomResult = Math.floor((Math.random()*100)) //🌟四舍五入本身就会取整！！！
+
+        if(randomResult % 2 === 0){
+            return randomResult
+        }else{
+            //🌟不能再被 2 整除就递归再执行一遍
+            return Result()
+        }
+    }
+
+    console.log(Result())
+
+
+
+console.log("题目三 ————————————————————")
+//题目三
+//定义一个派生类，派生自 Date，这个类的实例有一个原型方法，可以计算该时间实例是该年中的第几天(从元旦开始过了多少天)
+//（假设每个月都是 30 天，一年 365 天，用 UTC 时间来计算）
+
+class Calculate extends Date {
+    DateResult() {
+       const mohths =  this.getUTCMonth() //过去了多少个月，不用 + 1， 因为表示的是过去了多少时间
+       const days = this.getUTCDate() //过去的天数
+       const result = mohths*30 + days
+       return result
+    }
+}
+
+const nDate = new Calculate("2022-02-08")
+console.log(nDate.DateResult()) //38   //要通过实例.()调用！
+//🌟🌟原型方法可以用 [实例].(){} 来调用
+//🌟🌟静态方法(static)得用 [类] 来调用
+
+
+
+
+
+
+
+
+
+    </script>
+
+    
+</body>
+</html>
