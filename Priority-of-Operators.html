@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>运算符的优先级</title>
+    <H1>运算符的优先级</H1>
+    <!-- 
+       优先级影响执行顺序
+            详细可见 MDN 的运算符优先级表 https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Operator_Precedence
+        
+       平级情况下,看结合性
+            除了幂运算、赋值、逻辑判断(或且非一元加减类型判断、三目运算符判断),其他的都是从左往右)
+            
+            const a = 1 + 6 - 100
+            
+            🌟运算符的层级问题，比如轮到运算符 c() 的内部函数会先执行
+            const a = abc.a.b.c(test()+2)
+
+            🌟🌟🌟三目运算符取的范围
+                    ： 冒号后面 
+                    ？ 问号前面
+
+
+
+
+     -->
+
+
+</head>
+<body>
+
+    <script type="text/javascript">
+
+        //运算符的层级问题，比如轮到运算符 c() 的内部函数会先执行
+        const a = abc.a.b.c(test()+2)
+            //先执行 test()
+            //再执行 test()+2 //这时候才生成 c() 函数的结果
+            //再执行 abc.b.c()
+            //再执行 const a = XXX 
+
+        //一般在三目运算符内需要做这些判断（🌟🌟先执行最右边的判断！！结合性是从右往左！！）
+            //三目运算符视为一组整体，从右往左去运算！
+        const aa = 0 > 3 ? 2 : 1 === "1" ? 5 : 7 ? 100 : 0
+            //先执行 (7 ? 100 : 0), 7 为 true，所以返回的是 100 🌟🌟
+            //再执行 (1 === "1" ? 5 : 100 ),  false , 返回的是 100
+            //再执行 ( 0 > 3 ? 2 : 100) , 结果为 100
+
+
+    </script>
+    
+</body>
+</html>

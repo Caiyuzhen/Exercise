@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>断点调试</title>
+    <H1>断点调试</H1>
+    <!-- 
+        How？
+            在控制台内的源代码 Sources 来打断点
+            打断点后得刷新下页面
+            【->. step 】会忽略异步的代码
+        
+        监测面板
+            使用表达式可以检测变量的变化
+                比如 typeof t
+                比如 t + 100
+
+        
+     -->
+</head>
+<body>
+    <script type="text/javascript">
+
+        let a = 100,
+            b = true,
+            obj = {
+                x:1,
+                y:2,
+            }
+        function go (){
+            const inner = "inner"
+            // throw new Error("在这里停住")
+            console.log(666)
+            console.log(inner)
+        }
+
+        function test(){
+            const t = 666
+            go()
+            console.log(t)
+        }
+
+        test()
+
+
+
+
+
+
+
+    </script>
+    
+</body>
+</html>
