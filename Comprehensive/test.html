@@ -47,6 +47,28 @@ console.log("练习04——————————————————")
     const zxc = Check(obj)
     console.log(zxc)
 
+console.log("————————")
+
+
+
+    const func = {
+    test: function(){ //全局
+            const showThis = () => { //略过箭头函数往外找
+                console.log(this) //箭头函数内的 this 往上一层找, 因为下面是通过 func() 来调用这个函数的，所以所以指向 func() 这个对象
+                    function innerShow(){
+                        console.log(this) //🌟🌟🌟 指向 window ，因为隔多了一层，所以不是通过对象的方式来调用它！
+                        }
+                    innerShow() //打印出 func() 这个对象
+            }
+            showThis() //打印出 func() 这个对象
+        }
+    }
+
+    func.test() //？
+
+
+
+
 </script>
 </body>
 </html>
