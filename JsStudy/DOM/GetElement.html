@@ -6,6 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>获取 Dom 节点</title>
 </head>
+
+<!-- 
+    节点类型(是什么?)
+        1.文档节点 document
+        2.元素节点 <a> <div>
+        3.属性节点 id href name class
+        4.文本节点 hello
+        5.注释节点 
+
+    操作节点(怎么做?) 1 为获取一个对象, 3~4 都是获取一组对象
+        1.getElementByid() —— 通过 id 获取,若重复则以第一个为准
+        2.getElementsByTagName()根据标签名获取
+        3.getElementsByClasssName()根据样式名获取
+        4.getElementsByName()根据 name 属性值获取(常用于多选)
+-->
+
+
 <body>
 
     <p id="p1" class="para">这是一个段落<span>文本</span></p>
@@ -15,31 +32,14 @@
         <input type="checkbox" name="hobby" value="足球"/>足球
         <input type="checkbox" name="hobby" value="篮球"/>篮球
     <hr />
-    <!-- javascript:void(0)为不执行点击事件(可点但不跳) -->
+
+    <!-- javascript:void(0)为不执行跳转事件(可点但不跳) -->
     <a href="javascript:void(0)" onclick="testById()">按照 id 获取</a>
     <a href="javascript:void(0)" onclick="testByName()">按照 name 获取</a>
     <a href="javascript:void(0)" onclick="testByTagName()">按照标签名获取</a>
     <a href="javascript:void(0)" onclick="testByClass()">按照 class 获取</a>
     
 </body>
-
-
-<!-- 
-节点类型(是什么?)
-1.文档节点 document
-2.元素节点 <a> <div>
-3.属性节点 id href name class
-4.文本节点 hello
-5.注释节点 
-
-操作节点(怎么做?) 3~4 都是获取一组数据
-1.getElementByid() —— 通过 id 获取,若重复则以第一个为准
-2.getElementByTagName()根据标签名获取
-3.getElementByClasssName()根据样式名获取
-4.getElementByName()根据 name 属性值获取(常用于多选)
--->
-    
-
 
 <script type="text/javascript">
     function testById(){

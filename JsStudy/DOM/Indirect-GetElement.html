@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>间接查找元素</title>
+</head>
+<body>
+    <!--
+        概念明晰：
+            元素  ————  各种标签
+            节点  ————  文本、标签等等
+
+        间接查找节点的方法 ：
+            1.childNodes
+                返回元素的一个子节点的数组
+            2.chindren
+                返回元素的所有子元素数组
+            3.firstChind
+                返回元素的第一个子节点
+            4.lastChind
+                返回元素的最后一个子节点
+            5.nextSibling
+                返回元素的下一个兄弟节点
+            6.parentNode
+                返回元素的父节点
+            7.previousSibling
+                返回元素的上一个兄弟节点
+-->
+        <ul>
+            <li id="red">
+                红色
+            </li>
+            <li>
+                绿色
+            </li>
+        </ul>
+
+</body>
+
+
+
+    <script type="text/javascript">
+        
+        //得到 ul —— 因为没有 id ，所以只能通过元素选择器去找到 ul
+           let ul = document.getElementsByTagName("ul")[0] //获取的是一个数组，要 【0】选择第一个
+            console.log(ul.childNodes) //会把文本一起取进去
+            console.log(ul.children)
+
+
+
+    </script>
+
+
+</html>
