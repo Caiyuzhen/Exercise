@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>获取单选按钮</title>
+    <!-- 
+        获取单选按钮 (Radio)
+            How？
+                一般都是给一组单选按钮设置相同的 Name, 
+                然后去遍历它看选中状态是 true or false
+
+            语法
+                第一步  
+                    document.getElementsByName("name")
+                第二步
+                    for 循环遍历 
+
+                    选中状态: 
+                        方式一：check = "check"
+                        方式二：checked
+                        方式三：checked = true
+                    未选中状态
+                        方式一：未设置 checked 属性
+                        方式二：checked = false
+
+     -->
+</head>
+<body>
+    <input type="radio" name="rad" value="123">第一个选项
+    <br/>
+    <br/>
+    <input type="radio" name="rad" value="456">第二个选项
+    <br/>
+    <br/>
+    <button type="button" onclick="getRadio()">获取单选按钮</button>
+
+    <script type="text/javascript">
+
+        function getRadio() {
+            //第一步，获得 radio 组
+            let rad = document.getElementsByName("rad")
+            //第二步，遍历这个 radio 组
+            for (var i = 0; i < rad.length; i++) {
+                //第三步，检查状态
+                // console.log(rad[i].checked)
+                    if (rad[i].checked) {
+                        //如果是选中态则把它打印下来
+                        console.log(rad[i].value) //打印选项值（不是选项名！）
+                    }
+            }
+        }
+
+
+
+
+
+
+
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>获取 Input 元素</title>
+    <H1>获取 Input 元素</H1>
+</head>
+<!-- 
+    What?
+        Input 也是表单元素
+            放到 Form 内才能做数据提交
+    获取方式  
+        1.通过元素选择器来取值 document.getElementById.value
+        2.先获取整个表单 form 的元素 id ,再获取表单的内容 value
+        3.通过 name(会返回一个数组),获取 document.getElementsByName('name')[索引].value
+        4.通过 tagName 获取 document.getElementsTagName ('element')[索引]
+ -->
+<body>
+    <form id="inputContext" name="myForm001" action="" method="get">
+        姓名：<input type="text" id="uname" name="uname" value="Zen"/>
+        <br/>
+        <br/>
+        密码：<input type="password" id="upwd" name="upwd" value="1234567"/>
+        <br/>
+        <br/>
+        个人说明：<textarea name="intro">Hi, I'm Zen</textarea>
+        <input type="hidden" id="uno" name="uno" value="隐藏域">
+        <br/>
+        <br/>
+        <button type="button" onclick="getTxt()">点击获取元素内容</button>
+    </form>
+</body>
+    <script type="text/javascript">
+
+    //方式一
+        function getTxt(){
+
+            let uname = document.getElementsByTagName("uname").value  //取得输入框的 value
+            console.log(uname)
+
+        }
+
+    //方式二
+        let myform = document.getElementById("inputContext") //取得整张表
+        let upwd = myform.upwd.value
+
+        console.log(upwd)
+
+    //方式三
+        let uno = document.getElementsByName("uno")[0].value
+        console.log(uno)
+            
+    //方式四
+        let intro = document.getElementsByTagName("textarea")[0].value
+        console.log(intro)
+
+
+
+
+
+
+    </script>
+</html>

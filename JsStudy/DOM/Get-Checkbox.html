@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>获取复选按钮</title>
+    <!-- 
+        获取复选按钮 (Checkbox)
+            How？
+                一般都是给一组单选按钮设置相同的 Name, 
+                然后去遍历它看选中状态是 true or false
+
+            语法
+                第一步  
+                    document.getElementsByName("name")
+                    
+                第二步
+                    定义一个变量来接收 checkboxs 组
+
+                第三步
+                    for 循环遍历 
+
+                    选中状态: 
+                        方式一：check = "check"
+                        方式二：checked
+                        方式三：checked = true
+                    未选中状态
+                        方式一：未设置 checked 属性
+                        方式二：checked = false
+                
+                第四步
+                    checkbox 选中的值将赋值放到上面的变量内
+     -->
+</head>
+<body>
+    <input type="checkbox" name="hobby" value="sing">唱歌
+    <br/>
+    <br/>
+    <input type="checkbox" name="hobby" value="read">阅读
+    <br/>
+    <br/>
+    <input type="checkbox" name="hobby" value="code">编程
+    <br/>
+    <br/>
+    <input type="checkbox" name="hobby" value="design">设计
+    <br/>
+    <br/>
+    <button type="button" onclick="getCheckbox()">获取复选按钮</button>
+
+    <script type="text/javascript">
+
+        function getCheckbox() {
+            //第一步，获得 checkbox 组
+            let checkboxGroup = document.getElementsByName("hobby")
+
+            //第二步，定义一个变量来接收 checkboxs 组
+            let str = ""; //默认给个空值，不然会用 undefined 来相加（因为自上而下的执行顺序）
+
+            //第三步，遍历这个 checkbox 组
+            for (let i = 0; i < checkboxGroup.length; i++){
+                if (checkboxGroup[i].checked){ //相当于 if(true)
+                    //第四步，checkbox 选中的值将赋值放到上面的变量内
+                    str += checkboxGroup[i].value + ","
+                }
+                //第五步，通过截取数组来去掉随后的逗号
+                str = str.substring(0, str.length-1) //相当于选 2 个后会产生 2 个逗号，只保留 3 个元素的话就是 XX ，XX 会去掉最后一个
+            }
+            console.log(str)
+        }
+
+
+
+
+
+
+
+    </script>
+    
+</body>
+</html>
