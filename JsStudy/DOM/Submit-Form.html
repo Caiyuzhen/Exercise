@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>提交表单</title>
+        <H1>提交表单</H1>
+        <!-- 
+            提交方式
+                🌟 方式一 (一般用这种)
+                    1-1 input type="button"
+                    1-2 给 html 绑定普通按钮事件 
+                    1-3 获取文本框的值
+                    1-4 判断文本框有没有写内容, 没有的话中断它
+                    1-5 最后提交表单加上 .submit() 来提交表单
+                        document.getElementById("myform").submit();
+    
+                🌟 方式二
+                    1-1 input type="submit"
+                    1-2 给 html 绑定带 return 的普通按钮事件, onclick="return subForm02()"
+                    1-3 获取文本框的值
+                    1-4 判断文本框有没有写内容, 没有的返回 false 让上面的 onclick 事件不生效, 有的话返回 true 让上面的 onclick 事件生效
+                    1-5 最后提交表单加上 .submit() 来提交表单
+                        document.getElementById("myform").submit();
+
+    
+                🌟 方式三 （与 2 的差异在于这个事件是写在 form 上！）
+                    1-1 <form onsubmit=""return subForm03()">
+                    1-2 给 html 绑定带 return 的普通按钮事件, onclick="return subForm02()"
+                    1-3 获取文本框的值
+                    1-4 判断文本框有没有写内容, 没有的返回 false 让上面的 onclick 事件不生效, 有的话返回 true 让上面的 onclick 事件生效
+                    1-5 最后提交表单加上 .submit() 来提交表单
+                        document.getElementById("myform").submit();
+
+
+                注意,submit 是关键字,最好不要用它来命名
+            
+            小技巧
+                提交的内容不能为空或空格
+                 if (uname === null || uname.trim() === ''){
+                     return
+                 }
+         -->
+         
+</head>
+<body>
+    <!-- 方式一 -->
+        <form id="myform" action="http://www.google.com" method="get">      
+        姓名：<input type="text" id="uname"/>
+        <input type="button" value="提交表单1" onclick="subForm01()"/>
+
+        </form>
+        <br/>
+
+
+    <!-- 方式二 -->
+        <form id="myform2" action="http://www.google.com" method="get">     
+            姓名：<input type="text" id="uname2"/>
+            <input type="submit" value="提交表单1" onclick="return subForm02()"/>
+
+        </form>
+        <br/>
+
+
+    <!-- 方式三 -->
+        <form id="myform3" action="http://www.google.com" method="get" onsubmit="return subForm03()">     
+            姓名：<input type="text" id="uname3"/>
+            <input type="submit" value="提交表单1"/>
+
+        </form>
+
+
+</body>
+
+        <script type="text/javascript"  >
+
+            //方式一
+            function subForm01() {
+                //先获取文本框的值
+                let uname = document.getElementById("uname2").value
+
+                //再判断文本框有没有写内容
+                if (uname === null || uname.trim() === ''){ //trim 相当于字符串为空格的状态！！
+                    alert('请至少输入一个字符且不能包含空格！')
+                    return
+                }
+                //最后提交表单
+                document.getElementById("myform").submit()
+            }
+
+    //——————————————————————————————————————————————————————————
+
+            //方式二
+            function subForm02(){ 
+                //先获取文本框的值
+                let uname = document.getElementById("uname2").value
+
+                //再判断文本框有没有写内容, 没有的话 return false, 有的话 return true
+                if (uname === null || uname.trim() === ''){ //trim 相当于字符串为空格的状态！！
+                    alert('请至少输入一个字符且不能包含空格！')
+                    //不提交
+                    return false
+                }
+                //提交
+                return true
+            }
+
+
+    //——————————————————————————————————————————————————————————
+
+            //方式三
+            function subForm03(){ 
+                //先获取文本框的值
+                let uname = document.getElementById("uname3").value
+
+                //再判断文本框有没有写内容, 没有的话 return false, 有的话 return true
+                if (uname === null || uname.trim() === ''){ //trim 相当于字符串为空格的状态！！
+                    alert('请至少输入一个字符且不能包含空格！')
+                    //不提交
+                    return false
+                }
+                //提交
+                return true
+            }
+    
+    
+    
+        </script>
+
+
+</html>
