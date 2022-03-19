@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>获取表单信息</title>
+    <H1>获取表单信息</H1>
+    <!-- 
+        1.获取表单对象
+        2.获取表单元素
+        3.提交表单
+        4.进行表单校验
+
+
+        如何获取表单
+            1. document.表单名称 (name)
+            2.表单元素 document.getElementById /  ByTagName  /  ByClassName   /  ByName 
+            3.表单 document.forms 获取所有表单
+            4.索引 document.forms[0]  获取所有表单后再索引
+              也相当于  document.forms['myForm02'] 获取所有表单后再通过'名称'去索引
+     -->
+</head>
+    <!-- id 是唯一的,相当于身份证, name 是名字,可以重复 -->
+    <form id="myForm01" name="myForm01" action="" method="post"></form>
+    <form id="myForm02" name="myForm02 action="" method="post"></form>
+
+<body>
+    <script type="text/javascript">
+        //方式一
+        let myFormA = document.myForm01
+        console.log(myFormA)
+
+        //方式二(以 ById 为例子，也可以 By TagName 等等)
+        let myFormB = document.getElementById("myForm02")
+        console.log(myFormB)
+
+        //方式三
+        let myFormC = document.forms
+        console.log(myFormC)
+
+        //方式四
+        let myFormD = document.forms[1]
+        console.log(myFormD)
+
+        let myFormE = document.forms['myForm02']
+        console.log(myFormE)
+
+    </script>    
+    
+</body>
+</html>
