@@ -6,12 +6,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>获取下拉框</title>
     <!-- 
-        一般都是用 id
+        一般都是用 id 选择器, 不过也可以用其他任意的(id 、name 、 class 、 元素 都行) 方式
+        
+        HOW？
+            步骤一,获取【整个下拉框对象】
+                let a = document.getElementById("xxx")
+
+            步骤二,获取下拉框选中项的【整个索引数组】
+                let b = a.options
+            
+            步骤三, 获取被选中项的【索引位】
+              let c = a.selectedIndex   // 1,2,..
+
+            步骤四-1,获取下拉框选中项的 value (注意,有value 则取得 value,没有则取得 文本值)
+                let d = b[c].value
+
+            步骤四-2,获取下拉框选中项的【文本值】
+                let e = b[c].text
 
 
+            🌟 js 提供的的简便方式(相当于步骤二～三)
+                let f = ufrom.value
      -->
 </head>
 <body>
+    <select name="ufrom" id="ufrom">
+        <option value="-1">请选择</option>
+        <option value="beijing" selected="selected">北京</option>
+        <option value="shanghai">上海</option>
+        <option value="guangzhou">广州</option>
+        <option>深圳</option>
+    </select>
+    <br/>
+    <br/>
+    <button type="button" id="sub" name="sub" value="">获取城市</button>
+    
+    <script type="text/javascript">
+
+//Dom 0 级事件的绑定动作的写法
+    document.getElementById("sub").onclick = function(){
+        //步骤一
+        let ufrom = document.getElementById("ufrom")  //获取【整个下拉框对象】
+        //步骤二
+        let selectOptions = ufrom.options //获取下拉框选中项的【整个索引数据】
+        //步骤三
+        let index = ufrom.selectedIndex //获取被选中项的【索引位】
+        //步骤四-1
+        let result = selectOptions[index].value
+        console.log(result)
+        //步骤四-2
+        let txt = selectOptions[index].text
+        console.log(txt)
+
+        //🌟 js 提供的的简便方式
+        let selectedValue = ufrom.value
+        console.log(selectedValue)
+
+
+        //设置一点击按钮后默认选中哪一项
+        selectOptions[2].selected = true //index 2 为上海
+    }
+
+
+
+    </script>
     
 </body>
 </html>

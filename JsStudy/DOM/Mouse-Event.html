@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鼠标事件</title>
+    <h1>鼠标事件</h1>
+</head>
+    <!-- 
+        常用事件触发方式：
+            onblur 失焦
+            onfocus 聚焦
+            onclick 点击
+            onchange 改变内容
+            onmouseover 鼠标移动过 XX 元素上方
+            onmouseout 从某个元素上移开
+            onkeyup 按键松开
+            onkeydown 按键按下
+
+        事件类型
+            一、onload 全局事件：
+                一打开页面就会执行
+
+                    function loadWindows (){
+                        console.log("加载...");
+                    }
+
+            二、html 事件处理程序：
+                    绑定在元素上面,可以绑定多个事件甚至相同的事件
+
+                        <button type="button" onclick="alert('hello')" onmouseout="test()">基础事件按钮</button>
+
+                        function test (){
+                            console.log('鼠标移开了');
+                        }
+
+            三、Dom 0 级事件：
+                    通过 id 获取按钮对象，然后再绑定一个事件， 缺点:只能为同个元素绑定一个事件(多个的话后一个事件会覆盖前一个事件!)
+
+                        🌟 写法一：
+                            <button type="button" id="sub" name="sub" value="">获取城市</button>
+
+                            var btn = document.getElementById("sub")
+
+                            btn.onclick = function() {
+
+                            }
+                        
+
+                        🌟 写法二：
+                            <button type="button" id="sub" name="sub" value="">获取城市</button>
+
+                            document.getElementById("sub").onclick = function(){
+
+                        }
+
+                        写法三：
+                            子方法 -- 写在 window.onload = function (){...}里面
+
+     -->
+
+<body onload="loadWindows()">通过 load 加载事件去调用方法, 页面加载完毕后执行的事件 
+
+    <button type="button" onclick="alert('hello')" onmouseout="test()">基础事件按钮</button> test 为绑定的事件
+    
+    <button type="button" id="btn">Dom 0 级事件</button>
+
+    <script type="text/javascript">
+
+
+        // 一、onload 全局事件
+        //一打开页面就会执行
+        function loadWindows (){
+            console.log("加载...");
+        }
+
+        //二、事件处理程序
+        //html 事件处理程序(绑定在元素上面,可以绑定多个事件甚至相同的事件)
+
+        function test (){
+            console.log('鼠标移开了');
+        }
+
+
+        //三、Dom 0 级事件
+        //通过 id 获取按钮对象，然后再绑定一个事件， 缺点:只能为同个元素绑定一个事件(多个的话后一个事件会覆盖前一个事件!)
+        var btn = document.getElementById("btn");//获取按钮
+        console.log(btn);
+        
+        btn.onclick = function() { //给指定元素绑定事件
+            console.log("Dom 0 级事件");
+        }
+        //子方法:写在 window.onload = function (){...}里面
+
+
+        
+
+    </script>
+    
+</body>
+</html>
