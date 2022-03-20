@@ -5,8 +5,191 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>表单校验</title>
+    <!-- 
+        重置表单
+            .reset
+        提交表单
+            .submit()
+
+     -->
 </head>
 <body>
-    
+    <form id='myform' name='myform' action=''>
+        姓名：<input type="text" id="uname" name="uname"/>
+        <br/>
+        <br/>
+        密码：<input type="password" id="upwd" name="upwd"/>
+        <br/>
+        <br/>
+        年龄：<input type="radio" id="uage1" name="uage" value="0" checked="checked"/>小孩
+             <input type="radio" id="uage2" name="uage" value="1"/>大人
+        <br/>
+        <br/>
+        专业：<input type="checkbox" id="ufav1" name="ufav" value="计算机"/>计算机
+             <input type="checkbox" id="ufav2" name="ufav" value="物理学"/>物理学
+             <input type="checkbox" id="ufav3" name="ufav" value="设计学"/>设计学
+             <input type="checkbox" id="ufav4" name="ufav" value="经济学"/>经济学
+        <br/>
+        <br/>
+        地址:<select id = "uhome" name = "uhome">
+                <option value="-1" selected="selected">请选择</option>
+                <option value="0">北京</option>
+                <option value="1">上海</option>
+                <option value="2">广州</option>
+                <option value="3">深圳</option>
+            </select>
+        <br/>
+        <br/>
+            <div id="validate" style="color: rgb(153, 51, 141)"></div>
+            <button type="button" onclick="return checkForm()">提交</button>
+            <button type="reset" onclick="return resetForm()">重置</button>
+        </form>
+
+        
+<script type="text/javascript">
+
+//相同要判断的东西可以先封装好函数!——————————————————————————————————————————
+
+    //🌟🌟 先封装 getElementById 这个方法, 通过 id 参数返回 dom 对象来使用这个方法
+        function $(id){
+            return document.getElementById(id)
+        }
+
+    //🌟🌟 再判断字符串是否为空的方法
+            function isEmpty(x) {
+                if ( x === null || x.trim() === '' ){
+                    return true
+                }
+                return false
+        }
+
+
+//重置表单——————————————————————————————————————————
+
+//没封装的写法
+    // function resetForm() {
+    //     //获取要重置哪张表单
+    //     document.getElementById("myform").reset
+    // }
+
+//封装后的写法
+        //获得 dom id
+        function resetForm() {
+            $("myform").reset
+        }
+
+
+
+//校验表单——————————————————————————————————————————
+
+        function checkForm(){
+            //👇一：验证用户名
+            
+            //先取得输入的姓名
+            let uname = $("uname").value
+            
+            //判断是否为空，如果为空给提示
+            if (isEmpty(uname)){
+                // 通过 innerHTML 给上边的 div 提示赋值提示文案
+                $("validate").innerHTML = '用户名不能为空!'
+                return
+            }
+            
+            //判断长度是不是 6～12 位
+            if (uname.length < 6 || uname.length > 12){
+                // 通过 innerHTML 给上边的 div 提示赋值提示文案
+                $("validate").innerHTML = '用户名长度需要在 6～12 位!'
+                return
+            }
+
+
+
+            //👇二：验证密码
+            //先取得输入的密码
+            let upwd = $('upwd').value
+
+            if (isEmpty(upwd)){
+                // 通过 innerHTML 给上边的 div 提示赋值提示文案
+                $("validate").innerHTML = '密码不能为空!'
+                return
+            }
+            
+            //判断长度是不是 6～12 位
+            if (upwd.length < 6 || upwd.length > 12){
+                // 通过 innerHTML 给上边的 div 提示赋值提示文案
+                $("validate").innerHTML = '密码长度需要在 6～12 位!'
+                return
+            }
+
+            //indexof 方法 判断密码是否包含用户名
+            if ( upwd.indexOf(uname) >= 0 ){
+                $("validate").innerHTML = '密码中不能包含用户名'
+                return
+            }
+
+
+
+            //👇三：年龄必须选择为小孩
+            //先取得输入的年龄
+            let uage = document.getElementsByName("uage") //🌟获取一组单选框！
+            
+            //判断第一个单选框是否被选中
+            let sel = uage[1].checked
+            if ( sel ) { // 如果第二个选项为 true ，那么提醒它要选第一项
+                $("validate").innerHTML = '年龄必须选择小孩'
+                return
+            }
+            
+
+
+            //👇四：爱好至少选择一个 🌟🌟🌟
+            //先取得复选框的数组
+            let ufavs = document.getElementsByName("ufav")
+            //遍历出复选框的数组
+            let len = ''
+            for ( let i = 0; i < ufavs.length; i++ ) { //i 为索引列
+                
+                //如果遍历出来的复选框被选中
+                if ( ufavs[i].checked ) { //相当于值被选中
+                    len += ufavs[i].value + ',' //遍历出来的 value 放入变量内
+                }
+            }
+
+            if (isEmpty(len)){
+                $("validate").innerHTML = '至少选择一项爱好'
+                return
+            }
+
+            //截取掉多余的[ ，]
+            len = len.substring(0, len.length)
+
+
+
+            //👇四：至少选择一个地址 🌟🌟🌟
+            //先取得下拉框的值
+            let city = $("uhome").value //复选框有简便的写法
+           if ( city === -1 ){
+                $("validate").innerHTML = '至少选择一个城市'
+                return
+            }
+
+            
+            //以上所有条件都满足的话则清空
+            $("validate").innerHTML = ''
+
+
+
+            //👇五：提交表单
+            //更改提交的 action 地址
+            $("myform").action = 'http://www.google.com/search'
+            $('myform').submit()
+
+        }
+
+
+
+
+</script>
+
 </body>
 </html>
