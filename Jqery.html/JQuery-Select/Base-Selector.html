@@ -4,42 +4,114 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JQuery 基础选择器</title>
+    <title>JQuery 选择器</title>
+    <H1>JQuery 选择器</H1>
 </head>
 <!-- 
     JQ 基础选择器类型
-        id 选择器            $("#id")
-        类选择器              $(".class")
-        元素选择器            $("标签名/元素名")
-        通用原则器(选择所有)    $("*")
-        组合选择器(包含上面)    $("#selector1,selector2,selectorN,...")
+        id 选择器                 $("#id ")
+        类选择器                  $(".class")
+        元素选择器                 $("标签名/元素名")
+        通用原则器(选择所有)        $("*")
+        组合选择器(包含上面)        $("#selector1,selector2,selectorN,...")
+
+    JQ 层次选择器类型           
+        后代选择器(后面所有)            $("#id")
+        子代选择器(只选子代)            $(".food > li  /  ul > li")
+        相邻选择器(选择下一个同级元素)    $("#d + div")
+        同辈选择器(选择以下所有同级元素)   $("#film ~ li")
+        
  -->
 <body>
+
+
+    <style type="text/css">
+        #parent{
+            background: rgb(255, 118, 212);
+        }
+        .testColor{
+            background:gold;
+        }
+        .gray{
+            background: greenyellow;
+        }
+    </style>
+
+
+
+
+<!-- JQ 基础选择器类型练习 -->
     <div id="div1">id选择器
         <span>span 中的内容</span>
     </div>
     <div id="div2" class="blue">元素选择器</div>
     <span class="blue">样式选择器</span>
 
+<br/>
+<br/>
+<br/>
+
+
+
+<!-- JQ 层次选择器类型练习 -->
+    <div id="parent">层次选择器
+        <div id="chind" class="testColor">父选择器
+            <div class="gray">同辈选择器</div>
+                <img src="https://images.unsplash.com/photo-1638913974023-cef988e81629?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" width="270" height="188"></img>
+                <img src="https://images.unsplash.com/photo-1630692929609-1fbfb477602e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1615&q=80" width="270" height="188"></img>
+        </div>
+        <div>
+            选择器2:<div>选择器 2 中的元素</div>
+        </div>
+        
+    </div>
 </body>
 
-    <script src="../jquery-3.6.0.js" type="text/javascript" charset="utf-8"></script>
+
+
+
+
+
+<script src="../jquery-3.6.0.js" type="text/javascript" charset="utf-8"></script>
         <script type="text/javascript">
-        //id 选择器            $("#id")
-            const a = $("#div1")
-            console.log(a)
-        //类选择器              $(".class")
-            const b = $(".blue")
-            console.log(b)
-        //元素选择器            $("标签名/元素名")
-            const c = $("span")
-            console.log(c)
-        //通用原则器 (选择所有)   $("*")
-            const d = $("*")
-            console.log(d)
-        //组合选择器
-            const e = $("#div1, .blue, span")
-            console.log(e)
+   
+   // JQ 基础选择器类型 ———————————————————————————————— 
+        // //id 选择器            $("#id")
+        //     const a = $("#div1")
+        //     console.log(a)
+        // //类选择器              $(".class")
+        //     const b = $(".blue")
+        //     console.log(b)
+        // //元素选择器            $("标签名/元素名")
+        //     const c = $("span")
+        //     console.log(c)
+        // //通用原则器 (选择所有)   $("*")
+        //     const d = $("*")
+        //     console.log(d)
+        // //组合选择器
+        //     const e = $("#div1, .blue, span")
+        //     console.log(e)
+
+console.log("————————————————————————————————————————————————")
+
+    // JQ 层级选择器类型 ———————————————————————————————— 
+            
+        //后代选择器(后面所有)
+            const f = $("#parent div")
+            console.log(f)
+
+        //子代选择器(只选子代)
+            const g = $("#chind > div")
+            console.log(g)
+        
+        //相邻选择器(选择下一个同级元素)
+            const h = $("#chind + div")
+            console.log(h)
+
+        //同辈选择器(选择以下所有同级元素)
+            const ii = $(".gray ~ img")//找所有相同的图片
+            console.log(ii)
+
 
     </script>
 </html>
