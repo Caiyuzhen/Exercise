@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> JQ 跟 JS 对象的区别</title>
+    <H1>JQ 跟 JS 对象的区别</H1>
+</head>
+
+<body>
+    
+<!-- 
+    大纲：
+        一、两者有什么差异？
+        二、两者如何相互转化？
+
+ -->
+ 
+    <div id="mydiv">我是一段文本</div>
+    
+
+</body>
+<!-- 引入 JQ 文件 -->
+<script src="../jquery-3.6.0.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+
+//有什么差异？
+
+    // 👇JS -- DOM 的获取方式 (是获得的一个 DOM 对象)
+        const aa = document.getElementById("mydiv")
+        console.log(aa)
+
+        const bb = document.getElementsByTagName("div")
+        console.log(bb)
+
+
+    // 👇JQuery -- 包装集的获取方式 (是一个集合,就算没有定义也会返回一个空对象)
+        const cc = $("#mydiv")
+        console.log(cc)
+
+console.log("————————————————————————————————————")
+
+//如何将 JQ 转换为 JS？
+
+        //DOM 转 JQ，用 $() 标识符
+        const e = $(aa)
+        console.log(e)
+
+//如何将 JS 转换为 JQ？
+        //JQ 转 DOM获取包装机对象中的指定下标
+        const f = cc[0]
+        console.log(f)
+
+
+    </script>
+
+</html>

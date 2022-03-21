@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JQuery 基础选择器</title>
+</head>
+<!-- 
+    JQ 基础选择器类型
+        id 选择器            $("#id")
+        类选择器              $(".class")
+        元素选择器            $("标签名/元素名")
+        通用原则器(选择所有)    $("*")
+        组合选择器(包含上面)    $("#selector1,selector2,selectorN,...")
+ -->
+<body>
+    <div id="div1">id选择器
+        <span>span 中的内容</span>
+    </div>
+    <div id="div2" class="blue">元素选择器</div>
+    <span class="blue">样式选择器</span>
+
+</body>
+
+    <script src="../jquery-3.6.0.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript">
+        //id 选择器            $("#id")
+            const a = $("#div1")
+            console.log(a)
+        //类选择器              $(".class")
+            const b = $(".blue")
+            console.log(b)
+        //元素选择器            $("标签名/元素名")
+            const c = $("span")
+            console.log(c)
+        //通用原则器 (选择所有)   $("*")
+            const d = $("*")
+            console.log(d)
+        //组合选择器
+            const e = $("#div1, .blue, span")
+            console.log(e)
+
+    </script>
+</html>
