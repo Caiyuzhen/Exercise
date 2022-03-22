@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title> 基础 DOM </title>
+    <H1> 基础 DOM </H1>
+
+</head>
+
+
+<body>
+    <div>007</div>
+    <div id="tag">test</div>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <img src="http://placehold.it/">
+    <script src="./xxx.js"></script>
+
+</body>
+
+    <script type="text/javascript">
+//练习
+//用 js 对象跟数组的方式来表示上面的 DOM 结构
+
+
+//Html 是如何渲染的?
+//底层浏览器会通过‘渲染引擎’把 html 转译成 ‘数组’跟‘对象’数据，并生成对应的原型方法跟类，并生成一堆子类的实例，然后再存入 Root 也就是 Window.Document
+
+
+//什么是 DOM ？
+//一层 是标准 Document Object Model, 把 html 转化为内存中的数据的标准
+//二层 是内存中的一个{对象}，具有一些方法跟属性，以及很多子类的实例
+        let obj = {
+            tagName: 'html',
+            attributes:[
+                {
+                    lang:'en'
+                }
+            ],
+            chindrenTags:[
+                {
+                    tagName:'head',
+                    chindrenTags:[
+                        {
+                            tagName:'title',
+                            text: '基础 DOM'
+                        },
+                        {
+                            tagName:'H1',
+                            text: '基础 DOM'
+                        }
+                    ]
+                },
+                {
+                    tagName:'body',
+                    chindrenTags:[
+                        {
+                            tagName:'div',
+                            text: '007'
+                        },
+                        {
+                            tagName:'div',
+                            attributes:[
+                                {
+                                    id:'tag'
+                                }
+                            ]
+                        },
+                        {
+                            tagName:'ul',
+                            chindrenTags:[
+                                {
+                                    tagName:'li',
+                                    text: '1',
+                                },
+                                {
+                                    tagName:'li',
+                                    text: '2',
+                                },
+                                {
+                                    tagName:'li',
+                                    text: '3',
+                                },
+                            ]
+                        },
+                        {
+                            tagName:'img',
+                            src: 'http://placehold.it/'
+                        },
+                        {
+                            tagName:'script',
+                            type: 'text/javascript',
+                        },
+                    ]
+                }
+            ],
+        }
+
+
+    </script>
+
+</html>

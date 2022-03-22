@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="www.google.com">
+        <button class="main"> 
+            Let me try <span>(for free)</span>
+        </button>
+    </a>
+    
+    <a href="www.google.com">
+        <button class="secondary"> 
+            Download Desktop App
+        </button>
+    </a>
+    <style type="text/css">
+
+        body {
+            padding: 24px 0;
+            background:transparent;
+            display: flex;
+            justify-content: center;
+        }
+
+        .main {
+            outline: none;
+            padding: 16px 30px;
+            margin-right: 4px;
+            border: transparent;
+            box-shadow: none;
+            cursor: pointer;
+            border-radius: 6px;
+            width: 272px;
+            height: 54px;
+            background: rgb(84, 94, 243);
+            font-size: 20px;
+            font-weight: 500;
+            font-smooth: optimaze;
+            color: white;
+        }
+
+        .secondary{
+            outline: none;
+            padding: 14px 30px;
+            margin-left: 4px;
+            border: transparent;
+            box-shadow: none;
+            cursor: pointer;
+            border-radius: 6px;
+            width: 272px;
+            height: 54px;
+            background: rgb(254, 254, 254);
+            border: 2px solid rgb(84, 94, 243);
+            font-size: 20px;
+            font-weight: 500;
+            color: rgb(84, 94, 243);
+            font-smooth: optimaze;
+        }
+
+        .main:hover {
+            background: #7981fe;
+            transition: all 200ms ease-in;
+        }
+
+        .secondary:hover {
+            background: #7981fe;
+            transition: all 200ms ease-in;
+            color: rgb(255, 255, 255);
+           border: 2px solid #7981fe;
+        }
+
+        button span {
+            font-weight: 200;
+            font-size: 12px;
+            opacity: .6;
+        }
+
+    </style>
+</body>
+</html>
