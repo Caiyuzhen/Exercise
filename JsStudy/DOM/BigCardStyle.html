@@ -1,0 +1,116 @@
+<!-- 引入 iconfont -->
+<script 
+    src="//at.alicdn.com/t/font_2151960_pa8w78751uo.js">
+</script>
+
+
+<script>
+      function ClickButton() {
+        var link = document.getElementById("clickme");
+        console.log(link);
+    }
+</script>
+
+
+<style type="text/css">
+    .icon {
+        width: 3.5em; height: 3.5em;
+        vertical-align: -0.15em;
+        fill: currentColor;
+        overflow: hidden;
+    }
+    .label {
+        display: flex;
+        align-items: center;
+        justify-content:center;
+        gap: 1.2rem;
+    }
+
+    .btn {
+        width:50vw;
+        height:45vw;
+        top: 0;
+        border-radius: 16px;
+        background-color: #E0E2FA;
+        display:flex;
+        justify-content:center;
+        transition: all .2s ease-out;
+        position: relative;
+            margin:0 auto 0  auto;
+            margin-top:2rem; 
+    }      
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        text-align: center;
+        width: 50%;
+        height:50vw;
+        top: 60%;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        margin: auto;
+        align-items: center;
+    }
+
+    .icon {
+        width:15vw;
+        height:15vw;
+        margin-bottom: 4px;
+        color: #7B83EA;
+    }
+
+    .text {
+        height:15vw;
+        width: 50%;
+        font-size: 16px;
+        text-align: center;
+        color: #646A73;
+        justify-content:center;
+    }
+
+    .btn:hover {
+    top: -8px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    border-radius: 12px;
+    transition: all .2s ease-out;
+    background-color: #4954E6;
+    }
+
+    .btn:hover .icon {
+        margin-bottom: 4px;
+        color: #f8f8f8;
+    }
+
+    .btn:hover .text {
+        margin-bottom: 4px;
+        color: #f8f8f8;
+    }
+</style>
+
+
+<div class="label">
+   <a class="btn" href="https:" id="clickme" target="_blank">
+      <div class="content">
+         <svg class="icon" aria-hidden="true">
+         <use xlink:href="#icon-apple"></use>
+         </svg>
+         <div class="text">Mac</div>
+      </div>
+   </a>
+
+   <a class="btn" href="https:" id="clickme" target="_blank">
+      <div class="content">
+         <svg class="icon" aria-hidden="true">
+         <use xlink:href="#icon-windows"></use>
+         </svg>
+         <div class="text">Windows</div>
+      </div>
+   </a>
+</div>
+
+
+
+
