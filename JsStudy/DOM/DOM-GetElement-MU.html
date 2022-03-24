@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet"/>
+    <title>获取 DOM 元素</title>
+    <!-- 
+        一、Document 方法 (会找整棵树,数据量很大)
+            document.getElementById("XX")
+                返回元素引用
+
+            document.getElementsByClassName("XX")
+                返回 HTMLCollection【类数组】(动态数据), 可以 console.log(x[0])来索引
+
+            document.getElementsByName("XX")
+                返回 NodeList【类数组】(静态数据,后期修改后再去访问就不会改变)
+            
+            document.getElementsTagName("XX")
+                返回 HTMLCollection【类数组】, html 标签元素()
+
+            document.querySelector("XX")
+                可以传 id、class 等, 
+                    #test
+                    .abc > tt
+                返回元素( 只获取第一个 )
+
+            document.querySelectorAll("XX")
+                可以传 id、class 等, 
+                    #test
+                    .abc > tt
+                返回元素( 获取所有 )
+
+        二、Element 方法 (只会找元素内的节点,数据量较小,注意!没有 id 的获取方式🌟🌟)
+            element.getElementsByClassName("XX")
+            element.getElementsByName("XX")
+            element.getElementsTagName("XX")
+
+            element.querySelector("XX")
+            element.querySelectorAll("XX")
+            
+            🌟 例如：b[0].querySelector('.en.tt')
+
+
+            获取元素的文本！
+                element.childNodes[0].nodeValue
+        
+        三、Node 方法
+                Node.nodeName 获取节点名
+                    比如 H1、p 等等
+                
+                Node.nodeValue 获取节点值（文本、属性）
+                    因为文本是元素的子集， 所以可以通过元素.nodeValue 来取得元素上的文本值
+
+                    Node.TEXT_NODE  常量，相当于静态方法
+
+                索引节点
+                    Node.parentNode         父节点
+
+                    Node.previousSibling    前一个节点
+
+                    Node.nextSibling        后一个节点
+
+                    Node.firstChild         第一个子节点
+
+                    Node.lastChild          最后一个子节点
+
+     -->
+  </head>
+  <body class="b">
+    <h1 id="test" class="en">DOM元素的获取</h1>
+   
+    <!-- 👇可以写多个类名! en tt -->
+    <h1 class="en tt" name="test">get DOM Element <span>11</span>
+    </h1>
+
+    <br />
+
+    <h2>get DOM Element</h2>我是二级标题</h2>
+    <h3>我是三级标题</h3>
+
+
+    <div class="dot">
+      <svg
+        width="62"
+        viewbox="0 0 82 90"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M67.4128 23.2095C58.5343 0.14309 39.2658 15.0297 26.4995 45.7057C13.7331 76.3816 28.9453 90.9835 55.7656 82.4853C82.5858 73.987 76.2912 46.2759 67.4128 23.2095Z"
+          fill="#4627FF"
+        />
+        <path
+          d="M51.19776 37.8465C42.9799 29.182 77.9709 27.8491 30.3165 3.52199C-10.2332 -17.1782 -13.0746 60.2152 39.9807 58.1746C57.3096 57.5081 60.9753 46.5109 51.9776 37.8465Z"
+          fill="#46FB19"
+        />
+      </svg>
+    </div>
+
+  </body>
+  <script type="text/javascript">
+
+    const a = document.querySelector('.b > .tt')
+    console.log(a)
+
+//🌟🌟🌟 Element 方法
+    const b = document.getElementsByClassName('b')
+    console.log(b[0])
+    const result = b[0].querySelector('.en.tt') //🌟🌟注意，这里同时获取多个 class 名的话中间不能有空格！！
+    console.log(result)
+
+
+    //🌟🌟获取节点上的文本
+    const ccc = result.childNodes[0].nodeValue
+    console.log(ccc)
+    
+//🌟🌟通过 Node 方法来获取节点上的文本
+    //node.Value 方法：
+    const c = document.querySelector("H2") //🌟这里用getElementsByTagsName会报错，不知道为什么
+    const d = c.childNodes[0].nodeValue
+
+    console.log(d)
+
+
+    //firstChild 方法(因为文字是它的子集！）：
+    const e = c.firstChild
+    console.log(e)
+
+
+</script>
+</html>
