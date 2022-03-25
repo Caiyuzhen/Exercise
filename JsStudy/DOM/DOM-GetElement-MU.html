@@ -7,64 +7,94 @@
     <link rel="stylesheet"/>
     <title>获取 DOM 元素</title>
     <!-- 
+
         一、Document 方法 (会找整棵树,数据量很大)
-            document.getElementById("XX")
-                返回元素引用
 
-            document.getElementsByClassName("XX")
-                返回 HTMLCollection【类数组】(动态数据), 可以 console.log(x[0])来索引
+              1-1 获取元素 (最常用) 
+                  document.getElementById("XX")
+                        返回元素引用
 
-            document.getElementsByName("XX")
-                返回 NodeList【类数组】(静态数据,后期修改后再去访问就不会改变)
-            
-            document.getElementsTagName("XX")
-                返回 HTMLCollection【类数组】, html 标签元素()
+                  document.getElementsByClassName("XX")
+                        返回 HTMLCollection【类数组】(动态数据), 可以 console.log(x[0])来索引
 
-            document.querySelector("XX")
-                可以传 id、class 等, 
-                    #test
-                    .abc > tt
-                返回元素( 只获取第一个 )
+                  document.getElementsByName("XX")
+                        返回 NodeList【类数组】(静态数据,后期修改后再去访问就不会改变)
+                  
+                  document.getElementsTagName("XX")
+                        返回 HTMLCollection【类数组】, html 标签元素()
 
-            document.querySelectorAll("XX")
-                可以传 id、class 等, 
-                    #test
-                    .abc > tt
-                返回元素( 获取所有 )
+                  document.querySelector("XX")
+                        可以传 id、class 等, 
+                            #test
+                            .abc > tt
+                        返回元素( 只获取第一个 )
 
-        二、Element 方法 (只会找元素内的节点,数据量较小,注意!没有 id 的获取方式🌟🌟)
-            element.getElementsByClassName("XX")
-            element.getElementsByName("XX")
-            element.getElementsTagName("XX")
-
-            element.querySelector("XX")
-            element.querySelectorAll("XX")
-            
-            🌟 例如：b[0].querySelector('.en.tt')
+                  document.querySelectorAll("XX")
+                        可以传 id、class 等, 
+                            #test
+                            .abc > tt
+                        返回元素( 获取所有 )
 
 
-            获取元素的文本！
-                element.childNodes[0].nodeValue
-        
-        三、Node 方法
-                Node.nodeName 获取节点名
-                    比如 H1、p 等等
-                
-                Node.nodeValue 获取节点值（文本、属性）
-                    因为文本是元素的子集， 所以可以通过元素.nodeValue 来取得元素上的文本值
+        二、Element 方法 (只会找【🌟元素内🌟】的节点,数据量较小,注意!没有 id 的获取方式🌟🌟)
 
-                    Node.TEXT_NODE  常量，相当于静态方法
+              2-1 获取标签名
+                  element.tagName           标签名, 比如 x.tagName
+              
+              2-2 获取标签属性
+                  element.attributes[0]     返回属性节点类数组，比如 class 
 
-                索引节点
-                    Node.parentNode         父节点
+              2-3 获取元素
+                  🌟注意，element 方法获取的子元素!不包含文本！🌟
 
-                    Node.previousSibling    前一个节点
+                  element.getElementsByClassName("XX")
 
-                    Node.nextSibling        后一个节点
+                  element.getElementsByName("XX")
 
-                    Node.firstChild         第一个子节点
+                  element.getElementsTagName("XX")
 
-                    Node.lastChild          最后一个子节点
+                  element.querySelector("XX")
+
+                  element.querySelectorAll("XX")
+                      🌟 例如：b[0].querySelector('.en.tt')
+
+                  element.firstChild            获取第一个子元素
+
+                  element.childElementCount     子元素的数量  
+
+                  element.children              同上
+
+                  element.firstElementChild     第一个子节点
+
+                  element.lastElementChild     最后一个子节点
+          
+
+        三、🌟🌟Node 方法 (最常用)
+
+              3-1 获取 Node 节点
+                  Node.nodeName     获取节点名,比如 H1、p 等等
+                    
+                  Node.nodeValue    获取节点值（🌟文本、属性，不能用来获取 html 标签！）,因为文本是元素的子集， 所以可以通过元素.nodeValue ,取得元素上的文本值
+
+                  Node.TEXT_NODE    常量，相当于静态方法
+
+                  Node.parentNode         父节点
+
+                  Node.previousSibling    前一个节点
+
+                  Node.nextSibling        后一个节点
+
+                  Node.firstChild         第一个子节点
+
+                  Node.lastChild          最后一个子节点
+
+                🌟Node.childNodes         返回子元素的类数组,比如：获取元素的文本！
+                                          element.childNodes[0].nodeValue
+
+              3-2 判断函数，返回布尔值
+                  Node.hasChildNodes()  判断是否有子节点
+
+                  Node.contains()       判断是否包含某个节点
 
      -->
   </head>
@@ -100,10 +130,15 @@
     </div>
 
   </body>
+
+
+
   <script type="text/javascript">
 
     const a = document.querySelector('.b > .tt')
     console.log(a)
+
+
 
 //🌟🌟🌟 Element 方法
     const b = document.getElementsByClassName('b')
@@ -127,6 +162,38 @@
     //firstChild 方法(因为文字是它的子集！）：
     const e = c.firstChild
     console.log(e)
+
+
+
+//练习1——————————————————————————————————————————————————————————————
+console.log("练习1———————————————————————————————————————————————————")
+
+
+
+    //定义一个函数，可以判断某个元素是否有子元素，有的话依次输出子元素的 nodeValue 到控制台
+
+    function x (y){
+      if(y.hasChildNodes()){
+          const AllChilds = [...y.childNodes] //🌟🌟🌟转成数组！！
+          AllChilds.forEach((item) =>{  //🌟🌟🌟遍历数组！！
+            console.log(item.nodeValue)
+          })
+      }
+    }
+
+    const titleElements = document.getElementsByTagName("H3")//获取 H1 标签的数组
+    x(titleElements[0])
+
+
+
+
+//练习2——————————————————————————————————————————————————————————————
+console.log("练习2———————————————————————————————————————————————————")
+
+    //定义一个函数，能够找到这个元素的最深入的最后一个节点并返回
+    
+
+
 
 
 </script>
