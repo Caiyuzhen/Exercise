@@ -10,29 +10,53 @@
 <body>
     <!-- 
 
-        修改样式
-            HTMLElement.style
+        一、🌟改变元素样式
+            HTMLElement.style  (style 优先级最高,相当于在元素上直接设置 style)
                 What: 给元素添加某种样式属性
                 实例: a.style.backgroundColor = "#3370FF"
 
 
-            Element.classList   
+            Element.classList：🌟🌟前提是通过 id 获取一个元素!!
                 What: DOMTokenList 类数组
                 add:
                     What:给元素添加一个新的 abc 类名
-                    实例：a.classList.add("abc")
+                    实例:a.classList.add("abc")
 
                 remove: 
                     What:把元素的 abc 类名移除掉
-                    实例：a.classList.remove("abc")
+                    实例:a.classList.remove("abc")
                     
-            
                 toggle:
                      What:有这个类就就删除,没有这个类就加上
-                     实例：
-
+                     实例:b.classList.toggle("fontBig")
 
                 contains:
+                     What:检测对象是否包含某个类,返回 true / false
+                     实例:console.log(b.classList.contains("fontBig")) 
+
+                Element.calssName
+                     What:返回元素的所有类名
+                     实例:console.log(cv.className)
+
+                    What:覆盖元素的类名
+                     实例:cv.className = 'op'
+
+        二、🌟改变元素属性
+            Element.getAttribute
+                What:获取元素属性 （但是无法获取用户自定义属性）
+                实例:console.log(a.getAttribute("id"))
+
+            Element.setAttribute
+                What:改变元素属性, 比如把 id 改变为 abc
+                实例:a.setAttribute("id","abc"),
+
+            Element.removeAttribute
+                What:移除元素的属性
+                实例:a.removeAttribute("id"),
+
+            Element.hasAttribute
+                What:判断元素有没有 id class 或 Name, 返回 true / false
+                实例:a.hasAttribute("Name"),
 
     -->
 
@@ -43,8 +67,17 @@
 
     <br />
 
-    <h2>Change Element</h2>我是二级标题</h2>
+    <h2 class="well" id="op">Change Element</h2>我是二级标题</h2>
     <h3>我是三级标题</h3>
+
+    <style type="text/css">
+        .fontBig{
+            font-size: 1800px;
+        }
+        /* .tt{
+            font-size: 60px;
+        } */ 
+    </style>
     
 
     <script type="text/javascript">
@@ -63,7 +96,26 @@
 //Element.classList  
         const b = document.getElementById("test")
         b.classList.remove("head");
+
+
         b.classList.toggle("fontBig")
+        console.log(b.classList.contains("fontBig"))  //true
+
+
+        // const cv = document.getElementsByClassName('well')🌟这个不行！因为不是获取一个元素！！🌟
+        const cv = document.getElementById("op")
+        console.log(cv.className) //well
+
+        cv.className = 'op'
+        console.log(cv.className)//op
+
+
+//Attribute
+        console.log(a.getAttribute("id"))
+
+        console.log(a.hasAttribute("Name"))
+
+
 
 
 
@@ -71,12 +123,6 @@
 
 
 
-<style type="text/css">
-    .fontBig{
-        font-size: 800px;
-    }
-    
-</style>
 
 </body>
 </html>
