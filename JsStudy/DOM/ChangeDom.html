@@ -41,6 +41,7 @@
                     What:覆盖元素的类名
                      实例:cv.className = 'op'
 
+
         二、🌟改变元素属性
             Element.getAttribute
                 What:获取元素属性 （但是无法获取用户自定义属性）
@@ -49,6 +50,9 @@
             Element.setAttribute
                 What:改变元素属性, 比如把 id 改变为 abc
                 实例:a.setAttribute("id","abc"),
+                
+                What:或者改变元素样式
+                实例:a.setAttribute("style","baackground-color:red")
 
             Element.removeAttribute
                 What:移除元素的属性
@@ -57,7 +61,21 @@
             Element.hasAttribute
                 What:判断元素有没有 id class 或 Name, 返回 true / false
                 实例:a.hasAttribute("Name"),
+        
 
+        三、在元素上存储数据
+                <h1 data-abc="123> </h1>
+
+
+        四、改变元素的子元素
+                HTMLElement.innerText 
+                What:改变元素内的文本 (跟其他的只读不同,这个可读可写！🌟)
+
+                Element.innerHtml 
+                What:（可读可写）
+
+                Element.outerHTML
+                What:（可读可写）
     -->
 
     <h1 id="test" style="background-color:rebeccapurple" class="head1"> DOM 元素的修改 </h1>
@@ -106,7 +124,7 @@
         const cv = document.getElementById("op")
         console.log(cv.className) //well
 
-        cv.className = 'op'
+        cv.className = 'op'//增加一个类名叫 
         console.log(cv.className)//op
 
 
@@ -115,6 +133,8 @@
 
         console.log(a.hasAttribute("Name"))
 
+
+        op.setAttribute("style", "background-color:red")//设置属性变成红色
 
 
 
