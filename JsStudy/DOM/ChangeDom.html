@@ -7,7 +7,7 @@
     <title>修改 DOM 元素样式</title>
     <H1>修改 DOM 元素样式</H1>
 </head>
-<body>
+<body id="top">
     <!-- 
 
         一、🌟改变元素样式
@@ -18,28 +18,28 @@
 
             Element.classList：🌟🌟前提是通过 id 获取一个元素!!
                 What: DOMTokenList 类数组
-                add:
-                    What:给元素添加一个新的 abc 类名
-                    实例:a.classList.add("abc")
+                    classList.add:
+                        What:给元素添加一个新的 abc 类名
+                        实例:a.classList.add("abc")
 
-                remove: 
-                    What:把元素的 abc 类名移除掉
-                    实例:a.classList.remove("abc")
-                    
-                toggle:
-                     What:有这个类就就删除,没有这个类就加上
-                     实例:b.classList.toggle("fontBig")
+                    classList.remove: 
+                        What:把元素的 abc 类名移除掉
+                        实例:a.classList.remove("abc")
+                        
+                    classList.toggle:
+                        What:有这个类就就删除,没有这个类就加上
+                        实例:b.classList.toggle("fontBig")
 
-                contains:
-                     What:检测对象是否包含某个类,返回 true / false
-                     实例:console.log(b.classList.contains("fontBig")) 
+                    classList.contains:
+                        What:检测对象是否包含某个类,返回 true / false
+                        实例:console.log(b.classList.contains("fontBig")) 
 
-                Element.calssName
-                     What:返回元素的所有类名
-                     实例:console.log(cv.className)
+                    Element.calssName
+                        What:返回元素的所有类名
+                        实例:console.log(cv.className)
 
-                    What:覆盖元素的类名
-                     实例:cv.className = 'op'
+                        What:覆盖元素的类名
+                        实例:cv.className = 'op'
 
 
         二、🌟改变元素属性
@@ -58,24 +58,48 @@
                 What:移除元素的属性
                 实例:a.removeAttribute("id"),
 
-            Element.hasAttribute
-                What:判断元素有没有 id class 或 Name, 返回 true / false
+            Element.hasAttribute 🌟
+                What:判断元素有没有某个 id class 或 Name, 返回 true / false
                 实例:a.hasAttribute("Name"),
         
 
-        三、在元素上存储数据
+        三、🌟在元素上存储数据
                 <h1 data-abc="123> </h1>
 
 
-        四、改变元素的子元素
+        四、🌟改变元素的子元素(需要通过唯一的元素 id 来获取！)
                 HTMLElement.innerText 
-                What:改变元素内的文本 (跟其他的只读不同,这个可读可写！🌟)
+                    What:(🌟可读可写！)改变元素内的文本内容，包含子树内的所有文本 
+                    实例:ga.innerText (读取)
+                    实例:ga.innerText = XXX (修改)
+                    🌟🌟小技巧:可以快速拼接所有字符串! 👇 因为 = 右边的运算符会先执行
+                        比如 ga.innerText =  ga.innerText 
 
                 Element.innerHtml 
-                What:（可读可写）
+                    What:（🌟可读可写!）返回所有后代的 HTMl 字符串，包括元素、注释和文本, 可以整体修改一棵 DOM 树
+                    实例: ga.innerHtml (读取)
+                    实例: ga.innerHtml = `<h1>Hello</h1>`(修改)
 
                 Element.outerHTML
-                What:（可读可写）
+                    What:（🌟可读可写!）同上，不过包含[本身+子元素]
+                    实例:ga.outerHTML  (读取)
+                    实例:ga.outerHTML = `<h1>Hello</h1>` (修改)
+    
+        五、🌟获取元素信息
+                Element.id
+                    What: 获取元素 id
+                    实例:ga.id
+
+                Element.title
+                    What: 获取元素 title
+                    实例:ga.title
+
+                Element.hidden
+                    What: 检测元素是否隐藏了，返回 true or false
+                    实例:ga.hidden
+
+    
+    
     -->
 
     <h1 id="test" style="background-color:rebeccapurple" class="head1"> DOM 元素的修改 </h1>
@@ -85,8 +109,20 @@
 
     <br />
 
-    <h2 class="well" id="op">Change Element</h2>我是二级标题</h2>
+    <h2 class="well" id="op" title="lala">Change Element</h2>我是二级标题</h2>
     <h3>我是三级标题</h3>
+    <h4>
+        <span>啦啦啦
+            <div>
+                <span>你好呀</span>
+            </div>
+        </span>
+    </h4>
+
+
+
+
+
 
     <style type="text/css">
         .fontBig{
@@ -98,9 +134,10 @@
     </style>
     
 
+
+
+
     <script type="text/javascript">
-
-
 
 //HTMLElement.style
         const a = document.getElementById("test") 
@@ -109,6 +146,7 @@
         //给某个对象设置属性
         a.style.backgroundColor = "#3370FF"
         a.style.fontSize = "80px"
+
 
 
 //Element.classList  
@@ -121,10 +159,10 @@
 
 
         // const cv = document.getElementsByClassName('well')🌟这个不行！因为不是获取一个元素！！🌟
-        const cv = document.getElementById("op")
+        const cv = document.getElementById("op") //取得 h2
         console.log(cv.className) //well
 
-        cv.className = 'op'//增加一个类名叫 
+        cv.className = 'op'//增加一个类名叫 op
         console.log(cv.className)//op
 
 
@@ -135,6 +173,56 @@
 
 
         op.setAttribute("style", "background-color:red")//设置属性变成红色
+
+
+
+//改变元素的子元素
+
+        const ga = document.getElementById('top')
+
+        console.log(ga.innerText)
+        console.log(ga.innerHTML)
+
+
+
+//取得元素信息
+        
+        console.log(cv.id)
+        console.log(cv.title)
+        console.log(cv.hidden)
+
+
+//————————————————————————————————————————————————
+console.log('—————————————————————————————————————')
+
+//练习
+
+//定义一个函数，能够找到所有 span 元素并让 span 中一开始显示为 0 ，然后元素中的数字每隔一秒加 1
+
+        function findSpan (x){
+            const allx = [...document.getElementsByTagName(x)] //🌟🌟获取 tag 类数组,使用拓展运算符去找转化为数组然后才能使用数组的方法！！🌟🌟
+
+            //定义一个变量来承接这个计时器的结果
+            let count = 0;
+
+            //计时器
+            setInterval(()=>{
+                //让遍历出来的文本 = count = 0
+                allx.forEach( item => {
+                    item.innerText = conunt
+                 })
+                 //每次加 1 
+                 count ++
+            },1000)
+        }
+        
+        findSpan('span')
+
+
+
+
+//定义一个函数，可以自动切换某个元素的字体颜色，在三种颜色中每隔一秒依次切换
+
 
 
 
