@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> JQuery 表单选择器</title>
+<H1> JQuery 表单选择器 </H1>
+    <!-- 
+        $(":input")   查找所有 input 元素
+        $("input")     查找所有 input 标签
+
+
+     -->
+</head>
+<body>
+    
+
+    <form id='myform' name="myform"  method="post">		
+        <input type="hidden" name="uno" value="9999" disabled="disabled"/>
+        姓名:<input type="text" id="uname" name="uname" /><br />
+        密码:<input type="password" id="upwd" name="upwd" value="123456" /><br />
+        年龄:<input type="radio" name="uage" value="0" checked="checked"/>小屁孩
+             <input type="radio" name="uage" value="1"/>你懂得  <br /> 
+        爱好:<input type="checkbox" name="ufav" value="篮球"/>篮球
+             <input type="checkbox" name="ufav" value="爬床"/>爬床
+             <input type="checkbox" name="ufav" value="代码"/>代码<br />
+        来自:<select id="ufrom" name="ufrom">
+                <option value="-1" selected="selected">请选择</option>
+                <option value="0">北京</option>
+                <option value="1">上海</option>
+            </select><br />
+        简介:<textarea rows="10" cols="30" name="uintro"></textarea><br />
+        头像:<input type="file"  /><br />
+        <input type="image" src="http://www.google.com/img/bd_logo1.png" 
+               width="20" height="20"/>
+        <button type="reset" >重置</button>		
+        
+    </form>
+
+</body>
+
+    <script src="../jquery-3.6.0.js" type="text/javascript"></script>
+
+    <script type = "text/javascript">
+            
+
+        //找到所有表单元素(包含按钮那些)
+        const a = $(":input")
+        console.log(a)
+
+        //找到所有 input 元素 (不包含按钮)
+        const b = $("input")
+
+
+
+    </script>
+
+
+
+
+</html>
