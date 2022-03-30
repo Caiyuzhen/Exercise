@@ -29,15 +29,24 @@
                 error:       请求失败时调用此函数
  -->
 <body>
-    <script src="../jquery-3.6.0.js" type="text/javascript" charset="utf-8"></script>
-    <script type="text/javascript">
+    <!-- 查询数组数据的 button -->
+    <button type="button" id="btn">查询数据</button>
+
+</body>
+
+<script src="../jquery-3.6.0.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+    //绑定 button 的点击事件,点击按钮，发送 Ajax请求，获取数据
+    $("#btn").click(function() {
+
 
         //🌟 第一步：请求服务端数据
         $.ajax({
             type: "get",               //请求方式
             url: "../JQuery-Ajax/data.txt",   //请求地址，一般是填网页地址
             data:{      //发送数据
-                uname: "Zen",         //如果没有参数则不需要设置
+                uname: "Zen"         //如果没有参数则不需要设置
             },
 
             //🌟 第二步（写法一）：可以写这个👇，就会自动转为 json 格式的对象，否则需要写 JSON.parse(data)
@@ -50,19 +59,26 @@
                 
 
                 // //🌟 第三步，拿到数据后，放到一个列表内
-                 const ul = $("<ul></ul>")
+                const ul = $("<ul></ul>") //所有 -人名
+
                 
-                // // //🌟 第四步，遍历返回的数组
+                // // //🌟 第四步，遍历返回的数组，看要放多少条
                     for (let i = 0; i <data.length; i++) {
-                        let user = data[i]      //拿到数组内的每一个元素
-                        let liGroup = '<li>'+ user.userName + '</li>'   //拼接进 div 内
-                        ul.append(liGroup)      // 将 <liGroup> 元素设置到 <ul> 元素内
+                        let user = obj[i]      //拿到数组内的每一个元素
+                        let li= '<li>'+ user.userName + '</li>'   //拼接进 div 内
+                        ul.append(li)      // 将 <liGroup> 元素设置到 <ul> 元素内
+
                         $('body').append(ul)    //将 <ul> 设置到 <body> 标签中
                     }
             }
         })
 
-    </script>
 
-</body>
+    })
+
+
+
+
+</script>
+
 </html>
