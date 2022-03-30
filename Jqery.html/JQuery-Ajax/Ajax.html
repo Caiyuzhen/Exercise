@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jquery Ajax</title>
+    <H1>Jquery Ajax</H1>
+</head>
+<!-- 
+    Ajax 是一种异步(页面)无刷新技术:
+        比如点个赞后立马看到点赞的数据+1、往下滑动后立马加载出新的图片
+
+
+    调用 Ajax 方法  
+        方法一：
+            $.ajax({})
+            $.get
+
+
+            参数：
+                type:        Get/Post (Get 有缓存,不需要服务器,不安全,数据量大,请求快)
+                url:         请求地址 url
+                async:       是否异步,默认是 true 表示异步
+                data:        送到服务器的数据
+                dataType:    预期服务器返回的数据类型(比如 json, js 就是一种 json 格式的数据)
+                contentType: 设置请求头
+                success:     请求成功时调用此函数
+                error:       请求失败时调用此函数
+ -->
+<body>
+    <script src="../jquery-3.6.0.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+
+        //🌟 第一步：请求服务端数据
+        $.ajax({
+            type: "get",               //请求方式
+            url: "../JQuery-Ajax/data.txt",   //请求地址，一般是填网页地址
+            data:{      //发送数据
+                uname: "Zen",         //如果没有参数则不需要设置
+            },
+
+            //🌟 第二步（写法一）：可以写这个👇，就会自动转为 json 格式的对象，否则需要写 JSON.parse(data)
+            // dataType: "json",           //可以写这个，预期返回的是 json 数据，
+            success:function(data){    //请求成功的回调函数,参数的返回的数据
+            
+                //🌟 第二步（写法二）：将字符串转化为 json 对象数据（如果请求的就是 json 格式的数据就不用做这个转化）
+                let obj = JSON.parse(data);
+                console.log(obj)      //这时候就变成一个 Js 的数组了
+                
+
+                // //🌟 第三步，拿到数据后，放到一个列表内
+                 const ul = $("<ul></ul>")
+                
+                // // //🌟 第四步，遍历返回的数组
+                    for (let i = 0; i <data.length; i++) {
+                        let user = data[i]      //拿到数组内的每一个元素
+                        let liGroup = '<li>'+ user.userName + '</li>'   //拼接进 div 内
+                        ul.append(liGroup)      // 将 <liGroup> 元素设置到 <ul> 元素内
+                        $('body').append(ul)    //将 <ul> 设置到 <body> 标签中
+                    }
+            }
+        })
+
+    </script>
+
+</body>
+</html>
