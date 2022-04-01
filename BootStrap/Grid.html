@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>布局容器及删格系统</title>
+    <!-- 第一步,引入 css 文件 -->
+    <link rel="stylesheet" href="../BootStrap/css/bootstrap.min.css" type="text/css">
+
+  </head>
+<!-- 
+
+  
+ -->
+
+  <body>
+    <h1>Hellow World!</h1>
+
+        <!-- 
+
+          🌟🌟 注意,日常的话 div 是块级元素, 不能并排,要并排得用 float, 但是 Bootstrap 默认帮我们处理了
+
+          布局容器     
+            container
+
+            row
+
+            xs(xsmall phones) (自动)
+
+            sm(small tables) 750px
+
+            md(middle desktops) 970px
+
+            lg(large desktops) 1170px
+          
+        -->
+
+
+      <!-- 第二步,引入布局 class -->
+        <!-- 固定留白 -->
+        <div class='container' style='background-color:aqua; height: 500px;'>
+                用于固定宽度以及相应式效果
+        </div>
+
+
+        <!-- 完整宽度 -->
+        <div class="container-fluid" style="background-color:beige; height:500px;">
+            完整宽度的效果
+        </div>
+
+        <!-- 删格网格系统 -->
+        <div class="container">
+            <!-- 行 -->
+            <div class="row">
+                  <!-- 列 -->
+                  <!-- 🌟🌟 相当于是 large 屏幕占：2 格、6 格、2格 (最好总数不超过 12) -->
+                  <div class="col-lg-2" style='background-color: #8133ff; height: 400px'>4</div>
+                  <div class="col-lg-6" style='background-color: #33ffe0; height: 400px'>8</div>
+                  <div class="col-lg-2" style='background-color: #e033ff; height: 400px'>8</div>
+                  <!-- <div class="col-md-12">12</div> -->
+            </div> 
+        </div>
+
+        
+ 
+
+  </body>
+
+
+
+</html>
