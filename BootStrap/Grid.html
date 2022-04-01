@@ -21,7 +21,7 @@
 
           🌟🌟 注意,日常的话 div 是块级元素, 不能并排,要并排得用 float, 但是 Bootstrap 默认帮我们处理了
 
-          布局容器     
+         布局容器 (总数不超过 12，超过会换行)
             container
 
             row
@@ -33,11 +33,17 @@
             md(middle desktops) 970px
 
             lg(large desktops) 1170px
+
+
+        列偏移
+          offsize
+
           
         -->
 
+      
 
-      <!-- 第二步,引入布局 class -->
+  <!-- 🌟第二步, 在 class 内引入 Bootstrap 定义好的布局 类名 -->
         <!-- 固定留白 -->
         <div class='container' style='background-color:aqua; height: 500px;'>
                 用于固定宽度以及相应式效果
@@ -48,7 +54,7 @@
         <div class="container-fluid" style="background-color:beige; height:500px;">
             完整宽度的效果
         </div>
-
+<hr>
         <!-- 删格网格系统 -->
         <div class="container">
             <!-- 行 -->
@@ -62,7 +68,32 @@
             </div> 
         </div>
 
-        
+<hr>
+
+        <!-- 列组合 -->
+        <div class="row wellDone" style='display: flex; justify-content: space-around;'>
+            <div class="col-md-2" style='background-color: #ff3399; height: 400px'>你好</div>
+            <div class="col-md-2" style='background-color: #87ff6c; height: 400px'>你好</div>
+            <div class="col-md-2" style='background-color: #2793ff; height: 400px'>你好</div>
+            <div class="col-md-2" style='background-color: #ffed2a; height: 400px'>你好</div>
+        </div>
+
+<hr/>
+        <!-- 列偏移 -->
+        <div class="row">
+          <div class="col-md-1" style='background-color: #404040; height: 400px'>你好</div>
+          
+          <div class="col-md-1 offset-md-2" style='background-color: #646464; height: 400px'>你好</div>
+          <div class="col-md-2" style='background-color: #343434; height: 400px'>你好</div>
+          <div class="col-md-2" style='background-color: #a7a7a7; height: 400px'>你好</div>
+        </div>
+
+        <!-- <style>
+            .wellDone {
+              display: flex;
+              justify-content: space-around;
+            }
+        </style> -->
  
 
   </body>
