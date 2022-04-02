@@ -15,7 +15,7 @@
 
     🌟 插入节点
         1.write() —— 将任意字符插入到文档中
-        2.insertBefore —— 向元素中添加新的子节点
+        2.innerText —— 向元素中添加新的子节点
         3.inserBefore() —— 向指定的节点前面插入新节点 ｜ newItem、exsitingItem
         4.🤔appendChild(🔥) 将文本 🔥 放进 🤔 标签内
 
@@ -83,6 +83,7 @@ function addPara(){
 
 
 
+
 //添加图片
 
 function addImg(){
@@ -104,11 +105,14 @@ function addImg(){
     img.setAttribute("src","img/ac286647423435.587a5c0763114.png"); //设置 img 的属性
     imgrongqi.appendChild(img); //将图片置入到容器内
 
+
 //3.方式三(拼接字符串方式)
     var img3 = "<img src='img/ac286647423435.587a5c0763114.png' />";
     imgrongqi.innerHTML += img3; //因为是把字符串放到 html 内,所以要用 += 来追加
 
 }
+
+
 
 
 //添加文本框
@@ -124,12 +128,16 @@ function addTxt(){
     div.appendChild(inp);
 
 
+
 //2.方式二(定义式)
 
     var inp = document.createElement("input");
     inp.setAttribute("type", "text");
     inp.setAttribute("value","今天月亮晴朗☀️");
     div.appendChild(inp);
+
+
+
 
 //3.方式三(拼接字符串方式)
 
