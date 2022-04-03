@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM 节点的创建与删除</title>
+    <!-- 
+        [原则：同一个节点只能添加到 DOM 树上的一处]
+
+        🌟创建元素 & 属性
+            document.createElement()
+
+            document.createTextNode()
+
+            document.createAttribute()
+
+                Element.setAttributeNode() //需要传入属性节点【比如 href、id】，把传入的节点设置为该元素的属性,传入后通过 nodeValue 或者 setAttribute 来设置属性值
+                Element.getAttributeNode()  //传入属性名，获取该【属性名】的节点
+                    🌟 注意：之前的 Element.getAttribute()是获取属性值！注意看这里又个 Node ！
+
+
+        🌟添加元素 & 属性
+            第一步：
+                将某个元素添加为某个元素的子节点 (比如把文字添加给元素, 添加到元素的最后一层)
+                    🌟方法一：
+                        Element.appendChild("啦啦啦")
+
+                    🌟方法二：
+                        Element.innerHtml("啦啦啦")
+
+                    🌟方法三（文本用）：
+                        Element.innerText = "啦啦啦"
+                    
+                    🌟方法四：
+                        Node.insertAfter(子元素)
+
+
+                将某个元素添加为某个元素的父节点
+                    该元素的父元素.parentNode.insertBefore(该元素的父元素,XXX) //🌟注意：父元素！
+                    比如：
+                        well.parentNode.insertBefore(well,AAA)  这样是插在 well 前面
+            
+
+            第二步：
+                把添加后的元素显示在 DOM 树上
+                    document.body.appendChild(XXX)
+
+
+            添加元素 & 属性
+                设置属性值的方法有两种:
+                    nodeValue 
+
+                    setAttribute 
+                        例如：name='title'👇
+                            span.setAttribute('name','title')
+
+
+            🌟🌟复杂案例：👇 如何添加一组结构（包含文本节点）
+                    <div>
+                        <span>ABCD</span>
+                            <div>
+                                <span>888</span>
+                            </div>
+                    </div>
+
+            🌟第一步：     先创建最外层的元素
+            🌟第 X～Y 步：【依次】创建添加内部元素 并 appendChild 到【最外层】的元素上
+            🌟最后一步：   把最外层的元素挂在 DOM 树上
+                
+
+
+        🌟删除 DOM 节点
+            删除元素的子节点
+                Node.removeChild()
+                    实例: well.removeChild(XXX)
+
+            替换节点
+                Node.replaceChild()
+                    实例: well.replaceChild(XXX)
+
+        🌟两个不常用的方法
+            切割文本，比如把 footer 从第三个位置切割为 foo  ter
+              Text.splitText(3)
+              
+            规范化节点     
+              Node.normallise()
+     -->
+
+
+</head>
+
+
+<body>
+    <div class="a">a
+        <div class="b">b</div>
+    </div>
+
+    <br/>
+    <br/>
+    <br/>
+    
+    <!-- 🌟练习用 -->
+    <div style="font-size: 40px;">父节点
+        <div id="div1" style="font-size: 32px; margin-left: 24px;">1</div>
+        <div id="div2" style="font-size: 32px; margin-left: 24px;">2</div>
+        <div id="div3" style="font-size: 32px; margin-left: 24px;">3
+            <div id="div3-1" style="font-size: 20px; margin-left: 48px;">3-1</div>
+            <div id="div3-2" style="font-size: 20px; margin-left: 48px;">3-2</div>
+        </div>
+        <div id="div4" style="font-size: 32px;margin-left: 24px; ">4</div>
+        
+    </div>
+
+    
+</body>
+
+    <script type="text/javascript">
+
+//创建一个元素
+        const well = document.createElement("ul");
+
+
+//创建一个文本
+        const done = document.createTextNode("海绵宝宝")
+
+        const doneE = document.createTextNode("派大星")
+
+//查看下它是什么类型
+console.log(Object.prototype.toString.call(well)) //[object HTMLUListElement]
+
+
+
+
+//把文本添加给元素
+        well.appendChild(done)
+        well.appendChild(doneE)
+
+
+        console.log(well);
+
+        //加个样式  
+        well.style.fontSize = '20px'
+
+
+
+//把添加后的元素显示在 DOM 树上
+        document.body.appendChild(well)
+
+
+//查找一个需要被移动的元素
+const AAA = document.querySelector('.a')
+
+
+//将某个元素添加为某个元素的父节点
+well.parentNode.insertBefore(well,AAA)
+
+
+
+
+console.log(" 练习 ———————————————————————————————— ")
+//练习1 ———————————————————————————————
+//创建一个方法，某个元素如果调用的话，就可以把传入的 Node 元素插入到这个某元素的后面 insertAfter 方法
+
+
+//🌟🌟🌟🌟因为要通过父元素调用，所以要判断它是不是某个元素的子节点的最后一个元素，是的话可以用它的父节点，不是的话就用它的兄弟节点，插入到兄弟节点的前面
+Node.prototype.insertAfter = function (element){
+    if(this.nextElementSibling === null){               //🌟🌟访问兄弟节点是否存在
+        this.parentNode.appendChild(element)    //🌟🌟不存在(最后一个)则是 null，不存在就【🌟把这个调用的对象当作父元素】，把【参数元素】放做它子集
+    }
+    else {
+        this.parentNode.insertBefore(element,this.nextElementSibling)//如果存在兄弟节点,那就【🌟参数元素当作父元素】，把它放到兄弟节点的前面
+    }
+    //小白写法
+    //this.insertBefore(element,this.node)
+
+}
+
+const div999 = document.createElement('div')
+div999.innerText = '插入的节点'
+
+document.getElementById('div1').insertAfter(div999)
+
+
+
+
+//练习2 ———————————————————————————————
+//创建一个小型的 DOM tree 并显示在页面上
+//<div>
+//    <span name = 'title'>我是一个标题</span>
+//        <div>
+//            <p class = 'p1'>
+//                这是第一段话
+//            </p>
+//            <p class = 'p2'>
+//                这是第二段话
+//            </p>
+//        </div>
+//</div>
+//🌟方法一 一个个创建一个个插入
+const rootDiv = document.createElement('div')
+
+const span = document.createElement('span')
+const spanText = document.createTextNode("我是一个标题") //🌟创建一个文本节点
+span.appendChild(spanText)
+span.setAttribute('name','title')
+
+const div = document.createElement('div')
+
+const p1 = document.createElement('p')
+const p1Text = document.createTextNode("这是第一段话")    //🌟创建一个文本节点
+p1.appendChild(p1Text)
+p1.setAttribute('class','p1')
+
+const p2 = document.createElement('p')
+const p2Text = document.createTextNode("这是第一段话")    //🌟创建一个文本节点
+p2.appendChild(p2Text)
+p2.setAttribute('class','p2')
+
+div.appendChild(p1)
+div.appendChild(p2)
+
+rootDiv.appendChild(span)
+rootDiv.appendChild(div)
+
+document.body.appendChild(rootDiv)
+
+
+
+//🌟方法二  innerHTML
+const rootDiv2 = document.createElement('div')
+rootDiv2.innerHTML =`
+   <span name = 'title'>我是一个标题</span>
+       <div>
+            <p class = 'p1'>
+                这是第一段话
+            </p>
+            <p class = 'p2'>
+                这是第二段话
+            </p>
+        </div>
+        `
+document.body.appendChild(rootDiv2)
+
+
+    </script>
+
+</html>
