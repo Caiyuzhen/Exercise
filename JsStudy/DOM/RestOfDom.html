@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> DOM 的一些补充</title>
+</head>
+<div>
+    <p>啦啦啦</p>
+    <span data-abc="我是存在 html 的数据" data-tt="第二个">文本段落
+        <ol>Object
+            <li>KR01</li>
+            <li>KR02</li>
+            <li>KR03</li>
+        </ol>
+    </span>
+</div>
+
+<!-- 
+    🌟🌟🌟 HtmlElement.dataset   
+        What？
+            获取在元素上设置的数据
+
+            可以定义多个
+
+        How？ (XX 为获得的元素，YYY 为元素的 data-YYY='' 的属性)
+            获得整个对象
+                XX.dataset
+
+            获得值 
+                XX.dataset.YYY
+    
+                
+    🌟🌟🌟 DocumentFragment 又叫文档片段
+        What？
+            虚拟的节点，类似打包的能力
+            添加到 DOM 上后自己不会出现，只会显示它里边的元素，可以将元素先添加到它身上
+            文档有的方法它都有        
+            
+        How？
+            创建文档片段
+                 const example = document.createDocumentFragment()
+
+            把节点置入到文档片段内（这时候还不会显示）
+                 const li = document.createElement("li")
+
+            把文档片段置入到主文档（这时候就会显示）
+                document.body.appendChild(example)
+
+            可以动态的创建 script 标签让某些网站去运行 [注意，通过 innerHtml 插入的 script 标签是不会执行的, 通过 DocumentFragment 才会执行]
+
+
+            实例
+                const script = document.createElement('script')
+
+                //给 script 加上 text 属性，让他执行 script 内的东西
+                🌟🌟script.text = `XXXXX`
+
+
+
+    🌟🌟🌟 element.insertAdjacentHTML(position,text)
+        What？
+            将指定的文本插入到元素的某个位置
+            比如 <div> 123 </div>
+
+        How？
+            position👇
+                beforebegin     元素自身前面
+                afterbegin      插入元素内部的第一个子节点之前
+                beforeend       插入元素内容不的最后一个子节点之后
+                afterend        元素自身的后面
+
+            实例
+                const insert = document.getElementsByTagName('ol')
+                insert[0].insertAdjacentHTML('afterend', '<li>我是插入到 Object 最后面的元素 </li>')
+
+    🌟🌟🌟 element.insertAdjacentText(position,text)
+        What？
+            同上，不过这个插入的是纯文本
+        How?
+            同上
+
+
+    🌟 Node.EqualNode() 
+        What?
+            判断两个节点是否相等
+
+
+    🌟 Node.ownerDocument() 
+        What?
+            获取节点所属的文档
+
+
+    🌟 Node.cloneNode() 
+        What?
+            克隆节点
+            克隆的节点是没有父节点的，也就是说克隆的节点是独立的
+        How?
+            克隆节点
+                const clone = element.cloneNode(true)
+
+            克隆节点，不克隆子节点
+                const clone = element.cloneNode(false)
+
+            置入主文档
+            document.body.appendChild(clone)
+    
+
+    🌟 其他方法补充
+            CharacterData.length 属性
+                What?
+                    获取文本节点的长度(可以知道有多少个文字)
+                    如果是文本节点，那么返回的是文本的长度，如果是其他节点，那么返回的是 0
+                
+            CharacterData.appendData(text)
+                What?
+                    在文本节点的末尾添加文本
+
+
+            CharacterData.deleteData(offset,count)
+                What?
+                    offset
+                        从要删除的数据开始的字符的索引，从 0 开始
+                    count
+                        要删除的字符数量
+                
+            CharacterData.insert(characterData)
+                What?
+                    在文本节点的指定位置插入文本
+
+
+            CharacterData.replaceData(offset,count,text)
+                What?
+                    offset
+                        从要替换的数据开始的字符的索引，从 0 开始
+                    count
+                        要替换的字符数量
+                    text
+                        要替换的文本
+            
+            CharacterData.substringData(offset,count)
+                What?
+                    offset
+                        从要替换的数据开始的字符的索引，从 0 开始
+                    count
+                        要替换的字符数量
+
+            Text.splitText(offset)
+                What?
+                    在文本节点的指定位置分割文本
+
+            CharacterData.data
+                What?
+                    获取文本节点的文本内容
+                    如果是文本节点，那么返回的是文本的内容，如果是其他节点，那么返回的是 null
+
+
+ -->
+<body>
+
+<script type="text/javascript">
+
+
+//🌟🌟🌟 HtmlElement.dataset 
+    const a = document.getElementsByTagName("span")
+    console.log(a[0].dataset.abc) //是一个对象，包含 key + value
+
+
+//🌟🌟🌟 DocumentFragment
+    const example = document.createDocumentFragment()
+
+    const li = document.createElement("li")
+    const txt = document.createTextNode('水果')
+    li.appendChild(txt)
+    example.appendChild(li)
+
+    document.body.appendChild(example)
+
+
+    //特殊的场景：动态的创建 script 标签,指定路径让某些网站去运行
+        //< src="./main.js"></ script>
+        const script = document.createElement('script')
+        //给 script 加上 text 属性，让他执行 script 内的东西
+        script.text = `console.log(${a[0].dataset.abc})`
+
+
+
+//🌟🌟🌟element.insertAdjacentHTML(position,text)方法
+    const insert = document.getElementsByTagName('ol')
+    insert[0].insertAdjacentHTML('afterend', '<li>我是插入到 Object 最后面的元素 </li>')
+
+
+    
+console.log("——————————————————————————————————")
+//练习———————————————————————————————————————————
+//动态创建一个 style 元素并添加到 head 元素中
+//方法一
+
+    //🌟方法 1-1 (创建一个样式节点，直接用选择器给样式节点加样式)
+    const styleTT = document.createElement('style')
+
+    styleTT.textContent = `
+        ol{
+            color:red;
+            font-size:20px;
+        }
+    `
+    document.body.appendChild(styleTT)
+
+
+    //🌟方法 1-2 (创建一个样式节点，直接用选择器给样式节点加样式)
+    const styleTT02 = document.createElement('style')
+    styleTT02.innerText = `
+        li{
+            color:blue;
+            font-size:14px;
+        }
+    `
+    document.body.appendChild(styleTT02)
+
+
+
+//方法二 (创建一个样式节点，再创建个文本节点，把文本节点作为样式节点的子节点)
+const abc = document.createElement('style02')
+const styleTXT = document.createTextNode(
+    `
+        p{  
+            color:yellow;
+            font-size:32px;
+        }
+    `
+)
+styleTT02.appendChild(styleTXT)
+document.head.appendChild(style02)
+
+
+
+
+// function calculateDaysBetweenDates(begin,end){}
+
+</script>
+    
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> DOM 的一些补充</title>
+</head>
+<script type="text/javascript">
+//设置一个按钮，点击后会把列表内容放置到一个卡片样式的容器内
+    const btn = document.createElement('button')
+    btn.innerText = '放入卡片'
+    btn.onclick = function () {
+        const ul = document.createElement('ul')
+        ul.className = 'card'
+        ul.innerHTML = a[0].innerHTML
+        document.body.appendChild(ul)
+    }
+    document.body.appendChild(btn)
+
+</script>
+    
+</body>
+</html>
