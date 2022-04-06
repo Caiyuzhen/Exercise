@@ -15,7 +15,31 @@
 
         命名空间,方法后缀有 NS   
             NS -> NameSpace, 可以让不同的类型之间的方法名称不冲突 (类似一个文件夹,里边放了相关的方法)
-     -->
+
+            document.body.namespaceURI -> 获取命名空间
+
+        五个类型 
+            NameNodeMap
+                Element.attributes  获取元素的所有属性节点的集合
+
+            DOMTokenList
+                Element.classList  获取元素的所有类名的集合
+
+            NodeList
+                querySelectorAll()  获取元素的所有节点的集合
+
+            HtmlCollection
+                Element.ClassName 获取元素的类名
+
+            CSSStyleDeclaration
+                HTML.Element.style  获取元素的样式表
+            
+        DOM 不是 JS 语言标准, 其他语言也可以使用 DOM 语言, 比如 Python
+            import xml.dom.minidom as m
+            doc = m.parse("C:\Users\Administrator\Desktop\test.xml");
+            doc.nodeName # DOM property of document object;
+            p_list = doc.getElementsByTagName("para");
+    -->
 
 
 </body>
