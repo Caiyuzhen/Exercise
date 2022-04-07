@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> DOM 部分综合练习 </title>
-    <H1>DOM</H1>
+    <H1>D</H1>
 </head>
 <body>
     <span>一段文字一段文字一段文字</span>
@@ -37,47 +37,46 @@
 
     
 
-//练习二：创建一个递归函数，元素以及文本，在函数执行后 3 秒后将消除掉这个元素内包含的文本。
+//练习二：创建一个递归函数，能够传入一个[元素]以及[文本]，在函数执行后 3 秒后将消除掉文档内容的[这个元素]内包含的[文本]。
 //思路，先把元素内的文本遍历出来，然后再让它们消失
 
-
-
-
-
     function disappear(target,text){
+        //先创建一个数组,获取[有文本节点的元素]的文本内容
         const eleArr = []
 
-        function getElement(collection,target,text){
-        //🔥🔥🔥先把目标元素的子节点转化为数组,才难用数组的方法!🔥🔥🔥
-
+        function getElement(x,target,text){
+            //🔥🔥🔥创建一个数组,然后把目标元素的子节点转化为数组,才能用数组的方法!🔥🔥🔥
             const arr = [...target.childNodes]
 
-            arr.forEach(item=>{
-                // 🔥🔥判断是否是文本节点的方法！
+            arr.forEach(item =>{
+                //🔥🔥判断是否是文本节点的方法！
                 if(item.nodeValue === text){
 
-                    //是文本节点，就把带有文本的元素 push 到数组里
-                    collection.push(item.parentNode)
+                    //🔥🔥🔥把有文本节点的文本添加到数组里面,注意,因为上面已经是 childNodes 了,所以这里要 push 的是 parentNode
+                        x.push(item.parentNode)
 
                 //看是不是最后一层元素,文本节点没有子元素！
-                }else if(item.childNodes.length > 0){
-                    //🔥🔥如果有子元素，就继续递归遍历,注意，这里的 target 变成 item 了
-                    getElement(collection,item,text)
+                }else if(item.childNodes.length > 0 ){
+                    
+                    //递归,继续上面的操作,🔥🔥如果有子元素，就继续递归遍历,注意，这里的 target 变成 item 了
+                    getElement(x,item,text)
                 }
             })
         }
-
         //开始执行上面的函数！
         getElement(eleArr,document,text)
-
         // console.log(eleArr)
 
-        eleArr.forEach(element => {
-            element.hidden = true
+        //🔥遍历上边拿出来的元素数组
+        eleArr.forEach(element =>{
+            element.hidden = true;
         })
+
     }
 
     disappear(document,'两段文字')
 
+ //练习 3 定义一个函数,可以改变传入元素的字号大小,初始为 12px,每隔 2s 增加 2px, 超过 30px 变回 12px,不断的循环
+ 
 </script>
 </html>
