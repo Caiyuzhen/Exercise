@@ -8,11 +8,13 @@
     <H1>D</H1>
 </head>
 <body>
-    <span>一段文字一段文字一段文字</span>
+    <span id="span">一段文字一段文字一段文字</span>
     <div>
         <span>
             <div>
-                <p>两段文字</p>
+                <p id="p1" name='a' class="abc">两段文字</p>
+                <p id="p2">3</p>
+                <p id="pz" name='a' class="abc">两段文字</p>
             </div>
         </span>
     </div>
@@ -76,7 +78,111 @@
 
     disappear(document,'两段文字')
 
- //练习 3 定义一个函数,可以改变传入元素的字号大小,初始为 12px,每隔 2s 增加 2px, 超过 30px 变回 12px,不断的循环
- 
+ //练习三: 定义一个函数,可以改变传入元素的字号大小,初始为 12px,每隔 1s 增加 2px, 超过 30px 变回 12px,不断的循环
+    function changeSize(target){
+        //先把传入的字号设置为 12px (初始状态)
+        target.style.fontSize = '12px'
+
+        //定义一个定时器
+        let timer = setInterval(()=>{
+
+        //🌟方法一(不用变量):
+            // //每隔 2 秒增加 2px, 🌟🌟需要先把 12px 转化为数据类型的格式!
+            // target.style.fontSize = parseInt(target.style.fontSize) + 2 + 'px'
+
+            // //判断是否超过 30px
+            // if(target.style.fontSize > '30px'){
+            //     //如果超过 30px 就变回 12px
+            //     target.style.fontSize = '12px'
+            // }    
+        
+
+        //🌟方法二(用变量):
+            const nowTxt = parseInt(target.style.fontSize)
+
+            //大于 30 则暂停
+            if(nowTxt >= 30){
+                target.style.fontSize = '12px'
+            }
+            //不大于 30 继续加
+            else{
+                target.style.fontSize = nowTxt + 2 + 'px'
+            }
+    },1000)}
+
+
+    const txt01 = document.querySelector('span')
+    changeSize(txt01)
+    // window.getComputedStyle() //获取元素最终的展示态
+
+
+    
+//练习四: 定义一个函数, 可以让页面中的[元素]获取到[元素]中的文字(数字), 根据这个数字的秒数来改变[传入的颜色]
+
+    function changeColor(target,color){
+        //获取元素的子节点(🌟文字是元素的子节点!)
+        const time = target.childNodes[0]
+        
+        //把文字转化为数字
+        const num = parseInt(time.nodeValue)
+
+        //定义一个定时器
+        let timer = setTimeout(()=>{
+            //设置为传入的颜色
+            target.style.color = color
+        },num * 1000) //👈因为这里是毫秒,所以要乘以一千!🌟🌟🌟
+    }
+
+    changeColor(document.getElementById('p2'),'red')
+
+
+
+//练习五:
+//定义一个函数,可以传入两个参数,第一个参数传入一个[元素节点]
+//第二个参数传入需要获取的元素节点上的[属性节点名称], 不传属性节点的名称就把所有属性节点都获取了
+//最后把所有获取到的属性节点放到一个数组中并返回
+
+    const ppp = document.getElementById('pz')
+
+    function getAttr(target,attr){
+
+        // 获取元素的属性节点
+        const all = target.attributes
+        console.log(all)
+
+
+        //判断是否传入了属性节点
+        if(attr){ //传了第二个参数, 则是 true, 因为会隐式转换
+            
+
+        } else {//没传第二个参数,则会隐式转化为 false
+
+        }
+    }
+    getAttr(ppp,[])
+
+
+
+// function getAttr(target,attr){
+    //     //定义一个数组
+    //     let arr = []
+    //     //判断是否传入了属性节点的名称
+    //     if(attr){
+    //         //如果传入了属性节点的名称,就把这个属性节点放到数组中
+    //         arr.push(target.getAttribute(attr))
+    //     }else{
+    //         //如果没有传入属性节点的名称,就把所有属性节点放到数组中
+    //         for(let i = 0; i < target.attributes.length; i++){
+    //             arr.push(target.attributes[i].nodeValue)
+    //         }
+    //     }
+    //     //返回数组
+    //     return arr
+    // }
+
+    // console.log(getAttr(document.getElementById('p3'),'class'))
+    // console.log(getAttr(document.getElementById('p3')))
+    
+
 </script>
 </html>
