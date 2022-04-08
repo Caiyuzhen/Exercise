@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基础事件</title>
+    <h4 onclick="this.style.color = 'blue'" onmousemove="this.style.cursor='pointer'">click H4</h4>
+    <h4 class="well">Click Me too!</h4>
+</head>
+<body>
+    <!--
+    What?
+        事件 -> 等待执行的函数   
+        
+        时间事件
+            setTimeout(function)
+            setInterval
+        
+        DOM 事件
+            给某个元素的某个行为(属性) 添加上对应的函数(绑定事件)
+            等到用户对该元素实施了某个行为
+            浏览器会检测到对应元素发生了行为然后触发这个行为后的函数
+
+    How?
+        1.写在 html 上
+            实例
+                onclick
+                onmousemove
+                ...
+
+        2.DOM 0 级事件
+            实例
+                let btn = document.getElementById('myBtn')
+                btn.onclick = function () {...}
+
+    --> 
+</body>
+        <script type="text/javascript">
+            let btn = document.querySelector(".well") //只会获取到第一个 class
+            btn.onclick = function () {
+                this.style.color="#E7C296"
+            }
+
+            
+        </script>
+
+</html>
