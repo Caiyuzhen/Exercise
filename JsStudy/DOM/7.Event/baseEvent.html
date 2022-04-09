@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>基础事件</title>
+    <title>DOM 事件</title>
+    <H1>DOM 事件</H1>
     <h4 onclick="this.style.color = 'blue'" onmousemove="this.style.cursor='pointer'">click H4</h4>
-    <h4 class="well">Click Me too!</h4>
+    <h4 class="well">Click Me too! 我是 0 级事件</h4>
+    <h4 class="done">我是 2 级事件</h4>
 </head>
 <body>
     <!--
@@ -17,32 +19,44 @@
             setTimeout(function)
             setInterval
         
-        DOM 事件
+        DOM 0 级事件
             给某个元素的某个行为(属性) 添加上对应的函数(绑定事件)
             等到用户对该元素实施了某个行为
             浏览器会检测到对应元素发生了行为然后触发这个行为后的函数
 
     How?
-        1.写在 html 上
+        方式一.写在 html 上 (基础事件)
             实例
                 onclick
                 onmousemove
                 ...
 
-        2.DOM 0 级事件
+        方式二.DOM 0 级事件 (每个事件只能添加一个函数)
             实例
                 let btn = document.getElementById('myBtn')
                 btn.onclick = function () {...}
 
+        方式三.DOM 2 级事件 (最常用,每个事件可以添加无数多个函数)
+
     --> 
 </body>
         <script type="text/javascript">
+
+        //DOM 0 级事件
             let btn = document.querySelector(".well") //只会获取到第一个 class
             btn.onclick = function () {
                 this.style.color="#E7C296"
             }
 
-            
+        //DOM 2 级事件 - 事件处理函数(监听器=函数)
+            let btn2 = document.querySelector(".done")
+            btn2.addEventListener('click', function () {
+                this.style.color = 'green'
+            })
+
+
+
+
         </script>
 
 </html>
