@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件对象</title>
+    <h1 class='en'>Event Object</h1>
+</head>
+<body>
+<!-- 
+    背后是事件对象的原型方法
+        const eventObj = new PointEvent(xxx)
+        fn（eventObj）
+
+    阻止事件执行默认行为,比如让 checkbox 无法打勾、让 href 标签无法跳转等
+        event.preventDefault()
+    
+    阻止事件冒泡
+        event.stopPropagation()
+
+ -->
+    
+</body>
+
+<script type="text/javascript">
+
+const h1 = document.querySelector('.en')
+h1.addEventListener('click', function(e){
+    console.log('e')
+})
+
+
+
+
+</script>
+
+
+</html>
