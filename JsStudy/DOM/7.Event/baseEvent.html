@@ -9,27 +9,87 @@
     <h4 onclick="this.style.color = 'blue'" onmousemove="this.style.cursor='pointer'">click H4</h4>
     <h4 class="well">Click Me too! 我是 0 级事件</h4>
     <h4 class="done">我是 2 级事件</h4>
+
+    <div class="container">
+        <div data-color="#5E61FC">蓝色的圆</div>
+        <div data-color="#E7C296">黄色的圆</div>
+        <div data-color="#34D9CC">绿色的圆</div>
+        <div data-color="#FC7676">红色的圆</div>
+    </div>
+
+    <div class='container02'>
+        <span>点我</span>
+        <span>点我</span>
+        <span>点我</span>
+    </div>
+ 
+  
+
+    <style>
+        .container div{
+            width:100px; 
+            height:100px;
+            background-color:black;
+            color:rgb(255, 255, 255);
+            border-radius: 100%;
+            text-align: center;
+            line-height:100px;
+        }
+    </style>
 </head>
 <body>
     <!--
     What?
-        事件 -> 等待执行的函数   
-        
-        时间事件
-            setTimeout(function)
-            setInterval
-        
-        DOM 0 级事件
-            给某个元素的某个行为(属性) 添加上对应的函数(绑定事件)
+        事件是什么 -> 等待执行的函数
             等到用户对该元素实施了某个行为
-            浏览器会检测到对应元素发生了行为然后触发这个行为后的函数
+            浏览器会检测到对应元素发生了行为然后触发这个行为后的函数   
+        
 
-    How?
-        方式一.写在 html 上 (基础事件)
-            实例
+        事件的类型有什么
+            时间事件
+                setTimeout(function)
+                setInterval
+            
+
+            元素事件
                 onclick
                 onmousemove
                 ...
+
+
+            事件类型
+                Html 事件
+                    绑定在 html 元素上的事件
+
+                DOM 0 级事件
+                    给某个元素的某个行为(属性) 添加上对应的一个函数(绑定事件)
+
+                DOM 2 级事件
+                    给某个元素的某个行为(属性) 添加上对应的一个或多个函数(绑定事件)
+        
+            事件的 this
+                    非箭头函数中指向[触发事件的元素]
+                    箭头函数自身没有作用域, 看它归属的上一层对象指向谁, 没有的话就指向 windows 对象
+
+
+            如何解除绑定事件？(只能一个个删除) 如果事件多了会占内存,因为每个事件都有被引用,所以不会被垃圾回收机制给自动清除
+                html 上的事件
+                    删除元素
+
+                DOM 0 级事件
+                    btn.onclick = null
+
+                DOM 2 级事件
+                    btn.removeEventListener('click', fn)  //fn 为函数表示符，但是匿名函数就删不掉,因为找不到它的内存空间地址
+
+            浏览器如何判断鼠标点击的区域
+                检测坐标
+                
+    How?
+        方式一.写在 html 上 (基础事件)
+            实例
+                实例
+                    <h4 onclick="this.style.color = 'blue'" onmousemove="this.style.cursor='pointer'">click H4</h4>
 
         方式二.DOM 0 级事件 (每个事件只能添加一个函数)
             实例
@@ -37,6 +97,11 @@
                 btn.onclick = function () {...}
 
         方式三.DOM 2 级事件 (最常用,每个事件可以添加无数多个函数)
+            实例
+                let btn2 = document.querySelector(".done")
+                btn2.addEventListener('click', function () {
+                    this.style.color = 'green'
+                })
 
     --> 
 </body>
@@ -48,15 +113,56 @@
                 this.style.color="#E7C296"
             }
 
-        //DOM 2 级事件 - 事件处理函数(监听器=函数)
+        //DOM 2 级事件 - 事件处理函数(监听器=函数),可以添加多个函数，按照顺序执行,最常用
             let btn2 = document.querySelector(".done")
             btn2.addEventListener('click', function () {
-                this.style.color = 'green'
+                this.style.backgroundColor = 'green'
+                console.log(this)
             })
 
 
+//练习一：
+    //四个圆,初始为黑色，点击后根据圆上面的色值去改变颜色
+    //提示 data-color， dataset
+
+    //获取四个圆
+    const all = document.querySelectorAll('.container div')
+    
+    //🌟🌟🌟用迭代遍历的思路给每个圆都添加上这个方法,让元素变成数组🌟🌟🌟
+    const arr = [...all]
+
+    arr.forEach(item=>{
+        //添加点击事件
+        item.addEventListener('click',function(){
+            //获取当前圆的颜色
+            const color = this.dataset.color
+            //改变颜色
+            this.style.backgroundColor = color
+        })           
+    })
 
 
+    
+//练习二：
+    //每次点击文字，文字变成“你是第 X 个点到的”
+        
+    const allSpan = document.querySelectorAll('.container02 span')
+
+    //🌟🌟需要记录点击的次数,初始值为 1
+    let clickCount = 1
+
+    //同上，也是用迭代的方式去添加事件,让元素变成数组
+    const array = [...allSpan]
+
+    array.forEach((item)=>{
+        item.addEventListener('click',function(){
+            this.innerHTML = `你是第 ${clickCount} 个点到的`
+            clickCount++;
+        })
+    })
+        
+        
+        
         </script>
 
 </html>
