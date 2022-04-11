@@ -5,20 +5,42 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>事件对象</title>
-    <h1 class='en'>Event Object</h1>
+
 </head>
 <body>
+    <div style='height:300vh'>1</div>
+    <h1 class='en'>Event Object</h1>
+    <h2 class='en2'>Event Object2</h2>
 <!-- 
     背后是事件对象的原型方法
         const eventObj = new PointEvent(xxx)
         fn（eventObj）
 
-    阻止事件执行默认行为,比如让 checkbox 无法打勾、让 href 标签无法跳转等
+    阻止事件执行默认行为(👇下面的 event 表示具体发生事件对象),比如让 checkbox 无法打勾、让 href 标签无法跳转等
         event.preventDefault()
     
     阻止事件冒泡
         event.stopPropagation()
+    
+    🌟 指向点击的元素 evenr.target
+    🌟 因为 evemt.target 约等于 this, 所以用 event.target 的话就可以用[箭头函数]
+            实例
+                h2.addEventListener('click',(f)=>{
+                    console.log(f.target.className)
+                })
 
+            常用交互属性
+                🖱️ MouseEvent
+                    常用属性
+                        pageX    pageY    文档坐标(文档会被 scroll 上去)                    
+                        clientX  clientY  屏幕显示区坐标
+                        screenX  screenY  整个浏览器坐标
+                    
+                    更多可见文档 https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent
+                        offsetX  offsetY  以元素左上角的坐标为基准
+                        movementX  movementY  以鼠标移动的坐标
+
+                        
  -->
     
 </body>
@@ -27,8 +49,26 @@
 
 const h1 = document.querySelector('.en')
 h1.addEventListener('click', function(e){
-    console.log('e')
+    console.log(this.className) //this = e
 })
+
+const h2 = document.querySelector('.en2')
+h2.addEventListener('click',(f)=>{
+    console.log(f.target.className) //访问到点击的元素本身,因此也可以访问的元素的各种数据
+    //event.target.calssName
+    //event.target.style
+    //event.target...
+})
+
+
+const mouse = document.querySelector('body')//整个页面都可以点击
+mouse.addEventListener('click',(x)=> {
+    console.log('点击了 body')
+    console.log(x)
+})
+
+
+
 
 
 
