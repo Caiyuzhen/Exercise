@@ -7,47 +7,122 @@
     <title>事件流机制</title>
     <h1>事件流机制</h1>
     <h2 class='en2'>Event <span>目标</span></h2>
+    <h3>第三个事件</h3>
+    <div id="circle1">parent父
+        <div id="circle2">child子</div>
+    </div>
+
 </head>
+
 <!-- 
     事件目标(不包括父级,作用的是最深层的元素节点)
         是什么
             事件真正作用的那个元素节点(注意,元素跟文本节点有不同的点击区域)
-        特性
-            只要事件触发了,就会顺着元素结构一层层的(🌟先自上而下再自下而上)的去找一遍事件
-    示例
-        html -> body -> H1(事件目标 click) -> span
+        
+        特性(广播机制)
+            只要事件触发了,就会从元素的最外层 html 结构(🌟顺序根据你的文档结构🌟)一层层的(🌟先自上而下再自下而上)的去找一遍事件,没有绑定的元素都会被找一遍
+            🌟🌟🌟 点内层,外层也会被执行,点了外层,只执行外层 🌟🌟🌟
+        示例
+            html -> body -> H1(事件目标 click) -> span
 
-        事件流的三个阶段
-            事件捕获阶段 capture
-            事件目标 traget
-            事件冒泡 bubble
+            事件流的三个阶段
+                事件捕获阶段  capture
+                事件目标     traget
+                事件冒泡     bubble
 
     第三个参数可以决定事件是在什么阶段触发的
         🌟可以传入一个布尔值(不传的话,默认就 false,在冒泡阶段去执行), 一般是冒泡阶段再去执行,对兼容性友好
-            如果是 true 那么就是捕获阶段
-            如果是 false 那么就是冒泡阶段
-            如果是 null 那么就是事件目标阶段
+            如果是 true 那么就是捕获阶段 -- 1
+            如果是 false 那么就是冒泡阶段 -- 3
+            如果是 null 那么就是事件目标阶段 --2
         
         也可以传入一个对象
             XXX
 
     DOM 0 级事件是在冒泡阶段再执行的
         btn.onclick = function () {...}
+    
+    🍎阻止事件冒泡的方法
+        x.stopPropagation()
+            会返回一个 undefined!!
+
+    🍎其他要点
+        🍎事件执行阶段的重要属性
+            x.eventPhase  
+                输出 1 / 2 / 3
+
+            x.currentTarget (这个指向的是谁🌟绑定了🌟这个事件流)
+                函数所绑定的目标的元素  
+            跟 x.target.XXX 有点像  (这个指向的是谁🌟触发了🌟这个事件流)         
+        
+        🍎并不是所有事件都会冒泡,详见下两章
+    
 -->
 <body>
-    
+    <style>
+        #circle1{
+            height: 200px;
+            width: 200px;
+            background-color: aquamarine;
+            text-align: center;
+            line-height: 200px;
+            border-radius: 12%;
+        }
+        #circle2{
+            height: 80px;
+            width: 80px;
+            background-color: rgb(202, 127, 255);
+            text-align: center;
+            line-height: 80px;
+            border-radius: 12%;
+        }
+    </style>
 </body>
 
 <script type="text/javascript">
-    const h1 = document.querySelector('h2');
-    h1.addEventListener('click',function(){
-        console.log('点了 h2')
+    const h2 = document.querySelector('h2');
+    h2.addEventListener('click',function(x){
+        console.log('点了 h2 目标',x.eventPhase)
     },true)
 
 
-    document.body.addEventListener('click',function(){
-        console.log('点了body')
-    },true)
+    document.body.addEventListener('click',function(x){
+        console.log('点了 body',x.eventPhase)
+    })
+
+//事件执行阶段
+    const h3 = document.querySelector('h3')
+    h3.addEventListener('click',function(x){
+        console.log('点了第三个事件', x.eventPhase,x.currentTarget)
+        //🌟🌟 阻止事件冒泡👇,这样点 h3 就不会执行 body 的这个事件了!!
+        console.log(x.stopPropagation())
+    },true) //🌟🌟 2 因为这个是最下面一层!!所以无论是 true 还是 false 都是 2
+
+
+//练习
+//给父子元素都绑定事件
+//1.让父元素的事件在点击子元素后先触发
+//2.点击到子元素后,父元素的事件不会触发
+const circle1 = document.getElementById('circle1')
+const circle2 = document.getElementById('circle2')
+
+//1.先触发
+// circle1.addEventListener('click',()=>{
+//     console.log('点了父元素')
+// },true)
+
+// circle2.addEventListener('click',()=>{
+//     console.log('点了子元素')
+// },true)
+
+//2.父元素不触发
+circle1.addEventListener('click',()=>{
+    console.log('点了父元素')
+})
+
+circle2.addEventListener('click',(x)=>{
+    console.log('点了子元素',x.stopPropagation())
+})
 
 
 
