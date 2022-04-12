@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件流机制</title>
+    <!-- <h1>事件流机制</h1> -->
+    <h2>Event <span>目标</span></h2>
+</head>
+<!-- 
+    事件目标(不包括父级,作用的是最深层的元素节点)
+        是什么
+            事件真正作用的那个元素节点(注意,元素跟文本节点有不同的点击区域)
+        特性
+            只要事件触发了,就会顺着元素结构一层层的(🌟先自上而下再自下而上)的去找一遍事件
+    示例
+        html -> body -> H1(事件目标 click) -> span
+-->
+<body>
+    
+</body>
+
+<script type="text/javascript">
+    document.body.addEventListener('click',function(){
+        console.log('body')
+    })
+
+
+
+</script>
+
+</html>

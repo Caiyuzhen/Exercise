@@ -5,12 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>事件对象</title>
+    <H1>事件对象</H1>
 
 </head>
 <body>
-    <div style='height:300vh'>1</div>
+    <div style='height:40vh'>1</div>
     <h1 class='en'>Event Object</h1>
     <h2 class='en2'>Event Object2</h2>
+    <h3 class='en3'>Event Object3</h3>
 <!-- 
     背后是事件对象的原型方法
         const eventObj = new PointEvent(xxx)
@@ -39,19 +41,21 @@
                     更多可见文档 https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent
                         offsetX  offsetY  以元素左上角的坐标为基准
                         movementX  movementY  以鼠标移动的坐标
+                        alt.Key  Alt 结合鼠标的快捷键
 
-                        
+                    
  -->
     
 </body>
 
 <script type="text/javascript">
-
+//this 的方式
 const h1 = document.querySelector('.en')
-h1.addEventListener('click', function(e){
-    console.log(this.className) //this = e
+h1.addEventListener('click', function(){
+    console.log(this.className) 
 })
 
+//事件对象的方式(traget)    
 const h2 = document.querySelector('.en2')
 h2.addEventListener('click',(f)=>{
     console.log(f.target.className) //访问到点击的元素本身,因此也可以访问的元素的各种数据
@@ -61,14 +65,24 @@ h2.addEventListener('click',(f)=>{
 })
 
 
-const mouse = document.querySelector('body')//整个页面都可以点击
-mouse.addEventListener('click',(x)=> {
-    console.log('点击了 body')
+
+//🌟同一个热区上有两个点击事件(事件流的机制)
+//给整个 body 都添加点击事件
+const mouseBody = document.querySelector('body')//整个页面都可以点击
+mouseBody.addEventListener('click',(x)=> {
+    console.log('点击了 Body')
     console.log(x)
+})
+
+//在整个 body 都有事件的基础上给里边的元素添加点击事件
+const mouseBody2 = document.querySelector('.en3')
+mouseBody2.addEventListener('click',(x)=> {
+    console.log('点击了 H3')
 })
 
 
 
+//练习
 
 
 
