@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件委托机制</title>
+</head>
+<body>
+    <!--
+        事件委托
+            What?
+                在父元素上设置相应的事件,然后通过 e.target 属性来真正确定操作的元素, 本质上是利用了事件流的信号传递机制
+
+
+
+
+     -->
+     <div class="parent1">
+         <div class="son">1</div>
+         <div class="son">2</div>
+         <div class="son">3</div>
+         <div class="son">4</div>
+     </div>
+
+     <div class="parent2">
+        <div class="son2">1</div>
+        <div class="son2">2</div>
+        <div class="son2">3</div>
+        <div class="son2">4</div>
+    </div>
+
+</body>
+
+<style>
+    .parent1 > div {
+        width: 24px;
+        color: rgb(146, 152, 61);
+        background-color: #333333
+    }
+</style>
+
+
+<script type="text/javascript">
+
+    //命题让元素点击后都变成绿色
+    //🌟笨办法
+    const sons = document.querySelectorAll('.son')
+    function changeColor(e){
+        e.target.style.backgroundColor = "blue"
+    }
+
+    sons[0].addEventListener('click',changeColor)
+    sons[1].addEventListener('click',changeColor)
+    // // ...
+
+    //🌟普通的办法
+    const cons2 = document.querySelectorAll('.son')
+    const consArr = [...cons2]
+    consArr.forEach((item)=>{
+        item.addEventListener('click',(y)=>{
+            y.target.style.backgroundColor = "blue"
+        })
+    })
+    
+    //🌟🌟🌟聪明的办法
+    const parent = document.querySelector('.parent2')
+    parent.addEventListener('click',(e)=>{
+        console.log(e.target) //🌟🌟🌟父元素上添加函数后,通过事件流机制可以触发获得子元素的真正的目标事件[事件委托]
+        e.target.style.backgroundColor = "blue"
+    })
+
+
+
+
+
+
+</script>
+
+
+
+</html>
