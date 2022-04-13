@@ -34,6 +34,15 @@
         <div data-role="four" data-color="pink" class="son3">4</div>
     </div>
 
+
+    <!-- 切换颜色练习用 -->
+    <div class="group">父亲元素
+        <div data-color="blue" data-changeColor="">某个子元素1</div>
+        <div data-color="blue" data-changeColor="">某个子元素2</div>
+        <div data-color="blue" data-changeColor="">某个子元素3</div>
+    </div>
+
+
 </body>
 
 <style>
@@ -41,6 +50,16 @@
         width: 24px;
         color: rgb(146, 152, 61);
         background-color: #333333
+    }
+
+    /* 切换颜色的初始颜色 */
+    .group > div {
+        width: 124px;
+        height: 124px;
+        line-height: 124px;
+        text-align: center;
+        color: rgb(31, 31, 31);
+        background-color: #bab7ef
     }
 </style>
 
@@ -81,13 +100,23 @@
 
         console.log(e.target.dataset.role)//🌟🌟判断是不是点击的元素
         
-        const color = e.target.dataset.color
-        e.target.style.backgroundColor = color
+        const color = e.target.dataset.color//获取点击后的颜色
+        e.target.style.backgroundColor = color//改变颜色
     })
 
 
-//练习:点击某个元素后,元素会变成自己 data 上设置的颜色,点击其他元素后,刚刚点击的元素变回初始颜色
+//🌟练习:点击某个元素后,元素会变成自己 data 上设置的颜色,点击其他元素后,刚刚点击的元素变回初始颜色
+    const clickEle = document.querySelector('.group')
+    clickEle.addEventListener("click", (e) => {
+        const sons = document.querySelectorAll(".group div") //先获取所有的子元素
 
+        const sonArr = [...sons] //把子元素转化为数组
+
+        const colorAfter = e.target.dataset.color
+        e.target.style.backgroundColor = colorAfter
+
+        
+    })
 
 
 </script>
