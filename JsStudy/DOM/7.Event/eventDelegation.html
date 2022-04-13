@@ -11,10 +11,7 @@
         事件委托
             What?
                 在父元素上设置相应的事件,然后通过 e.target 属性来真正确定操作的元素, 本质上是利用了事件流的信号传递机制
-
-
-
-
+                
      -->
      <div class="parent1">
          <div class="son">1</div>
@@ -28,6 +25,13 @@
         <div class="son2">2</div>
         <div class="son2">3</div>
         <div class="son2">4</div>
+    </div>
+
+    <div class="parent3">
+        <div data-role="one" data-color="yellow" class="son3">1</div>
+        <div data-role="two" data-color="red" class="son3">2</div>
+        <div data-role="three" data-color="orange" class="son3">3</div>
+        <div data-role="four" data-color="pink" class="son3">4</div>
     </div>
 
 </body>
@@ -70,8 +74,19 @@
         e.target.style.backgroundColor = "blue"
     })
 
+//—————————————————————————————————————
+//利用 data 来获取元素的数据(点击后变成元素上设置的数据)
+    const parent3 = document.querySelector('.parent3')
+    parent3.addEventListener('click',(e)=>{
+
+        console.log(e.target.dataset.role)//🌟🌟判断是不是点击的元素
+        
+        const color = e.target.dataset.color
+        e.target.style.backgroundColor = color
+    })
 
 
+//练习:点击某个元素后,元素会变成自己 data 上设置的颜色,点击其他元素后,刚刚点击的元素变回初始颜色
 
 
 
