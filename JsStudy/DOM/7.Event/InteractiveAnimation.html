@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>交互动画的基本逻辑</title>
+    <!-- <H1>交互动画的基本逻辑</H1> -->
+
+    <!-- 
+        1.实时的连续去修改元素的位置
+            How?
+                mousemove, 一般是通过 style 属性
+        
+        2.通过 css 的 transition 来给元素设置不同的样式 (两个或多个状态)
+            How?
+                transition: all .3s ease-in-out;
+
+     -->
+
+</head>
+<body>
+    <div class="parent">父元素
+        <div class="son">点我</div>
+        <div class="son">点我</div>
+        <div class="son trans">点我</div>
+    </div>
+    
+</body>
+
+<style>
+    .parent > div {
+        width: 124px;
+        height: 124px;
+        line-height: 124px;
+        font-size: 26px;
+        text-align: center;
+        color: rgb(146, 152, 61);
+        background-color: #333333;
+        /* position: absolute; */
+        top:0; left:0;
+    }
+    /* 加一个柔和的过渡效果 */
+    .trans{
+        transition: all .3s ease-in-out;
+    }
+
+</style>
+<script type="text/javascript">
+
+//🍎把鼠标的位移位置转化为元素的属性
+    let ele = document.querySelector('.son')
+    document.body.onmousemove = function(e){
+        console.log(e.clientX,e.clientY)//监听鼠标位移到哪了
+
+        //把鼠标位移的坐标给到元素
+        ele.style.width = e.clientY+100 + 'px' 
+        ele.style.height = e.clientX+100 + 'px'
+        
+    }
+
+//🚀点击后有过渡效果
+const parent = document.querySelector('.parent')
+    parent.addEventListener('click',(ele)=>{
+        ele.target.style.backgroundColor = 'red'
+        ele.target.style.width = "300px"
+    })
+
+
+
+</script>
+
+</html>

@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>事件委托机制</title>
+    <title>事件委托机制(子元素冒泡)</title>
+    <H1>事件委托机制(子元素冒泡)</H1>
 </head>
 <body>
     <!--
@@ -37,9 +38,9 @@
 
     <!-- 切换颜色练习用 -->
     <div class="group">父亲元素
-        <div data-color="blue" data-changeColor="">某个子元素1</div>
-        <div data-color="blue" data-changeColor="">某个子元素2</div>
-        <div data-color="blue" data-changeColor="">某个子元素3</div>
+        <div data-color="yellow" data-changeColor="">某个子元素1</div>
+        <div data-color="red" data-changeColor="">某个子元素2</div>
+        <div data-color="pink" data-changeColor="">某个子元素3</div>
     </div>
 
 
@@ -104,18 +105,25 @@
         e.target.style.backgroundColor = color//改变颜色
     })
 
-
+//🌟🌟🌟很常用!用数组遍历来比较,做出切换的效果
 //🌟练习:点击某个元素后,元素会变成自己 data 上设置的颜色,点击其他元素后,刚刚点击的元素变回初始颜色
-    const clickEle = document.querySelector('.group')
-    clickEle.addEventListener("click", (e) => {
-        const sons = document.querySelectorAll(".group div") //先获取所有的子元素
+    const clickEle = document.querySelector('.group')//获取父元素
+    const sons02 = document.querySelectorAll(".group div") //先获取所有的子元素
+    const sonArr = [...sons02] //把子元素转化为数组,目的是遍历下点没点过
 
-        const sonArr = [...sons] //把子元素转化为数组
+    clickEle.addEventListener("click", (e) => {
 
         const colorAfter = e.target.dataset.color
         e.target.style.backgroundColor = colorAfter
 
-        
+
+        sonArr.forEach((item)=>{//🌟🌟🌟遍历子元素的数组,与上面的 e 做对比, 看点没点过
+            console.log(item === e.target) //🌟🌟🌟 遍历子元素, 看是不是 === 上面 e.target 点击的元素, 只要点击过了都会变成 true, 没点过的都是 false
+            if(item !== e.target){ //如果没有被点击,则默认为蓝色👇
+                item.style.backgroundColor = "blue"
+            }
+        })
+
     })
 
 
