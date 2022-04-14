@@ -8,14 +8,34 @@
     <!-- <H1>交互动画的基本逻辑</H1> -->
 
     <!-- 
-        1.实时的连续去修改元素的位置
+        🌟方法一.实时的连续去监听并修改元素
             How?
                 mousemove, 一般是通过 style 属性
         
-        2.通过 css 的 transition 来给元素设置不同的样式 (两个或多个状态)
+        🌟方法二.通过 js + css 的 transition 来给元素设置动画属性 (两个或多个状态)
             How?
                 transition: all .3s ease-in-out;
 
+        🌟方法三.通过 js + css animation 的帧动画来实现
+            How?
+                class{
+                    animation: move .3s linear infinite;
+                }
+
+                @keyframes move {
+                    0% {
+                        transform: translateX(0);
+                    }
+                    100% {
+                        transform: translateX(100%);
+                    }
+                }
+
+                或者是 :
+                @keyframes move {
+                    from { transform: translateX(0px)}
+                    to { transform: translateX(200px)}
+                }
      -->
 
 </head>
@@ -25,6 +45,7 @@
         <div class="son">点我</div>
         <div class="son trans">点我</div>
     </div>
+    <div class="anim">点我</div>
     
 </body>
 
@@ -40,32 +61,78 @@
         /* position: absolute; */
         top:0; left:0;
     }
-    /* 加一个柔和的过渡效果 */
+
+    /* 通过 js + css 加一个柔和的过渡效果 */
     .trans{
         transition: all .3s ease-in-out;
     }
 
+
+
+
+
+    /* 通过 js + css animation 的帧动画来实现 */
+
+    .anim{
+        width: 124px;
+        height: 124px;
+        line-height: 124px;
+        font-size: 26px;
+        text-align: center;
+        color: rgb(146, 152, 61);
+        background-color: #130707;
+        /* position: absolute; */
+        top:0; left:0;
+    }
+
+    
+
+/* —————————👇很关键,先定义关键帧的方法, 然后给 class 加上这个方法, 然后再把 class 加给元素 ————————— */
+    @keyframes moveDiv {
+        /* from { transform: translateX(0px)}
+        to { transform: translateX(200px)} */
+        0% {
+            transform: translateX(0px)
+        }
+        100%{
+            transform: translateX(200px)
+        }
+    }
+    .go{
+        animation: moveDiv .3s ease-in-out forwards;
+    }
+
+
+
 </style>
 <script type="text/javascript">
 
-//🍎把鼠标的位移位置转化为元素的属性
-    let ele = document.querySelector('.son')
-    document.body.onmousemove = function(e){
-        console.log(e.clientX,e.clientY)//监听鼠标位移到哪了
+//🍎 方法一: js 实时监听实现把鼠标的位移位置转化为元素的属性的过渡效果
+    // let ele = document.querySelector('.son')
+    // document.body.onmousemove = function(e){
+    //     console.log(e.clientX,e.clientY)//监听鼠标位移到哪了
 
-        //把鼠标位移的坐标给到元素
-        ele.style.width = e.clientY+100 + 'px' 
-        ele.style.height = e.clientX+100 + 'px'
-        
-    }
+    //     //把鼠标位移的坐标给到元素
+    //     ele.style.width = e.clientY+100 + 'px' 
+    //     ele.style.height = e.clientX+100 + 'px'   
+    // }
 
-//🚀点击后有过渡效果
-const parent = document.querySelector('.parent')
+
+//🚀 方法二: js 结合 css 的 transition 实现点击后的过渡效果
+    const parent = document.querySelector('.parent')
     parent.addEventListener('click',(ele)=>{
         ele.target.style.backgroundColor = 'red'
         ele.target.style.width = "300px"
     })
 
+    
+
+//🚀 方法二: js 结合 css 的 animation 实现点击后的过渡效果
+    const div3 = document.querySelector('.anim')
+    div3.addEventListener('click',(ele)=>{
+        ele.target.classList.add('go')//🌟🌟,给元素添加一个新的 class!
+        ele.target.style.backgroundColor = 'red'
+    })
 
 
 </script>
