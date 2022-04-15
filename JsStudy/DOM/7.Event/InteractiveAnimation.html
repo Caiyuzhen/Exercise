@@ -36,6 +36,18 @@
                     from { transform: translateX(0px)}
                     to { transform: translateX(200px)}
                 }
+
+            🌟方法四.通过 Animation 这个类型,给元素添加方法 (Element.target.animate()这个方法)
+                ele.target.animate([
+                    {transform: 'translateX(0px)'},
+                    {transform: 'translateX(300px)'}
+                ],{
+                    //定义动画的类型跟时长
+                    duration: 1000,
+                    iterations: 1,
+                    // iterations: Infinity,
+                    fill: 'forwards'
+                ])
      -->
 
 </head>
@@ -46,6 +58,7 @@
         <div class="son trans">点我</div>
     </div>
     <div class="anim">点我</div>
+    <div class="anim three">点我</div>
     
 </body>
 
@@ -89,8 +102,10 @@
 
 /* —————————👇很关键,先定义关键帧的方法, 然后给 class 加上这个方法, 然后再把 class 加给元素 ————————— */
     @keyframes moveDiv {
-        /* from { transform: translateX(0px)}
-        to { transform: translateX(200px)} */
+        /* 
+        from { transform: translateX(0px)}
+        to { transform: translateX(200px)} 
+        */
         0% {
             transform: translateX(0px)
         }
@@ -106,6 +121,7 @@
 
 </style>
 <script type="text/javascript">
+
 
 //🍎 方法一: js 实时监听实现把鼠标的位移位置转化为元素的属性的过渡效果
     // let ele = document.querySelector('.son')
@@ -127,12 +143,35 @@
 
     
 
-//🚀 方法二: js 结合 css 的 animation 实现点击后的过渡效果
+//🛸 方法三: js 结合 css 的 animation 实现点击后的过渡效果
     const div3 = document.querySelector('.anim')
     div3.addEventListener('click',(ele)=>{
         ele.target.classList.add('go')//🌟🌟,给元素添加一个新的 class!
         ele.target.style.backgroundColor = 'red'
     })
+
+
+
+//🕹 方法四:
+    const div4 = document.querySelector('.three')
+
+    div4.addEventListener('click',(ele)=>{
+
+            //把动画方法给元素
+            ele.target.animate([
+        
+            //相当于定一个 keyframes
+            {transform: 'translateX(0px)'},
+            {transform: 'translateX(300px)'}
+        ],{
+            //定义动画的类型跟时长
+            duration: 1000,
+            iterations: 1,
+            // iterations: Infinity,
+            fill: 'forwards'
+        });
+    })
+
 
 
 </script>
