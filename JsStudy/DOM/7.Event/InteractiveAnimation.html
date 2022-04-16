@@ -5,9 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>交互动画的基本逻辑</title>
-    <!-- <H1>交互动画的基本逻辑</H1> -->
+    <H1>交互动画的基本逻辑</H1>
 
     <!-- 
+        🍎原则
+            1.连续变化的动画,就用修改 style 属性的方法
+            2.行为发生后的动画，一般用方法二
+            3.多个状态之间的变化，一般用方案三/四
+            4.更复杂的比如 landing page 的动画，用 lottie
+
         🌟方法一.实时的连续去监听并修改元素
             How?
                 mousemove, 一般是通过 style 属性
@@ -47,8 +53,17 @@
                     iterations: 1,
                     // iterations: Infinity,
                     fill: 'forwards'
-                ])
-     -->
+           }    ])
+     
+        💡需要获取的信息
+            1.事件的信息 —— 比如鼠标的坐标
+            2.元素的信息 —— 比如元素的内容、属性、样式、位置、状态等
+                  🌟注意，如果是通过 css 写的样式，那么获取的值就为 undefined
+                  🌟要获取必须(用下面这个方法（可以获取最终的效果，因为元素的效果相当于 style 叠加 css ）
+                        方法一：window.getComputedStyle(document.querySelector('.box')).width
+                        方法二：element.getBoundingClientRect().width
+
+    -->
 
 </head>
 <body>
@@ -75,7 +90,7 @@
         top:0; left:0;
     }
 
-    /* 通过 js + css 加一个柔和的过渡效果 */
+    /* 方法二：通过 js + css 加一个柔和的过渡效果 */
     .trans{
         transition: all .3s ease-in-out;
     }
@@ -84,7 +99,7 @@
 
 
 
-    /* 通过 js + css animation 的帧动画来实现 */
+    /* 方法三：通过 js + css animation 的帧动画来实现 */
 
     .anim{
         width: 124px;
@@ -97,8 +112,6 @@
         /* position: absolute; */
         top:0; left:0;
     }
-
-    
 
 /* —————————👇很关键,先定义关键帧的方法, 然后给 class 加上这个方法, 然后再把 class 加给元素 ————————— */
     @keyframes moveDiv {
@@ -146,7 +159,7 @@
 //🛸 方法三: js 结合 css 的 animation 实现点击后的过渡效果
     const div3 = document.querySelector('.anim')
     div3.addEventListener('click',(ele)=>{
-        ele.target.classList.add('go')//🌟🌟,给元素添加一个新的 class!
+        ele.target.classList.add('go')//🌟🌟,给元素添加一个新的 class! 这个 class 写着动画效果
         ele.target.style.backgroundColor = 'red'
     })
 
@@ -161,7 +174,7 @@
             ele.target.animate([
         
             //相当于定一个 keyframes
-            {transform: 'translateX(0px)'},
+            // {transform: 'translateX(0px)'},
             {transform: 'translateX(300px)'}
         ],{
             //定义动画的类型跟时长
@@ -171,6 +184,16 @@
             fill: 'forwards'
         });
     })
+
+//💡获取元素样式信息的方法一
+    const eleStyle = window.getComputedStyle(document.querySelector('.anim')).width
+    console.log(eleStyle)
+
+//💡获取元素样式信息的方法二
+    const eleStyle2 = document.querySelector('.anim').getBoundingClientRect()
+    console.log(eleStyle2)
+    console.log(eleStyle2.width)
+
 
 
 
