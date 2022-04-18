@@ -9,7 +9,7 @@
 </head>
 <!-- 
     🚀事件类别
-        一、👋用户界面事件 UIEvent  —— BOM事件
+        一、👋用户界面事件 UIEvent -浏览器事件
                 load
                 unload
                 error
@@ -115,19 +115,59 @@
                 timeupdate
                 volumechange
                 waiting
+       
+        十一、🍔DOM 0 级事件 [element.onclick] (句柄) Handlers
+                window 浏览器事件
+                        https://developer.mozilla.org/zh-CN/docs/Web/API/WindowEventHandlers
+
+                        onbeforeunload
+                        onhaschange
+                        ...
+                
+                全局事件
+                        https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers
+
+                        onclick
+                        ondblclick
+                        onmousedown
+                        onmousemove
+                        onmouseout
+                        onmouseover
+                        onmouseup
+                        onmousewheel
+                        onscroll
+                        onselect
+                        onsubmit
+                        onkeydown
+                        onkeypress
+                        onkeyup
+                        oncontextmenu
+                        其实跟上面一样
+                        ...
+
     🚀事件如何使用
         HOW?
+            1.如何看事件对象可以获取什么属性?
+                如何看事件对象的类型文档,比如 PointerEvent https://developer.mozilla.org/zh-CN/docs/Web/API/PointerEvent
+                        可以看事件对象的属性,比如 Pointer -> MouseEvent -> UI Event -> Event
+
+            2.如何看事件对象的事件流层级?
+                展开事件对象看 path ,数字越大层级越高
             
 
+                
+-->
 
-
- -->
 <body>
     
 </body>
 
 <script type="text/javascript">
 
+//如何看事件对象
+        document.body.addEventListener('mouseup',function(e){
+            console.log(e)
+        })
 
 
 
