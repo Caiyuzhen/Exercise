@@ -2,8 +2,11 @@
 const moveBar = document.querySelector('.img-box-move')
 const leftArrow = document.querySelector('.left-arrow')
 const rightArrow = document.querySelector('.right-arrow')
-const rightArrowUnclickable = document.querySelector('.arrow-unclick')
-// console.log(rightArrow)
+
+//获取小横线并转化为数组,然后利用数组的能力
+const lines = document.querySelectorAll('.line')
+const linesArr = [...lines]
+
 
 //🌟🌟🌟需要有个变量来承接现在到第几张图片了,不能写死移动的距离,可以用计数的方式来判断,初始值为第 0 张
 let countIndex = 0
@@ -26,12 +29,42 @@ function arrowHandle(e){
         //🌟🌟🌟每次点击后,就让 countIndex 加 1, 但是需要加个上限,所以需要判断一下
         if (countIndex !== 3) {
             countIndex++ 
-        }
+        } 
     }
-    //🌟🌟🌟每次点击后,就让 countIndex 乘以(一张图片)移动的距离
-    //👇本来都写在 if 里边的,但是两个代码是一样的,所以可以都放出来
+
+
+//🌟🌟🌟每次点击后,就让 countIndex 乘以(一张图片)移动的距离
+//👇本来都写在 if 里边的,但是两个代码是一样的,所以可以都放出来
     moveBar.style.transform = `translate(-${countIndex * 1024}px)`
-   
+
+
+//🌟🌟🌟小横线的移动, 思路是遍历数组 [匹配] 到当前的值, 然后赋予对应样式的类名
+    //遍历数组,获取线条的索引值, 与上面的 countIndex 是对应的
+    linesArr.forEach((item,index)=>{
+        if(index === countIndex){
+            //item 等于获取到的 line 元素在内存空间的引用
+            //把类名赋值给这歌 line , 让它有这个 line 的样式
+            item.classList.add('line-index')
+        } else {
+            //如果不是当前值,那就去掉灰色的样式
+            item.classList.remove('line-index')
+        }
+    })
+
+    //👉右边点击到底的时候, icon 变为 disable 
+    if (countIndex === 3) {
+        rightArrow.classList.add('arrow-unclick')
+    } else {
+        //切换为可点击状态
+        rightArrow.classList.remove('arrow-unclick')
+    }
+    //👈左边点击到底的时候, icon 变为 disable 
+    if ( countIndex === 0) {
+        leftArrow.classList.add('arrow-unclick')
+    } else {
+        leftArrow.classList.remove('arrow-unclick')
+    }
+    
 }
 
 
@@ -41,6 +74,6 @@ function arrowHandle(e){
 
 
 
-//🌟🌟给两个箭头添加同一个事件处理函数
+//🌟给两个箭头添加同一个事件处理函数
 leftArrow.addEventListener('click',arrowHandle)
 rightArrow.addEventListener('click',arrowHandle)
