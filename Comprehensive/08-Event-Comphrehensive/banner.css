@@ -23,6 +23,7 @@ body{
     width:480px;
     position:relative;
     overflow:hidden;
+    border-radius: 16px;
 }
 .img-box-move{
   display:flex;
