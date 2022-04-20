@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Event 部分综合练习-实现一个轮播图 </title>
+    <link rel="stylesheet" href="./advBanner.css">
+</head>
+<body>
+    <div class="main">
+        <!-- 上面部分 -->
+        <div class="main-container">
+            <div class="arrow">
+                <svg class="left-arrow arrow-unclick" width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 12C0 5.37258 5.37258 0 12 0V0C18.6274 0 24 5.37258 24 12V12C24 18.6274 18.6274 24 12 24V24C5.37258 24 0 18.6274 0 12V12Z" fill="#2B2F36" fill-opacity="0.1"/>
+                    <path d="M7.56066 12.75L17.75 12.75C18.1642 12.75 18.5 12.4142 18.5 12C18.5 11.5858 18.1642 11.25 17.75 11.25L7.56066 11.25L9.28033 9.53033C9.57322 9.23744 9.57322 8.76256 9.28033 8.46967C8.98744 8.17678 8.51256 8.17678 8.21967 8.46967L5.36109 11.3282C5.33572 11.3536 5.31209 11.3801 5.29019 11.4074C5.11361 11.5447 5 11.7591 5 12C5 12.2409 5.11362 12.4553 5.29019 12.5926C5.31209 12.6199 5.33572 12.6464 5.36109 12.6718L8.21967 15.5303C8.51256 15.8232 8.98744 15.8232 9.28033 15.5303C9.57322 15.2374 9.57322 14.7626 9.28033 14.4697L7.56066 12.75Z" fill="#2B2F36"/>
+                </svg>
+            </div>
+            <!-- 用 mask 来规定显示的尺寸大小 -->
+            <div class="showArea-mask">
+                <!-- 所有背景都放在这一层 -->
+                <div class="img-box-move">
+                    <img src="./resource/img1.jpg" alt="">
+                    <img src="./resource/img2.jpg" alt="">
+                    <img src="./resource/img3.jpg" alt="">
+                    <img src="./resource/img4.jpg" alt="">
+                </div>
+            </div>
+            <div class="arrow">
+                <svg class="right-arrow" width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 12C0 5.37258 5.37258 0 12 0V0C18.6274 0 24 5.37258 24 12V12C24 18.6274 18.6274 24 12 24V24C5.37258 24 0 18.6274 0 12V12Z" fill="#2B2F36" fill-opacity="0.1"/>
+                    <path d="M15.4393 11.25L5.25 11.25C4.83579 11.25 4.5 11.5858 4.5 12C4.5 12.4142 4.83579 12.75 5.25 12.75L15.4393 12.75L13.7197 14.4697C13.4268 14.7626 13.4268 15.2374 13.7197 15.5303C14.0126 15.8232 14.4874 15.8232 14.7803 15.5303L17.6389 12.6718C17.6643 12.6464 17.6879 12.6199 17.7098 12.5926C17.8864 12.4553 18 12.2409 18 12C18 11.7591 17.8864 11.5447 17.7098 11.4074C17.6879 11.3801 17.6643 11.3536 17.6389 11.3282L14.7803 8.46967C14.4874 8.17678 14.0126 8.17678 13.7197 8.46967C13.4268 8.76256 13.4268 9.23744 13.7197 9.53033L15.4393 11.25Z" fill="#2B2F36"/>
+                    </svg>                    
+            </div>
+        </div>
+        <!-- 下面部分 -->
+        <div class="line-box">
+            <div class="line line-index"></div>
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
+        </div>
+    </div>
+    <script src=".advbanner.js"></script>
+</body>
+</html>

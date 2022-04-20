@@ -1,0 +1,66 @@
+body{
+    width: 100vh;
+    height: 100vh;
+    display: flex;
+    justify-self: center;
+    align-items: center;
+}
+.main{
+    /* 采用内部元素最小宽度值最大的那个元素的宽度作为最终容器的宽度 */
+    width:min-content;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:30px;
+}
+.main-container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.showArea-mask{
+    height:320px;
+    width:480px;
+    position:relative;
+    overflow:hidden;
+    border-radius: 16px;
+}
+.img-box-move{
+  display:flex;
+  transition:transform 0.5s ease-in-out;
+
+}
+.arrow{
+  width: 160px;
+  height:160px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.arrow-unclick{
+  opacity:0.3;
+}
+
+
+.line-box{
+  display:flex;
+  gap:12px;
+}
+
+.line{
+  height:4px;
+  width:24px;
+  border-radius: 24px;
+  background-color:rgb(169, 169, 169);
+  opacity:0.4;
+  display:block;
+}
+
+.line-index{
+  opacity:1;
+}
+
+svg{
+  cursor:pointer;
+}
