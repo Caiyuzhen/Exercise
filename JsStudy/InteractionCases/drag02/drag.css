@@ -11,7 +11,7 @@
 }
   
 body{
-    width:100vh;
+    /* width:100vh; */
     height: 100vh;   
     display: flex;
     justify-content: center;
@@ -25,9 +25,9 @@ body{
 }
 
 .card-name{
-    font-family: "OpenSans";
+    font-family: "Gilroy";
     font-size:1.8rem;
-    font-weight:bold;
+    font-weight: bold;
 }
 
 /* 三个点的 icon 样式 */
@@ -77,10 +77,11 @@ body{
     padding:2rem 0;
     background-color:white;
     transition: 0.2s ease-in-out;
+    cursor: pointer;
 }
 
 .num{
-    font-weight: 800;
+    font-weight: 600;
     font-size: 1.8rem;
 }
 
