@@ -16,6 +16,7 @@ body{
     display: flex;
     justify-content: center;
     user-select: none;
+    align-items: center;
 }
 
 .container-header{

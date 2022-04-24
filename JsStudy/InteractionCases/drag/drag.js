@@ -1,8 +1,10 @@
-//直接把它变成数组
-const cardArr = [...document.querySelectorAll('.one-unit')]
+
+const cardArr = [...document.querySelectorAll('.one-unit')]//获取卡片组并直接把它变成数组
+const wallet = document.querySelector('.container')
 
 
-//🍔🍔🍔功能一:点击切换+创建新 card
+
+//🍔🍔🍔功能一:实现点击切换+创建新 card
 //🌟：注意为了节约内存空间，所以我们把函数写在外层,其他的都是利用引用来加函数🌟
 //🌟通过 e.currentTarget 获取触发事件的元素
 
@@ -80,40 +82,66 @@ cardArr.forEach((item) => {
 })
 
 
-//🍔🍔🍔功能二:拖拽功能
+
+
+
+//🍔🍔🍔功能二:实现拖拽功能
 //mousedown   mouseup   mousemove
 //clientX   clientY
-//transform  translate  一开始都是 0,0
+//transform  translate(一开始是 0,0)
 const moveBar = document.querySelector('.moveBar')
-const mouseDoenPos = {x:0, y:0} //记录元素的位置
-let isDown = false //🌟🌟点击鼠标后才触发
+const mouseDownPos = { x: 0, y : 0 } //第 3-1 步: 记录鼠标的初始位置,一开始都是 0,0, 注意, 不是元素位置而是鼠标[点下]的位置
+const basicPos = { x: 0, y: 0 } //第 3-2 步: 记录元素的初始位置,一开始都是 0,0, 注意, 不是鼠标位置而是元素位置, 🌟拖拽后就会改变!
+let disX = 0, disY = 0 //第 3-3 步: 在最外层定义移动后元素的位置,让 mouseup 也能获取这个参数!
+
+let isDown = false //🌟🌟 2-1 点击鼠标后才触发
 
 
-//鼠标按下
+
+//第 1-1 步: 鼠标按下
 moveBar.addEventListener('mousedown',(e)=>{
     // console.log(e.clientX,e.clientY,'down')
-    mouseDoenPos.x = e.clientX  //记录点下的 x 位置
-    mouseDoenPos.y = e.clientY  //记录点下的 y 位置
+    mouseDownPos.x = e.clientX  //第 2-4 步: 记录点下的 x 位置
+    mouseDownPos.y = e.clientY  //第 2-5 步: 记录点下的 y 位置
 
-    isDown = true //🌟🌟表示按下后就可以拖拽了 
-
-    console.log(mouseDoenPos)
+    isDown = true //🌟🌟第 2-2 步: 表示按下后就可以拖拽了 
+    console.log(mouseDownPos)
 })
 
 
-//鼠标抬起
+
+//第 1-2 步: 鼠标抬起
 moveBar.addEventListener('mouseup',(e)=>{
     // console.log(e,'up')
-    
-    //鼠标抬起后，把 isDown 置为 false 就不会跟着移动了
+
+    //第 2-3 步: 鼠标抬起后，把 isDown 置为 false 就不会跟着移动了
     isDown = false
+
+    //3-4 🌟🌟🌟抬起后,改变元素的初始值, 把值变为改变后的值!!
+    basicPos.x = disX
+    basicPos.y = disY
 })
 
-//鼠标移动
-moveBar.addEventListener('mousemove',(e)=>{
+
+
+//第 1-3 步: 鼠标移动(绑定给 body, 这样热区范围更大!)
+document.body.addEventListener('mousemove',(e)=>{
     // console.log(e.clientX,e.clientY,'Up')
-    if (isDown) {
-        //🌟🌟 减去原来的坐标,取差值, 记得加单位: px
-        e.currentTarget.style.transform = `translate(${e.clientX - mouseDoenPos.x}px,${e.clientY - mouseDoenPos.y}px)`
+
+
+    if (isDown) { //2-4 先写一个判断框架
+        
+        //🌟🌟第 3-5 步: 表示基础值加上移动的距离 = 🌟实时获取并更新为最新的值
+        disX = basicPos.x + e.clientX - mouseDownPos.x
+        disY = basicPos.y + e.clientY - mouseDownPos.y
+
+        //🌟🌟 第 3-6 步: 表示移动的距离, 减去原来的坐标, 取差值, 记得加单位: px, 🌟记录值的时候改写了,加上了初始值!!!!
+        // e.currentTarget.style.transform = `translate(${e.clientX - mouseDownPos.x}px,${e.clientY - mouseDownPos.y}px)`
+        
+        //👇整个 [container元素] 都被拖拽的方式
+        wallet.style.transform = `translate(${disX}px, ${disY}px)`
+        
+        //👇只有 [当前元素] 被拖拽的方式(如果是多个元素,就要单独判断 mousedown 是不是这个元素)
+        // moveBar.style.transform = `translate(${disX}px, ${disY}px)`
     }
 })
