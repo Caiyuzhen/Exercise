@@ -4,7 +4,7 @@ const wallet = document.querySelector('.container')
 
 
 
-//🍔🍔🍔功能一:实现点击切换+创建新 card
+//🍔🍔🍔功能一:实现点击切换+创建新 card ——————————————————————————————————————————
 //🌟：注意为了节约内存空间，所以我们把函数写在外层,其他的都是利用引用来加函数🌟
 //🌟通过 e.currentTarget 获取触发事件的元素
 
@@ -85,7 +85,9 @@ cardArr.forEach((item) => {
 
 
 
-//🍔🍔🍔功能二:实现拖拽功能
+
+
+//🍔🍔🍔功能二:实现拖拽功能 ——————————————————————————————————————————
 //mousedown   mouseup   mousemove
 //clientX   clientY
 //transform  translate(一开始是 0,0)
@@ -144,4 +146,47 @@ document.body.addEventListener('mousemove',(e)=>{
         //👇只有 [当前元素] 被拖拽的方式(如果是多个元素,就要单独判断 mousedown 是不是这个元素)
         // moveBar.style.transform = `translate(${disX}px, ${disY}px)`
     }
+})
+
+
+
+
+
+
+
+//🍔🍔🍔功能三:实现排序功能 ——————————————————————————————————————————
+//同样的也是先添加点击跟抬起的事件
+
+
+const blockDownPos = { x: 0, y : 0 } 
+const blockPos = { x: 0, y: 0 } 
+let blockX = 0, blockY = 0 
+let blockMovable = false
+
+
+function handleDown(e) {  //按下
+    blockMovable = true
+    blockDownPos.x = e.clientX
+    blockDownPos.y = e.clientY
+}
+
+
+function handleBlockUp(e) {  //抬起
+    blockMovable = false
+}
+
+function handleMove(e) {  //移动
+
+
+}
+
+
+
+cardArr.forEach((item)=> {
+    item.addEventListener('mousedown', handleDown)
+    item.addEventListener('mousedown', handleBlockUp)
+})
+
+document.body.addEventListener('mousemove',(e)=>{ //把鼠标移动绑定给 body, 这样热区范围更大!
+
 })
