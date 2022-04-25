@@ -159,34 +159,43 @@ document.body.addEventListener('mousemove',(e)=>{
 
 
 const blockDownPos = { x: 0, y : 0 } 
-const blockPos = { x: 0, y: 0 } 
-let blockX = 0, blockY = 0 
+const blockTrans = { x: 0, y: 0 } 
+let blockX = 0, blockY = 0  
 let blockMovable = false
+
+let target = null
 
 
 function handleDown(e) {  //按下
     blockMovable = true
     blockDownPos.x = e.clientX
     blockDownPos.y = e.clientY
+    //👇👇🌟 获取排序的元素一: 点击这个元素后, 把这个元素变成 target 变量
+    target = e.currentTarget
+    target.style.transition = 'none'
 }
 
 
-function handleBlockUp(e) {  //抬起
+function handleUp(e) {  //抬起
     blockMovable = false
 }
 
+
 function handleMove(e) {  //移动
-
-
+    if(blockMovable) {
+        blockX = blockTrans.x + e.clientX - mouseDownPos.x
+        blockY = blockTrans.y + e.clientY - mouseDownPos.y
+        //👇👇🌟 获取排序的元素二: 获取上面改变后的变量
+        target.style.transform = `translate(${blockX}px,${blockY}px)`
+    }
 }
 
 
 
 cardArr.forEach((item)=> {
     item.addEventListener('mousedown', handleDown)
-    item.addEventListener('mousedown', handleBlockUp)
+    item.addEventListener('mouseup', handleUp)
 })
 
-document.body.addEventListener('mousemove',(e)=>{ //把鼠标移动绑定给 body, 这样热区范围更大!
-
-})
+//绑定在 body 上, 如果通过 currentTarget 就是指向的 body
+document.body.addEventListener('mousemove',handleMove)//把鼠标移动绑定给 body, 这样热区范围更大!
