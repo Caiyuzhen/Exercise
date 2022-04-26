@@ -87,6 +87,8 @@ cardArr.forEach((item) => {
 
 
 
+
+
 //🍔🍔🍔功能二:实现拖拽功能 ——————————————————————————————————————————
 //mousedown   mouseup   mousemove
 //clientX   clientY
@@ -154,6 +156,8 @@ document.body.addEventListener('mousemove',(e)=>{
 
 
 
+
+
 //🍔🍔🍔功能三:实现排序功能 ——————————————————————————————————————————
 //同样的也是先添加点击跟抬起的事件
 
@@ -166,6 +170,15 @@ let blockMovable = false
 
 let target = null
 
+//card 的间距
+let gapWidth = 16
+//元素大小
+let blockWidth = 0
+
+let currentPosIndex = 0  //记录放手后元素排到第几个
+let targetIndex = 0  //记录用来判读元素属于第几个的位置
+
+
 
 function handleDown(e) {  //按下
     blockMovable = true
@@ -175,6 +188,21 @@ function handleDown(e) {  //按下
     target = e.currentTarget
     target.style.transition = 'none' //不要让它一直的过渡
     target.style.zIndex = 10
+
+    //现在上面声明 blockWidth 变量,再在按下后获取元素宽度
+    blockWidth = target.getBoundingClientRect().width
+
+    //判断被拖拽元素处于第几个,每次点下后都判断一下有多少元素,因为元素可以点击新增, 不能写死
+    const all = document.querySelectorAll('.one-unit')
+    const allArr = [...all]
+
+    allAee.forEach((item,index)=>{
+        if(item === e.currentTarget){
+            targetIndex = index //元素的位置等于元素的索引
+            currentPosIndex = index
+        }
+    })
+
 }
 
 
@@ -183,12 +211,41 @@ function handleUp(e) {  //抬起
 }
 
 
+//判断排序的移动范围
+function changePos(newUnits,disX,eleWidth){ //gapWidth+blockWidth=moveWidth
+    //👇一、判断被拖拽元素移动了几个单位 = 鼠标移动的范围 ÷ 元素(度+元素间距)
+    const moveStep = parseInt(disX / eleWidth) //转化为整数
+    // console.log(moveStep) 
+    currentPosIndex = moveStep + targetIndex //放手的位置 = 移动了几个单位(因为往左移动是🌟-负数,所以加起来相当于减去多少!!🌟) + 当前元素位于第几个
+    console.log(currentPosIndex)
+
+
+
+
+
+    //👇👇二、判断其他元素需要排序到哪里的核心代码
+    if( currentPosIndex > targetIndex ){
+        const needMoveCount = currentPosIndex - targetIndex //排序位置 = 被拖移动了几个单位 - 被拖元素位于第几个
+
+        for (let i = 1; i <= needMoveCount; i++){
+            
+        }
+    }
+
+
+
+
+}
+
+
+
 function handleMove(e) {  //移动
     if(blockMovable) {
         blockX = blockTrans.x + e.clientX - blockDownPos.x //注意,不是 mouse, 是 blockDown
         blockY = blockTrans.y + e.clientY - blockDownPos.y
         //👇👇🌟 获取排序的元素二: 获取上面改变后的变量
         target.style.transform = `translate(${blockX}px,${blockY}px)`
+        changePos([...document.querySelectorAll('.one-unit')], blockX , gapWidth+blockWidth)//判断移动范围的函数, 需要传入 [最新的排序信息]、[blockX]、[gapWidth+blockWidth] 三个参数
     }
 }
 
