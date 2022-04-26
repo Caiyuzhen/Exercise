@@ -161,6 +161,7 @@ document.body.addEventListener('mousemove',(e)=>{
 const blockDownPos = { x: 0, y : 0 } 
 const blockTrans = { x: 0, y: 0 } 
 let blockX = 0, blockY = 0  
+// let blockDisX = 0, blockDisY = 0
 let blockMovable = false
 
 let target = null
@@ -172,7 +173,8 @@ function handleDown(e) {  //按下
     blockDownPos.y = e.clientY
     //👇👇🌟 获取排序的元素一: 点击这个元素后, 把这个元素变成 target 变量
     target = e.currentTarget
-    target.style.transition = 'none'
+    target.style.transition = 'none' //不要让它一直的过渡
+    target.style.zIndex = 10
 }
 
 
@@ -183,8 +185,8 @@ function handleUp(e) {  //抬起
 
 function handleMove(e) {  //移动
     if(blockMovable) {
-        blockX = blockTrans.x + e.clientX - mouseDownPos.x
-        blockY = blockTrans.y + e.clientY - mouseDownPos.y
+        blockX = blockTrans.x + e.clientX - blockDownPos.x //注意,不是 mouse, 是 blockDown
+        blockY = blockTrans.y + e.clientY - blockDownPos.y
         //👇👇🌟 获取排序的元素二: 获取上面改变后的变量
         target.style.transform = `translate(${blockX}px,${blockY}px)`
     }
