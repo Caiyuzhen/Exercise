@@ -175,8 +175,8 @@ let gapWidth = 16
 //元素大小
 let blockWidth = 0
 
-let currentPosIndex = 0  //记录放手后元素排到第几个
-let targetIndex = 0  //记录用来判读元素属于第几个的位置
+let currentPosIndex = 0  //记录放手后元素应该在哪 (走几格,🌟小于为右,大于为左!)
+let targetIndex = 0  //记录用来判断元素目前第几个的位置(按下时需要拖拽元素的位置)
 
 
 
@@ -189,16 +189,16 @@ function handleDown(e) {  //按下
     target.style.transition = 'none' //不要让它一直的过渡
     target.style.zIndex = 10
 
-    //现在上面声明 blockWidth 变量,再在按下后获取元素宽度
+    //先在上面声明 blockWidth 变量,再在按下后获取元素宽度
     blockWidth = target.getBoundingClientRect().width
 
     //判断被拖拽元素处于第几个,每次点下后都判断一下有多少元素,因为元素可以点击新增, 不能写死
     const all = document.querySelectorAll('.one-unit')
     const allArr = [...all]
 
-    allAee.forEach((item,index)=>{
+    allArr.forEach((item,index)=>{
         if(item === e.currentTarget){
-            targetIndex = index //元素的位置等于元素的索引
+            targetIndex = index //元素的位置等于元素的索引(按下时需要拖拽元素的位置)
             currentPosIndex = index
         }
     })
@@ -212,25 +212,34 @@ function handleUp(e) {  //抬起
 
 
 //判断排序的移动范围
-function changePos(newUnits,disX,eleWidth){ //gapWidth+blockWidth=moveWidth
+function changePos(newUnits,disX,moveWidth){ //gapWidth+blockWidth=moveWidth
     //👇一、判断被拖拽元素移动了几个单位 = 鼠标移动的范围 ÷ 元素(度+元素间距)
-    const moveStep = parseInt(disX / eleWidth) //转化为整数
+    const moveStep = parseInt(disX / moveWidth) //转化为整数
     // console.log(moveStep) 
-    currentPosIndex = moveStep + targetIndex //放手的位置 = 移动了几个单位(因为往左移动是🌟-负数,所以加起来相当于减去多少!!🌟) + 当前元素位于第几个
+    currentPosIndex = moveStep + targetIndex //🌟🌟放手后应该在的位置(走几格,🌟小于为右,大于为左!) = 移动了几个单位(因为往左移动是🌟-负数,所以加起来相当于减去多少!!🌟) + 当前元素位于第几个
     console.log(currentPosIndex)
 
 
 
 
+    //👇👇二、判断右边第几个元素需要排序到哪里的核心代码
+    if( currentPosIndex > targetIndex ){ //应该在哪(走几格,🌟小于为右,大于为左!) > 当前拖拽元素的位置(按下时需要拖拽元素的位置)
+        const needMoveCount = currentPosIndex - targetIndex //排序位置(走几格) = 应该在哪 - 目前在哪 (比如: 应该在哪是第二个,目前在第一个,那么就是走了一格)
 
-    //👇👇二、判断其他元素需要排序到哪里的核心代码
-    if( currentPosIndex > targetIndex ){
-        const needMoveCount = currentPosIndex - targetIndex //排序位置 = 被拖移动了几个单位 - 被拖元素位于第几个
+
+        for (let i = 1; i <= needMoveCount; i++){ //i 相当于每次都去遍历,然后🌟「遍历出来的元素去计算它的的索引位」,然后进行移动
+            if( targetIndex + i !== newUnits.length - 1 ){//1+3=4,4!=5-1,所以不是最后一个元素
+                newUnits[targetIndex + i] ? (newUnits[targetIndex + i].style.transform = `translateX(-${moveWidth}px)`) : ""//因为有可能有空元素,所以要判断是否有元素(例如拖了-10个元素,但是只有-9个元素,所以有空元素)
+            }
+        }
+    } //👇👇三、判断左边第几个元素需要排序到哪里的核心代码
+    else if( currentPosIndex < targetIndex ) {
+        const needMoveCount = targetIndex - currentPosIndex //排序位置(走几格) = 应该在哪 - 目前在哪 (比如: 应该在哪是第二个,目前在第一个,那么就是走了一格)
 
         for (let i = 1; i <= needMoveCount; i++){
-            
+                newUnits[targetIndex - i] ? (newUnits[targetIndex - i].style.transform = `translateX(${moveWidth}px)`) : ""//判断是否是空元素
         }
-    }
+     }
 
 
 
