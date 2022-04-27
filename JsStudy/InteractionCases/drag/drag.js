@@ -102,7 +102,7 @@ let isDown = false //🌟🌟 2-1 点击鼠标后才触发
 
 
 
-//第 1-1 步: 鼠标按下
+//👈 第 1-1 步: 鼠标按下
 moveBar.addEventListener('mousedown',(e)=>{
     // console.log(e.clientX,e.clientY,'down')
     mouseDownPos.x = e.clientX  //第 2-4 步: 记录点下的 x 位置
@@ -114,7 +114,7 @@ moveBar.addEventListener('mousedown',(e)=>{
 
 
 
-//第 1-2 步: 鼠标抬起
+//👋 第 1-2 步: 鼠标抬起
 moveBar.addEventListener('mouseup',(e)=>{
     // console.log(e,'up')
 
@@ -128,7 +128,7 @@ moveBar.addEventListener('mouseup',(e)=>{
 
 
 
-//第 1-3 步: 鼠标移动(绑定给 body, 这样热区范围更大!)
+//🚗 第 1-3 步: 鼠标移动(绑定给 body, 这样热区范围更大!)
 document.body.addEventListener('mousemove',(e)=>{
     // console.log(e.clientX,e.clientY,'Up')
 
@@ -177,6 +177,7 @@ let blockWidth = 0
 
 let currentPosIndex = 0  //记录放手后元素应该在哪 (走几格,🌟小于为右,大于为左!)
 let targetIndex = 0  //记录用来判断元素目前第几个的位置(按下时需要拖拽元素的位置)
+let moveStep = 0 //记录拖拽的步数
 
 
 
@@ -187,7 +188,7 @@ function handleDown(e) {  //按下
     //👇👇🌟 获取排序的元素一: 点击这个元素后, 把这个元素变成 target 变量
     target = e.currentTarget
     target.style.transition = 'none' //不要让它一直的过渡
-    target.style.zIndex = 10
+    target.style.zIndex = 20
 
     //先在上面声明 blockWidth 变量,再在按下后获取元素宽度
     blockWidth = target.getBoundingClientRect().width
@@ -206,15 +207,27 @@ function handleDown(e) {  //按下
 }
 
 
-function handleUp(e) {  //抬起
+function handleUp(e) {  //抬起 (抬起后, 被拖拽的元素就放到对应的位置)
     blockMovable = false
+
+    const newUnits = document.querySelectorAll('.one-unit') //重新获取最新的位置
+    if( moveStep < 0 - targetIndex ){//🌟比如向左 moveStep 拖了 -10 个 < (0 - 3 = - 3)
+        moveStep = - targetIndex  //🌟[逻辑是元素移到底相当于 = 自己的索引位]那么就让 moveStep = 元素的索引位
+    } else if ( moveStep > newUnits.length - targetIndex - 2 ) { //🌟比如如果向右拖了 10 个 > (( 4 - 2 -2 )=0)
+        moveStep = newUnits.length - targetIndex - 2  //🌟[逻辑是排除掉 Add+ 跟元素本身] moveStep = 整组元素的数量 - 当前元素的索引位 - 2  (🌟思考的过程是,先用整组元素看移动到最后要花几步,用两组数据对比一下就知道了)
+    }
+
+    target.style.transition = 'all .3s ease-in-out' //因为下面改为了 none ,所以放手后加回来
+    target.style.zIndex = 'auto' //因为下面改为了 20 ,所以放手后加回来( auto 为默认,0 也可以 )
+    target.style.transform = `translateX(${moveStep * (blockWidth + gapWidth)}px)`//🌟🌟改变的位置 = 步数(移动了多个位) * (元素宽度 + 间距宽度)
 }
 
 
-//判断排序的移动范围
+
+//判断排序的移动范围(超过多少就去改变位置)
 function changePos(newUnits,disX,moveWidth){ //gapWidth+blockWidth=moveWidth
     //👇一、判断被拖拽元素移动了几个单位 = 鼠标移动的范围 ÷ 元素(度+元素间距)
-    const moveStep = parseInt(disX / moveWidth) //转化为整数
+    moveStep = parseInt(disX / moveWidth) //转化为整数
     // console.log(moveStep) 
     currentPosIndex = moveStep + targetIndex //🌟🌟放手后应该在的位置(走几格,🌟小于为右,大于为左!) = 移动了几个单位(因为往左移动是🌟-负数,所以加起来相当于减去多少!!🌟) + 当前元素位于第几个
     console.log(currentPosIndex)
@@ -222,14 +235,22 @@ function changePos(newUnits,disX,moveWidth){ //gapWidth+blockWidth=moveWidth
 
 
 
+    //👇👇四、判断如果元素拖回了原来的位置, 那么就把其他元素变回原位
+    for( let i = 0; i < newUnits.length; i++){ //🌟 i 相当于元素的索引位, 遍历所有元素, 如果遍历的过程中发现 i 等于 targetIndex (当前拖拽元素的索引位置) ,那么 i 这个元素就变回 0 的位置
+        if( i !== targetIndex ){ //当前元素的索引位
+            newUnits[i].style.transform = `translateX(0px)`//这里符合条件后, 下面就不会再改了
+        }
+    } 
+
+
     //👇👇二、判断右边第几个元素需要排序到哪里的核心代码
     if( currentPosIndex > targetIndex ){ //应该在哪(走几格,🌟小于为右,大于为左!) > 当前拖拽元素的位置(按下时需要拖拽元素的位置)
         const needMoveCount = currentPosIndex - targetIndex //排序位置(走几格) = 应该在哪 - 目前在哪 (比如: 应该在哪是第二个,目前在第一个,那么就是走了一格)
 
 
-        for (let i = 1; i <= needMoveCount; i++){ //i 相当于每次都去遍历,然后🌟「遍历出来的元素去计算它的的索引位」,然后进行移动
-            if( targetIndex + i !== newUnits.length - 1 ){//1+3=4,4!=5-1,所以不是最后一个元素
-                newUnits[targetIndex + i] ? (newUnits[targetIndex + i].style.transform = `translateX(-${moveWidth}px)`) : ""//因为有可能有空元素,所以要判断是否有元素(例如拖了-10个元素,但是只有-9个元素,所以有空元素)
+        for (let i = 1; i <= needMoveCount; i++){ //🌟 i 相当于元素的索引位, 每次都去遍历,然后🌟「遍历出来的元素去计算它的的索引位」,然后进行移动
+            if( targetIndex + i !== newUnits.length - 1 ){//为了规避最后一个元素, 比如 1+3=4,4!=5-1,所以不是最后一个元素
+                newUnits[targetIndex + i] ? (newUnits[targetIndex + i].style.transform = `translateX(-${moveWidth}px)`) : ""//因为有可能有空元素,所以要判断是否有元素(例如拖了-10个元素,但是只有-9个元素,所以有空元素), 没有空元素就用 [移动几个] 去进行移动
             }
         }
     } //👇👇三、判断左边第几个元素需要排序到哪里的核心代码
