@@ -281,9 +281,54 @@ function handleMove(e) {  //移动
 
 
 
+
+//五、移动结束后的操作
+function handleTransitionEnd(e){ //清除旧数据, 改为新的排序数据
+    if(target === e.currentTarget){ //🌟只有当当前触发的元素是正在拖拽的元素,下面的代码才会执行!
+        if(currentPosIndex !== targetIndex){ //放手后元素的索引位 != 当前位置
+            const all = document.querySelectorAll('.one-unit') //重新获取最新的元素
+
+            //🌟🌟下面都是判断的是元素的索引位!
+            if(currentPosIndex < 0){  //🌟 修正如果超出左边非常多的情况: 放手后元素的索引位 < 0 ,那元素就是放在最前面的索引位, 
+                currentPosIndex = 0  //元素放在第一个(最左)
+            } else if (currentPosIndex > all.length - 2) {  //🌟 修正如果超出右边非常多的情况
+                currentPosIndex = all.length - 2  //放在最后(右)一个
+            }
+
+
+            if (currentPosIndex < targetIndex) { //放手后元素的索引位 < 当前位置 (左放边[上面已经排除了超出左边很多的情况])
+                target.parentNode.insertBefore(target, all[currentPosIndex]) //放在[🌟🌟🌟当前位置被占用的元素(还没拖拽前!)]的前面
+            } else {
+                target.parentNode.insertBefore(target,all[currentPosIndex] + 1)//同理也是放在[🌟🌟🌟当前位置被占用的元素(还没拖拽前!)]的前面
+            }
+
+            //🌟🌟 排序后, 会重新渲染, 所以要清除旧的位置数据, 因为上面已经 insertBefore 改了位置数据了, 所以要初始化一下(恢复默认状态)
+            const allArr = [...all]
+            allArr.forEach((item) => {
+                item.style.transition = 'none'
+                item.style.transform = 'translate(0px)'
+            })
+
+            //等上面的同步函数执行完后,异步去恢复为有过度属性的状态
+            setTimeout(() => {
+                allArr.forEach((item)=>{
+                    item.style.transition = 'transform 0.2s ease-in-out'
+                })
+            })
+
+
+
+        }
+    }
+}
+
+
+
+
 cardArr.forEach((item)=> {
     item.addEventListener('mousedown', handleDown)
     item.addEventListener('mouseup', handleUp)
+    item.addEventListener('transitionend', handleTransitionEnd)
 })
 
 //绑定在 body 上, 如果通过 currentTarget 就是指向的 body
