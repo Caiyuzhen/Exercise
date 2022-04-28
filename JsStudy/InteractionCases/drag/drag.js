@@ -9,6 +9,11 @@ const wallet = document.querySelector('.container')
 //🌟通过 e.currentTarget 获取触发事件的元素
 
 function handleClick(e){
+
+    if(!clickable){//🍎🍎 , ! 为[取反操作符],如果 clickable = false, 整体就是 true
+        return //上面为 true 的话, 就 return ,就不会执行下面的代码
+    }
+
     //判断下，如果点击的是添加按钮就不高亮
     if(e.currentTarget.className.includes('add-unit')){
     //判断方法二： e.target.classList.contains('add-unit')
@@ -54,11 +59,17 @@ function handleClick(e){
         rootDiv.appendChild(span)
         rootDiv.appendChild(div)
 
+   
+
+        //🚀给新添加的元素添加上下面的拖拽方法!
+        rootDiv.addEventListener('click',handleClick)
+        rootDiv.addEventListener('mousedown',handleDown)
+        rootDiv.addEventListener('transitionend',handleTransitionEnd)
+
+      
+
         //创建后添加到元素的前面(需要父级来调用),前一个是需要添加的元素，后面是参考元素
         e.currentTarget.parentNode.insertBefore(rootDiv,e.currentTarget)
-
-        //🌟🌟需要给创建后的元素也添加事件
-        rootDiv.addEventListener('click',handleClick)
 
     } else {
         
@@ -180,8 +191,19 @@ let targetIndex = 0  //记录用来判断元素目前第几个的位置(按下�
 let moveStep = 0 //记录拖拽的步数
 
 
+//🍎下面两个变量都是避免直接点击直接变色的
+let clickable = true //避免拖拽后 card 直接高亮,用变量来阻止鼠标事件, 在 handleBlockDwon()那里改变变量
+let clickTimeId = 0
 
 function handleDown(e) {  //按下
+
+if(!e.currentTarget.classList.contains('add-unit')){//点下的如果包含了添加单位的 class,就不执行下面的代码
+
+    clickTimeId = setTimeout(()=>{ //🍎🍎点下后超过 200ms 后判断为非点击事件 , 因为一般点击事件都是点一下就抬起手
+        clickable = false
+    },200)
+
+
     blockMovable = true
     blockDownPos.x = e.clientX
     blockDownPos.y = e.clientY
@@ -203,23 +225,38 @@ function handleDown(e) {  //按下
             currentPosIndex = index
         }
     })
-
+    }
 }
 
 
 function handleUp(e) {  //抬起 (抬起后, 被拖拽的元素就放到对应的位置)
-    blockMovable = false
 
-    const newUnits = document.querySelectorAll('.one-unit') //重新获取最新的位置
-    if( moveStep < 0 - targetIndex ){//🌟比如向左 moveStep 拖了 -10 个 < (0 - 3 = - 3)
-        moveStep = - targetIndex  //🌟[逻辑是元素移到底相当于 = 自己的索引位]那么就让 moveStep = 元素的索引位
-    } else if ( moveStep > newUnits.length - targetIndex - 2 ) { //🌟比如如果向右拖了 10 个 > (( 4 - 2 -2 )=0)
-        moveStep = newUnits.length - targetIndex - 2  //🌟[逻辑是排除掉 Add+ 跟元素本身] moveStep = 整组元素的数量 - 当前元素的索引位 - 2  (🌟思考的过程是,先用整组元素看移动到最后要花几步,用两组数据对比一下就知道了)
+    if(!e.currentTarget.classList.contains('add-unit')){//点下的如果包含了添加单位的 class,就不执行下面的代码
+        
+        clearTimeout(clickTimeId)//🍎🍎点击后马上抬起的话, 就判断为点击事件, 所以要清除定时器
+
+        setTimeout(()=>{ //等同步代码执行完后才变为 true, 相当于下一次执行的时候就是 true 了
+            clickable = true //🍎🍎判断为不是 add 按钮后,要让 clickable = true
+        })
+
+
+        blockMovable = false
+    
+        const newUnits = document.querySelectorAll('.one-unit') //重新获取最新的位置
+        if( moveStep < 0 - targetIndex ){//🌟比如向左 moveStep 拖了 -10 个 < (0 - 3 = - 3)
+            moveStep = - targetIndex  //🌟[逻辑是元素移到底相当于 = 自己的索引位]那么就让 moveStep = 元素的索引位
+        } else if ( moveStep > newUnits.length - targetIndex - 2 ) { //🌟比如如果向右拖了 10 个 > (( 4 - 2 -2 )=0)
+            moveStep = newUnits.length - targetIndex - 2  //🌟[逻辑是排除掉 Add+ 跟元素本身] moveStep = 整组元素的数量 - 当前元素的索引位 - 2  (🌟思考的过程是,先用整组元素看移动到最后要花几步,用两组数据对比一下就知道了)
+        }
+    
+        target.style.transition = 'all .3s ease-in-out' //因为下面改为了 none ,所以放手后加回来
+        target.style.zIndex = 'auto' //因为下面改为了 20 ,所以放手后加回来( auto 为默认,0 也可以 )
+        target.style.transform = `translateX(${moveStep * (blockWidth + gapWidth)}px)`//🌟🌟改变的位置 = 步数(移动了多个位) * (元素宽度 + 间距宽度)
+    
     }
 
-    target.style.transition = 'all .3s ease-in-out' //因为下面改为了 none ,所以放手后加回来
-    target.style.zIndex = 'auto' //因为下面改为了 20 ,所以放手后加回来( auto 为默认,0 也可以 )
-    target.style.transform = `translateX(${moveStep * (blockWidth + gapWidth)}px)`//🌟🌟改变的位置 = 步数(移动了多个位) * (元素宽度 + 间距宽度)
+    //🍊拖拽结束后鼠标抬起时要把数据还原一下!!因为一开始是 0 (相对的)
+    moveStep = 0
 }
 
 
@@ -299,8 +336,9 @@ function handleTransitionEnd(e){ //清除旧数据, 改为新的排序数据
             if (currentPosIndex < targetIndex) { //放手后元素的索引位 < 当前位置 (左放边[上面已经排除了超出左边很多的情况])
                 target.parentNode.insertBefore(target, all[currentPosIndex]) //放在[🌟🌟🌟当前位置被占用的元素(还没拖拽前!)]的前面
             } else {
-                target.parentNode.insertBefore(target,all[currentPosIndex] + 1)//同理也是放在[🌟🌟🌟当前位置被占用的元素(还没拖拽前!)]的前面
+                target.parentNode.insertBefore(target,all[currentPosIndex + 1])//同理也是放在[🌟🌟🌟当前位置被占用的元素(还没拖拽前!)]的前面
             }
+ 
 
             //🌟🌟 排序后, 会重新渲染, 所以要清除旧的位置数据, 因为上面已经 insertBefore 改了位置数据了, 所以要初始化一下(恢复默认状态)
             const allArr = [...all]
