@@ -64,6 +64,7 @@ function handleClick(e){
         //🚀给新添加的元素添加上下面的拖拽方法!
         rootDiv.addEventListener('click',handleClick)
         rootDiv.addEventListener('mousedown',handleDown)
+        rootDiv.addEventListener('mouseup',handleUp)
         rootDiv.addEventListener('transitionend',handleTransitionEnd)
 
       
