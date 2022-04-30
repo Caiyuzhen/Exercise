@@ -12,6 +12,7 @@ function handleClick(e){
 
     if(!clickable){//🍎🍎 , ! 为[取反操作符],如果 clickable = false, 整体就是 true
         return //上面为 true 的话, 就 return ,就不会执行下面的代码
+        // clickable = true //方法二,然后 handleUp 的 setTimeOut 函数可以注释掉
     }
 
     //判断下，如果点击的是添加按钮就不高亮
