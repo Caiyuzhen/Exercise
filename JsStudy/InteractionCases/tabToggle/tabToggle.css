@@ -1,0 +1,101 @@
+@font-face {
+    font-family: "Gilroy-Bold";
+    src: url(".resources/fonts/Gilroy-Bold.woff") format("woff"),
+}
+
+body {
+    background-color: #FFF8F2;
+    display:flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.container {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-bar {
+    font-family:'Gilroy-Bold';
+    font-size: 2rem;
+    color: #131313;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12rem;
+    position: relative;
+    margin-bottom:8rem;
+}
+
+.title{
+    cursor: pointer;
+    opacity: .4;
+    transition: opacity .2s ease-in-out;
+}
+
+.title-selected{
+    opacity: 1;
+}
+
+.title-bg{
+    position:absolute;
+    left:0;
+    /* 改变 transform 来实现移动效果 */
+    transform: translate(20px,10px);
+    width: 6.5rem;
+    height: 3.5rem;
+    border-radius: 1rem;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 36.3808px 36.3808px 41.5781px rgba(176, 112, 63, 0.2);
+    transition: transform .3s ease-in-out;
+    z-index: -1;
+}
+
+.content-box{
+    /* 因为子元素要相对于这个父元素来绝对定位，所以这个父元素要写个相对定位 */
+    position: relative;
+    width: 20rem;
+    height: 20rem;
+}
+
+.img-box{
+    width: 20rem;
+    height: 20rem;
+    /* 用绝对定位图片才能叠在一起 */
+    position: absolute;
+    transition:opacity 0.3s ease-in-out;
+    transition: transform .3s ease-in-out;
+}
+
+.sunny-bg{
+    background: url('./src/sunny.png') center no-repeat;
+    background-size: contain;
+    opacity: 0;
+    transform: translate(0px,80px);
+    
+}
+
+.cloudy-bg{
+    background: url('./src/cloudy.png') center no-repeat;
+    background-size: contain;
+    opacity: 0;
+    transform: translate(0px,80px);
+}
+
+.rainy-bg{
+    background: url('./src/rainy.png') center no-repeat;
+    background-size: contain;
+    opacity: 0;
+    transform: translate(0px,80px);
+}
+
+.img-selected{
+    opacity:1;
+    z-index:10;
+    transform: translate(0px,0px);
+    /* 另一种方式：display:none; */
+  }

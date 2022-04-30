@@ -5,12 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>切 Tab 效果</title>
+    <link rel="stylesheet" href="../tabToggle/tabToggle.css">
 </head>
 <body>
     <div class="container">
-        <div class="topbar"></div>
-        <div class="box-group"></div>
+        <div class="nav-bar">
+            <span class="title sunny-title title-selected">Sunny</span>
+            <span class="title cloudy-title">Cloudy</span>
+            <span class="title rainy-title">Rainy</span>
+            <div class="title-bg"></div>
+        </div>
+    </div>
+    <div class="content-box">
+        <div class="img-box sunny-bg img-selected"></div>
+        <div class="img-box cloudy-bg"></div>
+        <div class="img-box rainy-bg"></div>
     </div>
     
+    <script src='../tabToggle/tabToggle.js'></script>
+
+
+
 </body>
 </html>
