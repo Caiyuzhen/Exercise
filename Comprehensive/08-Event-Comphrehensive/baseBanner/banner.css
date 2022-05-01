@@ -28,7 +28,6 @@ body{
 .img-box-move{
   display:flex;
   transition:transform 0.5s ease-in-out;
-
 }
 .arrow{
   width: 160px;
@@ -41,7 +40,6 @@ body{
 .arrow-unclick{
   opacity:0.3;
 }
-
 
 .line-box{
   display:flex;
