@@ -5,26 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>鼠标滚轮 & 滚动事件</title>
-    <H1>大标题</H1>
-    <H2>中标题</H2>
-    <br><br><br><br><br>
-    <div id='box' class="div1">
-        <div class="div2">子元素子元素子元素子元素子元素子元素子元素子元素子元素子元素子元素</div>
-    </div>
-    <br><br><br>
-    <p style='height:100vh'>大江东去浪淘尽大江东去浪淘尽大江东去浪淘尽大江东去浪淘尽
-    <br>
-    大江东去浪淘尽大江东去浪淘尽大江东去浪淘尽大江东去浪淘尽
-    <br>
-    大江东去浪淘尽大江东去浪淘尽大江东去浪淘尽大江东去浪淘尽
-    <H3>点我把 box 滚动到视窗内</H3>
-    
 </head>
+
 <style type="text/css">
     .div1{
         height: 100px;
         width: 280px;
         background-color: rgb(110, 71, 228);
+        /* 让子元素可以滚动 */
         overflow: scroll;
         overflow-x: scroll;
         padding: 20px;
@@ -35,13 +23,28 @@
         background-color: rgb(228, 191, 71);
     }
 </style>
+
 <body>
+    <h1>大标题</h1>
+    <h2>中标题</h2>
+    <br><br><br><br><br>
+    <div id="box" class="div1">
+        <div class="div2">子元素子元素子元素子元素子元素子元素子元素子元素子元素子元素子元素</div>
+    </div>
+    <br><br><br>
+    <p style="height:100vh">大江东去浪淘尽大江东去浪淘尽大江东去浪淘尽大江东去浪淘尽</p>
+    <br>
+    大江东去浪淘尽大江东去浪淘尽大江东去浪淘尽大江东去浪淘尽
+    <br>
+    大江东去浪淘尽大江东去浪淘尽大江东去浪淘尽大江东去浪淘尽
+    <h3>点我把 box 滚动到视窗内</h3>
+    
     <!-- 
         🌟🌟 wheel (鼠标滚轮的滚动就会触发)
             重要的事件对象
-                delat(相差值)
-                    delatY  纵向滚动的距离差
-                    delatX  横向滚动的距离差
+                delta(相差值)
+                    deltaY  纵向滚动的距离差
+                    deltaX  横向滚动的距离差
             特点
                 往上滚为 -
                 往下滚为 +
