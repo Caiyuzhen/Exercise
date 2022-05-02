@@ -15,8 +15,10 @@ let deltaTotal = 0 //滚动的力道总和
 
 window.addEventListener('wheel',(e)=>{
 
-    clearTimeout(timeId) //🌟每次滚动都重置一下定时器
+
     deltaTotal+= e.deltaY //🌟滚动的幅度
+    clearTimeout(timeId) //🌟每次滚动都重置一下定时器
+    
 
     if(deltaTotal > 1000 || deltaTotal < -1000){ //🌟滚动的幅度大于 1000 或者小于 -1000，就触发滚动事件
     

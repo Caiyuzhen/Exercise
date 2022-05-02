@@ -60,7 +60,7 @@ body{
     height: 100vh;
     width: 100vw;
     display: flex;
-    /* 👇s分配弹性盒子的空间 */
+    /* 👇分配弹性盒子的空间 */
     flex-shrink:0;
     align-items:center;
     justify-content:space-between;
