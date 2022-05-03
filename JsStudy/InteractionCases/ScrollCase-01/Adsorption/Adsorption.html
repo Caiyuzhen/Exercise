@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>元素吸附效果</title>
+    <link rel="stylesheet" href="../Adsorption/Adsorption.css">
+</head>
+<body>
+
+<!-- 实时元素滚动信息 -->
+    <div class="header">
+        <div class="scroll-info">
+            <span>文档已滚动距离</span>
+            <div>
+                <span id="scroll-num" style="font-size:2rem">0</span>
+                <span>px</span>
+            </div>
+        </div>
+    </div>
+    
+<!-- 具体的滚动元素 -->
+    <div class="refer">
+        随文档正常滚动的元素
+    </div>
+
+<!-- 实时相关信息 -->
+    <div class="scroll-target" style="font-weight: bold">
+        <span id="title">🍎 ScrollY 发生滚动关系的元素</span>
+
+        <div class="translate-info">
+
+            <div class="translate-box">
+                <span>当前总 translateY（1=2+4） </span>
+                <div>
+                    <span class="num" id="translate-num">0</span>
+                    <span>px</span>
+                </div>
+            </div>
+
+
+            <div class="divider"></div>
+
+
+
+            <div class="translate-box">
+                <span>初始基础值（含CSS） translateY</span>
+                <div>
+                    <span class="num" id="init-num">0</span>
+                    <span>px</span>
+                </div>
+            </div>
+
+
+            <div class="divider"></div>
+
+
+            <div class="translate-change">
+                <span>translateY 的改变值</span>
+                <div>
+                    <span class="num" id="translate-change">0</span>
+                    <span>px</span>
+                </div>
+            </div>
+
+
+        <div class="divider"></div>
+            
+
+            <div class="scroll-Y">
+                <span>文档 Scroll Y值</span>
+                <div>
+                    <span class="num" id="scroll-box-num">0</span>
+                    <span>px</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div style="height: 100vh"></div>
+    <div style="height: 100vh"></div>
+    <div style="height: 100vh"></div>
+
+    <script src="./Ascorption.js"></script>
+    
+</body>
+</html>
