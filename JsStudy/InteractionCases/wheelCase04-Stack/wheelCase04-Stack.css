@@ -13,14 +13,12 @@ body{
 }
 
 .container{
-    width: 100vw;
-    height: 100vh;
-    position: relative;
+    height:100vh;
+    width:100vw;
+    position:relative;
     display:flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    overflow: hidden;
+    align-items:center;
+    overflow:hidden;
 }
 
 .nav-dot{
@@ -47,18 +45,19 @@ body{
     width:0.8rem;
     opacity: 1;
 }
-
+/* 
 .content-box{
     width: 100vw;
     height: 100vh;
     justify-self: start;
     transition: transform 0.5s ease-in-out;
-}
+} */
 
 .content{
     height: 100vh;
     width: 100vw;
     display: flex;
+    position:absolute;
     align-items:center;
     justify-content:space-between;
     /* 👇注意！ */
@@ -161,7 +160,7 @@ body{
     background-size: contain;
 }
 
-.part-2{
+.part2-layer{
     background-color:rgb(255, 255, 255);
 }
 
@@ -182,7 +181,7 @@ body{
     background-color:red;
     }
 
-.part-3{
+.part3-layer{
     background-color:rgb(255, 255, 255);
 }
 
@@ -195,7 +194,7 @@ body{
     background-size: contain;
 }
 
-.part-4{
+.part4-layer{
     background-color:rgb(255, 255, 255);
 }
 

@@ -50,9 +50,9 @@ window.addEventListener('wheel',(e)=>{
 
             dotsArr.forEach((item,index)=>{  //改变小圆点的样式
                 if (index === currentIndex) {
-                    item.classList.add('.dot-selected')
+                    item.classList.add('dot-selected')
                 }else{
-                    item.classList.remove('.dot-selected')
+                    item.classList.remove('dot-selected')
                 }
             })
        
