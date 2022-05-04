@@ -1,0 +1,152 @@
+@font-face {
+    font-family:"Optician-Sans";
+    src:url(".resources/fonts/Optician-Sans.otf") format("otf")
+  }
+
+html{
+    overflow: hidden;
+}
+
+body{
+    background-color: #000000;
+}
+
+
+.container{
+    padding: 2rem;
+}
+
+
+
+.part1-container{
+    margin-bottom: 20rem;
+}
+
+
+
+.part2-container{
+    margin-top: 50rem;
+}
+
+.stack-container{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stack-text{
+    color: rgb(255, 255, 255);
+    font-family: "Optician-Sans";
+    font-size: 3rem;
+    font-weight: 300;
+    letter-spacing: 4px;
+    position: absolute;
+    top: 6rem;
+    z-index: 11;
+}
+
+.stack-layer{
+    position: absolute;
+}
+
+.first-layer{
+    position:relative;
+    transform:translateY(0px);
+    z-index:10;
+}
+
+.second-layer{
+    transform:translateY(50px);
+    z-index:9;
+}
+    .third-layer{
+    transform:translateY(100px);
+    z-index:8;
+}
+
+.four-layer{
+    transform:translateY(150px);
+    z-index:7;
+}
+
+.fifth-layer{
+    transform:translateY(200px);
+    z-index:6;
+}
+
+.text-box{
+    display:flex;
+    flex-wrap:nowrap;
+  
+}
+
+.moving-text{
+    font-family: "Optician-Sans";
+    color:white;
+    font-size:8rem;
+    white-space: nowrap;
+}
+
+.tag-box{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* 👇按元素内容的最小宽度 */
+    width: min-content;
+    transform: translateY(2rem);
+    z-index: 20;
+}
+
+.tag{
+    position:absolute;
+    z-index:10;
+    left:20%;
+}
+
+.green-tag{
+    position:relative;  
+}
+
+
+
+.part3-container{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    margin-top:20rem;
+    position:relative;
+  }
+
+  .loop{
+    position:absolute;
+  }
+  
+  .hori-loop{
+    transform:translateX(-320px)
+  }
+  
+  .vert-loop{
+    transform:translateY(-160px);
+    z-index:99;
+  }
+
+
+  
+  .part4-container{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    margin-top:20rem;
+    position:relative;
+  }
+
+  .text-mask{
+    /* border:1px solid white; */
+    background:linear-gradient(to bottom,rgba(0,0,0,.8),30%, black);
+    position:absolute;
+    border-radius:999px 999px 0 0;
+  }
