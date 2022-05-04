@@ -7,10 +7,10 @@ const boxScrollY = document.querySelector("#scroll-box-num")
 const refer = document.querySelector(".refer")
 
 const scrollNum = document.querySelector("#scroll-num")
-const translateEleInfo = document.querySelector(".scroll-target")
+const translateEle = document.querySelector(".scroll-target")
 
 
-const transform = getComputedStyle(translateEleInfo).transform //获得元素的所有信息
+const transform = getComputedStyle(translateEle).transform //获得元素的所有信息
 const matrix = new DOMMatrixReadOnly(transform)
 const baseTranslateY = matrix.m42 //获得【滚动关系看板】元素的基础值 translateY, m41 是 X  m42 是 Y
 
@@ -19,18 +19,18 @@ const baseTranslateY = matrix.m42 //获得【滚动关系看板】元素的基�
 
 
 // 🌟 第二项：设置元素内 初始translateY 的数据
-initTranslateNum.innerText = baseTranslateY
+initTranslateNum.innerText = baseTranslateY //=基础值
 
-const translateY = baseTranslateY + scrollY
+const translateY = baseTranslateY + scrollY //=总值
 
 // let preScrollY = 0//🍎获取滚动的差值
 
 
 // 🌟 第一项：设置元素内 【当前总 translateY】的初始化数据
-translateNum.innerText = translateY
+translateNum.innerText = translateY //-100px
 
 // 🌟 第三项：元素内 【改变值 translateY】 的初始化数据
-translateYChange.innerText = baseTranslateY - translateY
+translateYChange.innerText = baseTranslateY - translateY 
 
 
 
@@ -49,11 +49,15 @@ window.addEventListener('scroll',(e)=>{
     // preScrollY = scrollY //🍎记录上一次的滚动值
 
 
-    //🪐设置元素滚动的值
+
+
+    //🪐设置元素滚动的视差值(相等的话则不滚动)
     const translateY = (baseTranslateY + scrollY*0.85).toFixed(1) //最终的 Y 值 = 基础值+滚动值，然后把数字转化为字符串
 
     //🪐让元素进行滚动
-    translateEleInfo.style.transform = `translateY(${translateY}px)`
+    translateEle.style.transform = `translateY(${translateY}px)`
+  
+
 
     //🌟 第一项：实时改变【滚动关系看板】元素内 【当前 translateY 】的数据
     translateNum.innerText = translateY
