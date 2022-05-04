@@ -30,14 +30,16 @@ body{
     border-radius: 1rem;
     position:absolute;
     display:flex;
-    right: 1vw;
-    bottom: 4vh;
+    /* right: 1vw;
+    bottom: 4vh; */
+    right:1vw;
+    top:80vh;
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
     z-index: 20;
-    transform:translateY(-128px)
+    /* transform:translateY(-128px) */
 }
 
 #title{
