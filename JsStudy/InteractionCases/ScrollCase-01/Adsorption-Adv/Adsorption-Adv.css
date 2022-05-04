@@ -15,6 +15,7 @@ body{
     background-color: #000;
     position: fixed;
     color: white;
+    border-radius: 1rem;
     
     display: flex;
     flex-direction: column;
@@ -25,7 +26,8 @@ body{
 .refer{
     height: 100px;
     width: 200px;
-    background-color: #4627FF;
+    background-color: #4730ca;
+    border-radius: 1rem;
     position:absolute;
     display:flex;
     right: 1vw;
@@ -91,4 +93,14 @@ body{
 
 .num{
     font-size:2rem;
+}
+
+
+
+
+.moving-text{
+    position: absolute;
+    bottom: 50vh;
+    font-size: 2rem;
+    white-space: nowrap;
 }
