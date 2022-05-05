@@ -4,7 +4,7 @@
   }
 
 html{
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 body{
@@ -33,13 +33,14 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
+    top: 6rem;
 }
 
 .stack-text{
     color: rgb(255, 255, 255);
     font-family: "Optician-Sans";
     font-size: 3rem;
-    font-weight: 300;
+    font-weight: 500;
     letter-spacing: 4px;
     position: absolute;
     top: 6rem;
@@ -60,7 +61,8 @@ body{
     transform:translateY(50px);
     z-index:9;
 }
-    .third-layer{
+
+.third-layer{
     transform:translateY(100px);
     z-index:8;
 }
@@ -77,8 +79,7 @@ body{
 
 .text-box{
     display:flex;
-    flex-wrap:nowrap;
-  
+    flex-wrap:nowrap; 
 }
 
 .moving-text{
@@ -89,15 +90,16 @@ body{
 }
 
 .tag-box{
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* 👇按元素内容的最小宽度 */
-    width: min-content;
-    transform: translateY(2rem);
-    z-index: 20;
-}
+    position:absolute;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+       /* 👇按元素内容的最小宽度 */
+    width:min-content;
+    transform:translateY(2rem);
+    z-index:20;
+    /* border:1px  solid white; */
+  }
 
 .tag{
     position:absolute;
@@ -109,6 +111,10 @@ body{
     position:relative;  
 }
 
+.text-tag{
+    left:auto;
+    transform:translateX(1rem);
+}
 
 
 .part3-container{
@@ -120,33 +126,31 @@ body{
     position:relative;
   }
 
-  .loop{
+.loop{
     position:absolute;
-  }
+}
   
-  .hori-loop{
-    transform:translateX(-320px)
-  }
-  
-  .vert-loop{
+.hori-loop{
+    transform:translateX(-320px);
+}
+
+.vert-loop{
     transform:translateY(-160px);
     z-index:99;
-  }
+}
 
-
-  
-  .part4-container{
+.part4-container{
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
     margin-top:20rem;
     position:relative;
-  }
+}
 
-  .text-mask{
+.text-mask{
     /* border:1px solid white; */
     background:linear-gradient(to bottom,rgba(0,0,0,.8),30%, black);
     position:absolute;
     border-radius:999px 999px 0 0;
-  }
+}

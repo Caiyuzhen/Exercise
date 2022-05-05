@@ -28,7 +28,7 @@
 
 如让元素停止移动？
 -- 元素在视窗内不动 (translateY 值 = （初始基础值 + scrollY）)
-    - 当元素的 translateY 不改变的时候便会跟文档一起滚动, 或者是到某个值后就不改变元素的当前 translateY 就行
+    - 当元素的 translateY 不改变的时候便会跟文档一起滚动, 或者是到某个值后就不改变元素的当前 translateY ,让 translateY 保持一个值就行
 
 
 如何让元素先移动再停止？（吸顶）
