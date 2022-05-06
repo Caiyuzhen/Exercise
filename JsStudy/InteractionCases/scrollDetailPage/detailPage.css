@@ -107,6 +107,11 @@ body{
     left:20%;
 }
 
+.blue-tag{
+    opacity: 1;
+    transition: transform 0.3s ease-in-out;
+}
+
 .green-tag{
     position:relative;  
 }

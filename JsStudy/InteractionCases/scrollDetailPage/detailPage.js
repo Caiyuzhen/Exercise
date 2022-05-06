@@ -25,13 +25,13 @@ window.addEventListener("scroll",(e)=>{
 //🍎 stack 滚动折叠功能
 function stackLayerMove(layer,index,targetY) { 
     if(scrollY <= (targetY - deltaBaseY * index)) { //🌟🌟🌟🌟什么时候动? 如果滚动的值小于 (600 - 当前层的值), deltaBaseY * index 相当于每一个 layer的 基础 translateY 的值! 因为 CSS 那些写的这里是个依次 + 50px 的过程🌟
-       layer.style.transform = `translateY(${deltaBaseY * index + scrollY}px)` //🌟🌟🌟🌟动到多少?
+       layer.style.transform = `translateY(${scrollY + deltaBaseY * index}px)` //🌟🌟🌟🌟动到多少?
     //    console.log(scrollY)
     }else{
         if(scrollY > targetY){
             layer.style.transform = `translateY(${targetY}px)` //🌟🌟🌟🌟如何停? 目标是 < 600px 才触发, 到达 600 后, 让所有元素的相对位置都是 600 看起来就会跟文档一起滚动了
         }
-        console.log(scrollY)
+        // console.log(scrollY)
     }
  }
 
@@ -42,16 +42,31 @@ const blueTag = document.querySelector('.blue-tag')
 const startColorChangeY = 600 //🌟🌟自定义一个贴纸开始改变的目标值
 const changeSpan = 300
 
-function changeOpacity(startColorChangeY,changeSpan,targetTag){//changeSpan 为区间, 自己传参数, targetTag 为目标想要改变颜色的标签
-    if(scrollY > startColorChangeY){  //scrollY > 600 , 600 为已经滚动过的值
 
-        const deltaY = scrollY - startColorChangeY //获得超过 600px 后继续滚动的差值, (差值 = scrollY - 600), 600 为已经滚动过的值
-        if(deltaY > changeSpan){ //如果滚动的差值大于 300px, 就让它的颜色开始改变 ,相当于变化值位于 0 ~ 300 之间
+function changeOpacity(startColorChangeY,changeSpan,targetTag){//changeSpan 为区间, 自己传参数, targetTag 为目标想要改变颜色的标签
+    if(scrollY > startColorChangeY) {  //判断 scrollY > 600 , 600 为已经滚动过的值
+
+        let deltaY = scrollY - startColorChangeY //🌟🌟文档滚动超过 600px 后继续向下滚动的差值, (差值 = scrollY - 600), 600 为已经滚动过的值
+      
+        
+        if(deltaY < changeSpan){ //判断差值：如果滚动的差值在 < 300px 区间, 就让它的颜色开始改变 ,相当于变化值位于 0 ~ 300 之间
+
+            let opacity = (1 - deltaY / changeSpan).toFixed(1) //🌟🌟changeSpan = 300, 所以相当于 (1 - deltaY / 300)
             //透明度:     1 ~ 0       0 ~ 1
             //滚动差值:   0 ~ 300     0~ 300
-            opacity = (1 - deltaY / changeSpan).toFixed(2) //changeSpan = 300, 所以相当于 (1 - deltaY / 300)
+            targetTag.style.opacity = opacity 
+            console.log(-(targetTag.style.opacity))
+
+
+        }else{ //判断差值：如果滚动的差值没有 > 300 ， 
+            
+            targetTag.style.opacity = 0
+            console.log(targetTag.style.opacity)
         }
-}}
+
+    }
+
+}
 
 
 
