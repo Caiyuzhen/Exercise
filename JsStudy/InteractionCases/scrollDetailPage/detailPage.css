@@ -23,9 +23,8 @@ body{
 }
 
 
-
 .part2-container{
-    margin-top: 50rem;
+    margin-top: 40rem;
 }
 
 .stack-container{
@@ -87,6 +86,7 @@ body{
     color:white;
     font-size:8rem;
     white-space: nowrap;
+    background-color: rgb(255, 165, 56);
 }
 
 .tag-box{

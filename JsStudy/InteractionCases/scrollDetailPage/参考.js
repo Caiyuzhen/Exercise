@@ -23,75 +23,75 @@
 
 // }
 
-// const textBox = document.querySelector('.text-box')
-// const movingText = document.querySelector('.moving-text')
-// // 偷懒让文字内容够长
-// for(let i = 0; i < 20; i++){
-//   const newText = movingText.cloneNode(true)
-//   textBox.appendChild(newText)
-// }
+const textBox = document.querySelector('.text-box')
+const movingText = document.querySelector('.moving-text')
+// 偷懒让文字内容够长
+for(let i = 0; i < 20; i++){
+  const newText = movingText.cloneNode(true)
+  textBox.appendChild(newText)
+}
 
-// let textTranslateX = 0
-// let translateDelta = 2
+let textTranslateX = 0
+let translateDelta = 2
 
-// // 让文字自动移动
-// let setTimeId = setInterval(()=>{
-//   textTranslateX+=translateDelta
-//   textBox.style.transform =`translateX(-${textTranslateX}px)`
-// },20)
+// 让文字自动移动
+let setTimeId = setInterval(()=>{
+  textTranslateX+=translateDelta
+  textBox.style.transform =`translateX(-${textTranslateX}px)`
+},20)
 
 
-// let scrollSpeed = 0
-// let preScrollY = 0 
-// let resetTimeId = 0
+let scrollSpeed = 0
+let preScrollY = 0 
+let resetTimeId = 0
 
 // // 这个方法就是改变文字的移动速度
-// function settingSpeed(){
-//   scrollSpeed = window.scrollY - preScrollY
+function settingSpeed(){
+  scrollSpeed = window.scrollY - preScrollY
   
-//   preScrollY = window.scrollY
-//   console.log( )
+  preScrollY = window.scrollY
+  console.log( )
 
-//   clearTimeout(resetTimeId)
-//   translateDelta = Math.abs(scrollSpeed) > 2 ? Math.abs(scrollSpeed) : 2
-//   resetTimeId = setTimeout(()=>{
-//     translateDelta = 2
-//   },50)
+  clearTimeout(resetTimeId)
+  translateDelta = Math.abs(scrollSpeed) > 2 ? Math.abs(scrollSpeed) : 2
+  resetTimeId = setTimeout(()=>{
+    translateDelta = 2
+  },50)
 
-// }
+}
 
 // 文字上的那个变色的贴图
-const blueTag = document.querySelector('.blue-tag')
-const startColorChangeY = 600
-let opacity = 0
-// 穿插变化的两个元素
-const vertLoop = document.querySelector('.vert-loop')
-const horiLoop = document.querySelector('.hori-loop')
+// const blueTag = document.querySelector('.blue-tag')
+// const startColorChangeY = 600
+// let opacity = 0
+// // 穿插变化的两个元素
+// const vertLoop = document.querySelector('.vert-loop')
+// const horiLoop = document.querySelector('.hori-loop')
 
 
 // 可以在一定scroll 区间内 实现元素的透明度改变
 // changeOpacity( startColorChangeY,300, blueTag)
-function changeOpacity(startY,changeSpan,target,reverse){
-  if(scrollY  > startY ){ //scrollY > 600 , 600 为已经滚动过的值
-    const deltaY = scrollY - startY //差值 = X - 600, 600 为已经滚动过的值
+// function changeOpacity(startY,changeSpan,target,reverse){
+//   if(scrollY  > startY ){ //scrollY > 600 , 600 为已经滚动过的值
+//     const deltaY = scrollY - startY //差值 = X - 600, 600 为已经滚动过的值
     
-    if(deltaY < changeSpan){ //如果滚动超过 600 后, 继续滚动的差值小于 300
-      opacity = (1 -  deltaY / changeSpan).toFixed(2)
+//     if(deltaY < changeSpan){ //如果滚动超过 600 后, 继续滚动的差值小于 300
+//       opacity = (1 -  deltaY / changeSpan).toFixed(2)
      
-    }else{
-      opacity = 0
-    }
+//     }else{
+//       opacity = 0
+//     }
     
-  }else{
-    opacity = 1
-  }
-  if(reverse){
-    target.style.opacity = 1 - opacity
-  }else{
-    target.style.opacity = opacity
-  }
+//   }else{
+//     opacity = 1
+//   }
+//   if(reverse){
+//     target.style.opacity = 1 - opacity
+//   }else{
+//     target.style.opacity = opacity
+//   }
   
-}
+// }
 
 // // 可以在一定scroll 区间内 实现元素的移动 X方向或者Y方向都可以
 // function changeTranslate(startY,changeSpan,targetTrans,direction,targetDOM,baseDis){
