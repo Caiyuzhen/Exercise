@@ -50,6 +50,8 @@ const blueTag = document.querySelector('.blue-tag')
 const startColorChangeY = 600 //🌟🌟自定义一个贴纸开始改变的目标值
 const changeSpan = 300
 
+
+
 function changeOpacity(startColorChangeY,changeSpan,targetTag){//changeSpan 为区间, 自己传参数, targetTag 为目标想要改变颜色的标签
     if(scrollY > startColorChangeY) {  //判断 scrollY > 600 , 600 为已经滚动过的值
 
@@ -63,12 +65,17 @@ function changeOpacity(startColorChangeY,changeSpan,targetTag){//changeSpan 为�
             targetTag.style.opacity = opacity 
             // console.log(-(targetTag.style.opacity))
 
+
         }else{ //判断差值：如果滚动的差值没有 > 300 ， 
             
-            targetTag.style.opacity = 0
+            targetTag.style.opacity = 0 //不改变颜色
             // console.log(targetTag.style.opacity)
         }
+    }else{ 
+        targetTag.style.opacity = 0
     }
+
+    
 }
 
 
@@ -110,7 +117,7 @@ function settingSpeed(){
 
     preScrollY = window.scrollY //把上一次的滚动值存起来(🌟注意写的位置!是要存给以后用,所以要写在滚动的差值后面)
 
-    console.log(deltaXMove);
+    // console.log(deltaXMove);
 
     clearTimeout(resetTimeId) //不滚动的话,就清除定时器
 
@@ -122,31 +129,56 @@ function settingSpeed(){
 
 
 
+//🍎 改变圆圈的位置 ——————————————————————————————————
+const centerLoop = document.querySelector('.center-loop')
+const leftLoop = document.querySelector('.left-loop')
 
 
-
-
-
-// // 可以在一定scroll 区间内 实现元素的透明度改变
-// // changeOpacity( startColorChangeY,300, blueTag)
-// function changeOpacity(startY,changeSpan,target,reverse){
-//     if(scrollY  > startY ){ //scrollY > 600
-//       const deltaY = scrollY - startY //差值 = X - 600, 600 为已经滚动过的值
+// // 可以在一定scroll 区间内 实现元素的移动 X方向或者Y方向都可以
+// function changeTranslate(startY,changeSpan,targetTrans,direction,targetDOM,baseDis){
+//   /* 
+//   startY  开始变化的目标点 
+//   changeSpan scrollY距离的区间值
+//   targetTrans 改变到的最终目标值
+//   direction 方向
+//   targetDOM 作用的元素
+//   baseDis 改变到的最终目标值 另一个方向的目标值 或者是基础值
+  
+//   */
+//   if(scrollY  > startY ){
+//     const deltaY = scrollY - startY
+    
+//     if(deltaY < changeSpan){
       
-//       if(deltaY < changeSpan){ //如果滚动超过 600 后, 继续滚动的差值小于 300
-//         opacity = (1 -  deltaY / changeSpan).toFixed(2)
-       
-//       }else{
-//         opacity = 0
-//       }
-      
+//       targetDOM.style.transform = `translate${direction}(-${((1- deltaY / changeSpan) * baseDis) }px)`
 //     }else{
-//       opacity = 1
-//     }
-//     if(reverse){
-//       target.style.opacity = 1 - opacity
-//     }else{
-//       target.style.opacity = opacity
+
+//       targetDOM.style.transform = `translate${direction}(${targetTrans}px)`
 //     }
     
+//   }else{
+//     targetDOM.style.transform = `translate${direction}(-${baseDis}px)`
 //   }
+
+ 
+// }
+
+// // 穿插元素的移动函数
+// function changeLoopTrans(startY,targetDOM){
+//   console.log(targetDOM)
+//   if(scrollY > startY){
+
+//     const deltaY = scrollY - startY
+    
+    
+//     if(deltaY > 120){
+//       const ratio = (deltaY - 120)/120 > 2.5 ? 2.5 : (deltaY - 120)/120
+
+//       targetDOM.style.transform = `translateY(${deltaY * 1.2}px) scale(${ratio + 1})`
+//     }else{
+//       targetDOM.style.transform = `translateY(${deltaY * 1.2}px)`
+//     }
+//   }
+
+// }
+

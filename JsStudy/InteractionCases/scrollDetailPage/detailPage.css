@@ -135,11 +135,11 @@ body{
     position:absolute;
 }
   
-.hori-loop{
+.left-loop{
     transform:translateX(-320px);
 }
 
-.vert-loop{
+.center-loop{
     transform:translateY(-160px);
     z-index:99;
 }

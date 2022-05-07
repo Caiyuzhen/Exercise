@@ -23,50 +23,47 @@
 
 // }
 
-const textBox = document.querySelector('.text-box')
-const movingText = document.querySelector('.moving-text')
-// 偷懒让文字内容够长
-for(let i = 0; i < 20; i++){
-  const newText = movingText.cloneNode(true)
-  textBox.appendChild(newText)
-}
+// const textBox = document.querySelector('.text-box')
+// const movingText = document.querySelector('.moving-text')
+// // 偷懒让文字内容够长
+// for(let i = 0; i < 20; i++){
+//   const newText = movingText.cloneNode(true)
+//   textBox.appendChild(newText)
+// }
 
-let textTranslateX = 0
-let translateDelta = 2
+// let textTranslateX = 0
+// let translateDelta = 2
 
-// 让文字自动移动
-let setTimeId = setInterval(()=>{
-  textTranslateX+=translateDelta
-  textBox.style.transform =`translateX(-${textTranslateX}px)`
-},20)
+// // 让文字自动移动
+// let setTimeId = setInterval(()=>{
+//   textTranslateX+=translateDelta
+//   textBox.style.transform =`translateX(-${textTranslateX}px)`
+// },20)
 
 
-let scrollSpeed = 0
-let preScrollY = 0 
-let resetTimeId = 0
+// let scrollSpeed = 0
+// let preScrollY = 0 
+// let resetTimeId = 0
 
-// // 这个方法就是改变文字的移动速度
-function settingSpeed(){
-  scrollSpeed = window.scrollY - preScrollY
+// // // 这个方法就是改变文字的移动速度
+// function settingSpeed(){
+//   scrollSpeed = window.scrollY - preScrollY
   
-  preScrollY = window.scrollY
-  console.log( )
+//   preScrollY = window.scrollY
+//   console.log( )
 
-  clearTimeout(resetTimeId)
-  translateDelta = Math.abs(scrollSpeed) > 2 ? Math.abs(scrollSpeed) : 2
-  resetTimeId = setTimeout(()=>{
-    translateDelta = 2
-  },50)
+//   clearTimeout(resetTimeId)
+//   translateDelta = Math.abs(scrollSpeed) > 2 ? Math.abs(scrollSpeed) : 2
+//   resetTimeId = setTimeout(()=>{
+//     translateDelta = 2
+//   },50)
 
-}
+// }
 
 // 文字上的那个变色的贴图
 // const blueTag = document.querySelector('.blue-tag')
 // const startColorChangeY = 600
 // let opacity = 0
-// // 穿插变化的两个元素
-// const vertLoop = document.querySelector('.vert-loop')
-// const horiLoop = document.querySelector('.hori-loop')
 
 
 // 可以在一定scroll 区间内 实现元素的透明度改变
@@ -93,53 +90,64 @@ function settingSpeed(){
   
 // }
 
-// // 可以在一定scroll 区间内 实现元素的移动 X方向或者Y方向都可以
-// function changeTranslate(startY,changeSpan,targetTrans,direction,targetDOM,baseDis){
-//   /* 
-//   startY  开始变化的目标点 
-//   changeSpan scrollY距离的区间值
-//   targetTrans 改变到的最终目标值
-//   direction 方向
-//   targetDOM 作用的元素
-//   baseDis 改变到的最终目标值 另一个方向的目标值 或者是基础值
-  
-//   */
-//   if(scrollY  > startY ){
-//     const deltaY = scrollY - startY
-    
-//     if(deltaY < changeSpan){
-      
-//       targetDOM.style.transform = `translate${direction}(-${((1- deltaY / changeSpan) * baseDis) }px)`
-//     }else{
 
-//       targetDOM.style.transform = `translate${direction}(${targetTrans}px)`
-//     }
+
+
+// 穿插变化的两个元素
+const vertLoop = document.querySelector('.vert-loop')
+const horiLoop = document.querySelector('.hori-loop')
+
+// changeTranslate(600,300,0,'Y',vertLoop,160)
+// changeTranslate(600,180,0,'X',horiLoop,320)
+// changeLoopTrans(900,vertLoop)
+// 可以在一定scroll 区间内 实现元素的移动 X方向或者Y方向都可以
+function changeTranslate(startY,changeSpan,targetTrans,direction,targetDOM,baseDis){
+  /* 
+  startY  开始变化的目标点  //600
+  changeSpan scrollY距离的区间值 //300
+  deltaY 差值
+  targetTrans 改变到的最终目标值
+  direction 方向
+  targetDOM 作用的元素
+  baseDis 改变到的最终目标值 另一个方向的目标值 或者是基础值
+  */
+  if(scrollY  > startY ){ //左边的圆环
+    const deltaY = scrollY - startY
     
-//   }else{
-//     targetDOM.style.transform = `translate${direction}(-${baseDis}px)`
-//   }
+    if(deltaY < changeSpan){
+      
+      targetDOM.style.transform = `translate${direction}(-${((1- deltaY / changeSpan) * baseDis) }px)`
+    }else{
+
+      targetDOM.style.transform = `translate${direction}(${targetTrans}px)`
+    }
+    
+  }else{
+    targetDOM.style.transform = `translate${direction}(-${baseDis}px)`
+  }
 
  
-// }
+}
 
-// // 穿插元素的移动函数
-// function changeLoopTrans(startY,targetDOM){
-//   console.log(targetDOM)
-//   if(scrollY > startY){
+// changeLoopTrans(900,vertLoop)
+// 穿插元素的移动函数
+function changeLoopTrans(startY,targetDOM){ //900
+  console.log(targetDOM)
+  if(scrollY > startY){
 
-//     const deltaY = scrollY - startY
+    const deltaY = scrollY - startY
     
     
-//     if(deltaY > 120){
-//       const ratio = (deltaY - 120)/120 > 2.5 ? 2.5 : (deltaY - 120)/120
+    if(deltaY > 120){
+      const ratio = (deltaY - 120)/120 > 2.5 ? 2.5 : (deltaY - 120)/120
 
-//       targetDOM.style.transform = `translateY(${deltaY * 1.2}px) scale(${ratio + 1})`
-//     }else{
-//       targetDOM.style.transform = `translateY(${deltaY * 1.2}px)`
-//     }
-//   }
+      targetDOM.style.transform = `translateY(${deltaY * 1.2}px) scale(${ratio + 1})`
+    }else{
+      targetDOM.style.transform = `translateY(${deltaY * 1.2}px)`
+    }
+  }
 
-// }
+}
 
 // const bigTitle = document.querySelector('.big-title')
 
