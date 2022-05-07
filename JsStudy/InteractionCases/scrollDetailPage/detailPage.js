@@ -13,17 +13,20 @@ const deltaYTotal = 0 //滚动的总值
 //🍎 触发滚动事件 ————————————————————————————————————
 window.addEventListener("scroll",(e)=>{
 
-    //执行🍎滚动折叠功能
+    //🍎 执行滚动折叠功能
     stackLayersArr.forEach((item,index)=>{ //给 stack 数组都添加移动的方法
         stackLayerMove(item,index,targetY) //滚动时就执行这个函数
     })
 
-    //执行🍎改变颜色功能
+    //🍎 执行改变颜色功能
     changeOpacity(startColorChangeY,300,blueTag)
 
 
     //🍎 执行改变文字滚动速度功能
     settingSpeed()
+
+    //🍎 执行改变圆圈位置的功能
+    changeLoopTrans(900,300,leftLoop)
 })
 
 
@@ -91,7 +94,6 @@ for(let i = 0; i < 200; i++){ //(let i = 0; i < 20; i++)
   }
 
 
-
 //👇 文字自己能够动起来
 let textXMoveTransX = 0 //文字的最终的滚动值
 let deltaXMove = 1 //固定的移动值,每次只 移动 1px, 然后再加上差值就是固定移动更远的距离(不过超过 1s 就会慢下来)
@@ -107,13 +109,11 @@ let setTimeId = setInterval(() => { //让文字先能自己移动(基础差值�
 },10)
 
 
-
 //👇 改变文字速度的具体方法
 function settingSpeed(){
 
-
     scrollDistance = window.scrollY - preScrollY //记录记录文档每次滚动产生的[差值] => [目前滚动到的值] - [上一次的值]
-    deltaXMove = Math.abs(scrollDistance) > 1 ? Math.abs(scrollDistance) : 1  //🌟🌟🌟 把差值给到固定的移动值, 判断 [差值] 是否 > 1, > 1 的话就让 [差值] = 移动值, 并且永远为 [正数], 这样就不会反着走了
+    deltaXMove = Math.abs(scrollDistance) > 1 ? Math.abs(scrollDistance) : 1  //🌟🌟🌟 把差值给到固定的移动值, 判断 [差值] 是否 > 1, > 1 的话就让 [差值] = 移动值, 并且永远为 [正数], 这样就不会反着走了， Math.abs 为取绝对值
 
     preScrollY = window.scrollY //把上一次的滚动值存起来(🌟注意写的位置!是要存给以后用,所以要写在滚动的差值后面)
 
@@ -134,51 +134,38 @@ const centerLoop = document.querySelector('.center-loop')
 const leftLoop = document.querySelector('.left-loop')
 
 
-// // 可以在一定scroll 区间内 实现元素的移动 X方向或者Y方向都可以
-// function changeTranslate(startY,changeSpan,targetTrans,direction,targetDOM,baseDis){
-//   /* 
-//   startY  开始变化的目标点 
-//   changeSpan scrollY距离的区间值
-//   targetTrans 改变到的最终目标值
-//   direction 方向
-//   targetDOM 作用的元素
-//   baseDis 改变到的最终目标值 另一个方向的目标值 或者是基础值
-  
-//   */
-//   if(scrollY  > startY ){
-//     const deltaY = scrollY - startY
-    
-//     if(deltaY < changeSpan){
-      
-//       targetDOM.style.transform = `translate${direction}(-${((1- deltaY / changeSpan) * baseDis) }px)`
-//     }else{
+//获取 loop 的基础位置
+const baseTranslateX = getComputedStyle(leftLoop).transform //获得元素的所有信息
+const matrix = new DOMMatrixReadOnly(baseTranslateX)
+const baseTransX = matrix.m41 //-320 
 
-//       targetDOM.style.transform = `translate${direction}(${targetTrans}px)`
-//     }
-    
-//   }else{
-//     targetDOM.style.transform = `translate${direction}(-${baseDis}px)`
-//   }
 
- 
-// }
 
-// // 穿插元素的移动函数
-// function changeLoopTrans(startY,targetDOM){
-//   console.log(targetDOM)
-//   if(scrollY > startY){
+//👇改变圆圈的位置的具体方法
+function changeLoopTrans(startY,changeSpan,targetDOM){
+    //startY        scroll 开始监听的点 (从600 px开始)                (传参控制)
+    //changeSpan    scroll 移动多少距离才开始改变 loop 页面滚动 300px） (传参控制)
+    //baseTransX     leftLoop 的上一次的位置 (获取到是 -320)          (计算)
+    //deltaY        leftLoop 的差值 (从 startY 开始的区间)           (计算)
+    //targetTrans   leftLoop 的最终移动到多少的值                    (计算)
+//targetDOM     函数的目标元素                                      (传参控制)
+        
+    if( scrollY > startY ){ //判断滚动的距离是否 > 起始点
+        const deltaY = scrollY - startY //计算差值
+        // const targetTrans = (deltaY-(Math.abs(baseTransX)))*0.935 //计算最终移动值
+        const targetTrans = (1- deltaY / changeSpan) * baseTransX//没看懂怎么推导出整个公式的
 
-//     const deltaY = scrollY - startY
-    
-    
-//     if(deltaY > 120){
-//       const ratio = (deltaY - 120)/120 > 2.5 ? 2.5 : (deltaY - 120)/120
+        console.log(deltaY)
+        console.log(changeSpan)
 
-//       targetDOM.style.transform = `translateY(${deltaY * 1.2}px) scale(${ratio + 1})`
-//     }else{
-//       targetDOM.style.transform = `translateY(${deltaY * 1.2}px)`
-//     }
-//   }
+        if( deltaY < changeSpan ){ //滚动的差值要 < 设定的范围（比如滚超过 600px后开始算，继续滚动的范围要🌟🌟 < 300px 内才会移动）【别写反了！！】
 
-// }
+            targetDOM.style.transform = `translateX(${targetTrans}px)`
+            // console.log(targetTrans)
+
+        }else{ //如果文档滚动达到 300px 并且超过以后,那就是 targetTrans 这个最终移动到多少的值
+            targetDOM.style.transform = `translateX(${0}px)`
+        }
+    }
+}
 
