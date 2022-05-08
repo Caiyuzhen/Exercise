@@ -25,8 +25,14 @@ window.addEventListener("scroll",(e)=>{
     //🍎 执行改变文字滚动速度功能
     settingSpeed()
 
-    //🍎 执行改变圆圈位置的功能
-    changeLoopTrans(900,300,leftLoop)
+    //🍎 执行改变左边圆圈位置的功能
+    changeLeftLoopTrans(800,300,leftLoop)
+
+    //🍎 执行改变中间圆圈位置的功能
+    changeCenterLoopTrans(1100,centerLoop)
+
+    //🍎 执行改变遮罩的功能
+    changeMaskStyle(1720,textMask)
 })
 
 
@@ -89,7 +95,7 @@ const textBox = document.querySelector('.text-box')
 const movingText = document.querySelector('.moving-text')
 //👇 让文字内容够长
 for(let i = 0; i < 200; i++){ //(let i = 0; i < 20; i++)
-    const newText = movingText.cloneNode(true)
+    let newText = movingText.cloneNode(true)
     textBox.appendChild(newText)
   }
 
@@ -140,25 +146,36 @@ const matrix = new DOMMatrixReadOnly(baseTranslateX)
 const baseTransX = matrix.m41 //-320 
 
 
-
 //👇改变圆圈的位置的具体方法
-function changeLoopTrans(startY,changeSpan,targetDOM){
+function changeLeftLoopTrans(startY,changeSpan,targetDOM){
     //startY        scroll 开始监听的点 (从600 px开始)                (传参控制)
-    //changeSpan    scroll 移动多少距离才开始改变 loop 页面滚动 300px） (传参控制)
-    //baseTransX     leftLoop 的上一次的位置 (获取到是 -320)          (计算)
+    //changeSpan    scroll 移动多少距离才开始改变 loop (页面滚动 300px）(传参控制)
+    //targetDOM     函数的目标元素                                   (传参控制)
+    //baseTransX     leftLoop 的初始位置 (获取到是 -320)             (计算)
     //deltaY        leftLoop 的差值 (从 startY 开始的区间)           (计算)
-    //targetTrans   leftLoop 的最终移动到多少的值                    (计算)
-//targetDOM     函数的目标元素                                      (传参控制)
+    //targetTrans   leftLoop 最终移动到多少的值                    (计算)
+
         
-    if( scrollY > startY ){ //判断滚动的距离是否 > 起始点
-        const deltaY = scrollY - startY //计算差值
+    if( scrollY >= startY ){ //判断滚动的距离是否 > 起始点
+        let deltaY = scrollY - startY //计算差值
+
         // const targetTrans = (deltaY-(Math.abs(baseTransX)))*0.935 //计算最终移动值
-        const targetTrans = (1- deltaY / changeSpan) * baseTransX//没看懂怎么推导出整个公式的
+        // const targetTrans = deltaY + baseTransX*2 + changeSpan
+        //替代的转化方式(不优雅)
+        //0    ~ 300      0          ~  changeSpan     baseTransX  ~  changeSpan + baseTransX      baseTransX  ~  changeSpan + baseTransX
+        //-320 ~ 0        baseTransX ~  0              baseTransX  ~  0                            baseTransX  ~  changeSpan + baseTransX
 
-        console.log(deltaY)
-        console.log(changeSpan)
+        let targetTrans = (1- deltaY / changeSpan) * baseTransX//没看懂怎么推导出整个公式的
+        //🌟 更好的思路：
+        //如果达到 100% 就是 0*320px ， 就会复原回 0 的这个 center （也就是 0 ）的位置
+        //先去计算滚动的差值 （滚动距离 - 目标位置）
+        //然后用差值 / 预期的变化范围，得到一个百分比 
+        //最后用这个百分比去 * 元素目前的位置（100% 就是在原位，否则就会位移）
 
-        if( deltaY < changeSpan ){ //滚动的差值要 < 设定的范围（比如滚超过 600px后开始算，继续滚动的范围要🌟🌟 < 300px 内才会移动）【别写反了！！】
+        
+        // console.log(deltaY)
+
+        if( deltaY <= changeSpan ){ //滚动的差值要 < 设定的范围（比如滚超过 800px后开始算，继续滚动的范围要🌟🌟 < 300px 内才会移动）【别写反了！！】
 
             targetDOM.style.transform = `translateX(${targetTrans}px)`
             // console.log(targetTrans)
@@ -169,3 +186,75 @@ function changeLoopTrans(startY,changeSpan,targetDOM){
     }
 }
 
+
+
+
+//👇改变中间圆圈的位置的具体方法 (这个 case 是没有设定范围的，超过后就一直往下滚动！！)
+function changeCenterLoopTrans(startY,targetDOM){
+
+    //targetDOM     函数的目标元素                                            (传参控制)
+    //startY        scroll 开始监听的点 (从 600 px开始)                       (传参控制)
+    //baseTransY    centerLoop 的初始位置 (transform:translateY(-160px))     (偷个懒，就不算了)
+    //deltaY        centerLoop 的差值 (从 startY 开始的区间)                  (计算)
+    //targetTrans   centerLoop 最终移动到多少的值                             (计算)
+    //targetRatios  centerLoop 最终变大多少的值                               (计算)
+
+    let baseTransY = 160
+
+    if(scrollY >= startY){ 
+        const deltaY = scrollY - startY //计算滚动页面的差值     //startY = 900
+        // console.log(deltaY)
+
+        let targetTrans = ((deltaY - baseTransY)/baseTransY) * baseTransY       //差值的百分比去 * 原来元素的位置, 因为 + 了 1，所以至少就是 1，不会小于 1
+        let targetRatios = 1 + ((deltaY - baseTransY)/baseTransY) >= 3 ? 3 : 1 + ((deltaY - baseTransY)/baseTransY)  //差值的百分比去 + 原来元素的缩放尺寸 1, 🌟 前面的判断条件要 + 上 1 🌟，不然会抖动一下！
+
+
+        if(deltaY >= baseTransY){ //🌟🌟判断【滚动差值】是否大于元素的初始位置 160， 大于的话就用【增量的值】去 * 【原来的元素】从而改变元素的尺寸，同时也继续改变位置
+        
+            targetDOM.style.transform = `translateY(${targetTrans}px) scale(${targetRatios})` //改变元素的位置 + 改变元素的尺寸
+
+            // console.log('________');
+            // console.log('缩放值：'+ targetRatios);
+
+        }else{//
+            targetDOM.style.transform = `translateY(${targetTrans}px)` //元素慢慢变大
+        }
+        
+    }else{
+        targetDOM.style.transform = `translateY(-${baseTransY}px) scale(${1})`
+    }
+}
+
+
+
+
+
+//🍎 改变遮罩的位置的函数 ——————————————————————————————————
+const textMask = document.querySelector('.text-mask')
+const bigTitle = document.querySelector('.big-title')
+
+// 通过js来设定遮罩在文字的半透明层的尺寸 因为直接通过 css 样式设置不太好设置得刚好（想基于父元素去设置它的尺寸,要跟着文字一起动）
+textMask.style.height = bigTitle.offsetHeight + 110 +'px';
+textMask.style.width = bigTitle.offsetWidth  +'px';
+
+function changeMaskStyle(startY,targetDOM) {
+
+    //startY        监听的目标点   (传参控制)
+    //targetDOM     为目标元素     (传参控制)
+    //deltaY        为差值         (计算)
+    //baseDisY      遮罩的基础位置  (偷个懒写死)
+    //targetTransY  遮罩最终到的位置
+
+    const baseDisY = 0
+
+    if(scrollY >= startY){  //大于 1720 就停止,相当于大于 startY(1300) 的时候就一直在往下动，看起来就 【🌟相对静止】
+        let deltaY = scrollY - startY
+        
+        // textMask.style.transform = `translateY(${deltaY + baseDisY}px)` //基础的写法，Mask 会一直加长
+
+        let targetTransY = (deltaY + baseDisY) > 800 ? 800 : deltaY + baseDisY //基础值 + 差值后就相当于 = scrollY 继续滚动的值，也就会【🌟相对静止】了，然后判断一下是否大于 800 ，不然的话 Mask 会一直加长
+
+        textMask.style.transform = `translateY(${targetTransY}px)` //改变遮罩的位置
+        console.log(targetTransY);
+    }
+}

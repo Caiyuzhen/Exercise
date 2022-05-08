@@ -141,7 +141,7 @@ body{
 
 .center-loop{
     transform:translateY(-160px);
-    z-index:99;
+    z-index:20;
 }
 
 .part4-container{
@@ -150,12 +150,18 @@ body{
     justify-content:center;
     align-items:center;
     margin-top:20rem;
+    margin-bottom:18rem;
     position:relative;
+}
+
+.big-title{
+    height:800px;
 }
 
 .text-mask{
     /* border:1px solid white; */
-    background:linear-gradient(to bottom,rgba(0,0,0,.8),30%, black);
+    background:linear-gradient(to bottom,rgba(0, 0, 0, 0.8),30%, black);
     position:absolute;
     border-radius:999px 999px 0 0;
+    z-index:18;
 }
