@@ -21,8 +21,10 @@
                 对性能损耗比较小
 
             What？
-                 IntersectionObserver       交叉观察器(本质是一个构造函数)
+                 IntersectionObserver  交叉观察器(本质是一个构造函数)
                 【被观察元素】与【视窗】或者【父级元素】的【相交区域】
+                 🌟 默认【进入】达到相交比例就会触发，【移出】时达到相交比例也会触发
+                 观察器的回调函数都是异步的（会有小延迟）
                 
             How?
                 可以定义一个监听器，监听 【root: XXX 这里定义的对象】与【被观察元素】的【相交区域】
@@ -52,6 +54,14 @@
     p{
         transform: translateY(1400px);
     }
+
+    /* js 动态添加的类名 */
+    .abc{
+        background-color: #532dd1;
+        width: 600px;
+        height: 600px;
+
+    }
 </style>
 
 
@@ -65,18 +75,22 @@
 // 👇 创建交叉观察器
     function callback(entries){ //一般就定义为 entries ，如果要使用着参数的话，那需要定义好这个 行参 的位置，因为回调函数回自动传入这个实参
         console.log('进入视窗了')
-        console.log(entries)//会返回回调函数 IntersectionObserverEntry 数组对象
+        // console.log(entries)//会返回回调函数 IntersectionObserverEntry 数组对象
 
         entries.forEach(item => {
-            console.log(item)
+            console.log(item.target.classList.add("abc")) //🌟🌟 target 就是那个元素了，就一就能添加一些样式的变化了！！
 
             // 🌟🌟🌟 item 里边包含的数据
-                //time                  可见性发生变化的时间，是一个高精度的时间戳，精度为毫秒
-                //target                被贯彻目标元素，是一个 DOM 节点对象
-                //rootBounds            根元素的矩形区域的信息， getBoundingClientRect() 方法的返回值，如果没有根元素（即直接相对于视口滚动）
-                //boundingClientRect    被贯彻目标元素的矩形交叉区域的信息
-                //intersectionRect      交叉区域的矩形区域的信息
-                //intersectionRatio     目标元素与交叉区域的可见比例（即 intersectionRect 占 boundingClientRect 的比例），完全可见时为 1，完全不可见时 <= 0
+                //重要
+                    //intersectionRatio     目标元素与交叉区域的可见比例（即 intersectionRect 占 boundingClientRect 的比例【跟老方法去动态计算是一个意思】），完全可见时为 1，完全不可见时 <= 0px）（异步执行，没那么准）
+                    //target                触发回调函数的那个元素（比如 h1、div），是一个 DOM 节点对象
+                    //intersecting          false 往分离方向   true 往相交（返回的时候）方向
+                    
+                //了解
+                    //time                  可见性发生变化的时间，是一个高精度的时间戳，精度为毫秒
+                    //rootBounds            根元素的矩形区域（盒模型）的信息， getBoundingClientRect() 方法的返回值，如果没有根元素（即直接相对于视口滚动）
+                    //intersectionRect      被相交的【目标元素】的矩形区域（盒模型）的信息
+                    //boundingClientRect    被相交的【目标元素】与【交叉区域】的信息               
         })
     }
 
@@ -91,7 +105,7 @@
     const observer = new IntersectionObserver(callback,options) //创建一个观察器实例,🌟🌟顺序要放在下面!!
 
 //👇调用观察器
-    observer.observe(box) //用 observer 的实例去调用 observer 的方法
+    observer.observe(box) //用 observer 的实例（🌟🌟一个观察器实例可以绑定多个元素), 本质上是去调用 observer 的方法
 
 
 </script>
