@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视窗触发事件</title>
+</head>
+<body>
+    <H1>视窗触发事件</H1>
+    <div class="box">我是被观察对象</div>
+    <!-- 
+        传统的方法：
+            Element.getElientBoundRect    计算元素与浏览器[显示窗口]顶部的距离的差值,看是否 < 元素本身的高度
+
+
+        现在的方法：
+            Why?
+                对性能损耗比较小
+
+            What？
+                 IntersectionObserver       交叉观察器(本质是一个构造函数)
+                【被观察元素】与【视窗】或者【父级元素】的【相交区域】
+                
+            How?
+                可以设置相交的比例, 比如相交的比例是 0.5, 就是超过元素的一半
+ 
+     -->
+    
+</body>
+
+
+<style>
+    .html{
+        overflow-x: hidden;
+    }
+    .box {
+        width: 200px;
+        height: 200px;
+        background-color: #000000;
+        transform: translateY(1200px);
+    }
+</style>
+
+
+
+<script type="text/javascript">
+
+    const h1 = document.querySelector('H1');
+
+
+    const observer = new IntersectionObserver(callback, options)
+    
+    function callback(){
+        console.log(h1)
+    }
+
+    const options = {
+        root:null, //需要被相交的元素，比如元素的父级（或参照目标），默认不传的话就是以【视窗】为相交目标
+        rootMargin:'100px', //可以改变相交区域的位置(相当于给它加上上下左右的 margin），一定要带单位, 如果相交目标是浏览器窗口的话，一定要带百分比。（正值向外延伸，负值向内缩小）
+        threshold: 0.5 //相交的比例（0～1）的范围，还可以传数组，设置多个比例，比如[0.2, 0.4, 0.6],每达到某个比例的话都会促发
+    }
+
+
+
+</script>
+
+
+</html>
