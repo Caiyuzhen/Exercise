@@ -56,7 +56,13 @@
         width: 200px;
         height: 200px;
         background-color: #000000;
+        transition: transform, width .3s ease-in-out;
         transform: translateY(1200px);
+        text-align: center;
+        /* 让文字垂直居中 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     p{
         transform: translateY(1400px);
@@ -65,9 +71,16 @@
     /* js 动态添加的类名 */
     .abc{
         background-color: #532dd1;
+        font-size: 32px;
+        text-align: center;
+        /* 让文字垂直居中 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
         width: 400px;
         height: 400px;
-        transition: transform .3s ease-in-out, width .3s ease-in-out;
+        transition: transform, width font-size .3s ease-in-out;
     }
     
 </style>
@@ -87,7 +100,7 @@
 
         entries.forEach(item => {
 
-            console.log(item.intersectionRatio)
+            console.log((item.intersectionRatio).toFixed(2)) //会返回相交区域的比例
             if(item.intersectionRatio >= 1){ // 🌟🌟判断一下，相交比例是否大于等于 1 ，满足条件采取改变元素的颜色跟尺寸
                 
                 item.target.classList.add("abc") //🌟🌟 target 就是那个元素了，就一就能添加一些样式的变化了！！

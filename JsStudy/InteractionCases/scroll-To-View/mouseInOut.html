@@ -4,25 +4,43 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>鼠标的移入与移出</title>
+    <title>鼠标的移入与移出事件</title>
 </head>
 <body>
-    <div class="parent">父元素
+    <h1>鼠标的移入与移出事件</h1>
+    <div class="parent">
         <div class="son">
             子元素
         </div>
     </div>
     <!--
-        移入            移出
-        mouseenter     mouseleave
 
-        1.不会冒泡
-        2.不会在经过后代元素时触发
+    🌟 What？ 
+        🌟 场景：不希望子元素会触发其他交互，只有真正离开元素时才会触发
+            移入            移出
+            mouseenter     mouseleave
 
-        ——————————————————————————————————————————————
+            1.不会冒泡
+            2.不会在经过子元素时触发
 
-        触碰            离开 
-        mouseover       mouseout
+            ——————————————————————————————————————————————
+
+        🌟 场景：希望子元素会触发其他交互,比如子元素上有个 icon button
+            触碰            离开 
+            mouseover       mouseout
+
+            1.会冒泡🌟
+            2.会在经过子元素时触发
+            3.如何阻止子元素的冒泡？
+                e.stopPropagation()
+
+
+
+    🌟 重要的属性？
+            relatedTarget   相关的元素 / 目标
+                从哪个元素进入
+                去到哪个元素去
+            
 
 
      -->
@@ -33,19 +51,48 @@
     .parent{
         height: 300px;
         width: 300px;
-        background-color: #ccc;
-        color:black;
+        background-color: rgb(155, 254, 84);
+        color:rgb(0, 0, 0);
     }
 
     .son{
-        height: 300px;
-        width: 300px;
-        background-color: rgb(59, 59, 59);
+        height: 100px;
+        width: 100px;
+        background-color: rgb(104, 73, 255);
         color: black;
+        position: relative;
+        left: 6.5rem;
     }
 
 
 </style>
+
+
+<script type="text/javascript">
+    const parent = document.querySelector('.parent');
+    const son = document.querySelector('.son');
+
+    // parent.addEventListener('mouseenter',(e)=>{
+    //     console.log('鼠标移入')
+    // })
+
+    // parent.addEventListener('mouseleave',(e)=>{
+    //     console.log('鼠标移出')
+    // })
+
+    parent.addEventListener('mouseover',(e)=>{
+        console.log('鼠标移入')
+        console.log(e.relatedTarget) //body ,因为从 body 移入,然后冒泡阶段是 parent ，因为由 parent 移入
+    })
+
+    parent.addEventListener('mouseout',(e)=>{
+        console.log('鼠标移出')
+    })
+
+
+
+
+</script>
 
 
 
