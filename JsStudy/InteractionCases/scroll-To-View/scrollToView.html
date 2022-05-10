@@ -67,7 +67,7 @@
         background-color: #532dd1;
         width: 400px;
         height: 400px;
-        transition: transform .3s ease-in-out;
+        transition: transform .3s ease-in-out, width .3s ease-in-out;
     }
     
 </style>
@@ -87,8 +87,9 @@
 
         entries.forEach(item => {
 
+            console.log(item.intersectionRatio)
             if(item.intersectionRatio >= 1){ // 🌟🌟判断一下，相交比例是否大于等于 1 ，满足条件采取改变元素的颜色跟尺寸
-
+                
                 item.target.classList.add("abc") //🌟🌟 target 就是那个元素了，就一就能添加一些样式的变化了！！
 
                 // 🌟🌟🌟 item 里边包含的数据
@@ -115,8 +116,8 @@
     const options = {
         // root:null, //需要被相交的元素，比如元素的父级（或参照目标），默认设置的话就是以【视窗】为相交目标
         rootMargin:'5px 2% 0px 0px', //这个一定要带单位! 可以改变相交区域的位置(相当于给它加上、右、下、左的 margin），一定要带单位, 如果相交目标是浏览器窗口的为参照的话，一定要带百分比(🌟-50%就是窗口的一半!)。（ + 正值向外延伸， - 负值向内缩小）
-        // threshold: [0.5,0.75] //相交的比例（0～1）的范围，还可以传数组，设置多个比例，比如[0.2, 0.4, 0.6],每达到某个比例的话都会触发
-        threshold:1 // 1 就是相交比例为 100% 相交时会触发一次
+        threshold: [0, 0.5, 1] //相交的比例（0～1）的范围，还可以传数组，设置多个比例，比如[0.2, 0.4, 0.6],每达到某个比例的话都会触发
+        // threshold: 1 // 1 就是相交比例为 100% 相交时会触发一次
     }
 
     const element = new IntersectionObserver(callback,options) //创建一个观察器实例,🌟🌟顺序要放在下面!!
