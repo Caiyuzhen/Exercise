@@ -43,17 +43,17 @@
         btn.onclick = function () {...}
     
     🍎阻止事件冒泡的方法
-        x.stopPropagation()
+        e.stopPropagation()
             会返回一个 undefined!!
 
     🍎其他要点
         🍎事件执行阶段的重要属性
-            x.eventPhase  
+            e.eventPhase  
                 输出 1 / 2 / 3
 
-            x.currentTarget (这个指向的是谁🌟绑定了🌟这个事件流-比如 svg,避免点到内部的 path 元素)
+            e.currentTarget (这个指向的是谁🌟绑定了🌟这个事件流-比如 svg,避免点到内部的 path 元素)
                 指向的函数所绑定的目标的元素, 跟 this 的指向一样
-            跟 x.target.XXX 有点像  (这个指向的是谁🌟触发了🌟这个事件流-目标元素)         
+            跟 e.target.XXX 有点像  (这个指向的是谁🌟触发了🌟这个事件流-目标元素)         
         
         🍎并不是所有事件都会冒泡,详见下两章
     

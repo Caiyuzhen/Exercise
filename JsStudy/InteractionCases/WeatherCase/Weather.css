@@ -35,7 +35,7 @@ body{
 
 
 
-/* ———————————————————————————————— */
+/* part 1 ———————————————————————————————— */
 .part1{
     position: relative;
     height:60rem;
@@ -106,7 +106,7 @@ body{
 
 
 
-/* ——————————————————————————————————— */
+/* part 2 ——————————————————————————————————— */
 
 
 
@@ -136,7 +136,10 @@ body{
     opacity: 0.3;
 }
 
+
 /* 🌟🌟🌟 第一个 icon */
+
+
 .icon-cloudy-sun{
     left: 1.6rem;
     /* 👇👇👇 旋转半径为 左右居中，往下偏移 20rem  */
@@ -145,21 +148,27 @@ body{
 }
 
 
-/* js 动态添加太阳旋转动画 */
+/* 🔥 js 动态添加太阳旋转动画 */
 .sun-rotate{
     /* 👇👇👇 旋转 360 度 */
     transform: rotate(360deg);
 }
 
 
-
-/* js 动态添加大云朵动画 */ 
 .icon-cloudy-big-cloud{
     z-index:2;
-    bottom:1.5rem;
+    bottom:2rem;
     left:1rem;
 }
 
+.icon-cloudy-small-cloud{
+    z-index: 6;
+    bottom:3rem;
+    left:6.5rem;
+}
+
+
+/* 🔥 js 动态添加云朵动画 */ 
 
 .icon-cloudy-big-cloud-ani{
     /* 10s 为延迟 */
@@ -174,7 +183,7 @@ body{
         transform: translateX(20px)
     }
     70% {
-        transform: translateX(-10px)
+        transform: translateX(-20px)
     }
     100% {
         transform: translateX(0px)
@@ -183,16 +192,10 @@ body{
 
 
 
-/* js 动态添加小云朵动画 */ 
-.icon-cloudy-small-cloud-ani{
-    z-index:3;
-    bottom:3.5rem;
-    right:1rem;
-}
-
+/*🔥 js 动态添加小云朵动画 */ 
 .icon-cloudy-small-cloud-ani{
     /* 3s 为延迟 */
-    animation: icon-cloudy-small-cloud-move 3s ease-in-out infinite;
+    animation: icon-cloudy-small-cloud-move 5s ease-in-out infinite;
 }
 
 @keyframes icon-cloudy-small-cloud-move {
@@ -211,6 +214,7 @@ body{
 }
 
 
+
 /* 🌟🌟🌟 第二个 icon */
 
 .icon-sunny-sun{
@@ -225,6 +229,7 @@ body{
     transform: scale(2.5) translateY(8rem);
 }
 
+/*🔥 js 动态改变太阳位置 */
 .fly-out{
     transform:scale(2) translateY(-20rem);
 }
@@ -235,26 +240,23 @@ body{
 
 
 
-/* ——————————————————————————————————— */
+/* 🌟🌟🌟 第三个 icon */
 
-
-.part3{
-    position: relative;
+.icon-box-rainy{
     display:flex;
-    width: 100%;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    margin: top 10rem;
 }
 
 .icon-rainy-cloud{
-    z-index: 1;
-    top: 0.5rem;
-    left: 1.65rem;
+    left: 1rem;
+    top: 2rem;
     transition: transform 1.5s ease-in-out;
+    z-index: 3;
 }
 
 .rain-box{
+    position: absolute;
     height: 60px;
     width: 60px;
     transform:translateY(2.5rem)
@@ -265,38 +267,171 @@ body{
     transition: transform 0.6s ease-in-out;
 }
 .rain-dot1{
-
+    left:0rem;
 }
 .rain-dot2{
-  left:-0.6rem;
-  top:1.2rem;
+    left:-0.6rem;
+    top:1.2rem;
 }
 .rain-dot3{
-  left:1.4rem;
-  top:-0.5rem;
+    left:1.4rem;
+    top:-0.5rem;
 }
 .rain-dot4{
-  left:0.6rem;
-  top:1.3rem;
+    left:0.6rem;
+    top:1.3rem;
 }
 .rain-dot5{
-  left:2.2rem;
-  top:1rem;
+    left:2.2rem;
+    top:1rem;
+}
+
+/*🔥 js 动态添加雨滴动画 */ 
+
+.raining{
+    /* 向左下角 + 下方去移动，因为起始位置不同，所以看起来下落就有时差  */
+    transform: translateY(-2.4rem, 8rem);
+}
+
+/*🔥 js 动态添加云朵移入 */ 
+
+.away-cloud{
+    transform: translateX(-20rem)
+}
+
+.fake-rainy-cloud{
+    transform: translateX(20rem);
+    transition: transform 1s 1.2s ease-in-out;
+}
+
+.fake-rainy-rain{
+    transform: translate(20rem 2.5rem);
+    transition: transform 1s 1.2s ease-in-out;
+}
+
+.fake-rainy-cloud{
+    transform: translate(0rem);
 }
 
 
 
 
+/* part 3 ——————————————————————————————————— */
 
 
-/* ——————————————————————————————————— */
+
+
+.part3{
+    position: relative;
+    display:flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10rem;
+}
+
+/* 显示全部图标 */
+
+.icons-title{
+    font-family: "Gilroy-Bold";
+    font-size:2.5rem;
+    opacity: 0.3;
+}
+
+.part3 > span{
+    transition: all 0.5s ease-in-out;
+}
+
+.icons-group{
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    gap: 4rem;
+    margin-top: 4rem;
+}
+
+.icons-line{
+    display: flex;
+    gap: 4rem;
+}
+
+/* 🌟🌟 对于背景图的设置很重要，background-image 不能直接在后边写 contain */
+.pic-icon{
+    height: 6rem;
+    width: 6rem;
+    background-size: contain;
+    transition: all 0.5 ease-in-out;
+}
+
+/* 先做出全部显示的样式，然后隐藏掉 */
+.icon1{
+    background-image:url('./src/Icon1.png');
+}
+
+.icon2{
+    background-image:url('./src/Icon2.png');
+}
+
+.icon3{
+    background-image:url('./src/Icon3.png');
+}
+
+.icon4{
+    background-image:url('./src/Icon4.png');
+}
+
+.icon5{
+    background-image:url('./src/Icon5.png');
+}
+
+/* 🌟默认状态为隐藏并且向下移动 5rem！ */
+.static-icon-init{
+    opacity:0 !important;
+    transform: translateY(5rem);
+}
+
+
+
+
+/* part 4 ——————————————————————————————————— */
 
 .part4{
     display: flex;
     position: relative;
-    width: 100%;
+    transform: scale(0.8);
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     margin-top: 15rem;
     margin-bottom: 10rem;
+}
+
+/* 初始状态变为 0 */
+.part4-init{
+    transform: translateY(5rem) scale(0.8);
+}
+
+/* 用来统一加绝对定位,各自写也行 */
+.title-part{
+    position: relative;
+}
+
+.helloTitle{
+    position: relative;
+}
+
+.brand-title{
+    margin-top:2rem;
+}
+
+.title-sun{
+    position: absolute;
+    transform:translate(5rem,-2rem);
+    z-index: -1;
+}
+
+.rain-title{
+    position: absolute;
+    transform:translate(-16rem,6rem)
 }
