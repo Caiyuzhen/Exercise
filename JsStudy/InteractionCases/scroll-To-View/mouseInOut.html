@@ -27,7 +27,7 @@
 
         🌟 场景：希望子元素会触发其他交互,比如子元素上有个 icon button
             触碰            离开 
-            mouseover       mouseout
+            mouseover      mouseout
 
             1.会冒泡🌟
             2.会在经过子元素时触发
@@ -38,8 +38,8 @@
 
     🌟 重要的属性？
             relatedTarget   相关的元素 / 目标
-                从哪个元素进入
-                去到哪个元素去
+                mouseenter/mouseover    : e.relatedTarget   从哪个元素进入
+                mouseleave/mouseout     : e.relatedTarget   去到哪个元素去
             
 
 
@@ -81,12 +81,11 @@
     // })
 
     parent.addEventListener('mouseover',(e)=>{
-        console.log('鼠标移入')
-        console.log(e.relatedTarget) //body ,因为从 body 移入,然后冒泡阶段是 parent ，因为由 parent 移入
+        console.log('进入到' + e.relatedTarget + '这个元素') //body ,因为从 body 移入,然后冒泡阶段是 parent ，因为由 parent 移入
     })
 
     parent.addEventListener('mouseout',(e)=>{
-        console.log('鼠标移出')
+        console.log('移出到' + e.relatedTarget + '这个元素') //body , 从 parent 这个元素移出到 son 这个子元素 
     })
 
 

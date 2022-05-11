@@ -1,0 +1,302 @@
+
+@font-face {
+    font-family: "Gilroy-Bold";
+    src: url(".resources/fonts/Gilroy-Bold.woff") format("woff"),
+}
+
+body{
+  background-color:#FFF8F2;
+  padding:0;
+  margin:0;
+  overflow-x:hidden;
+}
+
+
+/* 通用 */
+.container{
+    /* 🌟 */
+    width: 100vw;
+}
+
+
+.icon-box{
+    position:relative;
+    overflow:hidden;
+    border-radius:50px;
+    cursor:pointer;
+}
+
+.icon{
+    position: absolute;
+}
+
+
+
+
+
+
+/* ———————————————————————————————— */
+.part1{
+    position: relative;
+    height:60rem;
+}
+
+.title-box{
+    font-family: "Gilroy-Bold";
+    color:#2F2B26;
+    font-size: 2.8rem;
+    position: absolute;
+    top: 15rem;
+    left:50rem;
+    z-index: 4;
+}
+
+.title-color{
+    color:#FF812A;
+}
+
+.sun{
+    position: absolute;
+    top: -35rem;
+    left:-30rem;
+    z-index:1;
+}
+
+.big-cloud{
+    position: absolute;
+    top: 2rem;
+    left:-22rem;
+    /* 🌟循环的动画效果: alternate 为交替， infinite 为无限*/
+    animation: big-cloud-move 10s ease-in-out alternate infinite;
+    z-index: 2;
+}
+
+@keyframes big-cloud-move {
+    from {
+        transform: translateX(0px)
+    }
+    to {
+        transform: translateX(-70px)
+    }
+}
+
+.small-cloud{
+    position: absolute;
+    top: 7rem;
+    left:15rem;
+    /* 🌟循环的动画效果: alternate 为交替， infinite 为无限*/
+    animation: big-cloud-move 4s ease-in-out alternate infinite;
+    z-index:3;
+    /* 🌟给云朵加投影 filter: drop-shadow(x偏移, y偏移, 模糊大小, 色值); */
+    filter:drop-shadow(-25px 25px 32px rgba(203, 191, 179, 0.3)); 
+}
+
+@keyframes small-cloud-move {
+    from {
+        transform: translateX(0px)
+    }
+    to {
+        transform: translateX(-50px) 
+    }
+}
+
+
+
+
+
+
+
+/* ——————————————————————————————————— */
+
+
+
+
+
+
+.part2{
+    position: relative;
+    height:20rem;
+    display: flex;
+    justify-content: center;
+    gap: 8rem;
+}
+
+.icon-container{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: all .75s ease-in-out;
+}
+
+.icon-container > span{
+    font-family: "Gilroy-Bold";
+    font-size:2.5rem;
+    opacity: 0.3;
+}
+
+/* 🌟🌟🌟 第一个 icon */
+.icon-cloudy-sun{
+    left: 1.6rem;
+    /* 👇👇👇 旋转半径为 左右居中，往下偏移 20rem  */
+    transform-origin: 50% 20rem;
+    transition: transform 1.65s ease-in-out;
+}
+
+
+/* js 动态添加太阳旋转动画 */
+.sun-rotate{
+    /* 👇👇👇 旋转 360 度 */
+    transform: rotate(360deg);
+}
+
+
+
+/* js 动态添加大云朵动画 */ 
+.icon-cloudy-big-cloud{
+    z-index:2;
+    bottom:1.5rem;
+    left:1rem;
+}
+
+
+.icon-cloudy-big-cloud-ani{
+    /* 10s 为延迟 */
+    animation: icon-cloudy-big-cloud-move 10s ease-in-out infinite;
+}
+
+@keyframes icon-cloudy-big-cloud-move{
+    0% {
+        transform: translateX(0px)
+    }
+    30% {
+        transform: translateX(20px)
+    }
+    70% {
+        transform: translateX(-10px)
+    }
+    100% {
+        transform: translateX(0px)
+    }
+}
+
+
+
+/* js 动态添加小云朵动画 */ 
+.icon-cloudy-small-cloud-ani{
+    z-index:3;
+    bottom:3.5rem;
+    right:1rem;
+}
+
+.icon-cloudy-small-cloud-ani{
+    /* 3s 为延迟 */
+    animation: icon-cloudy-small-cloud-move 3s ease-in-out infinite;
+}
+
+@keyframes icon-cloudy-small-cloud-move {
+    0% {
+        transform: translateX(0px)
+    }
+    30% {
+        transform: translateX(20px)
+    }
+    80% {
+        transform: translateX(-10px)
+    }
+    100% {
+        transform: translateX(0px)
+    }
+}
+
+
+/* 🌟🌟🌟 第二个 icon */
+
+.icon-sunny-sun{
+    z-index: 1;
+    left: 1.8rem;
+    top:0.4rem;
+    transition: transform 1.5s ease-in-out;
+}
+
+/* 大太阳 */
+.bigger{
+    transform: scale(2.5) translateY(8rem);
+}
+
+.fly-out{
+    transform:scale(2) translateY(-20rem);
+}
+
+.fly-in{
+    transform:scale(1) translateY(0rem);
+}
+
+
+
+/* ——————————————————————————————————— */
+
+
+.part3{
+    position: relative;
+    display:flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    margin: top 10rem;
+}
+
+.icon-rainy-cloud{
+    z-index: 1;
+    top: 0.5rem;
+    left: 1.65rem;
+    transition: transform 1.5s ease-in-out;
+}
+
+.rain-box{
+    height: 60px;
+    width: 60px;
+    transform:translateY(2.5rem)
+}
+
+.rain{
+    position: absolute;
+    transition: transform 0.6s ease-in-out;
+}
+.rain-dot1{
+
+}
+.rain-dot2{
+  left:-0.6rem;
+  top:1.2rem;
+}
+.rain-dot3{
+  left:1.4rem;
+  top:-0.5rem;
+}
+.rain-dot4{
+  left:0.6rem;
+  top:1.3rem;
+}
+.rain-dot5{
+  left:2.2rem;
+  top:1rem;
+}
+
+
+
+
+
+
+/* ——————————————————————————————————— */
+
+.part4{
+    display: flex;
+    position: relative;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 15rem;
+    margin-bottom: 10rem;
+}
