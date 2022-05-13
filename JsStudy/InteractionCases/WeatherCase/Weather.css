@@ -251,7 +251,7 @@ body{
 .icon-rainy-cloud{
     left: 1rem;
     top: 2rem;
-    transition: transform 1.5s ease-in-out;
+    transition: transform 1.2s ease-in-out;
     z-index: 3;
 }
 
@@ -286,31 +286,45 @@ body{
     top:1rem;
 }
 
+
+
 /*🔥 js 动态添加雨滴动画 */ 
 
-.raining{
+.raining-ani{
     /* 向左下角 + 下方去移动，因为起始位置不同，所以看起来下落就有时差  */
-    transform: translateY(-2.4rem, 8rem);
+    transform: translate(-2.4rem, 8rem);
 }
 
-/*🔥 js 动态添加云朵移入 */ 
 
+
+/*🔥 js 动态添加云朵移入移出 */ 
+
+/* 移走 */
 .away-cloud{
-    transform: translateX(-20rem)
+    transform:translate(-20rem);
 }
 
+/* 1:假云默认状态*/
 .fake-rainy-cloud{
-    transform: translateX(20rem);
-    transition: transform 1s 1.2s ease-in-out;
-}
+    transform:translate(20rem);
+    /* 1s 为持续时间  1.5s 为延迟时间 */
+    transition:transform 1s 1.2s ease-in-out;
+  }
 
+  /* 1:假雨滴默认状态 */
 .fake-rainy-rain{
-    transform: translate(20rem 2.5rem);
-    transition: transform 1s 1.2s ease-in-out;
+  transform:translate(20rem,2.5rem);
+  transition:transform 1s 1.2s ease-in-out;
 }
 
-.fake-rainy-cloud{
+/* 2:假云进入 */
+.fake-cloud-in{
     transform: translate(0rem);
+}
+
+/* 2:假雨滴进入 */
+.fake-rain-in{
+    transform: translate(0rem,2.5rem);
 }
 
 
@@ -356,6 +370,10 @@ body{
     gap: 4rem;
 }
 
+
+
+
+
 /* 🌟🌟 对于背景图的设置很重要，background-image 不能直接在后边写 contain */
 .pic-icon{
     height: 6rem;
@@ -393,8 +411,8 @@ body{
 
 
 
-
 /* part 4 ——————————————————————————————————— */
+
 
 .part4{
     display: flex;
@@ -435,3 +453,4 @@ body{
     position: absolute;
     transform:translate(-16rem,6rem)
 }
+

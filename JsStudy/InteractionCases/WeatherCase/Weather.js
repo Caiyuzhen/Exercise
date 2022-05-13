@@ -11,7 +11,7 @@ let cloudyIconSmallLock = false
 
 
 
-//鼠标移入第一个 icon
+//🌞 鼠标移入第一个 icon ————————————————————————————————————————————————
 cloudyIconBox.addEventListener('mouseenter',()=>{
 
     //太阳旋转
@@ -72,7 +72,7 @@ cloudyIconBigCloud.addEventListener('animationiteration',(e)=>{ //🌟🌟🌟�
 
 
 
-// ————————————————————————————————————————————————————————————————————
+//🌞 鼠标移入第二个 icon ————————————————————————————————————————————————
 
 
 const IconSunnyBox = document.querySelector('.icon-box-sunny')
@@ -140,6 +140,87 @@ sunnySmallIcon.addEventListener('transitionend',(e)=>{   //太阳飞走后，重
 
 
 
+//🌞 鼠标移入第三个 icon ————————————————————————————————————————————————
 
+const RainyBox = document.querySelector('.icon-box-rainy')
+const RainyCloud = document.querySelector('.icon-rainy-cloud')
+const RainDotArr = [...document.querySelectorAll('.rain')]
+const fakeRainyCloud = document.querySelector('.fake-rainy-cloud')
+const fakeRain = document.querySelector('.fake-rainy-rain')
+let rainLock = false
 
+//一：🌟🌟鼠标移入
+RainyBox.addEventListener('mouseenter', (e) =>{
+
+    //🌟遍历出雨滴，添加动画
+
+    if(rainLock){ //如果为 true 直接返回，下面的代码就不会执行了
+        return
+    }
+
+    rainLock = true //避免重复执行
+
+    RainDotArr.forEach((item, index) =>{
+        if(index > 4){ //🌟🌟排除掉假的雨点
+            return
+        }
+        if(index === 1 || index === 3 || index === 4){
+
+            item.style.transitionDelay = index*0.05 + 's'
+            item.classList.add('raining-ani')
+            
+        }else if(index === 0){  //🌟上面两个雨滴慢一点
+            item.style.transitionDelay = '0.1s'
+            item.classList.add('raining-ani')
+
+        }else if(index === 2){ //🌟上面两个雨滴慢一点
+            item.style.transitionDelay = '0.2s'
+            item.classList.add('raining-ani')
+        }
+        
+    })
+  
+    RainyCloud.classList.add('away-cloud')
+    fakeRainyCloud.classList.add('fake-cloud-in')
+    fakeRain.classList.add('fake-rain-in')
+
+})
+
+//二：🌟🌟移入的动画结束时（要绑定‘假云’的动画结束后的那一时刻！！）
+fakeRainyCloud.addEventListener('transitionend', (e) =>{
+    rainLock = false
+
+    RainyCloud.style.transition = 'none'
+    RainyCloud.classList.remove('away-cloud')
+    fakeRainyCloud.style.transition = 'none'
+    fakeRainyCloud.classList.remove('fake-cloud-in')
+    fakeRain.style.transition = 'none'
+    fakeRain.classList.remove('fake-rain-in')
+
+    RainDotArr.forEach((item, index) =>{
+        if(index > 4){ //🌟🌟排除掉假的雨点
+            return
+        }
+        if(index === 1 || index === 3 || index === 4 || index === 2 || index === 0){
+            item.style.transition = 'none'
+            item.classList.remove('raining-ani')
+            
+        }
+    })
+
+    //三：🌟重置雨滴的动画！！很关键！
+    setTimeout(()=>{
+ 
+        fakeRainyCloud.style.transition = 'transform 1s 1.2s ease-in-out'
+        RainyCloud.style.transition = 'transform 1.2s ease-in-out'
+        fakeRain.style.transition = 'transform 1s 1.2s ease-in-out'
+        //🌟🌟 雨滴也加回这个动画！！
+        RainDotArr.forEach((item,index)=>{
+            if( index > 4){ //假的雨点不用处理，因为上面都排除了
+                return
+            }
+            item.style.transition = 'transform 0.6s ease-in-out'
+        })
+    })
+})
 
