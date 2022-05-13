@@ -70,7 +70,7 @@ function changeOpacity(startColorChangeY,changeSpan,targetTag){//changeSpan 为�
 
             let opacity = (1 - deltaY / changeSpan).toFixed(1) //🌟🌟changeSpan = 300, 所以相当于 (1 - deltaY / 300)
             //透明度:     1 ~ 0       0 ~ 1
-            //滚动差值:   0 ~ 300     0~ 300
+            //滚动范围:   0 ~ 300     0~ 300
             targetTag.style.opacity = opacity 
             // console.log(-(targetTag.style.opacity))
 
@@ -197,7 +197,7 @@ function changeCenterLoopTrans(startY,targetDOM){
     //baseTransY    centerLoop 的初始位置 (transform:translateY(-160px))     (偷个懒，就不算了)
     //deltaY        centerLoop 的差值 (从 startY 开始的区间)                  (计算)
     //targetTrans   centerLoop 最终移动到多少的值                             (计算)
-    //targetRatios  centerLoop 最终变大多少的值                               (计算)
+    //targetRatios  centerLoop 最终变大(缩放）多少的值                               (计算)
 
     let baseTransY = 160
 

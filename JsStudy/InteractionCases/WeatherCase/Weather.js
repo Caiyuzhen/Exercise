@@ -1,3 +1,4 @@
+//🧩 第一部分
 const sunIcon = document.querySelector('.icon-cloudy-sun');
 const cloudyIconBox = document.querySelector('.icon-box-cloudy');
 const cloudyIconBigCloud = document.querySelector('.icon-cloudy-big-cloud')
@@ -10,6 +11,8 @@ let cloudyIconSmallLock = false
 
 
 
+//🧩 第二部分
+const part2 = document.querySelector('.part2')
 
 //🌞 鼠标移入第一个 icon ————————————————————————————————————————————————
 cloudyIconBox.addEventListener('mouseenter',()=>{
@@ -224,3 +227,162 @@ fakeRainyCloud.addEventListener('transitionend', (e) =>{
     })
 })
 
+
+
+
+//🧩 第三部分
+
+//底部一排 icon 依次出现的效果
+
+const part3Title = document.querySelector('.icons-title')
+const iconsGroup = document.querySelector('.icons-group')
+const picArr = [...document.querySelectorAll('.pic-icon')]
+
+
+
+// 3: cb 函数(一组组出现)
+function callback(entries){ //entries是个数组
+
+    entries.forEach(item => {// 先遍历相交比例！！
+        if(item.intersectionRatio){ //🚀🚀🚀 true 判断是否是往相交的方向才执行！！因为不需要重复！！
+            if(item.target.className.includes('title')){//判断是否为 part3Title
+                item.target.classList.remove('static-icon-init') //🚀🚀🚀移除掉默认的隐藏状态，就相当于出现了
+            }else if(item.target.className.includes('part4')){
+                item.target.classList.remove('part4-init')
+            }else{
+
+                const children = [...item.target.children] //🌟表示【被绑定观察器的元素】的子元素 (包含第二部分跟第三部分)
+                children.forEach((child,index) => {
+
+                    // 第二部分的 icon
+                    if(child.className.includes('ani-icon-init')){
+
+                        child.classList.remove('ani-icon-init')
+                        //👇🍎 很关键，让每个元素依次出现！！
+                        child.style.transitionDelay = index * 0.1 + 's'
+
+                    // 第三部分的 icon
+                    }else if(child.className.includes('pic-icon')){
+
+                        child.classList.remove('static-icon-init')
+                        //👇🍎 很关键，让每个元素依次出现！！
+                        child.style.transitionDelay = index * 0.2 + 's'
+                    }
+                })
+                
+            }
+        }
+    })
+
+}
+
+const options = {
+    rootMargin:'0px',
+    threshold:[0.5]
+}
+
+// 1：创建观察器实例（得放在下面！）
+const obEle = new IntersectionObserver(callback,options)
+
+
+// 2: 观察元素(用的同一个观察器)
+obEle.observe(iconsGroup.firstElementChild) //🌟监听整组元素的子元素！因为会动态创建
+obEle.observe(part3Title)
+obEle.observe(part2)
+
+
+
+
+
+//动态去批量创建所有剩余元素🌟🌟🚀
+// 👇先设置一个空的行，用来承接新创建的元素
+let lineDiv = null
+
+for(let i = 6; i < 26; i++){//从第六个开始创建
+
+    if(i % 5 === 1){  //🚀🚀 取余运算，当 i 除以 5 余 1 ，比如 6 / 5 余下 1, 那么就是到了第二行，所以需要创建一个 divLine 来承载遍历出来的元素,每 5 个就加一个父级
+        //一🍎： 创建元素组
+        lineDiv = document.createElement('div')
+        lineDiv.classList.add('icons-line')
+        //把新创建的这一行加入原先的 line Group 内
+        iconsGroup.appendChild(lineDiv)
+        
+        //观察新创建的这一行
+        obEle.observe(lineDiv)
+    }
+
+    //二🍎：创建新的元素，放到组内
+    let div = document.createElement('div')
+    div.classList.add('pic-icon','static-icon-init')
+    div.style.backgroundImage = `url('./src/Icon${i}.png')`
+    lineDiv.appendChild(div) //新建一个就放入一批
+
+}
+
+
+
+//💠最后一部分
+const part4 = document.querySelector('.part4')
+
+// 观察元素(用的同一个观察器)
+obEle.observe(part4)
+
+const sun = document.querySelector('.title-sun')
+
+//获取太阳的基础位置
+const baseSunTranslateX = getComputedStyle(sun).transform
+const matrix = new DOMMatrixReadOnly(baseSunTranslateX)
+const baseTransX = matrix.m41 //-32px
+
+//写法一：
+// let targetY = 2000         //开始监听的距离
+// let changeSpan = 300        //变化的范围
+// // let deltaTotalY         //记录滚动的差值
+// // let baseTransX          //太阳的初始 x 位置
+// let sunFinalTransX = 0      //记录太阳最终的滚动值
+
+// function TransX(targetY,targetDOM){
+
+//     let deltaTotalY = scrollY - targetY   //差值
+//     let sunFinalTransX = (-(1 - deltaTotalY / changeSpan)*2.8) * baseTransX
+
+//     if(scrollY >= targetY){  
+//         targetDOM.style.transform = `translateX(${sunFinalTransX}px)` 
+//     }
+// }
+
+// window.addEventListener('scroll',(e)=>{
+//     console.log(scrollY)
+//     TransX(targetY,sun)
+// })
+
+
+// 写法二：
+// maxScrollHeight          🍎获取 scroll Y 能滚动的最大高度（2300px）
+// deltaY                   记录滚动的差值
+// target                   🍎监听值,因为已经算出了 【🍎scrollY 的最大值】，所以反向减去范围值（比如200）的话就是 【🍎target 目标监听位置】
+// sunFinalTransX           记录太阳最终的 X 位置
+
+const maxScrollHeight = document.documentElement.scrollHeight - window.innerHeight
+
+
+
+window.addEventListener('scroll',(e)=>{    
+    
+    let sunFinalTransX = baseTransX//一开始的话，太阳的最终位置 = 初始位置为 -32px
+
+    let target = maxScrollHeight - 180 //🍎🍎监听值等于 【Scroll 最大值】 - 【范围值】！！，相当于从 target 这个点开始 计算 scroll 超出它之后的值！！
+
+
+    if(scrollY >= maxScrollHeight - 180){    //🌟🍎 在即将到达底部的 200px 范围内开始监听变化了多少！并且进行相应的太阳横向滚动交互
+
+
+        let deltaY = scrollY - target  //本质都是【差值】 = 【滚动值】-【监听值】
+
+        sunFinalTransX = baseTransX + deltaY   //记录太阳最终的滚动值 = 基础值 + 差值
+        
+        sun.style.transform = `translateX(${sunFinalTransX}px)`
+        // console.log('sun 的最终位置' + sunFinalTransX);
+
+    }
+})

@@ -137,6 +137,15 @@ body{
 }
 
 
+
+/* 默认状态（💥被观察器移除后就会出现！！） */
+
+.ani-icon-init{
+    opacity: 0;
+    transform: translateY(5rem);
+}
+
+
 /* 🌟🌟🌟 第一个 icon */
 
 
@@ -307,7 +316,7 @@ body{
 /* 1:假云默认状态*/
 .fake-rainy-cloud{
     transform:translate(20rem);
-    /* 1s 为持续时间  1.5s 为延迟时间 */
+    /* 1s 为持续时间  1.2s 为延迟时间 */
     transition:transform 1s 1.2s ease-in-out;
   }
 
@@ -354,7 +363,8 @@ body{
 }
 
 .part3 > span{
-    transition: all 0.5s ease-in-out;
+    transition: all 0.5s 0.1s ease-in-out;
+    
 }
 
 .icons-group{
@@ -363,6 +373,7 @@ body{
     justify-content: center;
     gap: 4rem;
     margin-top: 4rem;
+    transition: all 0.5s ease-in-out;
 }
 
 .icons-line{
@@ -379,7 +390,7 @@ body{
     height: 6rem;
     width: 6rem;
     background-size: contain;
-    transition: all 0.5 ease-in-out;
+    transition: all 0.35s ease-in-out;   
 }
 
 /* 先做出全部显示的样式，然后隐藏掉 */
@@ -403,10 +414,11 @@ body{
     background-image:url('./src/Icon5.png');
 }
 
-/* 🌟默认状态为隐藏并且向下移动 5rem！ */
+
+/* 🌟默认状态为隐藏并且向下移动 5rem！（💥最后移除掉这个状态就会出现了)*/
 .static-icon-init{
     opacity:0 !important;
-    transform: translateY(5rem);
+    transform: translateY(3rem);
 }
 
 
@@ -418,6 +430,7 @@ body{
     display: flex;
     position: relative;
     transform: scale(0.8);
+    transition:all 0.5s ease-in-out;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -425,8 +438,9 @@ body{
     margin-bottom: 10rem;
 }
 
-/* 初始状态变为 0 */
+/* 初始状态变为 0 （💥最后移除掉这个状态就会出现了) */
 .part4-init{
+    opacity: 0;
     transform: translateY(5rem) scale(0.8);
 }
 
@@ -445,7 +459,7 @@ body{
 
 .title-sun{
     position: absolute;
-    transform:translate(5rem,-2rem);
+    transform:translate(-2rem,-2rem);
     z-index: -1;
 }
 
