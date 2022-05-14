@@ -46,37 +46,35 @@ sunIcon.addEventListener('transitionend',(e)=>{ //🌟🌟🌟旋转动画完成
     e.currentTarget.style.transition = 'none' //🍔一： （先移除动画）
     e.currentTarget.classList.remove('sun-rotate') //🍔二：（再移动移动的属性）
     
-    setTimeout(()=>{ //🍔三： （最后加回动画！）
+    setTimeout(()=>{ //🍔三：（最后异步加回动画！）
         e.target.style.transition = `transform 1.65s ease-in-out` 
-
     })
 })
 
 
 
 
-//🌟🌟动画运行时，让两个云朵不能移动！
+//🌟鼠标移走时，让两个云朵不要去移动！
 cloudyIconBigCloud.addEventListener('animationiteration',(e)=>{ //🌟🌟🌟很关键，animationiteration 表示在动画执行的过程中云朵都会动
-    if(cloudyIconBigLock){ 
+
+    if(cloudyIconBigLock){ //mouseleave 就锁住了
         // e.target 是利用子元素的冒泡来获取元素(指向的是谁🌟触发了这个事件流-目标元素)
         //e.currentTarget 是获取真实被绑定事件的元素
         e.currentTarget.classList.remove('icon-cloudy-big-cloud-ani')
-    } 
-     
+    }   
 })
 
 cloudyIconBigCloud.addEventListener('animationiteration',(e)=>{ //🌟🌟🌟很关键，animationiteration 表示在动画执行的过程中云朵都会动
 
-    if(cloudyIconSmallLock){
+    if(cloudyIconSmallLock){ //mouseleave 就锁住了
         e.currentTarget.classList.remove('icon-cloudy-small-cloud-ani')
-    }
-     
+    }   
 })
+
 
 
 
 //🌞 鼠标移入第二个 icon ————————————————————————————————————————————————
-
 
 const IconSunnyBox = document.querySelector('.icon-box-sunny')
 const sunnySmallIcon = document.querySelector('.smaller')
@@ -87,11 +85,10 @@ let smallerLock = false
 let biggerLock = false
 
 
-
-//太阳飞入+飞走
+//太阳移动的效果
 IconSunnyBox.addEventListener('mouseenter', (e) =>{
 
-    if(!smallerLock && !biggerLock){ //必须得下面两个都执行完重置了才会执行这个动画！！
+    if(!smallerLock && !biggerLock){ //必须得下面两个都【执行完 transitionend 的重置】了才会执行这个动画！！
 
     smallerLock = true
     biggerLock = true
@@ -99,8 +96,7 @@ IconSunnyBox.addEventListener('mouseenter', (e) =>{
     sunnySmallIcon.classList.add('fly-out')
     sunnyBigIcon.classList.add('fly-in')
 
-    }
-    
+    } 
 })
 
 
@@ -108,7 +104,6 @@ IconSunnyBox.addEventListener('mouseenter', (e) =>{
 
 //🌟🌟动画完成后，还原为最初的形态！
 sunnyBigIcon.addEventListener('transitionend',(e)=>{ 
-
 
     biggerLock = false
 
@@ -126,9 +121,7 @@ sunnyBigIcon.addEventListener('transitionend',(e)=>{
 
 sunnySmallIcon.addEventListener('transitionend',(e)=>{   //太阳飞走后，重置归位！！
 
-
     smallerLock = false
-
 
     e.currentTarget.style.transition = 'none' //🍔一（先不要动画）：不加这个太阳就会过渡的飞回去！！！加了后就 0 秒就飞回去了！！
     e.currentTarget.classList.remove('fly-out')//🍔二（再移除飞入的效果）
@@ -172,11 +165,11 @@ RainyBox.addEventListener('mouseenter', (e) =>{
             item.style.transitionDelay = index*0.05 + 's'
             item.classList.add('raining-ani')
             
-        }else if(index === 0){  //🌟上面两个雨滴慢一点
+        }else if(index === 0){  //🌟上面两个雨滴慢一点 / 1
             item.style.transitionDelay = '0.1s'
             item.classList.add('raining-ani')
 
-        }else if(index === 2){ //🌟上面两个雨滴慢一点
+        }else if(index === 2){ //🌟上面两个雨滴慢一点 / 2
             item.style.transitionDelay = '0.2s'
             item.classList.add('raining-ani')
         }
@@ -303,7 +296,7 @@ for(let i = 6; i < 26; i++){//从第六个开始创建
     if(i % 5 === 1){  //🚀🚀 取余运算，当 i 除以 5 余 1 ，比如 6 / 5 余下 1, 那么就是到了第二行，所以需要创建一个 divLine 来承载遍历出来的元素,每 5 个就加一个父级
         //一🍎： 创建元素组
         lineDiv = document.createElement('div')
-        lineDiv.classList.add('icons-line')
+        lineDiv.classList.add('icons-line') //新元素加上一样的类名
         //把新创建的这一行加入原先的 line Group 内
         iconsGroup.appendChild(lineDiv)
         
@@ -313,7 +306,7 @@ for(let i = 6; i < 26; i++){//从第六个开始创建
 
     //二🍎：创建新的元素，放到组内
     let div = document.createElement('div')
-    div.classList.add('pic-icon','static-icon-init')
+    div.classList.add('pic-icon','static-icon-init') //新元素加上一样的类名
     div.style.backgroundImage = `url('./src/Icon${i}.png')`
     lineDiv.appendChild(div) //新建一个就放入一批
 
@@ -365,17 +358,13 @@ const baseTransX = matrix.m41 //-32px
 
 const maxScrollHeight = document.documentElement.scrollHeight - window.innerHeight
 
-
-
 window.addEventListener('scroll',(e)=>{    
     
     let sunFinalTransX = baseTransX//一开始的话，太阳的最终位置 = 初始位置为 -32px
-
     let target = maxScrollHeight - 180 //🍎🍎监听值等于 【Scroll 最大值】 - 【范围值】！！，相当于从 target 这个点开始 计算 scroll 超出它之后的值！！
 
 
     if(scrollY >= maxScrollHeight - 180){    //🌟🍎 在即将到达底部的 200px 范围内开始监听变化了多少！并且进行相应的太阳横向滚动交互
-
 
         let deltaY = scrollY - target  //本质都是【差值】 = 【滚动值】-【监听值】
 
@@ -383,6 +372,13 @@ window.addEventListener('scroll',(e)=>{
         
         sun.style.transform = `translateX(${sunFinalTransX}px)`
         // console.log('sun 的最终位置' + sunFinalTransX);
-
     }
 })
+
+//变化规律
+//30 - 120   0 - 90    0 - 90  元素 X
+//0 - 300    0 - 300   0 - 90  开始监听的范围(相当于 target 之后的滚动值)
+//左上
+//      右下
+//右下变左上为 X0.3 再 + 30
+//左上变右下为 (- 30) 再 ÷ 0.3
