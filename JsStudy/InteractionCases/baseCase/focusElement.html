@@ -1,1 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>元素的焦点</title>
+</head>
+<body>
+    <h1>元素的焦点</h1>
+    输入姓名：<input type="text">
+    <br>
+    <br>
+    提交:<button>点击</button>
+    <!--
 
+        What？
+            1.每个页面只能有一个焦点元素, 如果页面中有多个元素, 只有第一个元素获得焦点,可以用 tab 来聚焦
+
+            2.页面默认的焦点元素是 body,有元素获得焦点就有元素失去焦点
+
+            3.🌟当鼠标单击某个不能获取焦点的元素时，文档的 document.activeElement 会变成 body
+
+            4.Document 上的属性
+                document.activeElement -> 永远指向当前的焦点元素
+
+            5.并不是所有元素都能默认获得焦点
+                🌟 下面是默认能获得焦点的元素(都是输入类型）：
+                    <body>
+                    <a>
+                    <area>
+                    <button>
+                    <input>
+                    <object>
+                    <select>
+                    <textarea>
+                🌟 其他的如 <div>、<p> 则是需要手动获得焦点的元素，或者是设置下面的属性就会默认有获得焦点的能力
+                    tabindex
+                    contenteditable='true'
+
+            6.有元素获得焦点就一定有元素失去焦点，blur 事件的监听方法先执行然后再执行 focus 事件的监听方法
+
+            7.键盘的输入一定要建立在【获得焦点】的基础上
+
+
+        HOW 如何改变元素焦点？
+            方法一：
+                直接使用鼠标去点击其他位置
+
+
+            方法二：
+                获取焦点： HTMLElement.focus()
+                    焦点事件
+                        focusout 在失去焦点的元素上触发   会冒泡
+                        focusin  在获得焦点的元素上触发   会冒泡    
+
+                失去焦点： HTMLElement.blur()
+                        blur  在失去焦点的元素上触发  有捕获
+                        focus 在获得焦点的元素上触发  有捕获
+                
+            方法三：
+                通过 tab 键进行切换
+
+     -->
+    
+</body>
+
+<script type="text/javascript">
+    // console.log(document.activeElement) //body
+
+    // setTimeout(()=>{
+    //     console.log(document.activeElement) // 2 秒后输出 input
+    // },2000)
+
+
+    const input = document.querySelector('input')
+
+    // input.addEventListener('focus',(e)=>{
+    //     console.log(e) //获得焦点的事件对象
+    // })
+
+    // input.addEventListener('blur',(e)=>{
+    //     console.log(e) //失去焦点的事件对象
+    // })
+
+
+    //👇👇 场景：判断哪个元素失去焦点了
+    //可以在 body 上绑定一个【会冒泡】的焦点事件
+    //然后通过 e.target 来判断是哪个元素触发的事件
+    document.body.addEventListener('focusout',(e)=>{ 
+        console.log(e.target) //使得失去焦点的事件对象
+    })
+
+
+    //👇👇 场景：判断哪个元素失去焦点了
+    //如果用的是【不冒泡】的焦点事件，就得绑定在对应的事件元素上
+    input.addEventListener('blur',(e)=>{ 
+        console.log(e.target) //使得失去焦点的事件对象
+    })
+
+
+
+</script>
+
+</html>
