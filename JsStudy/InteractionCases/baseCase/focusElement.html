@@ -24,7 +24,7 @@
             4.Document 上的属性
                 document.activeElement -> 永远指向当前的焦点元素
 
-            5.并不是所有元素都能默认获得焦点
+            5.并不是所有元素都能默认获得焦点, 本质上是拥有 tabindex 标记属性，参考文章：https://blog.csdn.net/woxueliuyun/article/details/45152047
                 🌟 下面是默认能获得焦点的元素(都是输入类型）：
                     <body>
                     <a>
@@ -34,8 +34,11 @@
                     <object>
                     <select>
                     <textarea>
+                    元素的滚动区域
+                    iframe 产生的视窗
+                    
                 🌟 其他的如 <div>、<p> 则是需要手动获得焦点的元素，或者是设置下面的属性就会默认有获得焦点的能力
-                    tabindex
+                    tabindex="0", 范围为 0～7
                     contenteditable='true'
 
             6.有元素获得焦点就一定有元素失去焦点，blur 事件的监听方法先执行然后再执行 focus 事件的监听方法
