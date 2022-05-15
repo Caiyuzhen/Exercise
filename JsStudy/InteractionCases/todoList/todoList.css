@@ -6,14 +6,18 @@
          url(".resources/fonts/Gilroy-Thin.woff") format("woff"),
 }
 
+
 body{
     padding: 2rem;
 }
 
-/* 第一部分 - 输入框 */
+
+/* ———————————— 第一部分 —————————————— */
+/* - 输入框 */
 .input-area{
     display: flex;
     align-items: center;
+    height: 2.5rem;
     gap: 1rem;
 }
 
@@ -38,7 +42,7 @@ input::placeholder{
 }
 
 input:hover{
-    box-shadow: 0.75rem 0.75rem #2628cf;
+    box-shadow: 0.75rem 0.75rem #a0a0ad;
 }
 input:focus{
     box-shadow: none;
@@ -91,4 +95,128 @@ input:focus{
 
 .cancel-btn{
     background-color:black;
+}
+
+
+
+/* ———————————— 第二部分 —————————————— */
+/* 代办事项模块  */
+.todo-area{
+    margin-top: 4rem;
+}
+
+.area-header{
+    font-family: "Gilroy-Medium";
+    font-size:2rem;
+    letter-spacing: 2px;
+    font-weight: bold;
+    display:flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    margin-left:0.2rem;
+}
+
+.dot{
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius:2rem;
+    margin-bottom: 0.3rem;
+    background-color:black;
+    opacity: .3;
+}
+
+.todo-number{
+    /* 文字默认为黑色！ */
+    opacity: .3;
+}
+
+.todo-Card-container{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.todo-card{
+    width:15rem;
+    height:15rem;
+    border-radius:1.4rem;
+    padding: 1.5em;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* 👇用卡片自身 margin 间距来做消失的动画就不会跳动，用 gap 就会跳动 */
+    margin-right: 2rem;
+    margin-bottom: 2rem;
+    /* 🌟🌟让子元素不被挤压(覆盖式，1则会挤压，1要配合自适应布局） */
+    flex-shrink: 0;
+}
+
+.edit-block{
+    /* 这个百分比是基于上一层的大小来算的 */
+    width:80%;
+    height:80%;
+    outline:0;
+}
+
+/* icon */
+.icons-bar{
+    width: 100%;
+    padding:0 1rem;
+    /* 👇第一个的话元素会溢出 */
+    /* box-sizing: content-box; */
+    /* 👇第二个的话元素不会溢出 */
+    box-sizing: border-box;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    bottom: 0.6rem;
+    /* 👇用于观察元素的位置 */
+    /* border:2px solid black; */
+}
+
+.four-icons{
+    display: flex;
+    gap: 0.5rem;
+    /* justify-content: flex-end;
+    flex-grow: 4; */
+}
+
+.icon-box{
+    position: relative;
+}
+
+.color-board{
+    position: absolute;
+    display: flex;
+    gap: 0.5rem;
+    left: -3.8rem;
+    top: -2rem;
+}
+
+.color-board > span{
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 100%;
+    border: 2px solid black;
+}
+
+
+/* 色板 */
+.card-Cyan{
+    background-color: #5FCFF1;
+}
+.card-orange{
+    background-color: #E8A291;
+}
+.card-green{
+    background-color: #E1E79F;
+}
+.card-yellow{
+    background-color: #EEC984;
+}
+.card-purple{
+    background-color: #d09bfe;
 }

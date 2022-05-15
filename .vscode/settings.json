@@ -2,5 +2,7 @@
     "editor.suggest.snippetsPreventQuickSuggestions": false,
     "aiXcoder.showTrayIcon": true,
     "editor.fontSize": 18,
-    "editor.cursorWidth": 3
+    "editor.cursorWidth": 3,
+
+    "gitlens.codeLens.scopes": ["document"]
 }
