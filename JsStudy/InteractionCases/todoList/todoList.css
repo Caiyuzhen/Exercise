@@ -160,7 +160,7 @@ input:focus{
     outline:0;
 }
 
-/* icon */
+/* icon 通用样式 */
 .icons-bar{
     width: 100%;
     padding:0 1rem;
@@ -177,6 +177,27 @@ input:focus{
     /* border:2px solid black; */
 }
 
+
+.icon-box{
+    position: relative;
+    /*  all 表示多种属性都要变化，比如 transform\opacity, 如果只变 transform 那就不是写 all */
+    transition: all 0.3s ease-in-out;
+}
+
+
+/* 👈左边 icon 的初始化状态 */
+.icon-left-done-init{
+    opacity: 0;
+    transform: translateX(-20px);
+}
+
+.svg-done-init{
+    transform: rotate(-35deg);
+}
+
+
+
+/* 👉右边元素的初始化状态 */
 .four-icons{
     display: flex;
     gap: 0.5rem;
@@ -184,9 +205,22 @@ input:focus{
     flex-grow: 4; */
 }
 
-.icon-box{
-    position: relative;
+.icon-init-right{
+    /* 用 box 来做位移，就不会抖了 */
+    opacity: 0;
+    transform:translateX(20px);
 }
+
+.svg-icon{
+    transition:transform 0.3s ease-in-out;
+}
+
+.svg-init{
+    transform:rotate(35deg);
+}
+
+
+
 
 .color-board{
     position: absolute;

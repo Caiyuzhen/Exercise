@@ -32,15 +32,19 @@ inputBarInstance.init() //🌟🌟调用实例的原型方法,注意！！🚀�
 
 
 //二、🚀 创建卡片的原型方法，1.先获取  2.然后从 DOM 树上移出（内存中还有）  3.然后再在原型方法中进行深克隆 ——————————————————————
-const templateCard = document.querySelector('.todo-card')
+const templateCard = document.querySelector('.todo-card')//🚀🚀🚀很关键！下面所有的 this 都指向它！！
 templateCard.remove() //移除卡片模版（内存中还有，下面会利用）
+
 
 class ToDoCard {
     constructor(card) { //constructor 一般用来做元素的属性设置
 
         this.card = card.cloneNode(true) ////一、定义卡片的容器, 每次调用这个方法都会【深拷贝一个 Card 元素】, 谁调用就拷贝谁，因为这里用 templateCard 来调用，所以会拷贝 templateCard
-        this.editBlock = this.card.querySelector('.edit-block');//🌟获取到编辑区域(在卡片 this.card. 内去 query 会更快)
+        this.editBlock = this.card.querySelector('.edit-block')//🌟获取到编辑区域(在卡片 this.card. 内去 query 会更快)
         this.cardContainer = document.querySelector('.todo-Card-container') 
+        this.fourIcons = this.card.querySelector('.four-icons').children //🌟🌟获取到四个图标的子级，然后在下面会把它转为数组
+        this.doneIcon = this.card.querySelector('.icon-left-done-init')
+
 
         this.clickTimed = 0
         this.clickCount = 0
@@ -49,8 +53,7 @@ class ToDoCard {
     }
     init(){ //一般用来定义一些初始化的设置
         this.appendCard() //调用下面的方法
-        
-        
+         
         //一：🦐 实现双击才能输入的事件(不想触发单击的事件)
         this.card.addEventListener('mousedown',(e)=>{
             e.preventDefault()//一、先阻止默认的单击进行编辑事件
@@ -76,12 +79,52 @@ class ToDoCard {
             const textNode = this.editBlock.childNodes[0] //获取文本节点，因为文本节点只在元素的第一个子集！
             range.setStart(textNode,textNode.length)  //获取这个文本节点，再获取这个文本节点的长度
         })
+
+        //鼠标移入卡片区域，图标出现
+        this.card.addEventListener('mouseenter',(e)=>{
+            
+
+            //👈左边一个 icon
+            this.doneIcon.classList.remove('icon-left-done-init')
+            this.doneIcon.firstElementChild.classList.remove('svg-done-init') //第一个子级为 svg ！
+
+            
+            // 👉右边四个 icon
+            const fourIconsArr = [...this.fourIcons] //🚀把四个 icon 转化为数组
+            fourIconsArr.forEach(items=>{
+                items.classList.remove('icon-init-right') //方法一：移除初始化的类名
+                // items.style.opacity = 1  //方法二：改变初始化的类名
+                items.firstElementChild.classList.remove('svg-init') //🚀利用 firstElementChild 来获取 svg ！！
+            })
+        })
+        //鼠标移出卡片区域，图标消失
+        this.card.addEventListener('mouseleave',(e)=>{
+
+
+            //👈左边一个 icon
+            this.doneIcon.classList.add('icon-left-done-init')
+            this.doneIcon.firstElementChild.classList.add('svg-done-init') //第一个子级为 svg ！
+
+
+            // 👉右边四个 icon
+            const fourIconsArr = [...this.fourIcons] //🚀把四个 icon 转化为数组
+            fourIconsArr.forEach(items=>{
+                items.classList.add('icon-init-right') //方法一：添加初始化的类名
+                // items.style.opacity = 1  //方法二：改变初始化的类名
+                items.firstElementChild.classList.add('svg-init') //🚀利用 firstElementChild 来获取 svg ！！
+            })
+        })
+
+
+
     }
     appendCard(){ //用来定义具体的方法
         this.cardContainer.appendChild(this.card)
     }
 }
 
+
+//把卡片实例化
 const card1 = new ToDoCard(templateCard)
 const card2 = new ToDoCard(templateCard)
 const card3 = new ToDoCard(templateCard)
