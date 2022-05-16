@@ -43,12 +43,13 @@ input::placeholder{
 
 input:hover{
     box-shadow: 0.75rem 0.75rem #a0a0ad;
+    border:#2628cf solid 3px;
 }
 input:focus{
     box-shadow: none;
 }
 
-/* 也可以用伪元素类实现元素聚【焦态】的写法
+/* 方法一：可以用伪元素类实现元素聚【焦态】的写法
 input:focus{
     width: 25rem;
     background-color: white;
@@ -56,7 +57,7 @@ input:focus{
     border:2px solid lightgray;
 } */
 
-/* 然后也可以通过 💥 js 动态添加这个 css 类 */
+/* 方法二：也可以通过 💥 js 动态添加这个 css 类 */
 .input-focus{
     font-family: "Gilroy-Thin";
     width: 25rem;
@@ -151,6 +152,9 @@ input:focus{
     margin-bottom: 2rem;
     /* 🌟🌟让子元素不被挤压(覆盖式，1则会挤压，1要配合自适应布局） */
     flex-shrink: 0;
+    /* transition: background-color  0.3s ease-in-out; */
+    transition: all 0.3s ease-in-out;
+    
 }
 
 .edit-block{
@@ -182,6 +186,7 @@ input:focus{
     position: relative;
     /*  all 表示多种属性都要变化，比如 transform\opacity, 如果只变 transform 那就不是写 all */
     transition: all 0.3s ease-in-out;
+    cursor: pointer;
 }
 
 
@@ -221,6 +226,12 @@ input:focus{
 
 
 
+/* 色板的初始状态 */
+.color-board-init{
+    opacity:0;
+    transform: translateY(10px);
+}
+
 
 .color-board{
     position: absolute;
@@ -228,6 +239,8 @@ input:focus{
     gap: 0.5rem;
     left: -3.8rem;
     top: -2rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
 }
 
 .color-board > span{

@@ -44,6 +44,7 @@ class ToDoCard {
         this.cardContainer = document.querySelector('.todo-Card-container') 
         this.fourIcons = this.card.querySelector('.four-icons').children //🌟🌟获取到四个图标的子级，然后在下面会把它转为数组
         this.doneIcon = this.card.querySelector('.icon-left-done-init')
+        this.colorBoard = this.card.querySelector('.color-board')
 
 
         this.clickTimed = 0
@@ -51,6 +52,7 @@ class ToDoCard {
 
         this.init() //这里调用了 init 方法，所以创建函数的时候默认就会执行这个方法！！
     }
+
     init(){ //一般用来定义一些初始化的设置
         this.appendCard() //调用下面的方法
          
@@ -72,6 +74,11 @@ class ToDoCard {
             },200) 
         })
 
+
+
+
+
+
         //二：🦐 处理光标不聚焦在最后面的事件(html 内，光标是一个对象)
         this.editBlock.addEventListener('focus',(e)=>{
             const selection = getSelection()    //会返回一个对象，用来获取光标位置
@@ -80,10 +87,11 @@ class ToDoCard {
             range.setStart(textNode,textNode.length)  //获取这个文本节点，再获取这个文本节点的长度
         })
 
+
+
         //鼠标移入卡片区域，图标出现
         this.card.addEventListener('mouseenter',(e)=>{
             
-
             //👈左边一个 icon
             this.doneIcon.classList.remove('icon-left-done-init')
             this.doneIcon.firstElementChild.classList.remove('svg-done-init') //第一个子级为 svg ！
@@ -97,6 +105,9 @@ class ToDoCard {
                 items.firstElementChild.classList.remove('svg-init') //🚀利用 firstElementChild 来获取 svg ！！
             })
         })
+
+
+
         //鼠标移出卡片区域，图标消失
         this.card.addEventListener('mouseleave',(e)=>{
 
@@ -113,6 +124,40 @@ class ToDoCard {
                 // items.style.opacity = 1  //方法二：改变初始化的类名
                 items.firstElementChild.classList.add('svg-init') //🚀利用 firstElementChild 来获取 svg ！！
             })
+
+
+            //移出卡片后，色板也应该消失掉！
+            setTimeout(()=>{
+                this.colorBoard.classList.add('color-board-init')
+            },400)
+
+        })
+
+
+
+
+
+        //点击色盘实现卡片的颜色变化（🌟给 color board 添加事件委托，让具体的 color 冒泡！）
+        this.colorBoard.addEventListener('click',(e)=>{
+            // console.log(e.target.className)//这时候不能用 currentTarget，因为 currentTarget 是事件的触发者，而不是被点击的元素！否所会一直是 colorBoard ！
+            //🍎因为会点到 colorBoard，所以要判断一下！判断点击的是 color 的 span 而不是 colorBoard 的 div ！
+            if(e.target.nodeName === 'SPAN'){ 
+                // console.log(e.target.className) 
+                const colorClass = e.target.className //🚀🚀获得具体点击的类名
+                // console.log(colorClass)
+
+                //🚀🚀思路：先取出第一个类名，再加上上面获得的类名，【整体作为一组新的类名】去【替代原来的类名】！！
+                const basicClass = this.card.className.split(' ')[0] //🚀🚀先取出第一个类名，目的是为了下一步！！
+                this.card.className = basicClass + ' ' + colorClass //🚀🚀 一：className 是替换类名的作用！！二：空格是为了隔开它们！！
+            }
+        })
+
+
+
+
+        //添加点击 icon 出现色板的效果, 可以利用上面定义的的 fourIcons
+        this.fourIcons[1].addEventListener('click',(e)=>{
+          this.colorBoard.classList.toggle('color-board-init')  //🚀🚀 toggle 切换(开关）s的效果！🚀注意！在上边鼠标移出的方法里也应该加上让色板消失的逻辑！！
         })
 
 
