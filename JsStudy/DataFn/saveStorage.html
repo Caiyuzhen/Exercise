@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据存储</title>
+</head>
+<!-- 
+OSI 网络七层协议
+    🌟 底层协议
+            物理层
+                网卡固有的 MAC 地址，负责传输 0 和 1 、电流这样的线路、光纤传递的物理信号
+
+            数据链路层 
+                以太网，确定 0 和 1 的分组方式，每隔信号的意义
+
+    🌟 中层协议
+            网络层
+                IP 协议 -- MAC 地址 + IP 地址
+
+            传输层 
+                TCP、UDP 协议 -- Message+源端口+目的端口+源IP地址+目的IP地址+源MAC地址+目的MAC地址
+
+    🌟 高层协议
+            会话层
+                定义了如何开始、控制和结束一个会话，何时开始传输数据，何时断开连接，保持多久的连接等等，比如 RPC，SQL
+            表示层
+                设备固有的数据格式月网络标准数据格式的转换，比如文字流、图像、声音等等
+            应用层
+                针对特定应用的协议，比如 Email 协议，远程登录协议，SSH、文件传输协议 FTP、网络请求协议 HTTP 等
+    
+ -->
+<body>
+    <h1>临时存储（会话级存储，网页关闭就消失了）</h1>
+    <p id="msg"></p>
+    <input type="text" id="input">
+    <input type="button" value="保存数据" onclick="saveStorage('input')">
+    <input type="button" value="读取数据" onclick="loadStorage('msg')">
+    
+    <br>
+    <br>
+
+
+    <h1>永久存储（存储在本机硬件）</h1>
+    <p id="msg1"></p>
+    <input type="text" id="input1">
+    <input type="button" value="保存数据" onclick="saveStorage1('input1')">
+    <input type="button" value="读取数据" onclick="loadStorage1('msg1')">
+</body>
+
+
+
+<script type="text/javascript">
+
+
+//🔥本地临时存储（会话级存储）（刷新页面还在） ————————————————————————————————————————————————————————————
+    // 🚀🚀 保存临时数据
+        function saveStorage(id){ //id 为上边的 input
+            let target = document.getElementById(id);
+
+            let str = target.value // 记录输入框👇传送过来的数据
+            sessionStorage.setItem("message",str)//message 为 key，str 为 value
+            console.log("保存完毕！")
+        }
+
+    // 🚀🚀 读取临时数据
+        function loadStorage(id){
+
+            let target = document.getElementById(id)
+            let msg = sessionStorage.getItem("message") // 获取上面保存的数据
+            target.innerHTML = msg
+        }
+ 
+
+
+//🔥本地永久存储（关闭页面也在） ————————————————————————————————————————————————————————————
+    // 🚀🚀 保存永久数据
+    function saveStorage1(id1){ //id 为上边的 input
+            let target = document.getElementById(id1);
+
+            let str = target.value // 记录输入框👇传送过来的数据
+            localStorage.setItem("message1",str)//message 为 key，str 为 value
+            console.log("保存完毕！")
+        }
+
+
+    // 🚀🚀 读取永久数据
+        function loadStorage1(id1){
+
+            let target = document.getElementById(id1)
+            let msg1 = localStorage.getItem("message1") // 获取上面保存的数据
+            target.innerHTML = msg1
+        }
+
+
+//🔥存储在 Cookie
+
+            //查询 cookie
+            console.log("document.cookie")
+
+            //设置 cookie
+            document.cookie = "username=Ming"
+
+            //设置 cookie 的有效期
+            let oDate = new Date()
+            oDate.setDate(oDate.getDate() + 3)
+            document.cookie = "username=Ming;expires="+oDate
+
+            //修改 cookie (同名的会被覆盖)
+            document.cookie= "username=Ming"
+
+            //删除 cookie
+            let oDate1 = new Date()
+            oDate1.setDate(oDate1.getDate() -1)//🌟把值设置为负的就是清除了,表示几天后过期
+            document.cookie = "username=Ming;expires="+oDate
+
+
+    //🌋🌋 cookie 的封装(设置 cookie )
+        function setCookie(name,value,day){//day 表示几天后过期
+            let oDate = new Date()
+            oDate.setDate(oDate.getDate() + day)
+            document.cookie = name + "=" + value + ";expires=" + oDate
+        }
+
+        setCookie('劳动name','啦啦',1)
+        console.log(document.cookie)
+
+
+    //🌋🌋 cookie 的封装(获得 cookie )
+        function getCookie(name){//name 表示获得哪个 cookie
+            let str = document.cookie//获得的 cookie 是一个字符串（有多条记录），所以需要用一个变量去承接
+            let arr = str.split("; ")//转化为数组，分割多余的字符串
+            for(let i=0; i<= arr.length; i++){
+                 let arr1 = arr[i].split("=")   //得到了具体的元素，进行第二次分割，转化成 name1=XXX，name2=XXX
+                    if(arr[0]===name){//取值判断，如果 name1 等于 name，就返回 name2
+                        return arr[1]
+                    }
+            }
+        }
+
+
+    //🌋🌋 cookie 的封装(删除 cookie)
+        function removeCookie(name){
+            setCookie(name,1,-1) //调用设置 cookie 的方法，然后传入负值即可
+        }
+
+        removeCookie("劳动name")
+
+
+    </script>
+
+</html>

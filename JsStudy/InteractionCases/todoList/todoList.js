@@ -46,6 +46,10 @@ class ToDoCard {
         this.doneIcon = this.card.querySelector('.icon-left-done-init')
         this.colorBoard = this.card.querySelector('.color-board')
 
+        this.clickCount = 0 //一：🍗 计时器，用来判断是否要保持收藏图标
+        this.cardState = { //一：🍗 计时器，用来判断是否要保持收藏图标
+            isFav: false
+        }
 
         this.clickTimed = 0
         this.clickCount = 0
@@ -108,7 +112,7 @@ class ToDoCard {
 
 
 
-        //鼠标移出卡片区域，图标消失
+        //鼠标移出卡片区域，所有图标消失
         this.card.addEventListener('mouseleave',(e)=>{
 
 
@@ -154,10 +158,15 @@ class ToDoCard {
 
 
 
-
-        //添加点击 icon 出现色板的效果, 可以利用上面定义的的 fourIcons
+        //点击 【颜色 icon】 出现色板的效果, 可以利用上面定义的的 fourIcons
         this.fourIcons[1].addEventListener('click',(e)=>{
           this.colorBoard.classList.toggle('color-board-init')  //🚀🚀 toggle 切换(开关）s的效果！🚀注意！在上边鼠标移出的方法里也应该加上让色板消失的逻辑！！
+        })
+
+
+        //点击收藏按钮把卡片固定住
+        this.fourIcons[3].addEventListener('click',(e)=>{
+            this.cardState
         })
 
 
