@@ -1,4 +1,4 @@
-//一、🚀 用类定义的方式定义输入框的原型方法 ————————————————————————————————————————————————
+//一、🚀🚀 用类定义的方式定义输入框的原型方法 ————————————————————————————————————————————————
 class InputBar{
     constructor(){ //类似一个构造函数
         //👇实例都会有下面这个 inputEle 属性,用这些属性来获取元素！！类似 const / let ！！
@@ -31,13 +31,13 @@ inputBarInstance.init() //🌟🌟调用实例的原型方法,注意！！🚀�
 
 
 
-//二、🚀 创建卡片的原型方法，1.先获取  2.然后从 DOM 树上移出（内存中还有）  3.然后再在原型方法中进行深克隆 ——————————————————————
+//二、🚀🚀 创建卡片的原型方法，1.先获取  2.然后从 DOM 树上移出（内存中还有）  3.然后再在原型方法中进行深克隆 ——————————————————————
 const templateCard = document.querySelector('.todo-card')//🚀🚀🚀很关键！下面所有的 this 都指向它！！
 templateCard.remove() //移除卡片模版（内存中还有，下面会利用）
 
 
 class ToDoCard {
-    constructor(card) { //constructor 一般用来做元素的属性设置
+    constructor(card) { //constructor 一般用来做元素的【属性设置】
 
         this.card = card.cloneNode(true) ////一、定义卡片的容器, 每次调用这个方法都会【深拷贝一个 Card 元素】, 谁调用就拷贝谁，因为这里用 templateCard 来调用，所以会拷贝 templateCard
         this.editBlock = this.card.querySelector('.edit-block')//🌟获取到编辑区域(在卡片 this.card. 内去 query 会更快)
@@ -46,8 +46,9 @@ class ToDoCard {
         this.doneIcon = this.card.querySelector('.icon-left-done-init')
         this.colorBoard = this.card.querySelector('.color-board')
 
-        this.clickCount = 0 //一：🍗 计时器，用来判断是否要保持收藏图标
-        this.cardState = { //一：🍗 计时器，用来判断是否要保持收藏图标
+        this.clickCount = 0 
+
+        this.cardState = { //一：🍗 计时器，存储状态数据，用来判断是否要保持收藏图标,false 则表示没有点击过
             isFav: false
         }
 
@@ -123,10 +124,18 @@ class ToDoCard {
 
             // 👉右边四个 icon
             const fourIconsArr = [...this.fourIcons] //🚀把四个 icon 转化为数组
-            fourIconsArr.forEach(items=>{
-                items.classList.add('icon-init-right') //方法一：添加初始化的类名
-                // items.style.opacity = 1  //方法二：改变初始化的类名
-                items.firstElementChild.classList.add('svg-init') //🚀利用 firstElementChild 来获取 svg ！！
+            fourIconsArr.forEach((items,index)=>{
+
+
+                //🦈 判断收藏 icon 是否被点击了 =>   this.cardState.isFav 表示【取反之后为 true】， index === 3 表示【是收藏 icon】
+                if(this.cardState.isFav && index === 3){  
+                    return
+                }
+                else{ 
+                    items.classList.add('icon-init-right') //方法一：添加初始化的类名,相当于把四个 icon 移出去
+                    // items.style.opacity = 1  //方法二：改变初始化的类名,相当于把四个 icon 移出去
+                    items.firstElementChild.classList.add('svg-init') //🚀利用 firstElementChild 来获取 svg ！！
+                }
             })
 
 
@@ -164,14 +173,18 @@ class ToDoCard {
         })
 
 
-        //点击收藏按钮把卡片固定住
+
+        //点击收藏按钮把卡片固定住 (利用了计数器的原理)
         this.fourIcons[3].addEventListener('click',(e)=>{
-            this.cardState
+            this.cardState.isFav = !this.cardState.isFav; //🚀🚀 取反！也类似开关，一开始是 true 的话点一下 就是 false
+            e.currentTarget.children[0].children[1].style.fill = this.cardState.isFav ? '#FFC60A' : 'white'
+            // console.log(e.currentTarget.children[0].children[1]) //box 的子级->svg 的子级->path
         })
 
 
 
     }
+
     appendCard(){ //用来定义具体的方法
         this.cardContainer.appendChild(this.card)
     }
