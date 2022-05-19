@@ -4,8 +4,8 @@ class InputBar{
         //👇实例都会有下面这个 inputEle 属性,用这些属性来获取元素！！类似 const / let ！！
         this.inputEle = document.querySelector('input')//这里获取 # 的话就不用.了
         this.inputBtnBox = document.querySelector('.input-buttons')
-
     }
+
     //原型方法
     init(){
         //获得上面 inputEle 的引用，上面已经获取了元素了，所以这里就不用再获取了
@@ -180,6 +180,14 @@ class ToDoCard {
             e.currentTarget.children[0].children[1].style.fill = this.cardState.isFav ? '#FFC60A' : 'white'
             // console.log(e.currentTarget.children[0].children[1]) //box 的子级->svg 的子级->path
         })
+
+
+
+        //长按进行卡片的删除
+        this.fourIcons[0].addEventListener('click',(e)=>{
+            
+        })
+
 
 
 

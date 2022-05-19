@@ -1,0 +1,25 @@
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 1.6rem;
+  }
+  
+  .range-container {
+    margin: 2rem auto 0;
+    text-align: center;
+  }
+  
+  .range {
+    direction: rtl;
+  }
+  
+  .line {
+    --stroke-dashoffset: 0;
+    stroke-dasharray: 50;
+    stroke-dashoffset: var(--stroke-dashoffset);
+  }

@@ -225,6 +225,12 @@ input:focus{
 }
 
 
+.delete-circle{
+    position:absolute;
+    left: 0;
+}
+
+
 
 /* 色板的初始状态 */
 .color-board-init{
