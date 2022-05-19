@@ -45,8 +45,8 @@ class ToDoCard {
         this.fourIcons = this.card.querySelector('.four-icons').children //🌟🌟获取到四个图标的子级，然后在下面会把它转为数组
         this.doneIcon = this.card.querySelector('.icon-left-done-init')
         this.colorBoard = this.card.querySelector('.color-board')
+        this.cardNumBox = document.querySelector('.todo-number') //注意，这里是 document！因为不在 card 上！！
 
-        this.clickCount = 0 
 
         this.cardState = { //一：🍗 计时器，存储状态数据，用来判断是否要保持收藏图标,false 则表示没有点击过
             isFav: false
@@ -55,10 +55,12 @@ class ToDoCard {
         this.clickTimed = 0
         this.clickCount = 0
 
+        this.deleteId = 0
+
         this.init() //这里调用了 init 方法，所以创建函数的时候默认就会执行这个方法！！
     }
 
-    init(){ //一般用来定义一些初始化的设置
+    init(){ //💎 一般用来定义一些初始化的设置,比如定义一些鼠标交互事件，顺便调用一些方法
         this.appendCard() //调用下面的方法
          
         //一：🦐 实现双击才能输入的事件(不想触发单击的事件)
@@ -78,8 +80,6 @@ class ToDoCard {
                 this.clickCount = 0 //六、定时器重置，超过，100 毫秒就还原，因为双击一般不会超过 100 毫秒
             },200) 
         })
-
-
 
 
 
@@ -184,17 +184,67 @@ class ToDoCard {
 
 
         //长按进行卡片的删除
-        this.fourIcons[0].addEventListener('click',(e)=>{
+
+        //⭕️ 按下，然后开始转圈
+        this.fourIcons[0].addEventListener('mousedown',(e)=>{
+            const target = e.currentTarget.children[1].firstElementChild ///选中的一组 icon 的第一个子级别
             
+            target.style.strokeDashoffset = '0' //目标是 0 转一圈
+            const styles = getComputedStyle(target)
+
+            //如果按下的进度达到了 100%，就删除这个卡片
+            this.deleteId = setInterval(()=>{
+
+                if(parseInt(styles.strokeDashoffset) === 0){
+                    this.deleteCard() //执行删除卡片的方法
+                    
+                    clearInterval(this.deleteId) //🚀🚀🚀 如果 = 0 就删除这个计时器
+                }
+            },100)
+
         })
 
+        //⭕️抬起，圆圈退回去 
+        this.fourIcons[0].addEventListener('mouseup', (e) =>{
+            const target = e.currentTarget.children[1].firstElementChild
+            const styles = getComputedStyle(target)//🚀🚀🚀🚀 获取到元素的属性！！然后再在下一步进行判断
 
+            // console.log(styles.strokeDashoffset)
 
+            //🌟 判断一下，如果没有达到 0 ，也就是转满的情况下，就让它转回去
+            if(parseInt(styles.strokeDashoffset) > 0){//🚀🚀🚀🚀 要转化一下数据！！
+                target.style.strokeDashoffset = '88'
+
+                // 🚗注意！鼠标抬起来的时候也要清除计时器！因为反向也会到达 0！
+                clearInterval(this.deleteId)
+
+            }
+        })
 
     }
 
-    appendCard(){ //用来定义具体的方法
+    // 🌟下面具体的静态方法都是单独写的! 在 class 内不用写 functionX XX！
+
+    appendCard(){ //💎 一般用来定义具体的方法，比如删除卡片，添加卡片，等等
         this.cardContainer.appendChild(this.card)
+    }
+
+    updateNum(){
+        this.cardNumBox.innerText = this.cardContainer.children.length //🌟🌟 TODO 数量 = 子级的长度
+    }
+
+    deleteCard(){ //💎 一般用来定义具体的方法，比如删除卡片，添加卡片，等等
+        this.card.style.width = '0px'
+        this.card.style.paddingLeft = '0px'
+        this.card.style.paddingRight = '0px'
+        this.card.style.marginRight = '0px'
+        this.iconsBar.style.display = 'none'
+        this.textSpan.style.opacity = 0
+
+        setTimeout(()=>{
+            this.card.remove() //等上面的样式变完后再移除卡片
+            this.updateNum()
+        },400) //因为变化过程有 350ms，所以 400ms 后再从 DOM 树上移除卡片
     }
 }
 

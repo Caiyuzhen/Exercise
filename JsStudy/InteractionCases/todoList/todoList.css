@@ -222,12 +222,17 @@ input:focus{
 
 .svg-init{
     transform:rotate(35deg);
+    transition:transform 0.3s ease-in-out;
 }
 
 
 .delete-circle{
     position:absolute;
+    transform: rotate(-90deg);
     left: 0;
+}
+.delete-circle > circle{
+    transition:all 2s ease-in-out;
 }
 
 
