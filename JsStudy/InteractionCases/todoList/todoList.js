@@ -42,6 +42,7 @@ class ToDoCard {
         this.card = card.cloneNode(true) ////一、定义卡片的容器, 每次调用这个方法都会【深拷贝一个 Card 元素】, 谁调用就拷贝谁，因为这里用 templateCard 来调用，所以会拷贝 templateCard
         this.editBlock = this.card.querySelector('.edit-block')//🌟获取到编辑区域(在卡片 this.card. 内去 query 会更快)
         this.cardContainer = document.querySelector('.todo-Card-container') 
+        this.fourIconsBar = this.card.querySelector('.four-icons') //🌟🌟获取到四个图标的父级
         this.fourIcons = this.card.querySelector('.four-icons').children //🌟🌟获取到四个图标的子级，然后在下面会把它转为数组
         this.doneIcon = this.card.querySelector('.icon-left-done-init')
         this.colorBoard = this.card.querySelector('.color-board')
@@ -223,14 +224,22 @@ class ToDoCard {
 
     }
 
+    
     // 🌟下面具体的静态方法都是单独写的! 在 class 内不用写 functionX XX！
 
-    appendCard(){ //💎 一般用来定义具体的方法，比如删除卡片，添加卡片，等等
-        this.cardContainer.appendChild(this.card)
-    }
 
     updateNum(){
         this.cardNumBox.innerText = this.cardContainer.children.length //🌟🌟 TODO 数量 = 子级的长度
+    }
+
+
+
+    appendCard(){ //💎 一般用来定义具体的方法，比如删除卡片，添加卡片，等等(🌟然后记得在 init 的方法那进行调用！！！)
+        this.cardContainer.appendChild(this.card)
+
+        this.updateNum()
+
+        
     }
 
     deleteCard(){ //💎 一般用来定义具体的方法，比如删除卡片，添加卡片，等等
@@ -238,13 +247,31 @@ class ToDoCard {
         this.card.style.paddingLeft = '0px'
         this.card.style.paddingRight = '0px'
         this.card.style.marginRight = '0px'
-        this.iconsBar.style.display = 'none'
-        this.textSpan.style.opacity = 0
+        this.card.style.opacity = 0
+        this.fourIconsBar.style.display = 'none'
+        this.editBlock.style.opacity = 0
 
         setTimeout(()=>{
             this.card.remove() //等上面的样式变完后再移除卡片
             this.updateNum()
         },400) //因为变化过程有 350ms，所以 400ms 后再从 DOM 树上移除卡片
+    }
+
+
+
+    // 卡片完成后，🌟🌟 移动卡片到 Done 的区域（本质上是先删除原来的卡片再在 done 区域去克隆一张出来）
+    moveCardToDone(){
+        this.cardText = this.editBlock.innerText //把当前卡片的文字信息存下来
+        this.card.classList.add('to-card-done-ani')
+
+        setTimeout(()=>{
+            this.card.remove
+            this.updateNum()
+        },1600)
+        
+        setTimeout(()=>{
+            new DoneCard(doneCard,this.cardText,this.colorIndex)
+        },600)//新建一张卡片，传入之前卡片的参数
     }
 }
 
@@ -253,3 +280,8 @@ class ToDoCard {
 const card1 = new ToDoCard(templateCard)
 const card2 = new ToDoCard(templateCard)
 const card3 = new ToDoCard(templateCard)
+
+
+class DoneCard {
+    this.cardContainer = document.querySelector('.todo-Card-container') 
+}
