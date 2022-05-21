@@ -1,287 +1,745 @@
+//this:通过 new 调用:函数中的 this 指向新对象，直接调用:函数中的 this 指向全局对象，对象调用:函数中的this指向前一个对象。this的指向取决于函数是如何被调用的。
+
+
+// 获取已经在html中写好的 待办事项卡片 作为模板
+const todoCard = document.querySelector(".todo-card")
+
+todoCard.remove()//移除掉此模板，内存中还有，可以继续调用！
+
+
+// 获取已经在html中写好的 已完成卡片 作为模板
+const doneCard = document.querySelector(".done-card")
+
+doneCard.remove()//移除掉此模板，内存中还有，可以继续调用！
+
+
+
+
+
 //一、🚀🚀 用类定义的方式定义输入框的原型方法 ————————————————————————————————————————————————
 class InputBar{
-    constructor(){ //类似一个构造函数
-        //👇实例都会有下面这个 inputEle 属性,用这些属性来获取元素！！类似 const / let ！！
-        this.inputEle = document.querySelector('input')//这里获取 # 的话就不用.了
-        this.inputBtnBox = document.querySelector('.input-buttons')
+    constructor(id){ //类似一个构造函数
+        
+        //👇👇👇实例都会有下面这个 ele 属性,用这些属性来获取元素！！类似 const / let ！！
+        this.ele = document.querySelector("input")
+        // 这个是输入提示文字元素
+        this.inputHint = document.querySelector(".input-hint")
+
+
+        //基础样式
+        this.eleBasicStyle = {}
+
+        // 变化的目标样式
+        this.eleTargetStyle = {
+            backgroundColor:"white",
+            border:"2px solid #D4D4D4",
+            width: "20rem",
+            cursor: "text",
+        }
+
+        //一个空的数组，用来放按钮
+        this.buttons = []
+
+        // 存放已经输入的相关文字数据
+        this.inputValue = ""
+
     }
 
-    //原型方法
-    init(){
-        //获得上面 inputEle 的引用，上面已经获取了元素了，所以这里就不用再获取了
-        //聚焦
-        this.inputEle.addEventListener('focus',(e)=>{ //箭头函数的 this 是在创建的时候就绑定了自身的实例【inputEle】，所以要经常用到 this 的话可以用箭头函数
-            // this.inputEle.style.width = '20rem' // js 添加样式
-            this.inputEle.classList.add('input-focus')//CSS 添加样式
-            this.inputBtnBox.style.opacity = 1      
-        })
-        //失焦
-        this.inputEle.addEventListener('blur',(e)=>{
-            this.inputEle.classList.remove('input-focus')
-            this.inputBtnBox.style.opacity = 0
+    //inputBar 的原型方法
+    barInit(){
+        //获得上面 ele 的引用，上面已经获取了元素了 【this.ele = document.querySelector("input")】，所以这里就不用再获取了
+
+        const computedStyle = getComputedStyle(this.ele)//先获得最终的数据
+         // console.log(computedStyle.backgroundColor,computedStyle.width,computedStyle.border)
+         
+        this.eleBasicStyle.backgroundColor = computedStyle.backgroundColor
+        this.eleBasicStyle.border = computedStyle.border
+        this.eleBasicStyle.width = computedStyle.width
+        this.eleBasicStyle.cursor = computedStyle.cursor
+
+
+        //回车产生元素
+        this.ele.addEventListener('keyup',(e)=>{
+            if(e.key === 'Enter'){
+                //判断输入框是否已经输入了数据
+                if(this.ele.value){
+                    new TodoCard(todoCard,this.ele.value,null,true) //把输入框的值传给 ToDoCard 的构造函数
+                    this.ele.value = "" //🌟🌟清空输入框的数据
+                }
+            }
         })
 
+
+        //聚焦
+        this.ele.addEventListener("focus", (e) => {//箭头函数的 this 是在创建的时候就绑定了自身的实例【ele】，所以要经常用到 this 的话可以用箭头函数
+            // 这里是用来控制输入提示文字【占位符】
+            if(this.inputValue){
+                // 如果 input 中有已经输入的文字 就把文字提示透明度设置为0
+                this.inputHint.style.opacity = 0
+            }else{
+                this.inputHint.style.opacity = 1
+            }
+
+            e.currentTarget.style.backgroundColor = this.eleTargetStyle.backgroundColor
+            e.currentTarget.style.border = this.eleTargetStyle.border
+            e.currentTarget.style.width = this.eleTargetStyle.width
+            e.currentTarget.style.cursor = this.eleTargetStyle.cursor
+
+            // 把保存在实例中之前已经输入的文字数据给到 input 的 value 属性 让其又显示出来
+            e.currentTarget.value = this.inputValue
+            this.buttonsAni("showUp")
+
+        })
+
+        //失焦
+        this.ele.addEventListener("blur", (e) => {
+            this.inputHint.style.opacity = 0
+            e.currentTarget.style.backgroundColor = this.eleBasicStyle.backgroundColor
+            e.currentTarget.style.border = this.eleBasicStyle.border
+            e.currentTarget.style.width = this.eleBasicStyle.width
+            e.currentTarget.style.cursor = this.eleBasicStyle.cursor
+      
+            this.inputValue = e.currentTarget.value
+      
+            // 清空输入的内容
+            e.currentTarget.value = ""
+            this.buttonsAni("fadeOut")
+          })
+
+
+    // 通过已经是有有输入数据来让决定输入文字提示是否显示
+    this.ele.addEventListener("input",(e)=>{
+      
+        if(e.currentTarget.value === ''){
+          this.inputHint.style.opacity = 1
+        }else{
+          this.inputHint.style.opacity = 0
+        }
+      })
+    
+    }
+
+    // 🌟🌟🌟把按钮实例添加到inputBar的实例中
+    addBtn(...btns) {
+        btns.forEach((item) => {
+            this.buttons.push(item)
+        })
+    }
+    
+
+    // 按钮动画的展示与否
+    buttonsAni(type) {
+        if (type === "showUp") {
+          this.buttons.forEach((btn) => {
+            btn.showUp()
+          })
+        } else {
+          this.buttons.forEach((btn) => {
+            btn.fadeOut()
+        })
+    }
+  }
+}
+
+
+// const inputBarInstance = new InputBar('input') //调用 new 一个实例
+const inputBar = new InputBar('input') //调用 new 一个实例
+inputBar.barInit() //🌟🌟调用实例的原型方法,注意！！🚀🚀 如果是放在 constructor(){} 内最后去调用的话，就不用再在全局用 .init 来调用了，因为那样 new 的时候直接就有了 🚀🚀
+
+
+
+
+
+
+
+//三、🚀🚀 用类定义的方式创建按钮的基类 ————————————————————————————————————————————————
+class Btn {
+    constructor(className, targetColor) {
+        this.btn = document.querySelector(className)
+        this.btnType = className.includes('confirm') ? 'confirm' : 'cancel'
+        this.parentInputbar = null
+        this.btnBasicStyle = {}
+        this.btnTargetStyle = {
+            backgroundColor: targetColor,
+            opacity: 1,
+            pointerEvents: "auto",
+        }
+    }
+
+
+    init(inputBar) {
+  
+      const computedStyle = getComputedStyle(this.btn)
+    
+      this.btnBasicStyle.backgroundColor = computedStyle.backgroundColor
+      this.btnBasicStyle.opacity = computedStyle.opacity
+      this.btnBasicStyle.pointerEvents = computedStyle.pointerEvents
+  
+      // 这个方法 就是把 按钮和input输入元素关联起来 其实就是把按钮元素实例中的 parentInputbar 属性设置为传入的input元素
+      this.installInput(inputBar)
+  
+      // 初始化按钮的点击事件
+      this.btn.addEventListener('mousedown',(e)=>{
+        if(this.btnType === 'confirm'){
+  
+            // 这里是点击confirm按钮 表示要创建新的待办事项卡片
+  
+            // 阻止点击按钮元素导致input元素失去焦点
+            e.preventDefault()
+  
+            if(this.parentInputbar.ele.value){
+                new TodoCard(todoCard,this.parentInputbar.ele.value,null,true)
+  
+                // 把输入框清空
+                this.parentInputbar.ele.value = ''
+            }
+            this.parentInputbar.inputHint.style.opacity = 1
+  
+        }else{
+            // 点击的是cancel按钮要执行的逻辑
+            this.parentInputbar.ele.value = ''
+        }
+        
+      })
+
+    }
+  
+
+    installInput(inputBar){
+      this.parentInputbar = inputBar
+    }
+
+
+    showUp() {
+      this.btn.style.backgroundColor =
+      this.btnTargetStyle.backgroundColor.backgroundColor
+      this.btn.style.opacity = this.btnTargetStyle.opacity
+      this.btn.style.pointerEvents = this.btnTargetStyle.pointerEvents
+    }
+  
+    fadeOut() {
+      this.btn.style.backgroundColor = this.btnBasicStyle.backgroundColor
+      this.btn.style.opacity = this.btnBasicStyle.opacity
+      this.btn.style.pointerEvents = this.btnBasicStyle.pointerEvents
     }
 }
 
-const inputBarInstance = new InputBar() //调用 new 一个实例
-inputBarInstance.init() //🌟🌟调用实例的原型方法,注意！！🚀🚀 如果是放在 constructor(){} 内去定义的话，就不用用 .init 来调用了，new 的时候直接就有了 🚀🚀
+
+// 🌟 实例化两个按钮，赋予两个按钮颜色
+const confirmBtn = new Btn(".btn-confirm", "#2627CF")
+const cancelBtn = new Btn(".btn-cancel", "black")
+confirmBtn.init(inputBar)
+cancelBtn.init(inputBar)
+
+//🌟 给输入框上添加按钮实例
+inputBar.addBtn(confirmBtn, cancelBtn)
+
 
 
 
 
 
 //二、🚀🚀 创建卡片的原型方法，1.先获取  2.然后从 DOM 树上移出（内存中还有）  3.然后再在原型方法中进行深克隆 ——————————————————————
-const templateCard = document.querySelector('.todo-card')//🚀🚀🚀很关键！下面所有的 this 都指向它！！
-templateCard.remove() //移除卡片模版（内存中还有，下面会利用）
+class TodoCard {
+    constructor(cardNode,cardText,colorIndex,isCreate) {
+    // 所有待办卡片的容器元素
+    this.cardContainer = document.querySelector(".todo-card-container")
+    // 用模板元素深度克隆一个待办卡片元素
+    this.card = cardNode.cloneNode(true)
+    // 可编辑区域元素
+    this.editBlock = this.card.querySelector(".todo-edit")
+    // 底部右侧图标们的父元素
+    this.iconsBar = this.card.querySelector(".icons-bar")
+    // 完成图标元素
+    this.doneIcon =  this.card.querySelector(".done-icon-box")
+    // 颜色圆点们的父元素
+    this.colorBoard = this.card.querySelector(".color-board")
 
+    // 待办事项数量的元素
+    this.cardNumBox = document.querySelector(".card-num")
 
-class ToDoCard {
-    constructor(card) { //constructor 一般用来做元素的【属性设置】
+    // 卡片是否有文字数据
+    this.cardText = cardText ? cardText : null
 
-        this.card = card.cloneNode(true) ////一、定义卡片的容器, 每次调用这个方法都会【深拷贝一个 Card 元素】, 谁调用就拷贝谁，因为这里用 templateCard 来调用，所以会拷贝 templateCard
-        this.editBlock = this.card.querySelector('.edit-block')//🌟获取到编辑区域(在卡片 this.card. 内去 query 会更快)
-        this.cardContainer = document.querySelector('.todo-Card-container') 
-        this.fourIconsBar = this.card.querySelector('.four-icons') //🌟🌟获取到四个图标的父级
-        this.fourIcons = this.card.querySelector('.four-icons').children //🌟🌟获取到四个图标的子级，然后在下面会把它转为数组
-        this.doneIcon = this.card.querySelector('.icon-left-done-init')
-        this.colorBoard = this.card.querySelector('.color-board')
-        this.cardNumBox = document.querySelector('.todo-number') //注意，这里是 document！因为不在 card 上！！
+    // 实现双击可编辑
+    this.clickCount = 0
+    this.clickTimeId = 0
 
+    // 检测是否确定删除的计时器ID
+    this.deleteId = 0
 
-        this.cardState = { //一：🍗 计时器，存储状态数据，用来判断是否要保持收藏图标,false 则表示没有点击过
-            isFav: false
+    // 所有颜色的名称
+    this.cardColors = ["qing", "green", "orange", "yellow", "purple"]
+
+    // 卡片的颜色索引位
+    this.colorIndex = colorIndex !== null ? colorIndex : null 
+    
+        this.cardState = { //🌟🌟用一个数组来存储卡片的状态 ！！
+            iconsShow:false,
+            colorBoardShow:false,
+            isFav:false,
+            // 判断是否是通过输入创建 还是通过从已完成返回创建
+            isCreate:isCreate
         }
-
-        this.clickTimed = 0
-        this.clickCount = 0
-
-        this.deleteId = 0
-
-        this.init() //这里调用了 init 方法，所以创建函数的时候默认就会执行这个方法！！
+        this.init()
     }
 
-    init(){ //💎 一般用来定义一些初始化的设置,比如定义一些鼠标交互事件，顺便调用一些方法
-        this.appendCard() //调用下面的方法
-         
-        //一：🦐 实现双击才能输入的事件(不想触发单击的事件)
-        this.card.addEventListener('mousedown',(e)=>{
-            e.preventDefault()//一、先阻止默认的单击进行编辑事件
-            e.stopPropagation()//二、再阻止 card 内其他元素的冒泡，否则边距透过去下面的元素会让它继续被点击到, 🌟虽然阻止冒泡但是代码还是执行下去了！！
+
+//💎💎💎 一般用来定义一些初始化的设置,比如定义一些鼠标交互事件，顺便调用一些方法
+    init() {
+        // 初始化卡片的颜色 随机颜色
+        if(this.colorIndex === null){
+            this.colorIndex = Math.ceil(Math.random() * 5) - 1
+        }
+            // 先删除卡片本来的颜色
+            this.card.classList.remove("card-orange")
+            this.card.classList.add("card-" + this.cardColors[this.colorIndex])
+      
+      
+          // 初始已有的输入卡片内容 设置到 this.cardText中
+        if(this.cardText !== null){
+            this.editBlock.innerText = this.cardText
+        }
 
 
-            clearTimeout(this.clickTimeId)//三、先重置定时器
-            this.clickCount ++ //四、定时器+1
-
-            if(this.clickCount === 2){
-                this.editBlock.focus() //五、聚焦 (用focus()的方法的话，光标会跑回最前面，在 focus() 的函数内需要处理一下)
-            }
-
-            this.clickTimeId = setTimeout(()=>{ 
-                this.clickCount = 0 //六、定时器重置，超过，100 毫秒就还原，因为双击一般不会超过 100 毫秒
-            },200) 
+        // 卡片的投影 输入状态 即输入元素获得焦点时 产生投影
+        this.editBlock.addEventListener('focus', (e)=>{
+            this.card.classList.add('shadow-'+ this.cardColors[this.colorIndex])
+        })
+  
+        this.editBlock.addEventListener('blur',(e)=>{
+            this.card.classList.remove('shadow-'+ this.cardColors[this.colorIndex])
         })
 
 
 
 
-        //二：🦐 处理光标不聚焦在最后面的事件(html 内，光标是一个对象)
-        this.editBlock.addEventListener('focus',(e)=>{
-            const selection = getSelection()    //会返回一个对象，用来获取光标位置
-            const range = selection.getRangeAt(0)   //设置最后的光标对象
-            const textNode = this.editBlock.childNodes[0] //获取文本节点，因为文本节点只在元素的第一个子集！
-            range.setStart(textNode,textNode.length)  //获取这个文本节点，再获取这个文本节点的长度
+
+
+        //一：🦐 实现双击才能输入的事件(不想触发单击的事件)
+        this.card.addEventListener('mousedown',(e)=>{
+
+            clearTimeout(this.clickTimeId) //重置计时器
+
+            if (this.clickCount === 0) {
+                e.preventDefault()
+                this.clickCount++
+                this.clickTimeId = setTimeout(() => {
+                 this.clickCount = 0
+            }, 300)
+            } else {
+                this.editBlock.focus()
+                this.clickCount = 0
+            }
         })
 
 
 
         //鼠标移入卡片区域，图标出现
-        this.card.addEventListener('mouseenter',(e)=>{
+        this.card.addEventListener("mouseenter", (e) => {
+    
+            this.doneIcon.style.opacity = 1
+            this.doneIcon.style.transform = `translateX(0px)`
+      
+            this.doneIcon.firstElementChild.style.transform = `rotate(0deg)`
+          
             
-            //👈左边一个 icon
-            this.doneIcon.classList.remove('icon-left-done-init')
-            this.doneIcon.firstElementChild.classList.remove('svg-done-init') //第一个子级为 svg ！
-
-            
-            // 👉右边四个 icon
-            const fourIconsArr = [...this.fourIcons] //🚀把四个 icon 转化为数组
-            fourIconsArr.forEach(items=>{
-                items.classList.remove('icon-init-right') //方法一：移除初始化的类名
-                // items.style.opacity = 1  //方法二：改变初始化的类名
-                items.firstElementChild.classList.remove('svg-init') //🚀利用 firstElementChild 来获取 svg ！！
+            const allChildArr = [...this.iconsBar.children]
+      
+            // 四个图标的出现效果
+            allChildArr.forEach((icon, index) => {
+      
+              if(icon.classList.contains('icon-box')){
+                icon.firstElementChild.style.transform = "rotate(0deg)"
+                icon.style.transform = "translateX(0px)"
+                icon.style.opacity = 1
+              }
             })
+            this.cardState.iconsShow = true
+      
         })
 
 
 
         //鼠标移出卡片区域，所有图标消失
-        this.card.addEventListener('mouseleave',(e)=>{
+        this.card.addEventListener("mouseleave", (e) => {
 
-
-            //👈左边一个 icon
-            this.doneIcon.classList.add('icon-left-done-init')
-            this.doneIcon.firstElementChild.classList.add('svg-done-init') //第一个子级为 svg ！
-
-
-            // 👉右边四个 icon
-            const fourIconsArr = [...this.fourIcons] //🚀把四个 icon 转化为数组
-            fourIconsArr.forEach((items,index)=>{
-
-
-                //🦈 判断收藏 icon 是否被点击了 =>   this.cardState.isFav 表示【取反之后为 true】， index === 3 表示【是收藏 icon】
-                if(this.cardState.isFav && index === 3){  
-                    return
-                }
-                else{ 
-                    items.classList.add('icon-init-right') //方法一：添加初始化的类名,相当于把四个 icon 移出去
-                    // items.style.opacity = 1  //方法二：改变初始化的类名,相当于把四个 icon 移出去
-                    items.firstElementChild.classList.add('svg-init') //🚀利用 firstElementChild 来获取 svg ！！
+            this.doneIcon.style.opacity = 0
+            this.doneIcon.style.transform = `translateX(-20px)`
+      
+            this.doneIcon.firstElementChild.style.transform = `rotate(-35deg)`
+      
+            this.cardState.iconsShow = false
+      
+            const allChildArr = [...this.iconsBar.children]
+      
+            // 四个图标的消失效果
+            allChildArr.forEach((icon, index) => {
+      
+      
+            if(this.cardState.isFav && icon.classList.contains('icon-fav') ){
+                  return
+            }
+      
+            if(icon.classList.contains('icon-box')){
+      
+                    icon.firstElementChild.style.transform = "rotate(30deg)"
+        
+                    icon.style.transform = "translateX(20px)"
+                    icon.style.opacity = 0
                 }
             })
 
 
-            //移出卡片后，色板也应该消失掉！
-            setTimeout(()=>{
-                this.colorBoard.classList.add('color-board-init')
-            },400)
 
-        })
+        //移出卡片后，色板也应该消失,恢复到默认状态
+        if(this.cardState.colorBoardShow){
 
-
-
-
-
-        //点击色盘实现卡片的颜色变化（🌟给 color board 添加事件委托，让具体的 color 冒泡！）
-        this.colorBoard.addEventListener('click',(e)=>{
-            // console.log(e.target.className)//这时候不能用 currentTarget，因为 currentTarget 是事件的触发者，而不是被点击的元素！否所会一直是 colorBoard ！
-            //🍎因为会点到 colorBoard，所以要判断一下！判断点击的是 color 的 span 而不是 colorBoard 的 div ！
-            if(e.target.nodeName === 'SPAN'){ 
-                // console.log(e.target.className) 
-                const colorClass = e.target.className //🚀🚀获得具体点击的类名
-                // console.log(colorClass)
-
-                //🚀🚀思路：先取出第一个类名，再加上上面获得的类名，【整体作为一组新的类名】去【替代原来的类名】！！
-                const basicClass = this.card.className.split(' ')[0] //🚀🚀先取出第一个类名，目的是为了下一步！！
-                this.card.className = basicClass + ' ' + colorClass //🚀🚀 一：className 是替换类名的作用！！二：空格是为了隔开它们！！
+            setTimeout(() =>{
+                    this.colorBoard.style.transform = `translateY(10px)`
+                    this.colorBoard.style.opacity = 0
+                    this.cardState.colorBoardShow = false
+                },350)
             }
+
+        })
+
+
+        // 点击完成图标
+        this.doneIcon.addEventListener('click', () =>{
+            this.moveCardToDone() //执行移动到 done 区域的方法
         })
 
 
 
-        //点击 【颜色 icon】 出现色板的效果, 可以利用上面定义的的 fourIcons
-        this.fourIcons[1].addEventListener('click',(e)=>{
-          this.colorBoard.classList.toggle('color-board-init')  //🚀🚀 toggle 切换(开关）s的效果！🚀注意！在上边鼠标移出的方法里也应该加上让色板消失的逻辑！！
-        })
+        //初始化, 点击 【颜色icon】 让颜色色板出现
 
-
-
-        //点击收藏按钮把卡片固定住 (利用了计数器的原理)
-        this.fourIcons[3].addEventListener('click',(e)=>{
-            this.cardState.isFav = !this.cardState.isFav; //🚀🚀 取反！也类似开关，一开始是 true 的话点一下 就是 false
-            e.currentTarget.children[0].children[1].style.fill = this.cardState.isFav ? '#FFC60A' : 'white'
-            // console.log(e.currentTarget.children[0].children[1]) //box 的子级->svg 的子级->path
-        })
-
-
-
-        //长按进行卡片的删除
-
-        //⭕️ 按下，然后开始转圈
-        this.fourIcons[0].addEventListener('mousedown',(e)=>{
-            const target = e.currentTarget.children[1].firstElementChild ///选中的一组 icon 的第一个子级别
-            
-            target.style.strokeDashoffset = '0' //目标是 0 转一圈
-            const styles = getComputedStyle(target)
-
-            //如果按下的进度达到了 100%，就删除这个卡片
-            this.deleteId = setInterval(()=>{
-
-                if(parseInt(styles.strokeDashoffset) === 0){
-                    this.deleteCard() //执行删除卡片的方法
-                    
-                    clearInterval(this.deleteId) //🚀🚀🚀 如果 = 0 就删除这个计时器
-                }
-            },100)
-
-        })
-
-        //⭕️抬起，圆圈退回去 
-        this.fourIcons[0].addEventListener('mouseup', (e) =>{
-            const target = e.currentTarget.children[1].firstElementChild
-            const styles = getComputedStyle(target)//🚀🚀🚀🚀 获取到元素的属性！！然后再在下一步进行判断
-
-            // console.log(styles.strokeDashoffset)
-
-            //🌟 判断一下，如果没有达到 0 ，也就是转满的情况下，就让它转回去
-            if(parseInt(styles.strokeDashoffset) > 0){//🚀🚀🚀🚀 要转化一下数据！！
-                target.style.strokeDashoffset = '88'
-
-                // 🚗注意！鼠标抬起来的时候也要清除计时器！因为反向也会到达 0！
-                clearInterval(this.deleteId)
-
-            }
-        })
-
-    }
-
+        this.iconsBar.children[1].addEventListener("click", (e) => {
     
-    // 🌟下面具体的静态方法都是单独写的! 在 class 内不用写 functionX XX！
 
+            if(this.cardState.colorBoardShow){
+    
+            this.colorBoard.style.transform = `translateY(10px)`
+            this.colorBoard.style.opacity = 0
+            this.cardState.colorBoardShow = false
+            }else{
+    
+            this.colorBoard.style.transform = `translateY(0px)`
+            this.colorBoard.style.opacity = 1
+            this.cardState.colorBoardShow = true
+            }
+        })
 
-    updateNum(){
-        this.cardNumBox.innerText = this.cardContainer.children.length //🌟🌟 TODO 数量 = 子级的长度
-    }
-
-
-
-    appendCard(){ //💎 一般用来定义具体的方法，比如删除卡片，添加卡片，等等(🌟然后记得在 init 的方法那进行调用！！！)
-        this.cardContainer.appendChild(this.card)
-
-        this.updateNum()
 
         
+        // 初始化色板的点击改变卡片颜色
+        this.colorBoard.addEventListener('click',(e)=>{
+            e.stopPropagation()
+            if(e.target.classList.contains('color-dot')){
+    
+            // 通过小圆点元素上的data属性 获取到元素相应的索引位数据
+            this.colorIndex = parseInt(e.target.dataset.index)
+            const tempClassName = this.card.className.split(' ')[0]
+            const colorClass = e.target.className.split(' ')[1]
+            const shadowClass = 'shadow-' + this.cardColors[e.target.dataset.index]
+    
+            // 判断当前文档的焦点元素是否是卡片的可编辑元素
+            if(document.activeElement === this.editBlock){
+                this.card.className = tempClassName + ' ' + colorClass + ' ' + shadowClass
+            }else{
+                this.card.className = tempClassName + ' ' + colorClass
+            }
+            }
+        })
+
+
+
+
+        // 初始化编辑按钮
+        this.iconsBar.children[2].addEventListener("click",(e)=>{
+
+            this.editBlock.focus()
+            this.card.classList.add('shadow-'+ this.cardColors[this.colorIndex])
+        })
+  
+  
+  
+  
+        // 初始化【收藏按钮】的点击固定功能
+        this.iconsBar.children[3].addEventListener("click",(e)=>{
+  
+            this.cardState.isFav = !this.cardState.isFav
+            e.currentTarget.children[0].children[1].style.fill = this.cardState.isFav ?  '#EDCE46' : 'white'
+  
+        })
+
+
+
+
+        // 初始化长按删除图标 旋转动效 删除卡片功能, ⭕️ 按下，然后开始转圈
+        this.iconsBar.children[0].addEventListener('mousedown',(e)=>{
+      
+            const target =  e.currentTarget.children[1].firstElementChild
+            // 改变strokeDashoffset值 让白边开始逐渐出现 产生动画
+            target.style.strokeDashoffset = '0'
+            const styles = getComputedStyle(target)
+      
+            // 持续判断是否已经转完一圈
+            this.deleteId = setInterval(() =>{
+              if(parseInt(styles.strokeDashoffset) === 0 ){ //如果按下的进度达到了 100%，就删除这个卡片
+      
+                    this.deleteCard() ////执行删除卡片的方法
+                    clearInterval( this.deleteId) ////🚀🚀🚀 如果 = 0 就删除这个计时器
+                }
+            },100)
+        })
+      
+          // 鼠标抬起的话 取消转圈 让转圈反向转, ⭕️抬起，圆圈退回去
+          this.iconsBar.children[0].addEventListener('mouseup',(e)=>{
+      
+            const target =  e.currentTarget.children[1].firstElementChild
+            const styles = getComputedStyle(target)
+            console.log(styles.strokeDashoffset)
+
+            //🌟 判断一下，如果没有达到 0 ，也就是转满的情况下，就让它转回去
+            if(parseInt(styles.strokeDashoffset) > 0){
+                clearInterval(this.deleteId)
+
+                // 🚗注意！鼠标抬起来的时候也要清除计时器！因为反向也会到达 0！
+                target.style.strokeDashoffset = '88'
+            }
+      
+        })
+
+        //在初始化的过程中就会把创建的卡片添加到【卡片容器】中
+        this.appendCard(this.cardState.isCreate)
+        this.updataNum()
+
+
     }
 
-    deleteCard(){ //💎 一般用来定义具体的方法，比如删除卡片，添加卡片，等等
+
+//💎💎💎 下面具体的静态方法都是单独写的! 在 class 内不用写 functionX XX！
+    // 更新待办事项卡片的数量的方法
+    updataNum(){
+        this.cardNumBox.innerText = this.cardContainer.children.length
+    }
+
+
+
+    // 添加卡片的方法
+    appendCard(isCreate){ //isCreate 表示是否通过顶部的输入框进行创建的 (🌟然后记得在 init 的方法那进行调用！！！)
+        this.cardContainer.appendChild(this.card) //🌟🌟 把新的卡片添加到容器内
+        
+        // 卡片添加后的动画效果 根据卡片是通过输入框产生还是通过已完成卡片返回产生 有不同的动画效果
+        setTimeout(() =>{
+            if(isCreate){
+                this.card.classList.remove('card-add-init')
+            }else{
+    
+            this.card.classList.add('done-back-todo-ani')
+                setTimeout(() => {
+                    this.card.classList.remove('card-add-init','done-back-todo-ani')
+            },1500)
+          }
+        },50)
+    }
+
+
+
+
+
+    // 把待办事项卡偏转换成已完成事项卡片的效果
+    // 本质上 其实是先把待办卡删除  然后再创建一个已完成卡片的实例
+    moveCardToDone(){
+        this.cardText = this.editBlock.innerText
+        this.card.classList.add('todo-card-done-ani') // 先进行消失的动画
+        
+        setTimeout(() =>{
+            this.card.remove() // 真正让卡片从DOM树上消失
+            this.updataNum() // 更新待办事项的卡片的数量 
+        },1600)
+
+        setTimeout(() =>{
+            new DoneCard(doneCard,this.cardText,this.colorIndex)
+        },600)
+    }   
+
+
+
+    //删除卡片的方法
+    deleteCard(){
         this.card.style.width = '0px'
         this.card.style.paddingLeft = '0px'
         this.card.style.paddingRight = '0px'
-        this.card.style.marginRight = '0px'
         this.card.style.opacity = 0
-        this.fourIconsBar.style.display = 'none'
-        this.editBlock.style.opacity = 0
+        this.card.style.marginRight = '0px'
+        this.iconsBar.style.display = 'none'
 
-        setTimeout(()=>{
+        setTimeout(() =>{
             this.card.remove() //等上面的样式变完后再移除卡片
-            this.updateNum()
-        },400) //因为变化过程有 350ms，所以 400ms 后再从 DOM 树上移除卡片
-    }
-
-
-
-    // 卡片完成后，🌟🌟 移动卡片到 Done 的区域（本质上是先删除原来的卡片再在 done 区域去克隆一张出来）
-    moveCardToDone(){
-        this.cardText = this.editBlock.innerText //把当前卡片的文字信息存下来
-        this.card.classList.add('to-card-done-ani')
-
-        setTimeout(()=>{
-            this.card.remove
-            this.updateNum()
-        },1600)
-        
-        setTimeout(()=>{
-            new DoneCard(doneCard,this.cardText,this.colorIndex)
-        },600)//新建一张卡片，传入之前卡片的参数
+            this.updataNum() 
+        },400)  //因为变化过程有 350ms，所以 400ms 后再从 DOM 树上移除卡片
     }
 }
 
+//调用 todoCard 的方法生成实例
+const card = new TodoCard(todoCard,'第一个 todo',3,true)
+const card2 = new TodoCard(todoCard,'第二个 todo',2,true)
+const card3 = new TodoCard(todoCard,'第三个 todo',4,true)
 
-//把卡片实例化
-const card1 = new ToDoCard(templateCard)
-const card2 = new ToDoCard(templateCard)
-const card3 = new ToDoCard(templateCard)
 
 
+
+
+
+
+
+
+//卡片完成后，🌟🌟 卡片移动到 Done 的区域（本质上是先删除原来的卡片再在 done 区域去克隆一张出来）
 class DoneCard {
-    this.cardContainer = document.querySelector('.todo-Card-container') 
+
+    // 三个参数 完成卡片的模板  完成卡片要显示的文字内容  颜色值的索引位
+    constructor(doneCard,textValue,colorIndex){
+        this.cardContainer = document.querySelector(".done-card-container") // 完成卡片们的父级元素
+        this.card = doneCard.cloneNode(true)
+        this.textSpan = this.card.querySelector('.card-text')
+        this.doneNumBox = document.querySelector('.done-num')
+        this.textValue = textValue
+        this.colorIndex = colorIndex
+        this.cardColors = ["qing", "green", "orange", "yellow", "purple"]
+        this.iconsBar = this.card.querySelector('.done-card-icons')
+        this.init()
+    }
+  
+  
+    init(){
+  
+        // 添加完成卡片到完成卡片们的父级元素
+        this.appendCard()
+    
+        // 设置文本内容
+        this.textSpan.innerText = this.textValue
+    
+        // 设置卡片颜色
+        this.card.classList.remove("card-orange")
+        this.card.classList.add("card-" + this.cardColors[this.colorIndex])
+     
+  
+  
+  
+        // 初始化效果鼠标移入, 完成卡片的控制图标出现
+        this.card.addEventListener("mouseenter", (e) => {
+      
+        const allChildArr = [...this.iconsBar.children]
+  
+        allChildArr.forEach((icon, index) => {
+  
+            if(icon.classList.contains('icon-box')){
+                icon.firstElementChild.style.transform = "rotate(0deg)"
+                icon.style.transform = "translateX(0px)"
+                icon.style.opacity = 1
+            }
+        })
+  
+    })
+  
+  
+    // 初始化 鼠标移出 完成卡片的控制图标消失
+    this.card.addEventListener("mouseleave", (e) => {
+  
+        const allChildArr = [...this.iconsBar.children]
+  
+    allChildArr.forEach((icon, index) => {
+  
+        if(icon.classList.contains('icon-box')){
+                icon.firstElementChild.style.transform = "rotate(30deg)"
+                icon.style.transform = "translateX(20px)"
+                icon.style.opacity = 0
+            }
+        })
+    })
+      
+
+
+    // 删除键长按与放开  和待办事项卡片的逻辑是一样的
+    this.iconsBar.children[0].addEventListener('mousedown',(e)=>{
+        const target =  e.currentTarget.children[1].firstElementChild
+        target.style.strokeDashoffset = '0'
+        const styles = getComputedStyle(target)
+     
+    this.deleteId = setInterval(() =>{
+        if(parseInt(styles.strokeDashoffset) === 0 ){
+  
+            this.deleteCard()
+            clearInterval( this.deleteId)
+        }
+        },100)
+    })
+  
+    this.iconsBar.children[0].addEventListener('mouseup',(e)=>{
+  
+        const target =  e.currentTarget.children[1].firstElementChild
+        const styles = getComputedStyle(target)
+        console.log(styles.strokeDashoffset)
+        if(parseInt(styles.strokeDashoffset) > 0){
+          clearInterval(this.deleteId)
+          target.style.strokeDashoffset = '88'
+        }
+  
+    })
+  
+  
+    // 返回todo 
+    this.iconsBar.children[1].addEventListener('click',(e)=>{
+        this.backToDo()
+            setTimeout(() =>{
+                this.card.remove() // 把待办卡片删除 
+                this.updataNum()
+            },400)
+        })
+    }
+  
+    updataNum(){
+      this.doneNumBox.innerText = this.cardContainer.children.length
+    }
+  
+    appendCard(){
+      this.cardContainer.appendChild(this.card)
+      this.updataNum()
+      setTimeout(()=>{
+        this.card.classList.remove('done-card-init')
+      },50)
+    }
+  
+
+    deleteCard(){
+      // this.card.remove()
+      this.card.style.width = '0px'
+      this.card.style.paddingLeft = '0px'
+      this.card.style.paddingRight = '0px'
+      this.card.style.opacity = 0
+      this.card.style.marginRight = '0px'
+      this.iconsBar.style.display = 'none'
+      this.textSpan.style.opacity = 0
+  
+      
+  
+    setTimeout(() =>{
+            this.card.remove()
+            this.updataNum()
+        },400)
+    }
+  
+
+    backToDo(){
+      this.card.classList.add('done-card-init')
+      
+      // 创建一个新的待办卡片
+      new TodoCard(todoCard,this.textValue,this.colorIndex,false)
+      
+    }
+  
 }
+  
+new DoneCard(doneCard,'好用的 todo',1)

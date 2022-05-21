@@ -1,0 +1,280 @@
+@font-face {
+    font-family: "Gilroy-Bold";
+    src: url(".resources/fonts/Gilroy-Bold.woff") format("woff"),
+         url(".resources/fonts/Gilroy-Medium.woff") format("woff"),
+         url(".resources/fonts/Gilroy-Regular.woff") format("woff"),
+         url(".resources/fonts/Gilroy-Thin.woff") format("woff"),
+}
+
+
+body{
+    padding: 2rem;
+}
+
+
+/* ———————————— 第一部分 —————————————— */
+/* - 输入框 */
+.input-area{
+    display: flex;
+    align-items: center;
+    height: 2.5rem;
+    gap: 1rem;
+}
+
+input{
+    font-family: "Gilroy-Medium";
+    background-color: #e6e6ed;
+    border:none;
+    border-radius: 2rem;
+    width:15rem;
+    /* 用 padding 来做基础高度 */
+    padding:1.25rem;
+    /* 让外边框消失 */
+    outline:0;
+    transition:all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+/* 伪元素类,两层是选子集 */
+input::placeholder{
+    color: rgb(255, 255, 255);
+    text-align: center;
+}
+
+input:hover{
+    box-shadow: 0.75rem 0.75rem #a0a0ad;
+    border:#2628cf solid 3px;
+}
+input:focus{
+    box-shadow: none;
+}
+
+/* 方法一：可以用伪元素类实现元素聚【焦态】的写法
+input:focus{
+    width: 25rem;
+    background-color: white;
+    border:none;
+    border:2px solid lightgray;
+} */
+
+/* 方法二：也可以通过 💥 js 动态添加这个 css 类 */
+.input-focus{
+    font-family: "Gilroy-Thin";
+    width: 25rem;
+    padding:1.16rem;
+    background-color:white;
+    border: 2px solid lightgray;
+    box-sizing: border-box;
+    cursor:text;
+}
+
+
+/* 第一部分 顶部按钮组 */
+.input-buttons{
+    font-family: "Gilroy-Medium";
+    display: flex;
+    gap: 0.8rem;
+    /* 👇一开始不出现,后续变化后只改变透明度 */
+    opacity: 0;
+    /* 👇聚焦输入框后，右侧两个按钮是过渡显示出来的，🌟记得写单位 0.35s ！ */
+    transition: opacity 0.35s ease-in-out;
+}
+
+.btn{
+    font-size: 0.8rem;
+    color:white;
+    padding: 1.2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    border-radius: 2rem;
+    cursor: pointer;
+}
+
+.confirm-btn{
+    background-color:#2628cf;
+}
+
+.cancel-btn{
+    background-color:black;
+}
+
+
+
+/* ———————————— 第二部分 —————————————— */
+/* 代办事项模块  */
+.todo-area{
+    margin-top: 4rem;
+}
+
+.area-header{
+    font-family: "Gilroy-Medium";
+    font-size:2rem;
+    letter-spacing: 2px;
+    font-weight: bold;
+    display:flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    margin-left:0.2rem;
+}
+
+.dot{
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius:2rem;
+    margin-bottom: 0.3rem;
+    background-color:black;
+    opacity: .3;
+}
+
+.todo-number{
+    /* 文字默认为黑色！ */
+    opacity: .3;
+}
+
+.todo-Card-container{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.todo-card{
+    width:15rem;
+    height:15rem;
+    border-radius:1.4rem;
+    padding: 1.5em;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* 👇用卡片自身 margin 间距来做消失的动画就不会跳动，用 gap 就会跳动 */
+    margin-right: 2rem;
+    margin-bottom: 2rem;
+    /* 🌟🌟让子元素不被挤压(覆盖式，1则会挤压，1要配合自适应布局） */
+    flex-shrink: 0;
+    /* transition: background-color  0.3s ease-in-out; */
+    transition: all 0.3s ease-in-out;
+    
+}
+
+.edit-block{
+    /* 这个百分比是基于上一层的大小来算的 */
+    width:80%;
+    height:80%;
+    outline:0;
+}
+
+/* icon 通用样式 */
+.icons-bar{
+    width: 100%;
+    padding:0 1rem;
+    /* 👇第一个的话元素会溢出 */
+    /* box-sizing: content-box; */
+    /* 👇第二个的话元素不会溢出 */
+    box-sizing: border-box;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    bottom: 0.6rem;
+    /* 👇用于观察元素的位置 */
+    /* border:2px solid black; */
+}
+
+
+.icon-box{
+    position: relative;
+    /*  all 表示多种属性都要变化，比如 transform\opacity, 如果只变 transform 那就不是写 all */
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+
+/* 👈左边 icon 的初始化状态 */
+.icon-left-done-init{
+    opacity: 0;
+    transform: translateX(-20px);
+}
+
+.svg-done-init{
+    transform: rotate(-35deg);
+}
+
+
+
+/* 👉右边元素的初始化状态 */
+.four-icons{
+    display: flex;
+    gap: 0.5rem;
+    /* justify-content: flex-end;
+    flex-grow: 4; */
+}
+
+.icon-init-right{
+    /* 用 box 来做位移，就不会抖了 */
+    opacity: 0;
+    transform:translateX(20px);
+}
+
+.svg-icon{
+    transition:transform 0.3s ease-in-out;
+}
+
+.svg-init{
+    transform:rotate(35deg);
+    transition:transform 0.3s ease-in-out;
+}
+
+
+.delete-circle{
+    position:absolute;
+    transform: rotate(-90deg);
+    left: 0;
+}
+.delete-circle > circle{
+    transition:all 2s ease-in-out;
+}
+
+
+
+/* 色板的初始状态 */
+.color-board-init{
+    opacity:0;
+    transform: translateY(10px);
+}
+
+
+.color-board{
+    position: absolute;
+    display: flex;
+    gap: 0.5rem;
+    left: -3.8rem;
+    top: -2rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.color-board > span{
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 100%;
+    border: 2px solid black;
+}
+
+
+/* 色板 */
+.card-Cyan{
+    background-color: #5FCFF1;
+}
+.card-orange{
+    background-color: #E8A291;
+}
+.card-green{
+    background-color: #E1E79F;
+}
+.card-yellow{
+    background-color: #EEC984;
+}
+.card-purple{
+    background-color: #d09bfe;
+}
