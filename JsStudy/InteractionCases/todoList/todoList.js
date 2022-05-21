@@ -18,7 +18,7 @@ doneCard.remove()//移除掉此模板，内存中还有，可以继续调用！
 
 //一、🚀🚀 用类定义的方式定义输入框的原型方法 ————————————————————————————————————————————————
 class InputBar{
-    constructor(id){ //类似一个构造函数
+    constructor(id){ //🚀 类似一个构造函数，存放一些变量、对象数据，以及初始化时会运行的方法
         
         //👇👇👇实例都会有下面这个 ele 属性,用这些属性来获取元素！！类似 const / let ！！
         this.ele = document.querySelector("input")
@@ -26,10 +26,10 @@ class InputBar{
         this.inputHint = document.querySelector(".input-hint")
 
 
-        //基础样式
+        //🌟🌟 基础样式
         this.eleBasicStyle = {}
 
-        // 变化的目标样式
+        //🌟🌟 变化的目标样式
         this.eleTargetStyle = {
             backgroundColor:"white",
             border:"2px solid #D4D4D4",
@@ -37,11 +37,12 @@ class InputBar{
             cursor: "text",
         }
 
-        //一个空的数组，用来放按钮
+        //🌟🌟 一个空的数组，用来放按钮 !!
         this.buttons = []
 
-        // 存放已经输入的相关文字数据
+        //🌟🌟 存放已经输入的相关文字数据
         this.inputValue = ""
+
 
     }
 
@@ -49,8 +50,8 @@ class InputBar{
     barInit(){
         //获得上面 ele 的引用，上面已经获取了元素了 【this.ele = document.querySelector("input")】，所以这里就不用再获取了
 
-        const computedStyle = getComputedStyle(this.ele)//先获得最终的数据
-         // console.log(computedStyle.backgroundColor,computedStyle.width,computedStyle.border)
+        const computedStyle = getComputedStyle(this.ele)//先获得输入框最终的数据
+        // console.log(computedStyle.backgroundColor,computedStyle.width,computedStyle.border)
          
         this.eleBasicStyle.backgroundColor = computedStyle.backgroundColor
         this.eleBasicStyle.border = computedStyle.border
@@ -60,9 +61,10 @@ class InputBar{
 
         //回车产生元素
         this.ele.addEventListener('keyup',(e)=>{
-            if(e.key === 'Enter'){
-                //判断输入框是否已经输入了数据
-                if(this.ele.value){
+            if(e.key === 'Enter'){ 
+                //🚀🚀 e.key 为判断输入框是否已经输入了数据
+
+                if(this.ele.value){  //🌟🌟🚀🚀 进行判断，得有内容，不能回车就直接新建空卡片！
                     new TodoCard(todoCard,this.ele.value,null,true) //把输入框的值传给 ToDoCard 的构造函数
                     this.ele.value = "" //🌟🌟清空输入框的数据
                 }
@@ -70,10 +72,13 @@ class InputBar{
         })
 
 
-        //聚焦
+
+        //ele(输入框)聚焦
         this.ele.addEventListener("focus", (e) => {//箭头函数的 this 是在创建的时候就绑定了自身的实例【ele】，所以要经常用到 this 的话可以用箭头函数
-            // 这里是用来控制输入提示文字【占位符】
-            if(this.inputValue){
+            
+            // 这里是用来控制输入提示文字【占位符】的显示与隐藏
+            if(this.inputValue){   //🌟🌟🚀🚀 进行判断，得有内容
+
                 // 如果 input 中有已经输入的文字 就把文字提示透明度设置为0
                 this.inputHint.style.opacity = 0
             }else{
@@ -85,15 +90,17 @@ class InputBar{
             e.currentTarget.style.width = this.eleTargetStyle.width
             e.currentTarget.style.cursor = this.eleTargetStyle.cursor
 
-            // 把保存在实例中之前已经输入的文字数据给到 input 的 value 属性 让其又显示出来
+            //🚀🚀 文字输入到一半又失焦的话，仍然会保留文字，因为默认会把 【input】 的 【value】 保存到 【inputValue】 这个对象内，下一次还会让其又显示出来
             e.currentTarget.value = this.inputValue
-            this.buttonsAni("showUp")
+            this.buttonsAni("showUp")//开关，让按钮的动画开始执行
 
         })
 
-        //失焦
+
+
+        //ele(输入框)失焦
         this.ele.addEventListener("blur", (e) => {
-            this.inputHint.style.opacity = 0
+            this.inputHint.style.opacity = 0  //提示文字【占位符】进行隐藏
             e.currentTarget.style.backgroundColor = this.eleBasicStyle.backgroundColor
             e.currentTarget.style.border = this.eleBasicStyle.border
             e.currentTarget.style.width = this.eleBasicStyle.width
@@ -101,26 +108,26 @@ class InputBar{
       
             this.inputValue = e.currentTarget.value
       
-            // 清空输入的内容
+            //🌟🌟🔥 不外现输入到一半的文字内容！！但是还保存在上面的 this.inputValue = "" 中！！没被清除！激活后还会显现出来！
             e.currentTarget.value = ""
             this.buttonsAni("fadeOut")
           })
 
 
-    // 通过已经是有有输入数据来让决定输入文字提示是否显示
-    this.ele.addEventListener("input",(e)=>{
-      
-        if(e.currentTarget.value === ''){
-          this.inputHint.style.opacity = 1
-        }else{
-          this.inputHint.style.opacity = 0
-        }
-      })
+        //🎈🎈 判断是否是输入过程，输入过程就不显示文字【占位符】
+        this.ele.addEventListener("input",(e)=>{
+        
+            if(e.currentTarget.value === ''){
+                this.inputHint.style.opacity = 1
+            }else{
+                this.inputHint.style.opacity = 0
+            }
+        })
     
     }
 
-    // 🌟🌟🌟把按钮实例添加到inputBar的实例中
-    addBtn(...btns) {
+    // 🌟🌟🌟把按钮实例添加到 【inputBar 实例】中的方法
+    addBtn(...btns) {  //1.定义了 Btn（）的类。    2.实例化两个 btn => confirmBtn, cancelBtn。   3.因为传入的是两个 btn (confirmBtn, cancelBtn) 所以要遍历一下！！   4.把两个按钮保存在  this.buttons = [] 这个数组内！  
         btns.forEach((item) => {
             this.buttons.push(item)
         })
