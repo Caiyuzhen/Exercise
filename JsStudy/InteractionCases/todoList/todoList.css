@@ -115,6 +115,8 @@ body{
     animation: card-to-done 1.5s ease-in-out forwards;
   }
   
+
+  /* 🔥 反转动画,变成向上展开！！reverse forwards; */
   .done-back-todo-ani{
     animation: card-to-done 1.5s ease-in-out reverse forwards;
   }
@@ -146,31 +148,32 @@ body{
   }
   
   
-  
+  /* x偏移量 | y偏移量 | 阴影模糊半径 | 阴影扩散半径 | 阴影颜色 */
   .shadow-orange{
-    box-shadow: 0px 12px 12px -12px #D4500D, 0px 4px 18px #E8A281;
+    box-shadow: 0px 12px 12px -12px #D4500D,  0px 16px 18px #E8A281;
   }
+
   .shadow-qing{
-    box-shadow: 0px 12px 12px -12px #0EA6D5, 0px 4px 18px #5FCFF1;
+    box-shadow: 0px 12px 12px -12px #0EA6D5,  0px 16px 18px #5FCFF1;
   }
   
   
   .shadow-green{
-    box-shadow: 0px 12px 12px -12px #BBC91F, 0px 4px 18px #E1E79F;
+    box-shadow: 0px 12px 12px -12px #BBC91F,  0px 16px 18px #E1E79F;
   }
   
   .shadow-yellow{
-    box-shadow: 0px 12px 12px -12px #D28C08, 0px 4px 18px #EEC984;
+    box-shadow: 0px 12px 12px -12px #D28C08,  0px 16px 18px #EEC984;
   }
   
   .shadow-purple{
-    box-shadow: 0px 12px 12px -12px #470CD0, 0px 4px 18px #B39AEE;
+    box-shadow: 0px 12px 12px -12px #470CD0,  0px 16px 18px #B39AEE;
   }
   
   
   .color-dot {
-    height:10px;
-    width:10px;
+    height:14px;
+    width:14px;
     border-radius:100%;
     border:2px solid black;
   }
@@ -179,7 +182,7 @@ body{
     gap:1rem;
     position:absolute;
     top:-1.5rem;
-    left:-1.8rem;
+    left:-3.8rem;
     opacity:0;
     transition:all 0.35s ease-in-out;
     transform:translateY(10px);
