@@ -431,8 +431,8 @@ class TodoCard {
                     this.colorBoard.style.transform = `translateY(10px)`
                     this.colorBoard.style.opacity = 0
                     this.cardState.colorBoardShow = false
-                },350) //🌟小细节：延迟消失，否则会向右下角滑下去
-            }
+            },350) //🌟小细节：延迟消失，否则会向右下角滑下去
+        }
 
         })
 

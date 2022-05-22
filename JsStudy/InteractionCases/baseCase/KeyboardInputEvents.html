@@ -8,7 +8,13 @@
 </head>
 <body>
     <h1>键盘输入事件</h1>
-
+    边获取边显示文字:<input class="fast">
+    <br>
+    <br>
+    其他练习示例:<input class="slow">
+    <br>
+    <span class="spanA"></span>
+    <span class="spanB"></span>
     <!-- 
         🌟大原则：
             所有【按键】和【输入事件】都需要绑定在可获取焦点的元素上
@@ -16,14 +22,68 @@
             触发的【前提】是当前元素变为【焦点元素】
 
         🌟方法
-            keydown     按下按键 (不抬起来会持续触发)
-            keypress    长按按键（DOM3）被废弃
+            keydown     按下按键 (长按会持续触发)
+            keypress    长按按键（长按不会连续触发，OM3 被废弃)
             keyup       抬起按键
 
         🌟触发顺序
             keydown -> keypress -> keyup 
 
+        🌟重要的属性
+            e.key       获取输入的值
+
      -->
     
 </body>
+
+    <script type="text/javascript">
+
+        // const input = document.querySelector('input')
+
+        //     input.addEventListener('keydown',function(e){
+        //     console.log(e.key)
+        // })
+
+        const inputFast = document.querySelector('.fast')
+        const inputSlow = document.querySelector('.slow')
+        const spanA = document.querySelector('spanA')
+        const spanB = document.querySelector('spanB')
+        const textArr = []
+
+
+        //🚀🚀 每隔 3s 获取输入框内输入的内容,但是会一直获取
+            // setInterval(()=>{
+            //     textArr.push(inputFast.value)
+            //     spanA.innerHTML = textArr.join('-')
+            // },3000)
+
+
+
+        //🚀🚀 每隔 3s 获取输入框内输入的内容,内容只获取一次,不会重复获取
+            setInterval(()=>{
+                textArr.push(inputFast.value)
+                spanA.innerHTML = textArr[textArr.length-1] //🔥🔥🔥 长度 -1 为取最后一个元素，相当于每 3s 取一次
+            },3000)
+
+
+
+        //🚀🚀 每隔一段时间，把输入的文字都保存在 textArr 内
+        // inputFast.addEventListener('keyup',function(e){
+            
+            // setInterval(()=>{
+
+            //     textArr.push(input.value)
+            //     spanA.innerHTML = e.key
+            //     console.log(textArr)
+
+            // },6000)
+        // })
+
+
+        inputSlow.addEventListener('',()=>{
+
+        })
+
+    </script>
+
 </html>
