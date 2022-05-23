@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>键盘输入事件</title>
+</head>
+<body>
+    <h1>键盘输入事件</h1>
+    <br>
+    每隔一段时间获取一下数据:<input class="input" type="text">
+    <br>
+    <br>
+    上海<input class="input-check" type="checkbox">
+    <br>
+    <br>
+    阻止冒泡:<input class="input-02" type="text">
+    <br>
+    <br>
+    <span class="span"></span>
+    <!-- 
+        🚀 大原则：
+            所有【按键】和【输入事件】都需要绑定在可获取焦点的元素上
+
+            触发的【前提】是当前元素变为【焦点元素】
+
+    🍎 键盘事件 ——————————————————————————————————————————————————————————————————
+            🌟 Event 事件方法 
+                keydown     按下【任何按键】 (长按会持续触发)
+                keypress    按下【字符类（包括回车）】按键（长按不会连续触发，OM3 被废弃)
+                keyup       抬起【任何按键】
+
+            🌟 触发顺序
+                keydown -> keypress -> keyup 
+
+            🌟 重要的事件对象中的【属性】
+                e.keyCode     文字字符编号（现在不用了）
+                e.chartCode   文字字符编号（现在不用了）
+
+                e.key         按键的具体输入值
+                e.code        按键名称
+
+                //👇一般会通过事件流的机制把它们都【绑定到 body 上】！！
+                e.ctrlKey     是否有按住 ctrl 键 (会冒泡)
+                e.shiftKey    是否有按住 shift 键 (会冒泡)
+                e.metaKey     是否有按住 command 键 (会冒泡)
+        
+            🌟 阻止元素的键盘输入事件（keydown、keypress、keyup）【但是元素的输入事件还是可以输入的！！】
+                调用 e.preventDefault() 方法可以阻止输入事件的默认行为
+
+
+    🍎 元素输入事件 （前提它是可编辑元素！并且获得了焦点！）————————————————————————
+            🌟 原生可编辑元素有哪些？
+                <input>
+                <select>
+                <textarea>
+                contentEditable="true"     //设置为 true 后也会变为可编辑元素
+
+
+            🌟 Event 方法
+                input                   输入【任何会改变编辑框内的输入都会触发, 还未落盘都会触发, delete 退格键也会触发，单独按功能键不触发】
+                textInput               只有【输入的内容输入到编辑框才会触发， delete 退格键不触发，单独按功能键不触发】
+                beforeinput(就是小写！)  【还未落盘都会触发, delete 退格键也会触发，单独按功能键不触发】
+            
+
+             🌟 重要的事件对象
+                input       ->  InputEvent
+                textInput   ->  TextEvent
+                beforeinput ->  InputEvent
+                change      ->  InputEvent [🌟🌟 change 事件只有在 input 事件之后才会触发，输入时不触发，内容数据发生改变才触发！]
+
+                    🌞 当 input type="text" 时
+                            input.value 是文字
+
+                    🌞 当 input type="checkbox" 时
+                            input.checked 是布尔值(true/false)
+                            input.value 【 永远是 on 】
+
+                    🧨 change 事件对【🌟非原生就能输入的元素（比如上面的 input、select、textarea）】，比如 div 加 Ucontenteditable="true" 才变为可以输入的那种元素不起作用！！
+
+            🌟 重要的事件对象中的【属性】
+                    e.data          获取元素内的值（片段的值）
+                    input.value     获取元素内的值（最终的整体值）
+            
+     -->
+    
+
+</body>
+
+    <script type="text/javascript">
+
+        // const input = document.querySelector('input')
+
+        //     input.addEventListener('keydown',function(e){
+        //     console.log(e.key)
+        // })
+
+        const input = document.querySelector('.input')
+        const checkbox = document.querySelector('.input-check')
+        const input02 = document.querySelector('.input-02')
+        const span = document.querySelector('.span')
+
+
+//🚀🚀 每隔一段时间去获取输入框内的内容
+        input.addEventListener('input', function(e){
+
+        })
+
+        setInterval(()=>{
+                
+                let textValue = input.value
+
+                if(textValue === ''){ //🌟🌟判断值是否为空
+                    console.log('没有输入任何内容')
+                }else{
+                    console.log('输入了内容')
+                    span.innerHTML = textValue //不为空时，把最后的值给到 span 上
+                }
+            },3000)
+        
+
+        //         textArr.push(input.value)
+        //         span.innerHTML = textArr[textArr.length-1]    //🔥🔥🔥 长度 -1 为取最后一个元素，相当于每 3s 取一次
+        //         spanA.innerHTML = textArr.join('')
+        //         console.log(textArr)
+
+//checkbox 类型的输入框，返回的事件对象的属性为 true/false
+        checkbox.addEventListener('input',(e)=>{
+            console.log(checkbox.checked)
+        })
+
+   
+//阻止输入
+        input02.addEventListener('keydown',(e)=>{
+            e.preventDefault()
+        })
+
+
+    </script>
+
+</html>
