@@ -1,0 +1,37 @@
+body{
+    /* 让页面居中 */
+    margin: 0 auto;
+    padding: 0;
+}
+
+.cover-layer{
+    height: 100vh;
+    width: 100vw;
+    /* 如果用透明度变化的话，🌟 父元素变透明了子元素也会变透明 */
+    background-color:rgba(0,0,0,0);
+    /* 让它不会跟着页面一起滚动 */
+    position: fixed;
+    left: 0;
+    top: 0;
+    /* transition: all 0.3s ease-in-out; */
+    transition: background-color 0.3s ease-in-out;
+    
+    /* 🚀🚀 targer 到元素时不会产生事件, 阻止元素的事件, 默认是 auto */
+    /* 注意，👇这个会让子元素不能点击，🚀🚀 父元素设置了的话可以单独给子元素设置个 auto 让它变成可以点击 */
+    pointer-events: none;
+}
+
+img{
+    width: 200px;
+    height: 200px;
+    transition: all 0.3s ease-in-out;
+}
+
+.img-container{
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16rem;
+}

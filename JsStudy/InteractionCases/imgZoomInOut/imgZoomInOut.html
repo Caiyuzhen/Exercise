@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>点击图片放大缩小</title>
+    <link rel="stylesheet" href="../imgZoomInOut/imgZoomInOut.css">
+</head>
+<!-- 
+
+    本质是在原位复制了一个图片，然后放到【蒙层的子级】来实现放大缩小的效果
+
+-->
+
+<body>
+    
+    <div class="cover-layer"></div>
+
+    <div style="height: 100vh" class="img-container">
+        <img src="../imgZoomInOut/src/cloudy.png" alt="">
+        <img src="../imgZoomInOut/src/moon.png" alt="">
+        <img src="../imgZoomInOut/src/rainy.png" alt="">
+        <img src="../imgZoomInOut/src/sunny.png" alt="">
+        <img src="../imgZoomInOut/src/thunder.png" alt="">
+    </div>
+
+</body>
+
+<script src="../imgZoomInOut/imgZoomInOut.js"></script>
+</html>
