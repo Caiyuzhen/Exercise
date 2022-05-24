@@ -16,8 +16,8 @@ body{
     /* transition: all 0.3s ease-in-out; */
     transition: background-color 0.3s ease-in-out;
     
-    /* 🚀🚀 targer 到元素时不会产生事件, 阻止元素的事件, 默认是 auto */
-    /* 注意，👇这个会让子元素不能点击，🚀🚀 父元素设置了的话可以单独给子元素设置个 auto 让它变成可以点击 */
+    /* 🚀🚀 target 到元素时不会产生事件, 阻止元素的事件, 默认是 auto */
+    /* 注意，👇这个会让【元素及其子元素】不能点击，🚀🚀 父元素设置了的话可以单独给子元素设置个 auto 让它变成可以点击 */
     pointer-events: none;
 }
 
@@ -34,4 +34,17 @@ img{
     flex-direction: column;
     align-items: center;
     gap: 16rem;
+}
+
+.icon-box{
+    display:flex;
+    align-items: center;
+    flex-direction:column;
+    color: rgb(147, 147, 147);
+    font-size:1.5rem;
+    font-weight: 600;
+}
+
+span{
+    margin-top: 1rem;
 }
