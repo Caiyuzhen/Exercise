@@ -76,15 +76,9 @@ function handleClickImg(e) {
 imgArr.forEach((item,index)=> {
 
     if (index < imgArr.length){
-
         item.addEventListener('click',handleClickImg) //👈👈👈 给每一项添加事件方法
-       
     }
 })
-
-
-
-
 
 
 
@@ -107,11 +101,11 @@ coverLayer.addEventListener('click',(e)=>{ //点击蒙层的时候，让它可�
         baseImgCloneInfo.img.style.left = baseImgCloneInfo.left + 'px' //提上面 { } 对象中记录的【克隆元素】的【基础位置】
 
         // //写法一：销毁掉克隆出来的图片
+        // setTimeout(()=>{
         //     baseImgCloneInfo.img.remove()
         //     document.body.style.overflow = 'auto' //🔥让背景可以滚动
         // },350)
     
-
 
         // //写法二：销毁掉克隆出来的图片
         cloneImg.addEventListener('transitionend',(e)=>{//动画结束后
@@ -126,6 +120,53 @@ coverLayer.addEventListener('click',(e)=>{ //点击蒙层的时候，让它可�
         })
     }
 })
+
+
+
+let deltaYCount = 0 //滚动的力道总和
+
+
+
+
+coverLayer.addEventListener('wheel',(e)=>{ 
+    //鼠标滚轮滚动一定范围的时候，让图片还原
+
+    deltaYCount += e.deltaY //🌟滚动的幅度
+    console.log(deltaYCount)
+
+
+    if(deltaYCount > 500 || deltaYCount < -500){
+    
+    //🚀🚀🚀 滚动消失就【不用判断】是【遮罩层】还是【图片】了
+        
+        coverLayer.style.backgroundColor = 'rgba(0,0,0,0)' //隐藏蒙层
+        coverLayer.style.pointerEvents =  'none' //让蒙层还原为不可点击状态
+
+        //🌋🌋🌋 第 C步：还原【克隆图片】到最初的位置
+        baseImgCloneInfo.img.style.width = '200px' //原来的宽是 200
+        baseImgCloneInfo.img.style.height = '200px' //原来的高是 200
+        baseImgCloneInfo.img.style.top = baseImgCloneInfo.top + 'px' //提上面 { } 对象中记录的【克隆元素】的【基础位置】
+        baseImgCloneInfo.img.style.left = baseImgCloneInfo.left + 'px' //提上面 { } 对象中记录的【克隆元素】的【基础位置】
+
+        //写法一：销毁掉克隆出来的图片
+        setTimeout(()=>{
+            baseImgCloneInfo.img.remove()
+            document.body.style.overflow = 'auto' //🔥让背景可以滚动
+        },350)
+
+        deltaYCount = 0 //还原滚动的力道
+    
+    }
+
+    
+
+})
+
+
+
+    
+    
+
 
 
 
