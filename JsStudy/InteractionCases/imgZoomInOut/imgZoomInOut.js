@@ -109,7 +109,7 @@ coverLayer.addEventListener('click',(e)=>{ //点击蒙层的时候，让它可�
 
         // //写法二：销毁掉克隆出来的图片
         cloneImg.addEventListener('transitionend',(e)=>{//动画结束后
-            
+            // console.log('动画结束');
             if(isShow){
                 cloneImg.remove()
                 cloneImg = null
