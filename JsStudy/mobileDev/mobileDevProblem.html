@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>移动端开发问题</title>
+</head>
+
+<!-- 
+
+
+  🍎 Web 端
+    vh -> view height
+    vw -> view width
+    百分比，把浏览器分割为 100 份，比如 100vh 就是占满的
+
+  🍎 Mobile 端
+    vh 会加上地址栏，所以会超过显示区域的高度, 因此需要通过 js 设置高度
+
+    js 获取浏览器显示 宽&高 的方法
+      innerWidth
+      document.documentElement.clientWidth
+      document.documentElement.offsetWidth
+
+      innerHeight
+      document.documentElement.clientHeight
+      document.documentElement.offsetHeight
+    
+
+
+-->
+<body>
+
+  <div style="
+    height:10vh;  
+    width:300vw; 
+    background-color: rgb(27, 72, 206);"
+  ></div>
+
+  <div style="
+    height:100px;  
+    width:100px; 
+    background-color: rgb(214, 18, 169);"
+  ></div>
+
+
+  
+</body>
+
+
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+
+  }
+</style>
+
+<script type="text/javascript">
+
+
+  console.log(
+        'width',
+        innerWidth,
+        document.documentElement.clientWidth, //🚀🚀🚀 移动端的话，这个值最正常！！
+        document.documentElement.offsetWidth
+  );
+
+
+  console.log(
+        'height',
+        innerHeight,
+        document.documentElement.clientHeight, //🚀🚀🚀 移动端的话，这个值最正常！！
+        document.documentElement.offsetHeight
+  );
+
+
+
+</script>
+
+
+</html>
