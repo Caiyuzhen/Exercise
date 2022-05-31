@@ -109,22 +109,23 @@
 
   🚀 Touch 事件的 css 属性： touch-action
 
-    none
-      不进行任何操作
-    
-    pan-x
-      水平移动
+    HOW? -> 添加到父元素上
+        none
+          不进行任何操作
+        
+        pan-x
+          水平移动
 
-    pan-y
-      垂直移动
+        pan-y
+          垂直移动
 
-    manipulation
-      只允许滚动和持续的缩放，其他的比如双击缩放等都会被禁用
+        manipulation
+          只允许滚动和持续的缩放，其他的比如双击缩放等都会被禁用
 
-    pan-left
-    pan-right
-    pan-up
-    pan-down
+        pan-left
+        pan-right
+        pan-up
+        pan-down
 
 
 
@@ -136,19 +137,34 @@
 
 
 
-<body>
+<body style="
+  /* 🔥 只能纵向滚动 🔥  */
+  touch-action: pan-y;" 
+>
 
-  <div class="box" style="
-      height:100px;  
-      width:100px; 
-      background-color: rgb(214, 18, 169);"></div>
+  <div style="
+        display: flex;
+        width: 1000px;
+  ">
 
-  <div class="box2" style="
+    <div class="box" style="
     height:100px;  
     width:100px; 
-    background-color: rgb(18, 31, 214);"></div>
+    background-color: rgb(214, 18, 169);"></div>
+
+    <div class="box2" style="
+      height:100px;  
+      width:100px; 
+      background-color: rgb(18, 31, 214);"></div>
+   
+  </div>
+
 
 </body>
+
+
+
+
 
 
 <script type="text/javascript">
@@ -164,7 +180,12 @@
   //   console.log('touchdown');
   // }) 
 
-  //e.preventDefault() //阻止默认行为
+
+
+
+
+
+//e.preventDefault() //阻止默认行为 ————————————————————————————————————————————————————
   document.body.addEventListener('touchstart', (e) => {
     e.preventDefault() //这样双击也不会放大，也不能用手指去放大了
   }, { passive: false })
