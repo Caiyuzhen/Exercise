@@ -1,0 +1,90 @@
+
+@font-face {
+	font-family: "Gilroy Medium";
+	src: url("./assets/fonts/Gilroy-Medium.woff") format("woff"),
+  }
+  
+@font-face {
+font-family: "OpenSans";
+src: url("./assets/fonts/OpenSans-Bold.woff") format("woff"),
+}
+  
+
+html{
+	overflow:hidden;
+	body{
+		padding: 0;
+		margin:0;
+	}
+}
+
+
+.mainContainer{
+	overflow: hidden;
+	background-color: #3d3d3d;
+
+	.circle-hint{
+		padding: 2rem;
+		display: flex;
+		gap:12px;
+		
+		.circle{
+			height: 10px;
+			width: 10px;
+			border-radius: 100%;
+			background-color: #fff;
+			display:block;//小圆点需要设置为 block 
+			opacity: 0.5;
+			margin-right: 8px;
+		}
+	}
+
+	.pages-box-container{
+		.pages-box-one{
+			padding: 0 2rem;
+
+			.page-titles{
+				color:wheat;
+				display: flex;
+				flex-direction: column;
+				font-family: "OpenSans";
+				font-size: 2.5rem;
+				font-weight: 800;
+				letter-spacing:-0.5px;
+				line-height: 1.1;
+			}
+			.page-card{
+				height: 400px;
+				// width: 100%;
+				background-color: rgb(255, 228, 154);
+				border-radius: 2rem;
+				margin-top: 1.5rem;
+				padding: 1rem 2rem 0 2rem; 
+				position: relative;
+				overflow: hidden;
+
+				p{	
+					font-family: "Gilroy Medium";
+					width: 100%;
+					opacity: .8;
+					white-space: wrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					letter-spacing:-0.5px;
+					line-height: 1.4;
+				}
+				img {
+					width: 120%;
+					height:100%;
+					position: absolute;
+					bottom: 0;
+					left: 0;
+					object-fit:cover;
+				}
+			}
+		}
+	}
+}
+
+
+
