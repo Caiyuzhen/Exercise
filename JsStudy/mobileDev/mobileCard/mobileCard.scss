@@ -19,7 +19,7 @@ html{
 }
 
 
-.mainContainer{
+.container{
 	overflow: hidden;
 	background-color: #3d3d3d;
 
@@ -39,8 +39,8 @@ html{
 		}
 	}
 
-	.pages-box-container{
-		.pages-box-one{
+	.pages-box{
+		.one-page{
 			padding: 0 2rem;
 
 			.page-titles{
