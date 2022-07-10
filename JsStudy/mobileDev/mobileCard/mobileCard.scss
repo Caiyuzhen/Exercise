@@ -40,8 +40,13 @@ html{
 	}
 
 	.pages-box{
+		display: flex;
+
 		.one-page{
 			padding: 0 2rem;
+			flex-shrink: 0;//禁止缩放,固定宽度
+			width: 100%;
+			box-sizing: border-box;//🌟内容宽度不溢出 + 包含 border 向内挤压
 
 			.page-titles{
 				color:wheat;
@@ -80,6 +85,7 @@ html{
 					bottom: 0;
 					left: 0;
 					object-fit:cover;
+					pointer-events:none;//禁用长安保存图片的能力
 				}
 			}
 		}
