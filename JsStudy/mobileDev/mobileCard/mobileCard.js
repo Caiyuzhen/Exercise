@@ -145,7 +145,7 @@ class Controller {
 	//🔥🔥生成页面【卡片】&【圆点】的方法
 	static createPage(){
 		this.pageDatas.forEach((itemData,index)=>{
-			new Page(itemData) //🔥🔥调用 Page（ ）类，传入上面定义好的数据
+			this.pagesArr.push(new Page(itemData)) //🔥🔥调用 Page（ ）类，传入上面定义好的数据, 有几项数据就会生成几个 Card！然后再用数组接收一下，因为要根据这个数组去修改对应的那张卡片!
 		})
 	}
 
@@ -156,10 +156,10 @@ class Controller {
 
 
 	static pageBox = document.querySelector('.pages-box')
-	static moveInfo = {}//用于记录移动的相关信息
+	static moveInfo = {}//用于记录移动的相关信息(🔥很关键，点击后就开始记录了！)
 	static onePageWidth = this.pageBox.getBoundingClientRect().width //PageBox 的宽度，因为我们定义的是 pageBox = page 的宽度
-	static currentIndex = 0 //🔥🔥先判断当前是第几个页面
-
+	static currentIndex = 0 //🔥🔥先判断当前是第几个页面,很关键！
+	static pagesArr = [] 	//🔥🔥用于去索引对应的页面，去修改旋转轴！很关键！
 
 
 	//定义手指页面的移动方法(👋👋👋Touch 事件)
@@ -171,7 +171,7 @@ class Controller {
 			// e.currentTarget.style.transform = 'translateX(-300px)'
 		
 			//🌟获取到【手指开始点击下】的初始坐标, 一开始点下的位置就是初始值
-			this.moveInfo.startX = e.changedTouches[0].clientX //这个 this 指向跟踪的是 Controller 类，跟上面的 this 一样
+			this.moveInfo.startX = e.changedTouches[0].clientX //this 指向的是 Controller 类，跟上面的 this 一样
 
 			//🌟获取 pageBox 这个【元素】最新的变化坐标
 			const transform = getComputedStyle(this.pageBox).transform
@@ -180,16 +180,15 @@ class Controller {
 		})
 
 
-		//二、手指位移事件
+		//二、手指位移事件(判断旋转轴+最大移动范围)
 		this.pageBox.addEventListener('touchmove',(e)=>{
 			console.log('移动了');
 
-			//🌟当前值 = 当前手指移动位置 - 手指初始位置 + 元素默认的位置
+			//🌟算法：{当前值 = 当前手指移动位置 - 手指初始位置 + 元素默认的位置}
 			let currentTransX = e.changedTouches[0].clientX - this.moveInfo.startX + this.moveInfo.baseTranslateX
 
 
-			//🌟最大移动距离 = 单个页面宽度*（页面数量-1）
-			//所有页面可以移动范围为 X～最大移动距离
+			//🌟最大移动距离 = 单个页面宽度*（页面数量-1）,所有页面可以移动范围为 X～最大移动距离
 			if(currentTransX > 0){//向左 ⬅️ 滑动了的话，则弹回 0 
 				currentTransX = 0
 			}else if(currentTransX < -(this.pageDatas.length - 1)*this.onePageWidth){
@@ -200,33 +199,69 @@ class Controller {
 			// console.log('当前手指位置'+e.changedTouches[0].clientX);
 			// console.log('手指初始位置'+this.moveInfo.startX);
 			// console.log('元素基础位置'+this.moveInfo.baseTranslateX);
+
+
+
+			//⭕️旋转轴交互
+			const x = e.changedTouches[0].clientX //先获取当前手指的坐标(用于判断向左👈还是向右👉滑动)
+
+			if( x > this.moveInfo.startX){//👉手指由左向右滑动
+				if(this.currentIndex === 0){//到最左边了
+					return
+				}
+				this.pagesArr[this.currentIndex].dom.firstElementChild.style.transformOrigin = `right center`	//🔥🔥🔥注意！dom 这个变量包含了所有卡片的数据集合
+				const ratio = (x - this.moveInfo.startX) / this.onePageWidth 		//🔥🔥🔥🔥🔥让卡片的旋转轴 = 手指滑动的幅度百分比 = 滑过的距离 / 卡片的总宽度（也是手指最大的滑动距离）
+				this.pagesArr[this.currentIndex].dom.firstElementChild.style.transform = `rotateY(${(25 * ratio).toFixed(1)}deg)` 	//让当前卡片的同步旋转值 = 【最大值 25 * 滑动的百分比】
+				this.pagesArr[this.currentIndex - 1].dom.firstElementChild.style.transform = `rotateY(${(25 * (1 - ratio)).toFixed(1)}deg)` 	//左边（前一张卡片也跟着旋转）
+			}
+			else if(x < this.moveInfo.startX){//👈手指由右向左滑动
+				if(this.currentIndex === this.pages.width - 1){ //总共为 5-1 个 index 张
+					return
+				}
+				this.pagesArr[this.currentIndex].dom.firstElementChild.style.transformOrigin = `left center`	//🔥🔥🔥注意！dom 这个变量包含了所有卡片的数据集合
+				const ratio = (x - this.moveInfo.startX) / this.onePageWidth 	//🔥🔥🔥🔥🔥让卡片的旋转轴 = 手指滑动的幅度百分比 = 滑过的距离 / 卡片的总宽度（也是手指最大的滑动距离）
+				this.pagesArr[this.currentIndex].dom.firstElementChild.style.transform = `rotateY(${(25 * ratio).toFixed(1)}deg)` 	//让当前卡片的同步旋转值 = 【最大值 25 * 滑动的百分比】
+				this.pagesArr[this.currentIndex + 1].dom.firstElementChild.style.transform = `rotateY(${(25 * (1 - ratio)).toFixed(1)}deg)` 	//右边（后一张卡片也跟着旋转）
+			}
+
+
 		})
 
 
-		//三、手指离开事件
+		//三、手指离开事件(自动移动页面)
 		this.pageBox.addEventListener('touchend',(e)=>{
-			const x = e.changedTouches[0].clientX //先获取当前手指的坐标
+			const x = e.changedTouches[0].clientX //先获取当前手指的坐标(用于判断向左👈还是向右👉滑动)
 
-			//🌟【手指】右滑
+			//🌟【手指】由左往右滑
 			if(x > this.moveInfo.startX){ //当前的坐标跟一开始点下的坐标相比，大于则是【手指往右】的情况
 				if(this.currentIndex !== 0 ){
 					this.currentIndex-- //当前页面的索引减 1，往右滑动
 				}
-				this.pageBox.style.transition = `transform 0.35s ease-in-out`
+				this.pageBox.style.transition = `transform 0.35s ease-in-out`	//Box 的移动过渡
+				this.pagesArr[this.currentIndex + 1].dom.firstElementChild.style.transition = `transform 0.35s ease-in-out`  //后一张 Card 的移动过渡（被移出去）
+				this.pagesArr[this.currentIndex].dom.firstElementChild.style.transition = `transform 0.35s ease-in-out`
+
 				setTimeout(()=>{//🔥🔥让它变成异步函数！避免在手指滑动过程就开始移动了
 					//滑动距离
 					this.pageBox.style.transform = `translateX(-${this.onePageWidth * this.currentIndex}px)`//🔥🔥🔥滑动一下，移动一个页面的宽度 -> (this.onePageWidth * this.currentIndex)
+					this.pagesArr[this.currentIndex].dom.firstElementChild.style.transform = `rotateY(0deg)`
+					this.pagesArr[this.currentIndex + 1].dom.firstElementChild.style.transform = `rotateY(-25deg)`
 				},1)
 				
-			}else if //🌟【手指】左滑
+			}else if //🌟【手指】由右往左滑
 			(x < this.moveInfo.startX){
 				if(this.currentIndex !== this.pageDatas.length - 1){ //没滑倒底的情况
 					this.currentIndex++ //当前页面的索引加 1，往左滑动
 				}
-				this.pageBox.style.transition = `transform 0.35s ease-in-out`
+				this.pageBox.style.transition = `transform 0.35s ease-in-out`  //卡片移动过去
+				this.pagesArr[this.currentIndex - 1].dom.firstElementChild.style.transition = `transform 0.35s ease-in-out`
+				this.pagesArr[this.currentIndex].dom.firstElementChild.style.transition = `transform 0.35s ease-in-out`
+
 				setTimeout(()=>{//🔥🔥让它变成异步函数！避免在手指滑动过程就开始移动了
 					//滑动距离
 					this.pageBox.style.transform = `translateX(-${this.onePageWidth * this.currentIndex}px)`
+					this.pagesArr[this.currentIndex - 1].dom.firstElementChild.style.transform = `rotateY(25deg)`
+					this.pagesArr[this.currentIndex].dom.firstElementChild.style.transform = `rotateY(0deg)`
 				},1)
 			}
 		})
@@ -237,6 +272,18 @@ class Controller {
 		this.pageBox.addEventListener('transitionend',(e)=>{
 			if(e.target.classList.contains('page-box')){
 				e.currentTarget.style.transition = 'none' //🔥🔥🔥滑动结束，清除动画
+
+				this.pagesArr[this.currentIndex - 1].dom.firstElementChild.style.transition = `none`
+				this.pagesArr[this.currentIndex].dom.firstElementChild.style.transition = `none`
+				// 设置所有卡片旋转容器的变化中心 和 取消transition
+				this.pagesArr.forEach((page,index)=>{
+					pagesArr.dom.firstElementChild.style.transition = `none`
+					if(index < this.currentIndex){
+						pagesArr.dom.firstElementChild.style.transformOrigin = `left center`
+					}else if(index > this.currentIndex){
+						pagesArr.dom.firstElementChild.style.transformOrigin = `right center`
+					}
+					})
 			}
 		})
 
@@ -246,6 +293,16 @@ class Controller {
 
 
 
-
-
 Controller.appInit()//调用静态方法
+
+/*
+	SCC 透视效果(注意,不要用整个 box 来旋转,会有透视变形问题,需要加多一个空的旋转轴)
+
+		放在要变化元素的父元素上（旋转轴）
+			transform:rotateY(90deg); //旋转轴为 Y，90度
+			transform-origin:left center; //旋转轴的中心点为左中
+
+		放在要变化的对应元素身上
+			transform-style: preserve-3d;
+			perspective:800px ; //透视点的距离
+*/

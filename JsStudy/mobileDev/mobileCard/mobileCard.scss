@@ -42,53 +42,76 @@ html{
 	.pages-box{
 		display: flex;
 
+
 		.one-page{
+			
 			padding: 0 2rem;
 			flex-shrink: 0;//禁止缩放,固定宽度
 			width: 100%;
 			box-sizing: border-box;//🌟内容宽度不溢出 + 包含 border 向内挤压
+			transform-style: preserve-3d; //开启透视旋转能力
+			perspective: 800px; //透视点的距离
 
-			.page-titles{
-				color:wheat;
-				display: flex;
-				flex-direction: column;
-				font-family: "OpenSans";
-				font-size: 2.5rem;
-				font-weight: 800;
-				letter-spacing:-0.5px;
-				line-height: 1.1;
-			}
-			.page-card{
-				height: 400px;
-				// width: 100%;
-				background-color: rgb(255, 228, 154);
-				border-radius: 2rem;
-				margin-top: 1.5rem;
-				padding: 1rem 2rem 0 2rem; 
-				position: relative;
-				overflow: hidden;
 
-				p{	
-					font-family: "Gilroy Medium";
-					width: 100%;
-					opacity: .8;
-					white-space: wrap;
-					overflow: hidden;
-					text-overflow: ellipsis;
+			.one-page-transform{//旋转轴
+				transform: rotateY(25deg);
+				transform-origin:left center; //旋转轴的中心点为【左中】(手指右往左滑动，旋转轴在左中，手指左往右滑动，旋转轴在右中）
+				/*
+					SCC 透视效果(注意,不要用整个 box 来旋转,会有透视变形问题,需要加多一个空的旋转轴)
+
+						放在要变化元素的父元素上（旋转轴）
+							transform:rotateY(90deg); //旋转轴为 Y，90度
+							transform-origin:left center; //旋转轴的中心点为左中
+
+						放在要变化的对应元素身上
+							transform-style: preserve-3d;
+							perspective:800px ; //透视点的距离
+				*/
+
+				.page-titles{
+					color:wheat;
+					display: flex;
+					flex-direction: column;
+					font-family: "OpenSans";
+					font-size: 2.5rem;
+					font-weight: 800;
 					letter-spacing:-0.5px;
-					line-height: 1.4;
+					line-height: 1.1;
 				}
-				img {
-					width: 120%;
-					height:100%;
-					position: absolute;
-					bottom: 0;
-					left: 0;
-					object-fit:cover;
-					pointer-events:none;//禁用长安保存图片的能力
+				.page-card{
+					height: 400px;
+					// width: 100%;
+					background-color: rgb(255, 228, 154);
+					border-radius: 2rem;
+					margin-top: 1.5rem;
+					padding: 1rem 2rem 0 2rem; 
+					position: relative;
+					overflow: hidden;
+					transform: rotateY(15deg);
+
+					p{	
+						font-family: "Gilroy Medium";
+						width: 100%;
+						opacity: .8;
+						white-space: wrap;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						letter-spacing:-0.5px;
+						line-height: 1.4;
+					}
+					img {
+						width: 120%;
+						height:100%;
+						position: absolute;
+						bottom: 0;
+						left: 0;
+						object-fit:cover;
+						pointer-events:none;//禁用长按下保存图片的能力
+					}
 				}
 			}
 		}
+		
 	}
 }
 
