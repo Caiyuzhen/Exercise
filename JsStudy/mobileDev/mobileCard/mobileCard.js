@@ -1,8 +1,8 @@
 //Circle 类（圆点） ———————————————————————————————————————————————
-class Circle {
+class HintCircle {
 
 	constructor(){
-		this.dom = HintCircle.TargetCircle.cloneNode(true) //3:复制多几个点
+		this.dom = HintCircle.targetCircle.cloneNode(true) //3:复制多几个点
 		this.appendCircle() //5:调用👇那个生成圆点的方法
 	}
 
@@ -10,9 +10,9 @@ class Circle {
 	static circleInit(){
 		this.targetCircle.remove()//删除旧的 html 上的点
 	}
+	// 所有圆点的父级元素
 	static circleContainer = document.querySelector('.circle-hint') //2:定义一个容器，用来放置小圆点
 	static targetCircle = document.querySelector('.circle') //1:拿到小圆点
-
 
 
 	appendCircle(){
@@ -117,10 +117,11 @@ class Controller {
 	]
 
 	static pageBox = document.querySelector('.pages-box')
-	static moveInfo = {}//用于记录移动的相关信息(🔥很关键，点击后就开始记录了！)
+	static moveInfo = {}	//用于记录移动的相关信息(🔥很关键，点击后就开始记录了！)
 	static onePageWidth = this.pageBox.getBoundingClientRect().width //🔥🔥🔥返回的一组矩形的集合，就是该元素的包含 CSS 边框大小,获取最新的 PageBox 的宽度，因为我们定义的是 pageBox = page 的宽度，用来计算滑动的最大距离
-	static currentIndex = 0 //🔥🔥先判断当前是第几个页面,很关键！
+	static currentIndex = 0 //🔥🔥记录当前浏览器显示的是哪一个页面的索引位
 	static pagesArr = [] 	//🔥🔥用于去索引对应的页面，去修改旋转轴！很关键！
+	static circles = [] 	// 用来收集创建的Circle类型的实例
 
 
 
@@ -144,22 +145,47 @@ class Controller {
 		
 		//调用【其他几个类】跟【当前类】的静态方法, 移除初始化的 html 内容
 		Page.pageInit()
-		Circle.circleInit()
+		HintCircle.circleInit()
+		this.createCircle()
 		this.createPage()	//记得调用自身的静态方法来生成卡片！！
 		this.setupEvents()	//启用手指交互事件
 	}
 
 
-	//🔥🔥生成页面【卡片】&【圆点】的方法
+	//🔥创建Page实例的方法
 	static createPage(){
 		this.pageDatas.forEach((itemData,index)=>{
 			this.pagesArr.push(new Page(itemData)) //🔥🔥调用 Page（ ）类，传入上面定义好的数据, 有几项数据就会生成几个 Card！然后再用数组接收一下，因为要根据这个数组去修改对应的那张卡片!
 		})
 	}
 
+	//🔥创建Circle实例的方法
 	static createCircle(){
-
+		for(let i = 0; i < this.pageDatas.length; i++){
+			const circle = new HintCircle()
+			this.circles.push(circle)
+		
+			//让一开始的情况下 第一个圆点是选中的状态
+			if(i === 0){
+				circle.dom.classList.add('selected-circle')
+			}
+		}
 	}
+
+
+	  // 设置circle圆点实例的状态 （每次执行都会重新根据当前的currentIndex来设置相应的圆点的样式）
+	  static setCircleState(){
+		this.circles.forEach((circle,index)=>{
+		  // 先把元素的选中样式给去掉 不管有没有都先去了
+		  circle.dom.classList.remove('selected-circle')
+		  circle.dom.style.backgroundColor = 'white'
+		  // 这里再重新比较 如果index相等 那么加上选中的样式
+		  if(index === this.currentIndex){
+			circle.dom.classList.add('selected-circle')
+			circle.dom.style.backgroundColor = this.pagesDatas[index].color
+		  }
+		})
+	  }
 
 
 
@@ -273,6 +299,9 @@ class Controller {
 		//四、手指结束的事件
 		this.pageBox.addEventListener('transitionend',(e)=>{
 			if(e.target.classList.contains('pages-box')){
+				// 这个方法用来设定哪个圆点呈现为选中或者说是当前状态
+				this.setCircleState()
+
 				e.currentTarget.style.transition = 'none' //🔥🔥🔥滑动结束，清除动画
 				this.pagesArr[this.currentIndex - 1].dom.firstElementChild.style.transition = `none` //滑动结束，当前页面的前一张卡片清除动画， this.currentIndex 是 one-page， firstElementChild 指的是旋转轴
 				this.pagesArr[this.currentIndex].dom.firstElementChild.style.transition = `none` //滑动结束，当前页面的卡片清除动画
