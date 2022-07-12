@@ -54,8 +54,8 @@ html{
 
 
 			.one-page-transform{//旋转轴
-				transform: rotateY(25deg);
-				transform-origin:left center; //旋转轴的中心点为【左中】(手指右往左滑动，旋转轴在左中，手指左往右滑动，旋转轴在右中）
+				// transform: rotateY(25deg);
+				// transform-origin:left center; //旋转轴的中心点为【左中】(手指右往左滑动，旋转轴在左中，手指左往右滑动，旋转轴在右中）
 				/*
 					SCC 透视效果(注意,不要用整个 box 来旋转,会有透视变形问题,需要加多一个空的旋转轴)
 
@@ -87,7 +87,7 @@ html{
 					padding: 1rem 2rem 0 2rem; 
 					position: relative;
 					overflow: hidden;
-					transform: rotateY(15deg);
+					// transform: rotateY(15deg);
 
 					p{	
 						font-family: "Gilroy Medium";

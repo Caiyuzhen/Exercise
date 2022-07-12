@@ -42,8 +42,7 @@ class Page {
 
 
 
-
-	//注入页面内容(类似一个模板)
+	//渲染注入页面内容(类似一个模板)
 	initContent(pageData) {
 		//从 pageData 内解构出  texts, color, detailText ,imgUrl 数据
 		const {texts, color, detailText, imgUrl} = pageData
@@ -69,7 +68,7 @@ class Page {
 	}
 
 
-	//定义添加卡片回到卡片容器的方法
+	//定义渲染卡片到卡片容器的方法
 	appendPage(){
 		Page.pageContainer.appendChild(this.dom) //三：把克隆的 card 再插入回 container 内
 	}
@@ -117,6 +116,15 @@ class Controller {
 		}
 	]
 
+	static pageBox = document.querySelector('.pages-box')
+	static moveInfo = {}//用于记录移动的相关信息(🔥很关键，点击后就开始记录了！)
+	static onePageWidth = this.pageBox.getBoundingClientRect().width //🔥🔥🔥返回的一组矩形的集合，就是该元素的包含 CSS 边框大小,获取最新的 PageBox 的宽度，因为我们定义的是 pageBox = page 的宽度，用来计算滑动的最大距离
+	static currentIndex = 0 //🔥🔥先判断当前是第几个页面,很关键！
+	static pagesArr = [] 	//🔥🔥用于去索引对应的页面，去修改旋转轴！很关键！
+
+
+
+
 	//🌟页面的初始化方法
 	static appInit(){
 		const container = document.querySelector('.container')
@@ -131,14 +139,14 @@ class Controller {
 		OnePage.style.width = document.documentElement.clientWidth + 'px'
 
 		//设置 pageBox 的宽度（因为在苹果机型上宽度不够，没法滑动）
-		// this.pageBox.style.width = this.pagesDatas.length * this.onePageWidth + 'px'
+		// this.pageBox.style.width = this.pageDatas.length * this.onePageWidth + 'px'
 
 		
-		//调用静态方法,移除初始化的 html 内容
+		//调用【其他几个类】跟【当前类】的静态方法, 移除初始化的 html 内容
 		Page.pageInit()
 		Circle.circleInit()
-		this.createPage()//记得调用自身的静态方法来生成卡片！！
-		this.setupEvents()
+		this.createPage()	//记得调用自身的静态方法来生成卡片！！
+		this.setupEvents()	//启用手指交互事件
 	}
 
 
@@ -149,17 +157,11 @@ class Controller {
 		})
 	}
 
-
 	static createCircle(){
 
 	}
 
 
-	static pageBox = document.querySelector('.pages-box')
-	static moveInfo = {}//用于记录移动的相关信息(🔥很关键，点击后就开始记录了！)
-	static onePageWidth = this.pageBox.getBoundingClientRect().width //PageBox 的宽度，因为我们定义的是 pageBox = page 的宽度
-	static currentIndex = 0 //🔥🔥先判断当前是第几个页面,很关键！
-	static pagesArr = [] 	//🔥🔥用于去索引对应的页面，去修改旋转轴！很关键！
 
 
 	//定义手指页面的移动方法(👋👋👋Touch 事件)
@@ -167,10 +169,10 @@ class Controller {
 
 		//一：手指点击事件
 		this.pageBox.addEventListener('touchstart',(e)=>{
-			console.log('按下了');
+			// console.log('按下了');
 			// e.currentTarget.style.transform = 'translateX(-300px)'
 		
-			//🌟获取到【手指开始点击下】的初始坐标, 一开始点下的位置就是初始值
+			//🌟获取到【手指开始点击下】的初始坐标, 一开始点下的位置就是【⚡️初始值】
 			this.moveInfo.startX = e.changedTouches[0].clientX //this 指向的是 Controller 类，跟上面的 this 一样
 
 			//🌟获取 pageBox 这个【元素】最新的变化坐标
@@ -184,16 +186,15 @@ class Controller {
 		this.pageBox.addEventListener('touchmove',(e)=>{
 			console.log('移动了');
 
-			//🌟算法：{当前值 = 当前手指移动位置 - 手指初始位置 + 元素默认的位置}
+			//🌟算法：{当前值 currentTransX = 当前手指移动位置 - 手指初始位置 + 元素默认的位置}
 			let currentTransX = e.changedTouches[0].clientX - this.moveInfo.startX + this.moveInfo.baseTranslateX
 
-
-			//🌟最大移动距离 = 单个页面宽度*（页面数量-1）,所有页面可以移动范围为 X～最大移动距离
-			if(currentTransX > 0){//向左 ⬅️ 滑动了的话，则弹回 0 
+			//🌟最大移动距离 = 单个页面宽度*（页面数量-1）,所有页面可以移动范围为 X～最大移动距离，//🌟可以通过 pageDatas 的数据数量来判断有多少个页面
+			if(currentTransX > 0){//向左 ⬅️ 滑动到底的话，则弹回 0 
 				currentTransX = 0
-			}else if(currentTransX < -(this.pageDatas.length - 1)*this.onePageWidth){
-				currentTransX = -(this.pageDatas.length - 1)*this.onePageWidth //向右 ➡️ 滑动了超过最大距离的话，则弹回最大移动距离	
-			}//🌟可以通过 pageDatas 的数据数量来判断有多少个页面
+			}else if(currentTransX < -(this.pageDatas.length - 1)*this.onePageWidth){ //向右 ➡️ 滑动了超过最大距离的话，则弹回最大移动距离	
+				currentTransX = -(this.pageDatas.length - 1)*this.onePageWidth  //达到最大值也停住
+			}
 
 			this.pageBox.style.transform = `translateX(${currentTransX}px)`
 			// console.log('当前手指位置'+e.changedTouches[0].clientX);
@@ -203,28 +204,29 @@ class Controller {
 
 
 			//⭕️旋转轴交互
-			const x = e.changedTouches[0].clientX //先获取当前手指的坐标(用于判断向左👈还是向右👉滑动)
+			const x = e.changedTouches[0].clientX //先获取当前手指的坐标(判断向左👈还是向右👉滑动)
 
-			if( x > this.moveInfo.startX){//👉手指由左向右滑动
-				if(this.currentIndex === 0){//到最左边了
+			if( x > this.moveInfo.startX){//👉手指由【左向右】滑动
+				if(this.currentIndex === 0){//到最【左】边了
 					return
 				}
 				this.pagesArr[this.currentIndex].dom.firstElementChild.style.transformOrigin = `right center`	//🔥🔥🔥注意！dom 这个变量包含了所有卡片的数据集合
 				const ratio = (x - this.moveInfo.startX) / this.onePageWidth 		//🔥🔥🔥🔥🔥让卡片的旋转轴 = 手指滑动的幅度百分比 = 滑过的距离 / 卡片的总宽度（也是手指最大的滑动距离）
-				this.pagesArr[this.currentIndex].dom.firstElementChild.style.transform = `rotateY(${(25 * ratio).toFixed(1)}deg)` 	//让当前卡片的同步旋转值 = 【最大值 25 * 滑动的百分比】
+				this.pagesArr[this.currentIndex].dom.firstElementChild.style.transform = `rotateY(-${(25 * ratio).toFixed(1)}deg)` 	//让【当前张】卡片的同步旋转值 = 【最大值 25 * 滑动的百分比】
+				// console.log('第'+this.currentIndex+'张进行旋转');  
 				this.pagesArr[this.currentIndex - 1].dom.firstElementChild.style.transform = `rotateY(${(25 * (1 - ratio)).toFixed(1)}deg)` 	//左边（前一张卡片也跟着旋转）
 			}
-			else if(x < this.moveInfo.startX){//👈手指由右向左滑动
-				if(this.currentIndex === this.pages.width - 1){ //总共为 5-1 个 index 张
+
+			else if(x < this.moveInfo.startX){//👈手指由【右向左】滑动
+				if(this.currentIndex === this.pagesArr.length - 1){ //总共为 5-1 个 index 张
 					return
 				}
 				this.pagesArr[this.currentIndex].dom.firstElementChild.style.transformOrigin = `left center`	//🔥🔥🔥注意！dom 这个变量包含了所有卡片的数据集合
-				const ratio = (x - this.moveInfo.startX) / this.onePageWidth 	//🔥🔥🔥🔥🔥让卡片的旋转轴 = 手指滑动的幅度百分比 = 滑过的距离 / 卡片的总宽度（也是手指最大的滑动距离）
-				this.pagesArr[this.currentIndex].dom.firstElementChild.style.transform = `rotateY(${(25 * ratio).toFixed(1)}deg)` 	//让当前卡片的同步旋转值 = 【最大值 25 * 滑动的百分比】
-				this.pagesArr[this.currentIndex + 1].dom.firstElementChild.style.transform = `rotateY(${(25 * (1 - ratio)).toFixed(1)}deg)` 	//右边（后一张卡片也跟着旋转）
+				const ratio = (this.moveInfo.startX - x) / this.onePageWidth 	//🔥🔥🔥🔥🔥让卡片的旋转轴 = 手指滑动的幅度百分比 = 滑过的距离 / 卡片的总宽度（也是手指最大的滑动距离）,注意这里是反的！因为手指变成了从右向左
+				this.pagesArr[this.currentIndex].dom.firstElementChild.style.transform = `rotateY(${(25 * ratio).toFixed(1)}deg)` 	//让【当前张】卡片的同步旋转值 = 【最大值 25 * 滑动的百分比】
+				// console.log('第'+this.currentIndex+'张进行旋转');  
+				this.pagesArr[this.currentIndex + 1].dom.firstElementChild.style.transform = `rotateY(-${(25 * (1 - ratio)).toFixed(1)}deg)` 	//右边（后一张卡片也跟着旋转）
 			}
-
-
 		})
 
 
@@ -244,8 +246,8 @@ class Controller {
 				setTimeout(()=>{//🔥🔥让它变成异步函数！避免在手指滑动过程就开始移动了
 					//滑动距离
 					this.pageBox.style.transform = `translateX(-${this.onePageWidth * this.currentIndex}px)`//🔥🔥🔥滑动一下，移动一个页面的宽度 -> (this.onePageWidth * this.currentIndex)
-					this.pagesArr[this.currentIndex].dom.firstElementChild.style.transform = `rotateY(0deg)`
-					this.pagesArr[this.currentIndex + 1].dom.firstElementChild.style.transform = `rotateY(-25deg)`
+					this.pagesArr[this.currentIndex].dom.firstElementChild.style.transform = `rotateY(0deg)` //手指松开后，旋转过去
+					this.pagesArr[this.currentIndex + 1].dom.firstElementChild.style.transform = `rotateY(-25deg)` //手指松开后，旋转过去
 				},1)
 				
 			}else if //🌟【手指】由右往左滑
@@ -270,23 +272,22 @@ class Controller {
 
 		//四、手指结束的事件
 		this.pageBox.addEventListener('transitionend',(e)=>{
-			if(e.target.classList.contains('page-box')){
+			if(e.target.classList.contains('pages-box')){
 				e.currentTarget.style.transition = 'none' //🔥🔥🔥滑动结束，清除动画
+				this.pagesArr[this.currentIndex - 1].dom.firstElementChild.style.transition = `none` //滑动结束，当前页面的前一张卡片清除动画， this.currentIndex 是 one-page， firstElementChild 指的是旋转轴
+				this.pagesArr[this.currentIndex].dom.firstElementChild.style.transition = `none` //滑动结束，当前页面的卡片清除动画
 
-				this.pagesArr[this.currentIndex - 1].dom.firstElementChild.style.transition = `none`
-				this.pagesArr[this.currentIndex].dom.firstElementChild.style.transition = `none`
-				// 设置所有卡片旋转容器的变化中心 和 取消transition
+				// 设置所有卡片旋转容器的变化中心 和 取消 transition
 				this.pagesArr.forEach((page,index)=>{
-					pagesArr.dom.firstElementChild.style.transition = `none`
+					page.dom.firstElementChild.style.transition = `none`
 					if(index < this.currentIndex){
-						pagesArr.dom.firstElementChild.style.transformOrigin = `left center`
+						page.dom.firstElementChild.style.transformOrigin = `left center`
 					}else if(index > this.currentIndex){
-						pagesArr.dom.firstElementChild.style.transformOrigin = `right center`
+						page.dom.firstElementChild.style.transformOrigin = `right center`
 					}
-					})
+				})
 			}
 		})
-
 	}
 }
 
