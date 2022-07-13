@@ -1,0 +1,147 @@
+@font-face {
+	font-family: "Gilroy Medium";
+	src: url("./fonts/Gilroy-Medium.woff2") format("woff2"),
+		 url("./fonts/Gilroy-Medium.woff") format("woff");
+  }
+  
+  @font-face {
+	font-family: "OpenSans";
+	src: url("./fonts/OpenSans-Bold.woff2") format("woff2"),
+		 url("./fonts/OpenSans-Bold.woff") format("woff");
+  }
+  
+
+body{
+	margin: 0;
+	background-color: rgb(16, 16, 17);
+	padding: 0;
+
+	.container {
+		box-sizing: border-box;//🔥🔥🔥对齐撑满！
+
+		.card-stage{
+			padding: 2rem;
+			position: relative;
+			transform-style: preserve-3d;//父元素加上 3d 旋转属性
+			perspective:800px; //透视点的距离
+			
+			.one-card{ //大卡片
+				width: 100%;
+				height:452px;
+				border-radius: 2rem;
+				padding: 1rem 1.5rem 1rem 1.5rem;
+				background-color:rgb(93, 0, 255);
+				font-family: "Gilroy Medium";
+				overflow: hidden;
+				box-sizing: border-box;//🔥🔥🔥对齐撑满！
+				position: relative;
+				transition: all 0.35s ease-in-out;
+
+				.card-transform{
+
+					p{
+						color:white;
+						letter-spacing: 1px;
+						line-height: 1.5;
+					}
+					img{
+						width: 120%;
+						position: absolute;
+						bottom: 0;
+						left: -32px;
+					}
+				}
+			}
+		}
+	}
+	.clip-scroll{//用于裁切小卡片的横向滚动轴（往下偏移菜切掉掉）
+		height: 105px;
+		overflow: hidden;
+		z-index: 10;
+
+		.card-click-stage{ //小卡片栈
+			display: flex;
+			padding: 0 2rem;
+			height: 102px;
+			overflow-x: scroll;//🔥🔥让横向可以滚动！！
+			touch-action: pan-x;
+			box-sizing: border-box;
+
+
+			.card-color-board{ //小卡片
+				width: 4.5rem;
+				height: 6rem;
+				border-radius: 12px;
+				background-color: rgb(204, 37, 255);
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 2rme;
+				font-family:'OpenSans';
+				color: white;
+				flex-shrink:0;
+				transition: all 0.35s ease-in-out;
+				
+			}
+		}
+	}
+	.slide-bar{
+		padding: 1rem 2rem;
+		font-family: 'OpenSans';
+		color: white;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		span{//A
+			font-size: 10px;
+		}
+
+		.control-bar{
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: relative;
+			
+			.touch-circle{//小圆球
+				width: 20px;
+				height: 20px;
+				background-color:rgb(95, 37, 255);
+				border-radius: 100%;
+				z-index: 2;
+				display: block; //🔥很关键！
+				position: absolute; //🔥很关键！
+				left: 0; //🔥很关键！
+			}
+			.line{
+				width: 100%;
+				height: 2px;
+				background-color:rgba(255,255,255,0.3);
+				overflow: hidden;
+				border-radius: 1rem;//线段圆角
+				
+				.progress-line{
+					width: 100%;
+					height: 100%;
+					background-color: white;
+					border-radius: 1rem;//线段圆角
+					transform: translateX(-100%);//进度先为0
+
+				}
+			}
+		}
+	}
+	.card-titles{
+		display: flex;
+		flex-direction: column;
+		padding: 0 2rem;
+		font-family: "OpenSans";
+
+		span{
+			color: white;
+			font-size: 4rem;
+		}
+	}
+}
+

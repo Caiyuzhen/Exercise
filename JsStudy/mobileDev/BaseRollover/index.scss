@@ -1,0 +1,56 @@
+
+html {
+	//touch-action: pinch-zoom;
+	//touch-action: manipulation;// 综合，相当于加了 pan-x pan-y 和 pinch-zoom
+	//touch-action:none; 
+	//touch-action:pan-x pinch-zoom; //可以写多个值
+
+	body{
+		//👇一个元素同时只能设置下面一种属性！
+			// touch-action: pinch-zoom; //不能上下左右滑动，只能双指缩放
+			//touch-action: manipulation; 
+			// touch-action: none; //禁止所有移动端的事件（除了双击缩放）
+			// touch-action: pan-x; //只能左右滑动,不能上下滑动 (可以放在元素上，避免手指抖动引发的上下抖动!）
+			// touch-action: pan-x; //只能上下滑动,不能左右滑动 (可以放在元素上，避免手指抖动引发的上下抖动!）
+		
+	  }
+  }
+  
+
+  
+  .horizontal-box{
+	display: flex;
+	touch-action: pan-x; //也可以放在子元素上，单独让子元素可以滚动, 这种情况下这个元素就不能纵向滚动了！因为只能设置一种属性！
+  }
+  
+  .hbox{
+	height:200px;
+	width:300px;
+	flex-shrink:0;
+  
+  
+  }
+  
+  .box.blue{
+	touch-action: pan-y; //也可以放在子元素上，单独让子元素可以滚动, 这种情况下这个元素就不能横向滚动了！因为只能设置一种属性！
+	background-color:yellow;
+  }
+  
+  .red{
+	background-color:red;
+  }
+  
+  .blue {
+	background-color:blue;
+  }
+  
+  .yellow {
+	background-color:yellow;
+  }
+  
+  
+  .box{
+	height:600px;
+	width:200px;
+  
+  }

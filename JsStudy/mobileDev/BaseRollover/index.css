@@ -1,0 +1,1 @@
+.horizontal-box{display:flex;touch-action:pan-x}.hbox{height:200px;width:300px;flex-shrink:0}.box.blue{touch-action:pan-y;background-color:#ff0}.red{background-color:red}.blue{background-color:blue}.yellow{background-color:#ff0}.box{height:600px;width:200px}

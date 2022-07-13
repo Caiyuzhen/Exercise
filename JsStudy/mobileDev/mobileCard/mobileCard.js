@@ -131,7 +131,7 @@ class Controller {
 		const container = document.querySelector('.container')
 		// console.log(container);
 		// console.log(this.pageDatas);
-		//设置容器的宽跟高 = 屏幕的宽跟高,这样滚动的时候就会无限的变为对应的颜色
+		//设置容器的宽跟高 = 屏幕的宽跟高,这样滚动的时候就背景会无限的变为对应的颜色
 		container.style.height = document.documentElement.clientHeight + 'px'
 		container.style.width = document.documentElement.clientWidth + 'px'
 
