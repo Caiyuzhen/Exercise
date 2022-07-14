@@ -33,7 +33,7 @@ class Page {
 		this.initContent(pageData)	//【调用】注入 page 内容的方法
 	}
 	
-	//静态属性,定义【容器】跟【卡片】
+	//静态属性,获取【容器】跟【卡片】
 	static pageContainer = document.querySelector('.pages-box') //获得【页面容器 pages-box】
 	static pageCardTarget = document.querySelector('.one-page') //一：获得页面本身
 	static pageInit(){ //静态方法
@@ -145,9 +145,9 @@ class Controller {
 		
 		//调用【其他几个类】跟【当前类】的静态方法, 移除初始化的 html 内容
 		Page.pageInit()
+		this.createPage()	//记得调用自身的静态方法来生成卡片！！
 		HintCircle.circleInit()
 		this.createCircle()
-		this.createPage()	//记得调用自身的静态方法来生成卡片！！
 		this.setupEvents()	//启用手指交互事件
 	}
 
