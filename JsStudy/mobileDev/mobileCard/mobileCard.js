@@ -33,7 +33,7 @@ class Page {
 		this.initContent(pageData)	//【调用】注入 page 内容的方法
 	}
 	
-	//静态属性,获取【容器】跟【卡片】
+	//静态属性+静态方法,获取【容器】跟【卡片】
 	static pageContainer = document.querySelector('.pages-box') //获得【页面容器 pages-box】
 	static pageCardTarget = document.querySelector('.one-page') //一：获得页面本身
 	static pageInit(){ //静态方法
@@ -152,7 +152,7 @@ class Controller {
 	}
 
 
-	//🔥创建Page实例的方法
+	//🔥创建Page实例的静态方法
 	static createPage(){
 		this.pageDatas.forEach((itemData,index)=>{
 			this.pagesArr.push(new Page(itemData)) //🔥🔥调用 Page（ ）类，传入上面定义好的数据, 有几项数据就会生成几个 Card！然后再用数组接收一下，因为要根据这个数组去修改对应的那张卡片!

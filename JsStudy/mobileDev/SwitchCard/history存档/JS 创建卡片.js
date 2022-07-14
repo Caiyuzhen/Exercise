@@ -4,8 +4,8 @@ class Card {
 		this.domCard = Card.mockCard.cloneNode(true) //生成大 Card 二：克隆卡片
 		// console.log(this.domCard)//打印 4 个 one-card div 元素
 		// this.appendCard()//生成大 Card 五：调用添加卡片到容器内的方法(因为默认只展示一个，所以这一步省去)
-		this.littleCardDom = Card.mockLittleCard.cloneNode(true)
 		this.initCardContent(cardsData)//生成大 Card 三：调用方法，传入数据
+		this.setCardSize() 
 	}
 	
 
@@ -15,52 +15,40 @@ class Card {
 	static mockCard = document.querySelector('.one-card')
 	//获取小卡片容器
 	static littleCardBox = document.querySelector('.card-click-stage')
-	//获取小卡片
+	//获取小卡片容器
 	static mockLittleCard = document.querySelector('.card-color-board')
+	
 	//获取大卡片基础的样式信息
 	static basicCardInfo = this.mockCard.getBoundingClientRect()
 	
-
-
-	//初始化时，删除旧的大小卡片
+	//初始化时，删除旧的卡片
 	static cardRemove(){
 		this.mockCard.remove()
 		this.mockLittleCard.remove()
 	}
 	
 	
-	//生成大 Card 一：注入大卡片内容  +  小卡片内容
+	//生成大 Card 一：注入大卡片内容
 	initCardContent(cardsData){
-		const {texts,color,detailText,imgUrl,colorName} = cardsData
-		
-		//大卡片内容
+		const {texts,color,detailText,imgUrl} = cardsData
+
 		this.domCard.style.backgroundColor = color
 		this.domCard.firstElementChild.firstElementChild.innerText = detailText//🔥🔥用子元素的子元素去选到文字！
 		this.domCard.firstElementChild.lastElementChild.src = imgUrl
-		
-		//小卡片内容
-		this.littleCardDom.style.backgroundColor = color
-		this.littleCardDom.firstElementChild.innerText = colorName[0].toUpperCase()
 	}
 	
 	
 	//生成大 Card 四：添加卡片到卡片容器内的方法，注意这里要结合第 7 步来使用！默认先展示一个
 	appendCard(){
-		Card.cardStage.appendChild(this.domCard) //🔥注意这里使用 Card 类来调用！
+		Card.cardStage.appendChild(this.domCard)
 	}
 
 
 	//设置大 + 小卡片的宽和高 可以保证每个卡片的尺寸一模一样
 	setCardSize() {
-		this.domCard.width = Card.basicCardInfo.width + 'px' //🔥注意，这里要用 Card 类来调用 basicCardInfo！！
-		this.domCard.height = Card.basicCardInfo.height + 'px' //🔥注意，这里要用 Card 类来调用 basicCardInfo！！
+		this.domCard.width = Card.basicCardInfo.width + 'px' //🔥注意，这里要用 Card 来调用 basicCardInfo！！
+		this.domCard.height = Card.basicCardInfo.height + 'px' //🔥注意，这里要用 Card 来调用 basicCardInfo！！
 	}
-
-	//小卡片添加到父元素中（容器）
-	appendLittleCard(){
-		Card.littleCardBox.appendChild(this.littleCardDom) //🔥注意这里使用 Card 类来调用！
-	}
-	
 }
 
 
@@ -128,7 +116,6 @@ class AppController  {
 		this.cardInit() //初始化大卡片
 	}
 	
-	
 	//生成大 Card 六：让大卡片实例化，遍历并传入数据🌟🌟
 	static createCard(){
 		this.cardsDatas.forEach((item,index)=>{
@@ -151,10 +138,6 @@ class AppController  {
 				cardInstance.domCard.style.opacity = '0'
 				cardInstance.appendCard() //上面藏好后再让它出来
 			}
-			//同时也设置卡片的大小
-			cardInstance.setCardSize() 
-			//同时也生成小卡片，把小卡片添加到文档树中
-			cardInstance.appendLittleCard()
 		})
 	}
 
