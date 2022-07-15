@@ -42,7 +42,7 @@ class Card {
 		this.littleCardDom.style.backgroundColor = color
 		this.littleCardDom.firstElementChild.innerText = colorName[0].toUpperCase()
 	}
-	
+
 	
 	//生成大 Card 四：添加卡片到卡片容器内的方法，注意这里要结合第 7 步来使用！默认先展示一个
 	appendCard(){
@@ -66,16 +66,95 @@ class Card {
 
 
 
+//🌟————————————————————————————————————————————————————————————————————————————
 
-//————————————————————————————————————————————————————————————————————————————
 
 
 class SlideBar {
 
+	constructor(){
+		//🔥记录是否按下鼠标了
+		this.isDown = false
+	}
+
+	//进度条
+	static controlBar = document.querySelector('.control-bar')
+	//要被拖动的圆点
+	static touchCircle = document.querySelector('.touch-circle')
+	//白色进度
+	static progressLine = document.querySelector('.progress-line')
+	//底部的大文字
+	static controlText = document.querySelector('.card-titles')
+	
+	//🔥记录（原点）跟（手指拖动）的距离数据
+	static moveInfo = {}
+	
+
+
+	
+	//⚡️初始化时候要做的一些基础的计算
+	static basicCalculate(){
+		//🌟圆点最大移动距离 maxMoveWidth = 进度条宽度 - 圆点的宽度
+		const slideSpanWidth = this.controlBar.getBoundingClientRect().width - this.touchCircle.getBoundingClientRect().width
+		this.moveInfo.maxMoveWidth = Math.round(slideSpanWidth) //四舍五入
+		// console.log(this.moveInfo.maxMoveWidth) //算出最大距离为：635px
+		
+		//获取底部标题字的初始大小
+		this.moveInfo.fontSize = parseInt(getComputedStyle(this.controlText).fontSize)//取小数点前两位
+		// console.log(this.moveInfo.fontSize) //初始字体大小为：16
+	}
+	
+	
+	
+	//🔥添加【⭕️圆点】的事件
+	static setEvents(){
+			//按下事件—————————————————
+			this.touchCircle.addEventListener('mousedown',(e)=>{
+				// console.log('点击了')
+				/*
+					因为只是横向拖动 所以主要记录两个数据
+					一个是手指按下去时候的x坐标点  然后是按下去的时候 圆点已经有的transform的值 因为有可能圆点并不是在初始位置
+				*/
+				//获得元素的所有最新数据
+				const transform = getComputedStyle(this.touchCircle).transform 
+				//获得元素的坐标象限
+				const matrix = new DOMMatrixReadOnly(transform) 
+				//定义一个变量，记录按下时⭕️圆点的 X 坐标
+				this.moveInfo.basicTransX = Math.round(matrix.m41)
+				//定义一个变量，记录手指👋按下的 X 坐标
+				this.moveInfo.startX = Math.round(e.clientX)
+				// console.log(this.moveInfo)
+				
+				this.isDown = true //确认点下了
+			})
+			
+			//移动事件 ——————————————
+			this.touchCircle.addEventListener('mousemove',(e)=>{
+				
+				//🌟计算圆点跟随【拖动的距离】 = (移动中手指的x坐标) 减去 (一开始 start X 坐标) + (已有的圆点的 X 坐标值 basicTransX) 
+				//👇PC 端的写法，移动端则不需要判断是否点下了
+				if(this.isDown){
+					let tranX = e.clientX - this.moveInfo.startX + this.moveInfo.basicTransX
+					console.log(tranX)
+					e.currentTarget.style.transform = `translateX(${tranX}px)`
+				}else{
+					return
+				}
+			})
+	}
+	
+
+	//SlideBar 初始化要调用的方法，集中放这里
+	static sliderBarinit(){
+		this.setEvents()
+		this.basicCalculate()
+	}
 }
 
 
-//————————————————————————————————————————————————————————————————————————————
+
+//🌟————————————————————————————————————————————————————————————————————————————
+
 
 
 class AppController  {
@@ -122,12 +201,6 @@ class AppController  {
 	// 所有大卡片的【实例】的数组，【不是 one-card div！】
 	static allCards = []
 	
-	static appInit(){
-		Card.cardRemove()//初始化时，清除旧的卡片
-		this.createCard() //生成大 Card 七：调用让大卡片实例化，并传入数据的方法
-		this.cardInit() //初始化大卡片
-	}
-	
 	
 	//生成大 Card 六：让大卡片实例化，遍历并传入数据🌟🌟
 	static createCard(){
@@ -136,7 +209,6 @@ class AppController  {
 		})
 	}
 	
-
 	//🌟🌟生成大 Card 七：初始化所有大卡片，让卡片一个一个出来, 默认让它隐藏
 	static cardInit(){
 		this.allCards.forEach((cardInstance,index)=>{ //cardInstance就是 Card 实例！
@@ -156,9 +228,19 @@ class AppController  {
 			//同时也生成小卡片，把小卡片添加到文档树中
 			cardInstance.appendLittleCard()
 		})
+		
+		
 	}
-
-
+	
+	
+	//APPController 初始化要调用的方法
+	static appInit(){
+		Card.cardRemove()//初始化时，清除旧的卡片
+		this.createCard() //生成大 Card 七：调用让大卡片实例化，并传入数据的方法
+		this.cardInit() //初始化大卡片
+		SlideBar.sliderBarinit()
+	}
+	
 
 }
 
