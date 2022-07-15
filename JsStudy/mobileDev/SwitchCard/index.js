@@ -1,11 +1,11 @@
 class Card {
 	
-	constructor(cardsData) {
+	constructor(CARD_DATA) {
 		this.domCard = Card.mockCard.cloneNode(true) //生成大 Card 二：克隆卡片
 		// console.log(this.domCard)//打印 4 个 one-card div 元素
 		// this.appendCard()//生成大 Card 五：调用添加卡片到容器内的方法(因为默认只展示一个，所以这一步省去)
 		this.littleCardDom = Card.mockLittleCard.cloneNode(true)
-		this.initCardContent(cardsData)//生成大 Card 三：调用方法，传入数据
+		this.initCardContent(CARD_DATA)//生成大 Card 三：调用方法，传入数据
 	}
 	
 
@@ -30,8 +30,8 @@ class Card {
 	
 	
 	//生成大 Card 一：注入大卡片内容  +  小卡片内容
-	initCardContent(cardsData){
-		const {texts,color,detailText,imgUrl,colorName} = cardsData
+	initCardContent(CARD_DATA){
+		const {texts,color,detailText,imgUrl,colorName} = CARD_DATA
 		
 		//大卡片内容
 		this.domCard.style.backgroundColor = color
@@ -99,7 +99,7 @@ class SlideBar {
 		this.moveInfo.maxMoveWidth = Math.round(slideSpanWidth) //四舍五入
 		// console.log(this.moveInfo.maxMoveWidth) //算出最大距离为：635px
 		
-		//获取底部标题字的初始大小
+		//🌟获取底部标题字的初始大小
 		this.moveInfo.fontSize = parseInt(getComputedStyle(this.controlText).fontSize)//取小数点前两位
 		// console.log(this.moveInfo.fontSize) //初始字体大小为：16
 	}
@@ -109,7 +109,7 @@ class SlideBar {
 	//🔥添加【⭕️圆点】的事件
 	static setEvents(){
 			//按下事件—————————————————
-			this.touchCircle.addEventListener('mousedown',(e)=>{
+			this.touchCircle.addEventListener('touchstart',(e)=>{
 				// console.log('点击了')
 				/*
 					因为只是横向拖动 所以主要记录两个数据
@@ -121,26 +121,61 @@ class SlideBar {
 				const matrix = new DOMMatrixReadOnly(transform) 
 				//定义一个变量，记录按下时⭕️圆点的 X 坐标
 				this.moveInfo.basicTransX = Math.round(matrix.m41)
-				//定义一个变量，记录手指👋按下的 X 坐标
-				this.moveInfo.startX = Math.round(e.clientX)
+				//定义一个变量，记录手指👋按下的 X 坐标 (🔥移动端这会记录一连串坐标！记得取[0]!)
+				this.moveInfo.startX = Math.round(e.changedTouches[0].clientX)
 				// console.log(this.moveInfo)
-				
-				this.isDown = true //确认点下了
+				// this.isDown = true //确认点下了
 			})
 			
+
+			
 			//移动事件 ——————————————
-			this.touchCircle.addEventListener('mousemove',(e)=>{
+			//👇PC 端的写法，移动端则不需要判断是否点下了
+			// this.touchCircle.addEventListener('mousemove',(e)=>{
+			// 	//🌟计算圆点跟随【拖动到哪儿的距离】 = (移动中手指的x坐标) 减去 (一开始 start X 坐标) + (已有的圆点的 X 坐标值 basicTransX) 
+			// 	//👇PC 端的写法，移动端则不需要判断是否点下了
+			// 	if(this.isDown){
+			// 		let tranX = e.clientX - this.moveInfo.startX + this.moveInfo.basicTransX
+			// 		console.log(tranX)
+			//		赋值给点中的原点
+			// 		e.currentTarget.style.transform = `translateX(${tranX}px)`
+			// 	}else{
+			// 		return
+			// 	}
+			// })
+			this.touchCircle.addEventListener('touchmove',(e)=>{
+				// 防止页面上下滚动
+				e.preventDefault()
+
+				//🌟计算圆点跟随【拖动到哪儿的距离】 = (移动中手指的x坐标) 减去 (一开始 start X 坐标) + (已有的圆点的 X 坐标值 basicTransX) 
+				let transX = e.changedTouches[0].clientX - this.moveInfo.startX + this.moveInfo.basicTransX
 				
-				//🌟计算圆点跟随【拖动的距离】 = (移动中手指的x坐标) 减去 (一开始 start X 坐标) + (已有的圆点的 X 坐标值 basicTransX) 
-				//👇PC 端的写法，移动端则不需要判断是否点下了
-				if(this.isDown){
-					let tranX = e.clientX - this.moveInfo.startX + this.moveInfo.basicTransX
-					console.log(tranX)
-					e.currentTarget.style.transform = `translateX(${tranX}px)`
-				}else{
-					return
+				//判断圆点移动的最大最小值
+				if(transX < 0){
+					transX = 0 //最左边
+				}else if(transX > this.moveInfo.maxMoveWidth){
+					transX = this.moveInfo.maxMoveWidth //最右边
 				}
-			})
+				//🌟赋值给点到的原点，让原点跟着能够拖动起来
+				e.currentTarget.style.transform = `translateX(${transX}px)`
+
+				//🌟让进度条跟随移动
+				/*
+					-320 ~ 0 
+					0    ~ 320
+					TransX - 320 = progressBar的移动距离
+				*/
+				this.progressLine.style.transform = `translateX(${transX-this.moveInfo.maxMoveWidth}px)`
+
+
+				//计算总长度跟移动距离的比例，然后用于控制文字的大小
+				const percentRation = (transX / this.moveInfo.maxMoveWidth) 
+
+				//利用比例 * 原始大小来改变文字大小
+				this.controlText.style.fontSize = this.moveInfo.fontSize * (1 + percentRation) + 'px'
+				console.log(this.controlText.style.fontSize);
+
+			},{passive:false})
 	}
 	
 
@@ -159,7 +194,7 @@ class SlideBar {
 
 class AppController  {
 	// 所有大卡片的信息数据
-	static cardsDatas = [
+	static CARD_DATAs = [
         // texts,color,detailText,imgUrl
 	    {
 	      texts:['Keep',"Learning","Code"],
@@ -204,7 +239,7 @@ class AppController  {
 	
 	//生成大 Card 六：让大卡片实例化，遍历并传入数据🌟🌟
 	static createCard(){
-		this.cardsDatas.forEach((item,index)=>{
+		this.CARD_DATAs.forEach((item,index)=>{
 			this.allCards.push(new Card(item))
 		})
 	}

@@ -11,7 +11,7 @@ html {
 			//touch-action: manipulation; 
 			// touch-action: none; //禁止所有移动端的事件（除了双击缩放）
 			// touch-action: pan-x; //只能左右滑动,不能上下滑动 (可以放在元素上，避免手指抖动引发的上下抖动!）
-			// touch-action: pan-x; //只能上下滑动,不能左右滑动 (可以放在元素上，避免手指抖动引发的上下抖动!）
+			// touch-action: pan-y; //只能上下滑动,不能左右滑动 (可以放在元素上，避免手指抖动引发的上下抖动!）
 		
 	  }
   }

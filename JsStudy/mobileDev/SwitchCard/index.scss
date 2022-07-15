@@ -16,6 +16,7 @@ body{
 	background-color: rgb(16, 16, 17);
 	padding: 0;
 
+
 	.container {
 		box-sizing: border-box;//🔥🔥🔥对齐撑满！
 
@@ -138,10 +139,10 @@ body{
 		flex-direction: column;
 		padding: 0 2rem;
 		font-family: "OpenSans";
+		font-size: 4rem;
 
 		span{
 			color: white;
-			font-size: 4rem;
 		}
 	}
 }
