@@ -2,13 +2,14 @@
 	font-family: "Gilroy Medium";
 	src: url("./fonts/Gilroy-Medium.woff2") format("woff2"),
 		 url("./fonts/Gilroy-Medium.woff") format("woff");
-  }
+}
   
-  @font-face {
+@font-face {
 	font-family: "OpenSans";
 	src: url("./fonts/OpenSans-Bold.woff2") format("woff2"),
 		 url("./fonts/OpenSans-Bold.woff") format("woff");
-  }
+}
+  
   
 
 body{
@@ -38,19 +39,21 @@ body{
 				box-sizing: border-box;//🔥🔥🔥对齐撑满！
 				position: relative;
 				transition: all 0.35s ease-in-out;
+				pointer-events:none;
 
 				.card-transform{
-
 					p{
 						color:white;
 						letter-spacing: 1px;
 						line-height: 1.5;
+						pointer-events:none;
 					}
 					img{
 						width: 120%;
 						position: absolute;
 						bottom: 0;
 						left: -32px;
+						pointer-events:none;
 					}
 				}
 			}
@@ -58,32 +61,32 @@ body{
 	}
 	.clip-scroll{//用于裁切小卡片的横向滚动轴（往下偏移菜切掉掉）
 		height: 105px;
-		overflow: hidden;
+		overflow: hidden;  // 把小卡片的横向滚动轴隐藏起来
 		z-index: 10;
+		
 
-		.card-click-stage{ //小卡片栈
+		.card-click-stage{ //小卡片滚动栈
 			display: flex;
-			padding: 0 2rem;
-			height: 102px;
+			padding: 0 2rem 0 2rem;
+			height: 120px;
 			overflow-x: scroll;//🔥🔥让横向可以滚动！！
-			touch-action: pan-x;
 			box-sizing: border-box;
+			// touch-action: pan-x;
 
 
 			.card-color-board{ //小卡片
-				width: 4.5rem;
+				width: 5.5rem;
 				height: 6rem;
 				border-radius: 12px;
 				background-color: rgb(204, 37, 255);
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				font-size: 2rme;
+				font-size: 2rem;
 				font-family:'OpenSans';
 				color: white;
 				flex-shrink:0;
-				transition: all 0.35s ease-in-out;
-				
+				transition: all 0.35s ease-in-out;	
 			}
 		}
 	}
@@ -95,9 +98,11 @@ body{
 		justify-content: space-between;
 		align-items: center;
 
-		span{//A
+		span{//文字 A - 左
 			font-size: 10px;
+			margin-right: 8px;
 		}
+		//span:first-child
 
 		.control-bar{
 			width: 100%;
@@ -106,16 +111,18 @@ body{
 			align-items: center;
 			position: relative;
 			
-			.touch-circle{//小圆球
-				width: 20px;
-				height: 20px;
-				background-color:rgb(95, 37, 255);
-				border-radius: 100%;
-				z-index: 2;
-				display: block; //🔥很关键！
-				position: absolute; //🔥很关键！
-				left: 0; //🔥很关键！
-			}
+
+				.touch-circle{ //小圆球本身
+					width: 20px;
+					height: 20px;
+					background-color:rgb(95, 37, 255);
+					border-radius: 100%;
+					z-index: 2;
+					display: block; //🔥很关键！
+					position: absolute; //🔥很关键！
+					left: 0; //🔥很关键！		
+				}
+
 			.line{
 				width: 100%;
 				height: 2px;
@@ -132,6 +139,11 @@ body{
 
 				}
 			}
+		}
+
+		.big-spanText{//文字 A - 右
+			font-size: 1rem;
+			margin: 8px;
 		}
 	}
 	.card-titles{
