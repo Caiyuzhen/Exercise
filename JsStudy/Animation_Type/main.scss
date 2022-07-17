@@ -1,0 +1,22 @@
+body{
+	margin: 0;
+	padding: 0;
+}
+
+.box{
+	width:200px;
+	aspect-ratio: 1/1;  //设置元素的比例
+	background: rgb(98, 0, 255);
+	color:antiquewhite;
+	position: absolute;
+	// 文字垂直居中
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	//相对于文档水平跟垂直居中
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
