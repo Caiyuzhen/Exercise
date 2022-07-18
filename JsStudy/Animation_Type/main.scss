@@ -9,6 +9,8 @@ body{
 	background: rgb(98, 0, 255);
 	color:antiquewhite;
 	position: absolute;
+	border-radius: 1rem;
+	
 	// 文字垂直居中
 	display: flex;
 	flex-direction: column;
@@ -18,5 +20,5 @@ body{
 	//相对于文档水平跟垂直居中
 	left: 50%;
 	top: 50%;
-	transform: translate(-50%, -50%);
+	// transform: translate(-50%, -50%);
 }

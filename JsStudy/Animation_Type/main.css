@@ -1,1 +1,1 @@
-body{margin:0;padding:0}.box{width:200px;aspect-ratio:1/1;background:#6200ff;color:#faebd7;position:absolute;display:flex;flex-direction:column;justify-content:center;align-items:center;left:50%;top:50%;transform:translate(-50%, -50%)}
+body{margin:0;padding:0}.box{width:200px;aspect-ratio:1/1;background:#6200ff;color:#faebd7;position:absolute;border-radius:1rem;display:flex;flex-direction:column;justify-content:center;align-items:center;left:50%;top:50%}
