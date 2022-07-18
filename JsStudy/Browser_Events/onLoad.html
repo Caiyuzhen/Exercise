@@ -27,6 +27,11 @@
     window.onload = function an(){
         alert("页面加载完成");
         console.log("啦啦啦")
+        /*
+            🌟这个 this 指向调用 Fn() 的对象
+            🌟如果是箭头函数则指向的是 window，因为箭头函数本身没有 this
+        */
+        console.log('this') 
     }
 
 </script>
