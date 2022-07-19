@@ -1,10 +1,10 @@
 /*
 	Promise
-		🌟 传入 Promise 内的 ()=>{} 回调函数是🌟同步执行的!!!
-		🌟 Promise 的回调函数内的 resolve、reject 函数是🌟异步执行的!!!
+		🌟 传入 Promise 内的 ()=>{..} 回调函数 ... 是🌟同步代码!!!
+		🌟 Promise 的回调函数内的 resolve、reject 函数是🌟异步代码!!!
 			比如
 				new Promise((resolve,reject)=>{console.log(2)})
-					console.log 是同步执行的！！！
+					🔥🔥这个 console.log(2) 是一开始就会同步执行的！！！
 
 
 		Promise 实例的重要属性!!
