@@ -9,8 +9,8 @@
 			IntersectionObserver
 
 		⚙️ 从服务器获取数据
-			Promise
-				then()
+			Promise 的回调函数内的 resolve()、reject()
+			then() 内的回调函数
 
 */ 
 
