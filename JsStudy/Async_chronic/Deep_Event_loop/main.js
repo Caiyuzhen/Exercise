@@ -50,7 +50,7 @@
 				- MutationObserver（监控元素变化的 api）
 */ 
 
-
+//示意题一
 const promise1 = new Promise((resolve, reject) => {
 	setTimeout(()=>{ //宏任务 main
 		resolve('success');	
@@ -90,4 +90,68 @@ setTimeout(()=>{  //宏任务 main
 	timer2
 	promise1   promise{}
 	promise2   promise{}
+*/
+
+
+
+
+
+//示意题二	
+const p1 = new Promise((resolve,reject)=>{ //宏任务
+	setTimeout(()=>{
+		resolve('resolve03')
+		console.log('timer1')
+	},0)
+	resolve('resolve01') //宏任务 main, 🌟🌟只有第一个才能改变状态跟数据！！！！！[[fullfilled]]
+	resolve('resolve03') //宏任务 main
+}).then(res =>{   //微任务
+	console.log(res)  //res = resolve01
+	setTimeout(()=>{ //🌟🌟宏任务，产生这个宏任务后，这个微任务就算执行完了！！
+		console.log(p1)
+	},1000)
+}).finally(res=>{ //微任务,要等上面的 then 执行完才会执行！！
+	console.log('finally',res) //res = undefined !!因为 finally 不需要传入参数
+})
+
+//宏任务（同步）\ 微任务（一次性全部执行完） \ 宏任务（异步）
+
+/* 执行结果:
+	resolve01
+	finally
+	undefined
+	timer1
+	Promise{}
+*/
+
+
+
+
+//示意题二	
+const async1 = async()=> {
+	console.log('async1')
+	setTimeout(()=>{
+		console.log('timer1')
+	},2000)
+	await new Promise(resolve => {
+		console.log('promise1')
+	})
+	console.log('async1 end')
+	return 'async1 success'
+}
+
+console.log('script start')
+async1().then(res => console.log(res))
+console.log('script end')
+Promise.resolve(1)
+	.then(2)
+	.then(Promise.resolve(3))
+	.catch(4)
+	.then(res => console.log(res))
+setTimeout(()=>{
+	console.log('timer2')
+},1000)
+
+/* 执行结果:
+
+
 */

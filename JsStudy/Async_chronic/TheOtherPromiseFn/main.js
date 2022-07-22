@@ -69,7 +69,7 @@ PROMISE.catch((err) => {
 
 
 
-//Finally 方法
+//Finally 方法(不需要传参数！)
 const PROMISE_02 = new Promise((resolve,reject)=>{
 	reject('拒绝了')
 })
