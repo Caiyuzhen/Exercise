@@ -35,81 +35,88 @@
 */
 
 //使用方式 —————————————————————————————————————————————————————————————————————————————————
-// async function test(){
-// 	console.log(2);
-// 	//🌟🌟一种写法
-// 	// await new Promise((resolve,reject)=>{
-// 	// 	setTimeout(()=>{
-// 	// 		console.log(4);
-// 	// 	},3000)
-// 	// })
+async function test(){
+	console.log(2);
+	//🌟🌟一种写法
+	// await new Promise((resolve,reject)=>{
+	// 	setTimeout(()=>{
+	// 		console.log(4);
+	// 	},3000)
+	// })
 
-// 	//🌟🌟另一种写法, await 会把 Promise 的【结果数据】给【解析】出来去【赋值】给 【result 变量】，await 右边往下都是【异步代码】
-// 	const resultA = await new Promise((resolve,reject)=>{
-// 		setTimeout(()=>{
-// 			resolve(4);
-// 		},2000)
-// 	})
-// 	console.log(resultA); //2s后
+	//🌟🌟另一种写法, await 会把 Promise 的【结果数据】给【解析】出来去【赋值】给 【result 变量】，await 右边往下都是【异步代码】
+	const resultA = await new Promise((resolve,reject)=>{
+		setTimeout(()=>{
+			resolve(4);
+		},2000)
+	})
+	console.log(resultA); //2s后
 
-// 	const resultB = await new Promise((resolve,reject)=>{
-// 		setTimeout(()=>{
-// 			resolve(5);
-// 		},2000)
-// 	})
+	const resultB = await new Promise((resolve,reject)=>{
+		setTimeout(()=>{
+			resolve(5);
+		},2000)
+	})
 
-// 	console.log(resultB); //4s后
+	console.log(resultB); //4s后
 
-// 	async function test02(){  //子函数得单独加 async!!
-// 		//const resultC = await...
-// 		//...
-// 	}
-// 	// throe 1 //会导致 Promise 的状态变为 rejected
-//  	return 999 //async 返回的数据会变为 [[PromiseResult]] 的值！！！
-// }
+	async function test02(){  //子函数得单独加 async!!
+		//const resultC = await...
+		//...
+	}
+	// throe 1 //会导致 Promise 的状态变为 rejected
+ 	return 999 //async 返回的数据会变为 [[PromiseResult]] 的值！！！
+}
 
-// test()
+test()
 
-// console.log(3);
-
-
-// //只要使用了 async 一定会返回一个 Promise 实例！！
-// const p = test()
-// console.log(p);//Promise
+console.log(3);
 
 
-
-// // 函数中有产生拒绝的 Promise 的情况 ——————————————————————————————————————————————
-// async function test2(){
-// 	const resultC = await new Promise((resolve,reject)=>{
-// 		setTimeout(()=>{
-// 			resolve('done');
-// 		},1000)
-// 	})
-// 	return Promise.reject(666) //🔥reject 需要被 return 出来才能被 catch！
-// }
-// const P2 = test2()
-// P2.catch(()=>{}) //🔥只要 catch 了就不会报错
-// console.log(P2);
+//只要使用了 async 一定会返回一个 Promise 实例！！
+const p = test()
+console.log(p);//Promise
 
 
 
-// //不跟 Promise 的方式
-// let test3 = async() => {
-// 	const resultD = await 999 // 赋值=号右边先执行
-// 	console.log(resultD);
-// }
-// test3() //999
+// 函数中有产生拒绝的 Promise 的情况 ——————————————————————————————————————————————
+async function test2(){
+	const resultC = await new Promise((resolve,reject)=>{
+		setTimeout(()=>{
+			resolve('done');
+		},1000)
+	})
+	return Promise.reject(666) //🔥reject 需要被 return 出来才能被 catch！
+}
+const P2 = test2()
+P2.catch(()=>{}) //🔥只要 catch 了就不会报错
+console.log(P2);
+
+
+
+//不跟 Promise 的方式
+let test3 = async() => {
+	const resultD = await 999 // 赋值=号右边先执行
+	console.log(resultD);
+}
+test3() //999
 
 
 
 
-// //一元操作符单独使用 await (不用变量接收的方式)
-// let test4 = async() => {
-// 	await new Promise((resolve, reject) => { //一元操作符来使用 await
-// 		//...
-// 	})
-// }
+//一元操作符单独使用 await (不用变量接收的方式)
+let test4 = async() => {
+	await new Promise((resolve, reject) => { //一元操作符来使用 await
+		//...
+	})
+}
+
+
+
+
+
+
+
 
 
 
