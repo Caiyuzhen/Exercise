@@ -48,7 +48,12 @@
 				- finally(XXX)
 				- Object.observe （已废弃）
 				- MutationObserver（监控元素变化的 api）
+
+		先执行 main 宏任务，再执行异步微任务， 再执行异步宏任务！！！
 */ 
+
+
+
 
 //示意题一
 const promise1 = new Promise((resolve, reject) => {
@@ -127,31 +132,178 @@ const p1 = new Promise((resolve,reject)=>{ //宏任务
 
 
 //示意题二	
-const async1 = async()=> {
-	console.log('async1')
-	setTimeout(()=>{
-		console.log('timer1')
+const async1 = async()=> { //宏任务 1
+	console.log('async1')  //宏任务 2
+	setTimeout(()=>{  //宏任务 3
+		console.log('timer1')  
 	},2000)
-	await new Promise(resolve => {
-		console.log('promise1')
-	})
-	console.log('async1 end')
-	return 'async1 success'
+	await new Promise(resolve => {  //微任务1,await 之前都是同步代码！！resolve之后是异步代码
+		console.log('promise1') //🌟🌟注意，这里没执行 resolve ！！！所以 console 会执行，但是往下都不执行！！
+	}) //这个 await 没执行完！！因为状态没变为 [[fullfilled]]
+	console.log('async1 end') 
+	return 'async1 success' //result = 'async1 success'
 }
 
-console.log('script start')
-async1().then(res => console.log(res))
-console.log('script end')
-Promise.resolve(1)
-	.then(2)
-	.then(Promise.resolve(3))
-	.catch(4)
-	.then(res => console.log(res))
-setTimeout(()=>{
+console.log('script start')  //宏任务4 main
+console.log(async1());
+async1().then(res => console.log(res))  //宏任务 5 ,要等 fullfilled 才执行
+console.log('script end') 
+
+Promise.resolve(1) //result = 1
+	.then(2) //传入的不是函数的话，会被静默忽略！！这些都需要【传入函数】！！
+	.then(Promise.resolve(3)) //传入的不是函数的话，会被静默忽略！！这些都需要【传入函数】！！
+	.catch(4) //传入的不是函数的话，会被静默忽略！！！这些都需要【传入函数】！！
+	.then(res => console.log(res)) //宏任务 5,res = async1 success
+setTimeout(()=>{ //宏任务 6
 	console.log('timer2')
 },1000)
 
 /* 执行结果:
 
+	//宏任务 main
+		script start
+		async1
+		promise1
+		script end
+
+	//微任务
+		1
+
+	//宏任务 异步
+		timer1
+		timer2
+
+*/
+
+
+
+//示意题二	
+function promise(){
+	let p = new Promise((resolve)=>{
+		console.log('promise1');
+		resolve('1')
+		setTimeout(()=>{
+			console.log(333);
+		},0)
+	})
+	return p // p = 1
+}
+function promise2(){
+	return new Promise((resolve,reject)=>{
+		reject('error')
+	})
+}
+//🔥🔥🔥 .catch .finally 一定要等父 promise 状态更改之后才会触发相应的函数
+promise1()//下面的都是微任务，都是异步的！！！要在微任务里边排序！
+	.then(res=>console.log(res)) //执行顺序1
+	.catch(err=>console.log(err)) //执行顺序3,不会输出东西
+	.finally(()=>console.log('finally1')) //执行顺序5
+
+promise2()//下面的都是微任务，都是异步的！！！要在微任务里边排序！
+	.then(res=>console.log(res)) //执行顺序2,不会输出东西,因为 promise2 是 reject 状态！
+	.catch(err=>console.log(err)) //执行顺序4
+	.finally(()=>console.log('finally2')) //执行顺序6
+
+/* 执行结果:
+	promise1
+
+	1
+	error
+	finally1
+	finally2
+
+	333
+*/
+
+
+
+
+//示意题三(修改版)
+function promise(){
+	let p = new Promise((resolve)=>{
+		console.log('promise1'); 
+		resolve('1')
+		setTimeout(()=>{ //等 promise 这个微任务执行完后就会立马执行这个宏任务
+			console.log(333);
+		},0)
+	})
+	return p // p = 1
+}
+function promise2(){
+	return new Promise((resolve,reject)=>{
+		reject('error')
+	})
+}
+
+//🔥🔥🔥 .catch .finally 一定要等父 promise 状态更改之后才会触发相应的函数
+promise2()//下面的 promise 内的代码都是 main 主代码执行完后会执行的异步微任务
+	.then(res=>console.log(res)) 
+	.catch(err=>console.log(err))
+	.finally(()=>console.log('finally2')) 
+
+promise1()
+	.then(res=>new Promise((resolve,reject)=>{ //new Promise 已经在宏任务的时候就定义了，但是还没有值，所以不会往下执行！！
+		setTimeout(()=>{
+			resolve(888)
+			console.log('ok');
+		},1000)
+	})) 
+	.catch(err=>console.log(err))  //要等上面那个父 promise 的状态好了才会执行
+	.finally(()=>console.log('finally1'))  //要等上面那个父 promise 的状态(上一级）好了才会执行
+
+
+/* 执行结果:
+	promise1
+	error
+	finally2
+	333
+
+	ok
+	finfally1
+
+*/
+
+
+
+//示意题四
+async function async1(){
+	console.log('async1 start');
+	await async2()
+	console.log('async1 end');//异步
+}
+
+async function async2(){
+	console.log('async2');
+}
+
+console.log('script start');
+
+setTimeout(function(){ //异步宏任务，最后执行
+	console.log('setTimeout');
+},0)
+
+async1()
+
+new Promise(function(resolve){ //微任务
+	console.log('promise1');
+	resolve()
+}).then(function(){ //微任务，所以下面是异步的
+	console.log('promise2');//异步
+})
+
+console.log('script end');
+
+
+/* 执行结果:
+	script start
+	async1 start
+	async2'
+	promise1
+	script end
+
+	async1 end
+	promise2
+
+	setTimeout'
 
 */
