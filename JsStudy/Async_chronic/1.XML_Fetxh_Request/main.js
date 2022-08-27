@@ -64,10 +64,9 @@ async function ajaxFetchData(url) {
 			// context.appendChild(document.createTextNode(item.title))
 		})
 		document.getElementById('content').innerHTML = content  //把【变量】数据塞回页面
-
 	})
 	.catch(err => console.log(err))
-	
+
 }
 
 // ajaxFetchData('https://jsonplaceholder.typicode.com/posts')
