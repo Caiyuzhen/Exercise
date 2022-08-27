@@ -64,7 +64,7 @@ async function test(){
 		//const resultC = await...
 		//...
 	}
-	// throe 1 //会导致 Promise 的状态变为 rejected
+	// throw 1 //会导致 Promise 的状态变为 rejected
  	return 999 //async 返回的数据会变为 [[PromiseResult]] 的值！！！
 }
 
