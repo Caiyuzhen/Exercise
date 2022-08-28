@@ -51,7 +51,7 @@ function ajaxFetch(url) {
 
 
 
-//🍊🍊方法三：使用 async  await  结合  Fetch 发送请求
+//🍐🍐方法三：使用 async  await  结合  Fetch 发送请求
 async function ajaxFetchData(url) {
 	//异步等待返回 response
 	const response = await fetch(url)  //一：获取 api 数据，赋值给 response
@@ -79,6 +79,98 @@ button1.addEventListener('click', function(){
 
 
 
+
+//🍓🍓方法四：使用 async  await  结合  Fetch 发送携带参数的请求
+/*
+	fetch(url,{
+		method: 'POST',  //请求类型
+		headers: {
+			'Content-Type': 'application/json' //数据格式
+		},
+		body: JSON.stringify  //请求体数据类型
+	})
+ */
+/*
+	👇案例
+		接口地址:http://ajax-base-api-t.itheima.net/api.addbook
+		请求方法:POST
+		请求体参数
+			bookname
+			author
+			publisher
+*/
+async function addBookData(){
+	let obj = {
+		bookname: 'Pinocho',
+		author: 'Carlo Collodi',
+		publisher: 'Gryffindor',
+	}
+
+	let res = await fetch('http://ajax-base-api-t.itheima.net/api/addbook',{
+		method: 'post',
+		headers:{
+			'Content-type': 'application/json'
+		},
+		body: JSON.stringify(obj) //序列化 Obj 对象, 转成 Json 对象让后端识别
+	})
+
+	let jsonData = await res.json() //将 res 这个 data 转成 json 格式的结果数据
+	console.log(jsonData);
+}
+
+addBookData()
+
+
+
+
+
+
+
+//🍉🍉方法五： 封装 Fetch 方法
+async function http(obj) {
+	//解构赋值, 取出 obj 对象中的参数
+	let {url, method, params, data} = obj
+	// console.log(url, method, params, data);
+
+	if(params){
+		//👇如果有 params, params 需要转换成 key=value&key=value 的形式来拼接到 url 上
+		let str = new URLSearchParams(params).toString()//固定的拼接写法
+		url += '?' + str  //在 url 后边拼接 ？ 和 params 参数
+	}
+	// console.log(url);
+
+	let res //最终接收 res 结果
+
+	if(data){
+		//👇如果有 data
+		res = await fetch(url, {
+			method: method,
+			headers:{
+				'Content-type': 'application/json',
+			},
+			body: JSON.stringify(data)
+		})
+	} else {
+		//👇如果没 data
+		res = await fetch(url)
+	}
+
+	return res.json()
+}
+
+
+async function fn1() {
+	let result = await http({
+		method: 'get',
+		url: 'http://ajax-base-api-t.itheima.net/api/getbooks',
+		params:{
+			id:2,
+		}
+	})
+	console.log(result);
+}
+
+fn1()
 
 
 

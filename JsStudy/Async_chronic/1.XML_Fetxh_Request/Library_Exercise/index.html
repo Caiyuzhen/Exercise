@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>渲染图书列表</title>
+	<link rel="stylesheet" href="./index.css">
+</head>
+<body>
+	<div>
+		<!-- 表格面板 -->
+		<table class="table table-bordered" border="1">
+			<!-- 表头 -->
+				<thead class="tb-header">
+					<tr class="table-row-group">
+						<th scope="col">Id</th>
+						<th scope="col">书名</th>
+						<th scope="col">作者</th>
+						<th scope="col">出版社</th>
+						<th scope="col">操作</th>
+					</tr>
+				</thead>
+			<!-- 表格内容 -->
+				<tbody class="tb-body">
+					<tr class="table-row-group">
+						<td scope="row">XXX</td>
+						<td scope="row">XXX</td>
+						<td scope="row">XXX</td>
+						<td scope="row">XXX</td>
+						<td>
+							<button type="button" class="btn btn-link">删除</button>
+						</td>
+					</tr>
+				</tbody>
+		</table>
+
+		<!-- 提交表格数据的面板 -->
+		<div class="submit-Container">
+			<div class="card-header">添加新图书</div>
+			<form id="addForm" class="form-body">
+				<!-- 书名 -->
+				<div class="input-group">
+					<div class="input-title"><span class="title-text">书名</span></div>
+					<input type="text" class="form-control" name="book-name" placeholder="请输入图书名">
+				</div>
+				<!-- 作者 -->
+				<div class="input-group">
+					<div class="input-title"><span class="title-text">作者</span></div>
+					<input type="text" class="form-control" name="book-author" placeholder="请输入作者名">
+				</div>
+				<!-- 出版社 -->
+				<div class="input-group">
+					<div class="input-title"><span class="title-text">出版社</span></div>
+					<input type="text" class="form-control" name="book-publisher" placeholder="请输入作者名">
+				</div>
+				<!-- 按钮 -->
+				<button class="btn" type="submit">提交表格数据</button>
+			</form>
+		</div>
+	</div>
+</body>
+
+<script src="./index.js"></script>
+</html>
