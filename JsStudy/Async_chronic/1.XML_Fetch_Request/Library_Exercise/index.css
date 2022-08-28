@@ -2,10 +2,19 @@
 	--main-bg-color: #ebeaf3;
 	--main-header-color: #383846;
 	--main-body-color: #545465;
+	--main-hover-color: #3f3f4c;
 	--main-border-color: #6f7274;
 	--main-text-color: #f5f4ff;
 	--main-subTitle-color: #6b6a7b;
 	--main-btn-color: #4a40b0;
+}
+
+
+/* 整体布局 */
+.container{
+	display: flex;
+	flex-direction: row;
+	flex: 2 1 auto;
 }
 
 
@@ -30,6 +39,7 @@ table {
 .tb-body {
 	color: var(--main-text-color);
 	background-color: var(--main-body-color);
+	overflow-y: auto;
 }
 
 
@@ -39,12 +49,19 @@ th {
 	padding: 12px;
 }
 
-
+/* 表格内容 */
 td {
+	width: 122px;
 	text-align: center;
 	font-size: 14px;
 	padding: 12px;
-	
+	text-overflow: ellipsis;
+}
+
+
+/* hover 到td */
+tr:hover {
+	background-color: var(--main-hover-color);
 }
 
 
@@ -53,6 +70,7 @@ td {
 	font-weight: 600;
 	margin-bottom: 12px;
 }
+
 
 
 
@@ -88,10 +106,11 @@ td {
 
 
 .btn {
-	margin-top: 24px;
 	border:none;
 	background-color: var(--main-btn-color);
 	color: var(--main-text-color);
 	padding: 12px 24px;
+	margin: 12px 0;
 	border-radius: 10px;
+	cursor: pointer;
 }

@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="./index.css">
 </head>
 <body>
-	<div>
+	<div class='container'>
 		<!-- 表格面板 -->
 		<table class="table table-bordered" border="1">
 			<!-- 表头 -->
@@ -23,13 +23,13 @@
 				</thead>
 			<!-- 表格内容 -->
 				<tbody class="tb-body">
-					<tr class="table-row-group">
-						<td scope="row">XXX</td>
-						<td scope="row">XXX</td>
-						<td scope="row">XXX</td>
-						<td scope="row">XXX</td>
+					<tr class="table-cell-group" >
+						<td scope="row">id</td>
+						<td>bookname</td>
+						<td>author</td>
+						<td>publisher</td>
 						<td>
-							<button type="button" class="btn btn-link">删除</button>
+							<button type="button" class="btn btn-delete">删除</button>
 						</td>
 					</tr>
 				</tbody>
@@ -42,17 +42,17 @@
 				<!-- 书名 -->
 				<div class="input-group">
 					<div class="input-title"><span class="title-text">书名</span></div>
-					<input type="text" class="form-control" name="book-name" placeholder="请输入图书名">
+					<input id="name" type="text" class="form-control" name="book-name" placeholder="请输入图书名">
 				</div>
 				<!-- 作者 -->
 				<div class="input-group">
 					<div class="input-title"><span class="title-text">作者</span></div>
-					<input type="text" class="form-control" name="book-author" placeholder="请输入作者名">
+					<input id="name" type="text" class="form-control" name="book-author" placeholder="请输入作者名">
 				</div>
 				<!-- 出版社 -->
 				<div class="input-group">
 					<div class="input-title"><span class="title-text">出版社</span></div>
-					<input type="text" class="form-control" name="book-publisher" placeholder="请输入作者名">
+					<input id="name" type="text" class="form-control" name="book-publisher" placeholder="请输入作者名">
 				</div>
 				<!-- 按钮 -->
 				<button class="btn" type="submit">提交表格数据</button>
@@ -61,5 +61,8 @@
 	</div>
 </body>
 
-<script src="./index.js"></script>
+
+<!-- 🔥🔥由于script标签默认是使用JavaScript语言，使用ES6的语法会发生解析错误，需要在script标签中加入type=“module” -->
+<script src="./index.js" type="module"></script>
+<script src="../http/http.js" type="module"></script>
 </html>

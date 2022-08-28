@@ -23,9 +23,7 @@ async function http(obj) {
 	} else {
 		res = await fetch(url)
 	}
-
 	return res.json()
 }
-
 
 export default http
