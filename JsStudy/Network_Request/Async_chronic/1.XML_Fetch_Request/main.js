@@ -100,6 +100,7 @@ button1.addEventListener('click', function(){
 			publisher
 */
 async function addBookData(){
+	//🔥obj 是 JS 能识别的对象，但是 Json 不能识别，所以要通过 stringify() 转为 Json 能够的数据!
 	let obj = {
 		bookname: 'Pinocho',
 		author: 'Carlo Collodi',
@@ -111,6 +112,7 @@ async function addBookData(){
 		headers:{
 			'Content-type': 'application/json'
 		},
+		//🔥obj 是 JS 能识别的对象，但是 Json 不能识别，所以要通过 stringify() 转为 Json 能够的数据!
 		body: JSON.stringify(obj) //序列化 Obj 对象, 转成 Json 对象让后端识别
 	})
 

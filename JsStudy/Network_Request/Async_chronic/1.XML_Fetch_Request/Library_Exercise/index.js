@@ -1,4 +1,4 @@
-import http from '/JsStudy/Async_chronic/1.XML_Fetch_Request/http/http.js';
+import http from '/JsStudy/Network_Request/Async_chronic/1.XML_Fetch_Request/http/http.js';
 
 //表格
 let tableBody = document.querySelector('.tb-body')
@@ -97,7 +97,6 @@ tableBody.addEventListener('click', async function(e) {
 	// console.log(e.target.dataset)//获取按钮的自定义属性 -> id 值
 
 
-
 	//🔥🔥二：获取删除按钮的标签名   ->  判断点击的对象并发送请求
 	// console.log(e.target.tagName) 
 	if(e.target.tagName === 'BUTTON') { //🔥判断如果是删除按钮, 就发送请求
@@ -115,6 +114,7 @@ tableBody.addEventListener('click', async function(e) {
 		//🔥🔥三：如果删除成功，则重新渲染表单数据
 		if(res.status === 200){
 			renderBook()  //重新渲染表单数据
+			alert("Delete Success")
 		}
 	}
 })
