@@ -5,7 +5,7 @@ async function http(obj) {
 	//解构赋值, 取出 obj 对象中的参数
 	let {url, method, params, data} = obj
 
-	if(params){
+	if(params){ //有传参的话，就把参数拼接到 url 后面
 		let str = new URLSearchParams(params).toString()
 		url += '?' + str  //在 url 后边拼接 ？ 和 params 参数
 	}
