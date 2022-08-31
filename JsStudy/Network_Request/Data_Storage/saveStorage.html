@@ -101,7 +101,7 @@ OSI 网络七层协议
             //设置 cookie 的有效期
             let oDate = new Date()
             oDate.setDate(oDate.getDate() + 3)
-            document.cookie = "username=Ming;expires="+oDate
+            document.cookie = "username=Ming; expires=" + oDate
 
             //修改 cookie (同名的会被覆盖)
             document.cookie= "username=Ming"
@@ -109,14 +109,14 @@ OSI 网络七层协议
             //删除 cookie
             let oDate1 = new Date()
             oDate1.setDate(oDate1.getDate() -1)//🌟把值设置为负的就是清除了,表示几天后过期
-            document.cookie = "username=Ming;expires="+oDate
+            document.cookie = "username=Ming; expires="+oDate
 
 
     //🌋🌋 cookie 的封装(设置 cookie )
         function setCookie(name,value,day){//day 表示几天后过期
             let oDate = new Date()
             oDate.setDate(oDate.getDate() + day)
-            document.cookie = name + "=" + value + ";expires=" + oDate
+            document.cookie = name + "=" + value + "; expires=" + oDate
         }
 
         setCookie('劳动name','啦啦',1)
