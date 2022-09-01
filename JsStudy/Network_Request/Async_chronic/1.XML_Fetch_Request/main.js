@@ -29,7 +29,7 @@ function ajax(url) {
 
 
 
-//🍊🍊方法二：利用原生 Fetch（基于 Promise）ES6 方法发送网络请求Fetch 是一个 api
+//🍊🍊方法二：利用原生 Fetch（基于 Promise）ES6 方法发送网络请求, Fetch 是一个底层 api
 function ajaxFetch(url) {
 	fetch(url).then(res => res.json() //处理成 json 数据
 	).then(data => {

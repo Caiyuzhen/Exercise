@@ -100,7 +100,7 @@ tableBody.addEventListener('click', async function(e) {
 	//🔥🔥二：获取删除按钮的标签名   ->  判断点击的对象并发送请求
 	// console.log(e.target.tagName) 
 	if(e.target.tagName === 'BUTTON') { //🔥判断如果是删除按钮, 就发送请求
-		let res = await http({
+		let res = await http({//使用封装好的请求方法
 			url:'http://ajax-base-api-t.itheima.net/api/delbook',
 			method: 'delete',
 			params:{  //要求传入【查询参数】, 查询参数是【params】，请求体是【data】！！参数是图书的 id
