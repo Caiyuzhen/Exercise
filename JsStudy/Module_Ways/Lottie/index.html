@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Lottie 库</title>
+	<H1>Lottie 库</H1>
+	<!-- ⚽️ 添加 Lottie 标签 
+
+			controls  		是否显示控制器
+			src       		🔥 具体动画的地址, 本质上也是一串 json 地址, 可以放到项目内进行引用
+			style='XXXpx'	动画的尺寸（一般不设置，会自动适应）
+	-->
+	<button id="button">点我开启动画</button>
+	<lottie-player
+		id="Lottie"
+		autoplay
+		loop
+		mode="normal"
+		src="https://assets9.lottiefiles.com/packages/lf20_mdiaxdju.json"
+
+		>
+	</lottie-player>
+</head>
+<body>
+	<!-- ⚽️引入 Lottie 库 -->
+	<script src="https://unpkg.com/@lottiefiles/lottie-player@0.4.0/dist/lottie-player.js"></script>
+	<script src="main.js"></script>
+</body>
+</html>

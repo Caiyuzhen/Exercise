@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>传统的引入库的方式</title>
+	<H1>传统的引入库的方式</H1>
+	<H2>Test</H2>
+	<p id="content">contentcontentcontentcontent</p>
+</head>
+<body>
+	<!-- 👇传统的模块化的方式（本地地址的获取方式）, 需注意引入的顺序, 问题容易污染全局作用域 -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+	<script src="./module1.js"></script>
+	<script src="./module2.js"></script>
+</body>
+</html>
