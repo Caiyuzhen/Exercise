@@ -1,0 +1,7 @@
+#ele{
+	width: 100px;
+	height: 100px;
+	background-color: rgb(66, 26, 195);
+	transition: all 0.3s ease-in-out;
+	border-radius: 100%;
+}

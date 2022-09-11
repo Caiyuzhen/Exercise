@@ -23,6 +23,7 @@ export default function (names, DOM) {
 			typeof 用来判断 【数组】 会返回 【object】, 因为【数组】最终也是也是指向【对象】的【原型链】
 			instanceof 用来判断是不是【数组】的实例, 会返回 【true】, 因为
 			Array.isArray([]) 也可以判断是不数组
+			http://jartto.wang/2019/01/17/js-typeof/
 	*/
 	if(names instanceof Array){ //判断传入的【names】是否是【数组】的【实例】
 
