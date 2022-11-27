@@ -83,6 +83,12 @@
 
 			scale(x, y) 方法
 				将坐标系缩放 x 倍, y 倍, 可以为负数, 用作镜像
+	
+	// 保存之前的状态 (绝大部分的样式，包含画笔的样式、坐标系、投影等【样式】跟【坐标系】都能保存, 🔥但不会保存画笔的【起笔点！】)
+		ctx.save();
+	
+	// 取出之前的状态
+		ctx.restore();
 
 	// 清除画布元素
 		ctx.clearRect(0, 0, 100, 100); // 清除画布上的矩形区域(从哪个区域开始清理)
@@ -282,4 +288,44 @@ for(let i = 0 ; i <= 7 ; i++) {
 }
 
 
+
+// 保存之前的状态
+ctx.beginPath() 
+ctx.translate(100, 00)//移动中心点
+ctx.moveTo(50, 0) 
+ctx.lineTo(50, 40)
+ctx.lineWidth = 6
+ctx.stroke()
+ctx.save()
+
+
+// 保存之前的状态
+ctx.beginPath() 
+ctx.translate(26, 00)//移动中心点
+ctx.moveTo(50, 0) 
+ctx.lineTo(50, 40)
+ctx.lineWidth = 14
+ctx.stroke()
+ctx.save()
+
+
+// 保存之前的状态
+ctx.beginPath() 
+ctx.translate(32, 00)//移动中心点
+ctx.moveTo(50, 0) 
+ctx.lineTo(50, 40)
+ctx.lineWidth = 24
+ctx.stroke()
+ctx.save()
+
+
+ctx.beginPath() 
+ctx.translate(32, 00)//移动中心点
+ctx.moveTo(50, 0) 
+ctx.lineTo(50, 40)
+ctx.restore() //上一次保存的状态
+ctx.restore() //上上次保存的状态
+ctx.restore() //上上上次保存的状态
+ctx.stroke()
+ctx.save()
 
