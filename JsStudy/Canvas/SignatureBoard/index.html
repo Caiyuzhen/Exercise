@@ -6,10 +6,71 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Signature Board 签字板</title>
 </head>
+<style>
+	body {
+		margin: 0;
+		padding: 0;
+	}
+
+	.drawBoard {
+		padding: 200px;
+		width: 800px;
+		height: 800px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 24px;
+	}
+
+	.buttonGroup {
+		width: auto;
+		height: auto;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 12px;
+	}
+
+	#add {
+		width: 88px;
+		height: 32px;
+		border: none;
+		background-color: #4731ed;
+		color: white;
+		font-weight: 600;
+		border-radius: 8px;
+	}
+
+	#reduce {
+		width: 88px;
+		height: 32px;
+		border: none;
+		background-color: #cabeff;
+		color: rgb(57, 34, 148);
+		font-weight: 600;
+		border-radius: 8px;
+	}
+
+	.canvasBoard {
+		width: 800px;
+		height: 800px;
+		position: relative;
+	}
+
+	#SignatureBoard {
+	}
+</style>
+
 <body>
-	<button id="add">加粗笔划</button>
-	<button id="reduce">变细笔划</button>
-	<canvas id="SignatureBoard"></canvas>
+	<div class="drawBoard">
+		<div class="buttonGroup">
+			<button id="reduce">变细笔划</button>
+			<button id="add">加粗笔划</button>
+		</div>
+		<div class="canvasBoard">
+			<canvas id="SignatureBoard"></canvas>
+		</div>
+	</div>
 	<script src="./SignatureBoard.js"></script>
 </body>
 </html>

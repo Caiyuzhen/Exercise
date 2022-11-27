@@ -10,8 +10,8 @@ function Init () {
 	canvas.style.border = '3px solid #999999'
 	canvas.style.borderRadius = '16px'
 	canvas.style.position = 'absolute'
-	canvas.style.top = '10%'
-	canvas.style.left = '10%'
+	canvas.style.top = '0%'
+	canvas.style.left = '0%'
 
 	strokeControl ()
 	Cursor ()
