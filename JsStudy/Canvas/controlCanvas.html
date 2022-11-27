@@ -1,0 +1,202 @@
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    #myCanvas {
+        position: absolute;
+    }
+
+    span {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: #21e40f;
+        border: 20px solid #fff;
+        border-radius: 50%;
+        color: rgb(25, 6, 204);
+        text-align: center;
+        font-size: 14px;
+        top: 50px;
+        left: 50px;
+    }
+
+    #end {
+        top: 50px;
+        left: 350px;
+    }
+
+    #dot1 {
+        top: 350px;
+        left: 50px;
+    }
+
+    #dot2 {
+        top: 350px;
+        left: 350px;
+    }
+
+    i {
+        position: absolute;
+        display: block;
+        width: 60px;
+        height: 40px;
+        background: rgba(121, 212, 170, 0.3);
+        left: 30px;
+        top: 30px;
+    }
+</style>
+
+<body>
+    <!-- 要求：
+    1. 创建一个512*512的canvas画布
+    2. 在该画布上任意创建四个锚点，使用贝塞尔曲线进行连接
+    3. 可在画布上自由拖拽上面的锚点，从而实现贝塞尔曲线的联动，每个点都有一个跟随点移动的注释（文字+箭头），说明该点的坐标
+    4. 在此基础上，实现一个黑白渐变色的背景，然后在锚点周围20个像素内，将锚点所处的背景作反色，突出锚点的显示 -->
+
+    <!-- 画布 -->
+    <canvas id="myCanvas" width="512" height="512" style="border:1px solid #000000;">
+    </canvas>
+    <!-- 画布遮罩层  用于锚点显示控制 -->
+    <div id="box">
+        <!-- 四个锚点 开始  结束  锚点1  锚点2-->
+        <span id="start">1 <i>1</i></span>
+        <span id="dot1">2 <i>2</i></span>
+        <span id="dot2">3 <i>3</i></span>
+        <span id="end">4 <i>4</i></span>
+    </div>
+
+    <script>
+        //画布渐变等
+        var c, ctx, grd;
+        //四个锚点
+        var start, end, dot1, dot2, liArr;
+
+        //坐标等
+        var x = 0;
+        var y = 0;
+        var l = 0;
+        var t = 0;
+        var isDown = false;
+
+        init();
+        function init() {
+            // 获取锚点
+            start = document.querySelector('#start')
+            end = document.querySelector('#end')
+            dot1 = document.querySelector('#dot1')
+            dot2 = document.querySelector('#dot2')
+            //锚点文字说明以及跟随样式
+            liArr = document.querySelectorAll('i');
+            //获取画布
+            c = document.getElementById("myCanvas");
+            ctx = c.getContext("2d");
+            // 创建渐变
+            grd = ctx.createLinearGradient(0, 0, 512, 0);
+            grd.addColorStop(0, "black");
+            grd.addColorStop(1, "white");
+            // 填充渐变
+            ctx.fillStyle = grd;
+            ctx.fillRect(0, 0, 512, 512);
+
+            start.addEventListener('mousedown', downHandler)
+            end.addEventListener('mousedown', downHandler)
+            dot1.addEventListener('mousedown', downHandler)
+            dot2.addEventListener('mousedown', downHandler)
+
+            start.addEventListener('mouseup', upHandler)
+            end.addEventListener('mouseup', upHandler)
+            dot1.addEventListener('mouseup', upHandler)
+            dot2.addEventListener('mouseup', upHandler)
+
+            ctx.beginPath();
+            drawLine()
+            ctx.stroke();
+        }
+        //鼠标按下回调
+        function downHandler(e) {
+            e.stopPropagation();
+            // 获取x坐标和y坐标
+            x = e.clientX;
+            y = e.clientY;
+            //获取左部和顶部的偏移量
+            l = e.target.offsetLeft;
+            t = e.target.offsetTop;
+            //开关打开
+            isDown = true;
+            //设置样式
+            e.target.style.cursor = 'move';
+            //添加移动侦听
+            e.target.addEventListener('mousemove', moveHandler)
+            e.target.addEventListener('mouseup', moveHandler)
+        }
+        //拖拽回调
+        function moveHandler(e) {
+            if (isDown == false) {
+                return;
+            }
+            //获取x和y
+            var nx = e.clientX;
+            var ny = e.clientY;
+            //计算移动后的左偏移量和顶部的偏移量
+            var nl = nx - (x - l);
+            var nt = ny - (y - t);
+
+            e.target.style.left = nl + 'px';
+            e.target.style.top = nt + 'px';
+
+            ctx.beginPath();
+            drawLine();
+            ctx.stroke();
+        }
+
+        function upHandler(e) {
+            //注销移动侦听事件
+            e.target.removeEventListener('mousemove', moveHandler)
+        }
+        //绘制贝塞尔曲线 /  设置 文字  /  背景反色
+        function drawLine() {
+            //获取锚点坐标
+            let s1 = setNum(start.offsetLeft);
+            let s2 = setNum(start.offsetTop);
+            let e1 = setNum(end.offsetLeft);
+            let e2 = setNum(end.offsetTop);
+            let dd1 = setNum(dot1.offsetLeft);
+            let dd2 = setNum(dot1.offsetTop);
+            let dd3 = setNum(dot2.offsetLeft);
+            let dd4 = setNum(dot2.offsetTop);
+
+            ctx.clearRect(20, 20, 100, 50);
+            ctx.fillStyle = grd;
+            ctx.fillRect(0, 0, 512, 512);
+
+            ctx.moveTo(s1, s2)
+            ctx.bezierCurveTo(dd1, dd2, dd3, dd4, e1, e2);
+            //显示更新锚点坐标
+            liArr[0].innerText = `x=> ${s1} x=> ${s2}`;
+            liArr[1].innerText = `x=> ${dd1} x=> ${dd2}`;
+            liArr[2].innerText = `x=> ${dd3} x=> ${dd4}`
+            liArr[3].innerText = `x=> ${e1} x=> ${e2}`
+
+            //设置边框颜色
+            setColor(start, s1, s2);
+            setColor(end, e1, e2);
+            setColor(dot1, dd1, dd2);
+            setColor(dot2, dd3, dd4);
+        }
+        //处理贝塞尔曲线坐标点, 与div 中心重合
+        function setNum(str) {
+            return parseInt(str) + 30
+        }
+        //设置背景色反色
+        function setColor(target, x, y) {
+            let col = ctx.getImageData(x, y, 1, 1).data;
+            for (let i = 0; i < col.length; i++) {
+                col[i] = 255 - col[i]
+            }
+            console.log(target, col);
+            target.style.border = `20px solid rgb(${col[0]},${col[1]},${col[2]})`
+        }
+    </script>
+</body>
