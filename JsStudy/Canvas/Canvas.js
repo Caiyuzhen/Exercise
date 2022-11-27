@@ -2,6 +2,7 @@
 	基础定义
 		canvas 可以创建任意多个 
 		csnvas 元素跟 img 元素可以直接在 html 内设置宽跟高，不用特地写 style XXX
+		绘制路径后记得要上色, 不然默认为透明的
 
 	ctx 
 		相当于一支画笔, 根据笔的坐标来绘制图形而不是画布！默认在左上角
@@ -71,6 +72,9 @@
 			quadraticCurveTo(cp1x, cp1y, x, y)
 				cp1x, cp1y 为控制点
 				x, y 为结束点
+
+	// 清除画布元素
+		ctx.clearRect(0, 0, 100, 100); // 清除画布上的矩形区域(从哪个区域开始清理)
 */
 
 
@@ -94,9 +98,18 @@ const ctx = canvas.getContext('2d')
 // console.log(ctx);
 
 
-// 全局粗细跟颜色
+// 全局样式
 ctx.lineWidth = 3  //线段粗细
 ctx.strokeStyle = 'rgba(45, 36, 151)' //线段颜色
+ctx.lineJoin = 'round' //全局线段连接处的样式（变为圆角)
+ctx.shadowOffsetX = 12; // 阴影的 x 偏移
+ctx.shadowOffsetY = 12; // 阴影的 y 偏移
+ctx.shadowBlur = 2; // 阴影的模糊程度
+ctx.shadowColor = 'rgba(45, 36, 151, 0.3)'; // 阴影的颜色
+
+
+// 全局透明度
+// ctx.globalAlpha = 0.8
 
 
 
@@ -105,6 +118,15 @@ ctx.beginPath() //建立一个路径组
 ctx.fillRect(100,100,100,100) //绘制填充矩形
 ctx.moveTo(50, 50) //x, y 坐标，路径的起始点
 ctx.lineTo(150, 150) //x, y 坐标，路径的绘制到哪个点, 注意,起笔点会变到【这个点】！！
+
+ctx.stroke() //正式的上色	
+
+
+// rect() 方法创建矩形
+ctx.beginPath()
+ctx.rect(200, 200, 100, 100) //x, y 坐标，矩形的起始点, 矩形的宽度, 矩形的高度, 会自动调用 moveTo() 方法
+ctx.stroke() //正式的上色	
+
 
 
 // 线段
@@ -179,10 +201,51 @@ ctx.strokeText("Smart Canvas 🌞", 400, 100)
 
 // 创建贝塞尔曲线
 ctx.beginPath() //建立一个路径组
-ctx.bezierCurveTo(250, 300, 550, 150, 600, 400) //cp1x, cp1y 为第一个控制点, cp2x, cp2y 为第二个控制点, x, y 为结束点
-ctx.strokeStyle = 'rgba(145, 236, 151)' //线段颜色
+ctx.bezierCurveTo(450, 400, 550, 150, 800, 400) //bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y)   cp1x, cp1y 为第一个控制点, cp2x, cp2y 为第二个控制点, x, y 为结束点
+ctx.strokeStyle = 'rgba(145, 236, 151, 0.7)' //线段颜色
 ctx.stroke()
 
 
 
 
+// 一个绘制文字的方法
+function drawFont(text) {
+	let ctx2 = document.getElementById('myCanvas').getContext('2d')
+	ctx2.font = "64px serif"
+	ctx2.fillText(text, 200, 100)
+}
+
+drawFont('Hellow')
+
+
+
+
+// 练习
+// 绘制一个搜索框
+ctx.beginPath() //建立一个路径组
+ctx.moveTo(730, 400)
+ctx.arc(700, 400, 30, 0, Math.PI * 3, false) //Math.PI * 2 为 360°, PI 为圆周率
+ctx.lineCap = 'round'; // 线条末端的样式为圆点
+ctx.lineWidth = 8  //线段粗细
+ctx.strokeStyle = 'rgba(145, 36, 151)' //线段颜色
+ctx.moveTo(722, 424)
+ctx.lineTo(750, 450)
+ctx.stroke() //正式的上色
+
+
+// 绘制一个圆角矩形
+ctx.beginPath() //建立一个路径组
+ctx.moveTo(800, 400)
+ctx.lineTo(880, 400)
+ctx.arc(880, 420, 20, Math.PI + Math.PI / 2, Math.PI * 2, false) // 顺时针画: (Math.PI = 180度) + (Math.PI / 2 = 90度) =270度  ->  (Math.PI * 2)= 360度  [🔥相当于从 270度 画到 360度]
+ctx.lineTo(900, 500)
+ctx.arc(880, 500, 20,  Math.PI * 2, Math.PI / 2, false) //360度或0度 -> 90度
+ctx.lineTo(800, 520)
+ctx.arc(800, 500, 20, Math.PI / 2, Math.PI, false) //90度 -> 180度
+ctx.lineTo(780, 420)
+ctx.arc(800, 420, 20, Math.PI, Math.PI + Math.PI / 2, false) //180度 -> 270度
+ctx.fillStyle = `rgba(245, 196, 121, 1)`
+ctx.fill()
+ctx.stroke()
+
+// 绘制太阳
