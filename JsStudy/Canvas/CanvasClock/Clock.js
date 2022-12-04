@@ -45,14 +45,14 @@ function drawClock() {
 	const hours = now.getHours() % 12 //获取当前小时 0~23 , 需要转化为 12 小时制, 用【🔥取模运算】, 23 / 12 等于 1 余 11
 	const minutes = now.getMinutes() //获取当前分钟 0～59
 	const seconds = now.getSeconds() //获取当前秒 0~59
-	// console.log(hours, minutes, seconds);
+	console.log(hours, minutes, seconds);
 
 	// 计算【时】要旋转的角度 (1 h = 30°) (1 min = 1h / 60) (1 s = 1h / 60 / 60)
 	// Math.PI / 6 表示 1 小时为 30°,  (Math.PI / 6 / 60) 表示每小时内的分钟【🔥走小时的多少角度，为 0.5°】, (Math.PI / 6 / 60 / 60) 表示每小时内的秒【🔥走小时的多少角度，为 0.0083°】
 	const hourRotate = hours * (Math.PI / 6) + minutes * ((Math.PI / 6 / 60)) + seconds * ((Math.PI / 6 / 60 / 60))//时针应该转的角度 = 小时 + 分钟 + 秒转的度数
 	// 计算【分】要旋转的角度 (1 min = 360 / 60 = 6°) 
-	// (Math.PI / 30) 表示 1 分钟为 6°,  (Math.PI / 30 / 60) 表示每秒钟【🔥走分钟的多少角度， 为 0.1° 】
-	const minuteRotate = minutes * ((Math.PI / 30)) + seconds * ((Math.PI / 30 / 60))
+	// (2 * Math.PI / 60) 表示 1 分钟为 6°,  (Math.PI / 30 / 60) 表示每秒钟【🔥走分钟的多少角度， 为 0.1° 】
+	const minuteRotate = minutes * ((2 * Math.PI / 60)) + seconds * ((Math.PI / 30 / 60))
 
 	// 计算要【秒】旋转的角度 (1 s = 360 / 60 = 6°)
 	const secondRotate = seconds * ((2 * Math.PI / 60))
