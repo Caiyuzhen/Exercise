@@ -49,16 +49,28 @@ imgArr[imgCount].onload = (e) => {
 }
 
 
-// 滚轮事件
+// 滚轮事件: 绘制图片的方法（按顺序来绘制）
 window.addEventListener('wheel', (e) => {
 	console.log(e.deltaY);
-	if(e.deltaY > 0) {//滚轮网上滚动
-		// 绘制图片的方法（按顺序来绘制）
-		const startPos = calDrawStartPos(imgArr[imgCount]) //e.target 就是图片本身, startPos 就是计算出来的让图片【从居中点】开始点绘制的方法
-		console.log('滚动的位置:', startPos);
+	if(e.deltaY > 2 && imgCount < 63) {//滚轮网上滚动
+		const startPos = calDrawStartPos(imgArr[imgCount]) //imgArr[imgCount] 就是图片本身, startPos 就是计算出来的让图片【从居中点】开始点绘制的方法
 		ctx.clearRect(0, 0, appleCanvas.width, appleCanvas.height) //清除画布
 		ctx.drawImage(imgArr[imgCount], startPos.x, startPos.y) //图片源，绘制的坐标
-		imgCount ++ 
+		imgCount ++ //滚动时候, 让索引位增加, 从而取下一张图片
+		console.log(
+			'正向滚动的位置:', startPos, 
+			'当前第几张:', imgCount
+			);
+	} 
+	else if(e.delayY < -2 && imgCount > 1) { //反方向往下滚动(滚轮往上 < 0, 并且索引位大于 0, 相当于反向出现图片
+		const startPos = calDrawStartPos(imgArr[imgCount]) //imgArr[imgCount] 就是图片本身, startPos 就是计算出来的让图片【从居中点】开始点绘制的方法
+		ctx.clearRect(0, 0, appleCanvas.width, appleCanvas.height) //清除画布
+		ctx.drawImage(imgArr[imgCount], startPos.x, startPos.y)
+		imgCount --
+		console.log(
+			'反向滚动的位置:', startPos, 
+			'当前第几张:', imgCount
+			);
 	}
 })
 
