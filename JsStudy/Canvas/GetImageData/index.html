@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Get ImageData</title>
+	<h1>Get ImageData</h1>
+	<style>
+		.main-container {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content:center;
+		}
+
+		#show-color {
+			display: flex;
+			flex-direction: row;
+			/* border: 1px solid black; */
+			flex-grow: 2;
+			justify-content:center;
+			align-items: center;
+			margin-top: 12px;
+			gap: 80px;
+		}
+
+		.color-box {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			gap: 8px;
+		}
+
+		.color-circle {
+			display:flex;
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			border: 1px solid black;
+			color: rgb(73, 73, 73)
+		}
+	</style>
+</head>
+
+<body>
+	<div class="">
+		<!-- canvas -->
+		<canvas id="imgData"></canvas>	
+
+		<!-- 识色器 DOM -->
+		<div id="show-color">
+			<div class="color-box">
+				<span>当前颜色</span>
+				<div class="color-circle" id="show-color-circle"></div>
+			</div>
+
+			<div class="color-box">
+				<span>选中颜色</span>
+				<div class="color-circle" id="selected-color-circle"></div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="./GetImageData.js"></script>
+</html>
