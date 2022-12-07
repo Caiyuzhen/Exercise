@@ -7,7 +7,29 @@
 	<title>Save to Pic</title>
 	<h1>Save to Pic</h1>
 </head>
+<style>
+	.dl-btn {
+		width: 128px; 
+		height: 40px;
+		background-color: bisque;
+		border-radius: 6px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	#dlPic {
+		/* 去 a 标签的掉下划线 */
+		text-decoration: none;
+		color: cadetblue;
+		font-weight: 600;
+	}
+</style>
 <body>
+	<!-- 🔥🔥 download 内填写要下载的文件名称 -->
+	<div class="dl-btn">
+		<a href=""id='dlPic' download="test-name">下载图片</a>
+	</div>
 	<img src="" alt="" id="img">
 	<canvas id="canvas-saveToPic"></canvas>
 </body>

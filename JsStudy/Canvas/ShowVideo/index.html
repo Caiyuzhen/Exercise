@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>ShowVideo</title>
+	<h1>ShowVideo</h1>
+</head>
+<style>
+	#video {
+		width: 200px;
+		height: 150px;
+		object-fit: contain;
+	  	object-position: center;
+	}
+</style>
+<body>
+	<video 
+		src="https://cdn.dribbble.com/userupload/4099571/file/original-77bc45272ebd04d5f068feb5f2411b5e.mp4"
+		id="video"
+		autoplay 
+		controls
+		></video>
+	<canvas id="video-canvas"></canvas>
+</body>
+<script src="./ShowVideo.js"></script>
+</html>
