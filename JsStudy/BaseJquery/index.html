@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<h1>Jquery</h1>
+	<h2 class="hj">123</h2>
+	<h2 class="hj">kkk</h2>
+	<h2 class="hj">ddd</h2>
+	<h3 class="htt">Welcome</h3>
+
+
+	<script src="./jquery/jquery-3.6.3.min.js"></script>
+
+	<script>
+		//🌟获取单个元素
+		const h1 = $('h1') //jquery 上获取的元素只能调用 jquery 的方法
+		// console.log(h1) 
+		h1.addClass('color-red')
+
+
+		//🌟获取一组元素
+		const hjs = $('.hj')
+		//each 遍历出 dom 元素
+		hjs.each((index, item) => {
+			<!-- console.log(index, item) //索引位置 、 dom 元素 -->
+			$(item).addClass('color-blue')
+		})
+
+
+		//🌟给元素增加 css 样式
+		const ht = $('.htt')
+		ht.css({
+			color: '#93BFCF',
+			fontSize: '28px'
+		})
+
+
+		//🌟hover
+		ht.hover(
+			//鼠标移入元素
+			() => {
+				$(ht).css({
+					color: '#FF6E31',
+					fontSize: '48px',
+					transition: 'all 0.2s'
+				})
+			},
+
+			//鼠标移出元素
+			() => {
+				$(ht).css({
+					color: '#93BFCF',
+					fontSize: '28px'
+				})
+			}
+		)
+		
+
+	</script>
+
+	<style>
+		.color-red {
+			color: #913175;
+		}
+
+		.color-blue {
+			color: #13005A;
+		}
+	</style>
+</body>
+</html>

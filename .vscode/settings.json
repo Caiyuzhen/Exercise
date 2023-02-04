@@ -4,5 +4,8 @@
     "editor.fontSize": 18,
     "editor.cursorWidth": 3,
 
-    "gitlens.codeLens.scopes": ["document"]
+	"gitlens.codeLens.scopes": [
+		"document"
+	],
+	"liveServer.settings.port": 8081
 }
