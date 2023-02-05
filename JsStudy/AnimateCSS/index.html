@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>AnimateCSS</title>
+	<!-- 🌟 CDN 引入 css 库的文件需要放在 head 头部！ -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+	<h1>AnimateCSS</h1>
+	<style>
+		body,html {
+			margin: 0;
+			padding: 0;
+		}
+
+		@keyframes moveEffect {
+			0% {
+				transform: translateX(0);
+			}
+
+			25% {
+				transform: translateX(100px);
+			}
+
+			50% {
+				transform: translateY(100px);
+			}
+
+			75% {
+				transform: translateX(-100px);
+			}
+
+			100% {
+				transform: translateY(-100px);
+				transform: translateX(0);
+			}
+		}
+
+		.container {
+			display: flex;
+			flex-direction: row;
+			gap: 20px;
+			justify-content: center;
+			align-items: center;
+			height: 80vh; 
+
+			--animate-duration: 5000ms;
+			animation: moveEffect 2s infinite; /*运用 keyframe 效果*/
+		}
+		.eleA {
+			width: 100px;
+			height: 100px;
+			background-color: rgb(41, 41, 41);
+			border-radius: 12%;
+			text-align: center;
+			line-height: 100px;
+			color: white;
+
+			--animate-duration: 2s; /*🔥animate 的 css 变量！*/
+		}
+		.eleB {
+			width: 100px;
+			height: 100px;
+			background-color: rgb(41, 41, 41);
+			border-radius: 12%;
+			text-align: center;
+			line-height: 100px;
+			color: white;
+
+			animation: bounce;
+			--animate-delay: 2s;
+		}
+		.eleC {
+			width: 100px;
+			height: 100px;
+			background-color: rgb(41, 41, 41);
+			border-radius: 12%;
+			text-align: center;
+			line-height: 100px;
+			color: white;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="
+			animate__animated 
+			eleA  
+			animate__fadeInDown
+			animate__delay-1s
+			"
+		>A</div>
+		<div class="
+			animate__animated  
+			eleB  
+			animate__fadeInUp
+			animate__faster
+			"
+		>B</div>
+		<div class="
+			animate__animated  
+			eleC  
+			animate__flipInX
+			animate__infinite
+			"
+		>C</div>
+	</div>
+</body>
+</html>
