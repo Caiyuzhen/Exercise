@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Video Control</title>
+
+	<style>
+		video {
+			width: 800px;
+		}
+		.play-btn {
+			display: inline-block;
+			width: 100px;
+			height: 50px;
+			line-height: 50px;
+			border-radius: 10px;
+			font-weight: 600;
+			text-align: center;
+			background-color: rgb(207, 213, 255);
+			color:rgb(49, 19, 114);
+			cursor: pointer;
+		}
+
+	</style>
+</head>
+<body>
+	<h1>Video Control</h1>
+	<!-- <video src="./src/ux.mp4"></video> -->
+	<video controls>
+		<!-- source 是为了适配不同的浏览器（有的浏览器不支持 webm 等） -->
+		<source src="./src/ux.mp4">
+		<source src="./src/ux.webm">
+	</video>
+	<!-- 视频控件 -->
+	<span class="play-btn">Play</span>
+</body>
+
+<script>
+	/* 
+		🔥控制视频的播放进度
+			常用的方法
+				play 
+
+				pause
+
+				load
+
+			常用的属性
+				currentTime   //跳转到第 X 秒的位置
+
+				playbackRate   //几倍速播放
+
+				volume    控制声音大小
+	*/
+
+	const video = document.querySelector('video')
+
+	// 🌟 canplay 表示媒体可以播放时就可以触发
+	video.addEventListener('canplay', () => {
+
+		let isPlay = false
+
+		// 播放按钮
+		const playBtn = document.querySelector('.play-btn')
+		playBtn.addEventListener('click', () => {
+			// 视频播放后就暂停
+			if(!isPlay) {
+				video.play()
+				isPlay = true
+				playBtn.textContent = 'Pause';
+				playBtn.style.backgroundColor = "rgb(49, 19, 114)";
+  				playBtn.style.color = "rgb(207, 213, 255)";
+			} else {
+				video.pause()
+				isPlay = false
+				playBtn.textContent = 'Play';
+				playBtn.style.backgroundColor = 'rgb(207, 213, 255)';
+				playBtn.style.color = "rgb(49, 19, 114)";
+			}
+		})
+	})
+
+	// 🌟通过左右键盘来控制视频的时间轴, 每次 +3 秒
+	document.addEventListener('keydown', (e) => {
+		if(e.key === 'ArrowLeft') {
+			video.currentTime -= 3
+		} else if (e.key === 'ArrowRight') {
+			video.currentTime += 3
+		}
+	})
+
+	// 🌟通过空格键来控制视频的播放和暂停
+	document.addEventListener('keydown', function(e) {
+		if (e.code === 'Space') {
+		  const video = document.querySelector('video');
+		  if (video.paused) {
+			video.play();
+		  } else {
+			video.pause();
+		  }
+		}
+	  })
+
+</script>
+</html>
