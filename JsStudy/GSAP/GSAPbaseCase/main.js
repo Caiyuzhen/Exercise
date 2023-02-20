@@ -1,5 +1,5 @@
-import { gsap } from './src/index.js' //引入核心库
-import xx from './src/PixiPlugin.js' //引入插件
+import { gsap } from '../src/index.js' //引入核心库
+import xx from '../src/PixiPlugin.js' //引入插件
 
 console.log(gsap);
 console.log(xx);
