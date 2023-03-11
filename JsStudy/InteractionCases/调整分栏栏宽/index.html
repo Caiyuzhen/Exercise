@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>调整分栏栏宽</title>
+</head>
+<body>
+
+	<div class="container">
+		<div class="contentA">
+			内容 A
+			<img src="./d210cf0265c8120afd673d09d56eb55b.webp" alt="">
+			<!-- 拖拽把手 Handle -->
+			<div class="separator">
+				<i></i>
+				<i></i>
+			</div>
+		</div>
+
+		<div class="contentB">
+			内容 B
+		</div>
+	</div>
+
+	<style>
+		body {
+			padding: 0;
+			margin: 0;
+			user-select: none; /*🔥在拖动过程中避免选到文字等内容！！*/
+			-webkit-user-select: none; /*🔥在拖动过程中避免选到文字等内容！！*/
+		}
+		.container {
+			display: flex;
+			justify-content: space-between;
+		}
+		.contentA {/*⚡️拖拽本质上改变的就是这款内容区域的宽度！右边则自适应！！*/
+			min-width: 100px;/*🔥最小拖拽宽度*/
+			position: relative;/*拖拽把手在第一个容器的最右边*/
+			text-align: center;
+			line-height: 20vh;
+			color: white;
+			height: 100vh;
+			width: 50vw;/*🔥🔥🔥初始宽度！！后续通过监听事件改变宽度！！*/
+			background-color: #44947a;
+			padding-right: 4px;/*右侧占据了 4px 的宽度, 所以要加上*/
+		}
+		.contentA > img {
+			width: 200px;
+			display: block;
+  			max-width: 100%; /* 最大不能超过图片宽度 */
+  			margin: auto; /*居中, 根据容器自动缩放*/
+		}
+		/*拖拽把手*/
+		.container .separator {
+			position: absolute;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			top: 0;
+			right: 0;
+			width: 14px;
+			height: 100%;
+			background-color: aliceblue;
+			box-shadow: 0px 0px 8px rgba(0,0,0, .15);
+			cursor: col-resize;
+		}
+		.container .separator i {
+			display: inline-block;
+			height: 14px;
+			width: 2px;
+			/*圆角*/
+			border-radius: 1px;
+			background-color: gray;
+			margin: 0 1px;
+		}
+
+		.contentB {
+			text-align: center;
+			line-height: 100vh;
+			color: white;
+			flex: 1; /*🔥🔥填充所有 flex 剩余空间！！*/
+			width: 100%;
+			height: 100vh;
+			background-color:#7454d5;
+		}
+	</style>
+
+	<script src="./main.js"></script>
+</body>
+</html>
