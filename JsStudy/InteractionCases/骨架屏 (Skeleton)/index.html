@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>骨架屏 (Skeleton)</title>
+	<h1>骨架屏 (Skeleton)</h1>
+	<style>
+		:root {
+			--loading-grey: #ededed;
+		}
+
+		body {
+			background-color: #f6f6f6;
+			font-family: Helvetica;
+			font-size: 15px;
+			display: flex;
+			justify-self: space-evenly;
+			align-items: center;
+			flex-direction: row;
+			min-height: 100vh;
+			gap: 48px;
+		}
+
+		.card {
+			width: 320px;
+			background-color: #fff;
+			border-radius: 6px;
+			overflow: hidden;
+			box-shadow:0px 8px 16px rgba(0,0,0,.25);
+		}
+
+		.imageContainer {
+			height: 200px;
+		}
+
+
+		.imageContainer img{
+			display: block;
+			width: 100%;
+			height: inherit;/*继承*/
+			object-fit: cover;
+		}
+
+		.content {
+			padding: 2rem 1.8rem;
+		}
+
+		h4 {
+			margin: 0 0 1rem 0;
+			line-height: 1.5rem;
+		}
+
+		.description {
+			font-size: 1rem;
+			line-height: 1rem;
+		}
+
+		/*🔥骨架屏的样式, ⚡️.loading + XXX 这样写是为了后续移除 .loading 来清除扫光效果！！*/
+		.loading .imageContainer,
+		.loading h4,
+		.loading .description {
+			background-color: var(--loading-grey);
+			background: linear-gradient(
+				100deg, /*渐变角度*/
+				rgba(255, 255, 255, 0) , /*渐变光起始颜色*/
+				rgba(255, 255, 255, 0.5) 50%, /*渐变光中间颜色*/
+				rgba(255, 255, 255, 0) 60% /*渐变光结束颜色*/
+			) var(--loading-grey); /*基础的背景色*/
+			background-size: 200% 100%; /*🔥渐变光的宽度和高度*/
+			background-position-x: 180%; /*🔥渐变从 100% 左侧开始, 0% 从到右侧, + 多 80% 让光从外侧扫入, 控制这个变量来调整扫描过去的范围！*/
+			animation: 1s loadingAnmi ease-in-out infinite; /*🔥动画效果*/
+		}
+
+		/*🔥渐变扫光效果*/
+		@keyframes loadingAnmi {
+			to {
+				background-position-x: -20%; /*🔥扫到右侧为值变小！*/
+			}
+		}
+
+		.loading h4 {
+			min-height: 1.6rem;
+			border-radius: 4px;
+			animation-delay: .05s; /*让标题扫光变慢！*/
+		}
+
+		.loading .description {
+			min-height: 4rem;
+			border-radius: 4px;
+			margin: 1rem 0;
+			animation-delay: .08s; /*让描述内容的扫光变慢！*/
+		}
+	</style>
+</head>
+<body>
+	<!-- 骨架屏, 到时候只需要移除 loading 这个 class 就可以移除扫光效果了！！ -->
+	<div class="card loading">
+		<div class="imageContainer">
+
+		</div>
+		<div class="content">
+			<h4></h4>
+			<div class="description">
+
+			</div>
+		</div>
+	</div>
+
+	
+	<!-- 正式卡片 -->
+	<div class="card loading">
+		<div class="imageContainer">
+			<img src="./fcfaa0228a981bad5fe700b9a7f8aee8.jpg" alt="">
+		</div>
+		<div class="content">
+			<h4>CodingStartup</h4>
+			<div class="description">
+				Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam, quod.
+			</div>
+		</div>
+	</div>
+
+	<script src="./main.js"></script>
+</body>
+</html>
