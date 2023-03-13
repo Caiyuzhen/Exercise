@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>滚动缩小文字</title>
+	<h1>滚动缩小文字</h1>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		h2  {
+			font-size: 72px;
+			font-family: "Helvetica";
+			letter-spacing: -0.012em; /*字间距*/
+			font-weight: normal;
+			width: 290px;
+			position: relative;
+			left: 50%; /*水平居中*/
+			position: sticky; /*🔥🔥配合 js 在滚动的时候吸顶*/
+			top: -1px; /*🔥🔥配合 js 在滚动的时候吸顶*/
+			margin: 100px 0;
+			padding: 0;
+			transform: scale(clamp(0.15, var(--sCale),1)); /*🔥🔥文字最小值,  文字变化值--sCale,  文字最大值*/
+			transform-origin: 0% 0% ; /*🔥🔥把文字缩放中心点改到左上角！！*/
+		}
+
+		/*🚀🚀🚀 js 动态加上这个类名！*/
+		.pinned {
+			color: rebeccapurple;
+		}
+
+		.imacImg {
+			position: relative;
+			overflow: hidden;
+		}
+
+		.imacImg img {
+			display: block;
+			position: relative;
+			top: 50%; /*上下居中*/
+			left: 50%; /*左右居中*/
+			transform: translate(calc(-50% - 30px), 0); /*左右居中, 🔥🔥 calc 再 -30px 表示先水平居中, 再右偏移一点点!!!*/
+		}
+	</style>
+</head>
+<body>
+	<div class="iMac">
+		<!-- 🔥🔥👇设置 --sCale !!!变量的初始值为 1 !!! -->
+		<h2 class="title" style="--sCale: 1">Only 11.5mm iMac. Now that's thin</h2>
+		<div class="imacImg">
+			<img src="./flow_startframe.jpg" alt="">
+		</div>
+	</div>
+
+	<script src="./mian.js"></script>
+</body>
+</html>
