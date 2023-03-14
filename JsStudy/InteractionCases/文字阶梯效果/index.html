@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>文字阶梯效果</title>
+	<h1>文字阶梯效果</h1>
+	<style>
+		:root {
+			font-size: 20px;
+			font-family: Helvetica, Arial, sans-serif;
+		}
+		body {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			min-height: 100vh;
+			flex-direction: column;
+		}
+
+		.container {
+			perspective: 30rem; /*🔥🔥表示容器的透视距离*/
+		}
+
+		.container > div {
+			display: block;
+			/*文字跟容器一样大*/
+			height: 6rem;
+			font-size: 6rem;
+			/*超出容器的文字会被隐藏*/
+			overflow: hidden;
+		}
+
+		.container > div > span {
+			display: block;
+			height: 6rem;
+			font-weight: bold;
+			letter-spacing: - .2rem;
+			text-align: center;
+			transition: .3s transform ease-in-out;
+		}
+
+		/*给第子元素分别加背景色*/
+		.container > div:nth-child(1) {
+			background-color: rgba(151, 248, 255, 0.8);
+			 /*🔥🔥旋转效果, 配合上面的 perspective 来达到旋转透视的效果*/
+			transform: 
+				rotateX(30deg) ;
+		}
+		.container > div:nth-child(2) {
+			background-color: rgba(197, 193, 255, 0.8);
+			 /*🔥🔥旋转效果, 配合上面的 perspective 来达到旋转透视的效果*/
+			transform: 
+				rotateX(-30deg) 
+				translateY(-.5rem);
+		}
+		.container > div:nth-child(3) {
+			background-color: rgba(204, 255, 201, 0.8);
+			/*🔥🔥旋转效果, 配合上面的 perspective 来达到旋转透视的效果*/
+			transform: 
+				rotateX(30deg) ;
+		}
+		.container > div:nth-child(4) {
+			background-color: rgba(255, 180, 151, 0.8);
+			 /*🔥🔥旋转效果, 配合上面的 perspective 来达到旋转透视的效果*/
+			transform: 
+				rotateX(-30deg) 
+				translateY(-.5rem);
+		}
+
+		/*hover 时改变 span 的位置*/
+		.container:hover > div > span {
+			transform: translateY(-100%);
+		}	
+	</style>
+</head>
+<body>
+	<div class="container">
+		<!-- 文字的外容器 -->
+		<div>
+			<!-- 初始文字 -->
+			<span>WELL</span>
+			<!-- 要切换的文字 -->
+			<span>ENJOY</span>
+		</div>
+		<div>
+			<span>AHA</span>
+			<span>HAPPY</span>
+		</div>
+		<div>
+			<span>YEAR</span>
+			<span>MONTH</span>
+		</div>
+		<div>
+			<span>2099</span>
+			<span>PROSPERITY</span>
+		</div>
+	</div>
+</body>
+</html>
