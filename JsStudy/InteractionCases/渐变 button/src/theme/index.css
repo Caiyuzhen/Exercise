@@ -1,0 +1,118 @@
+html body {
+	height: 100vh;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.present-btn {
+	width: 136px;
+	height: 32px;
+	border-radius: 6px;
+	font-size: 16px;
+	line-height: 32px;
+	text-align: center;
+	position: relative;
+	border: 1.6px solid transparent; */
+	border-radius: 16px;
+	background-clip: padding-box, border-box;
+	background-origin: padding-box, border-box;
+	transition: all 0.3s ease;
+	background-image: linear-gradient(to right, #ffffff, #ffffff), 
+				 	  linear-gradient(90deg, #a454ff, #4a86ff);
+
+}
+
+.content {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	border-radius: 4px;
+	height: 100%;
+	cursor: pointer;
+	overflow: hidden;
+}
+
+.gradient-animation {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 200px;
+	height: 200px;
+	border-radius: 4px;
+	background: linear-gradient(270deg, rgba(39, 197, 255, 1) 0%, rgba(142, 78, 253, 1) 100%);
+	opacity: 0;
+	transition: all 0.3s ease;
+	animation: gradientAnmi 4s ease infinite;
+	transform-origin: 0% 0%;
+	background-position: 0 50%;
+	backface-visibility: hidden;
+	perspective: 1000;
+}
+
+.gradient-animation:hover {
+	border-radius: 6px;
+	opacity: 0.3;
+	transition: all 0.3s ease;
+}
+
+.text {
+	background: linear-gradient(to right, #a454ff, #4a86ff);
+	-webkit-background-clip: text;
+	color: transparent;
+	transition: all 0.3s ease;
+	pointer-events: none;
+}
+
+.content:hover > .text {
+	transform: scale(1.05);
+	transition: all 0.3s ease;
+}
+
+.content:hover > .present-icon {
+	transform: scale(1.05);
+	transition: all 0.3s ease;
+	transform: translateX(-2px);
+}
+
+.present-icon {
+	width: 16px;
+	height: 16px;
+	padding-left: 4px;
+	z-index: 1;
+	transition: all 0.3s ease;
+	pointer-events: none;
+}
+
+.present-down {
+	width: 16px;
+	height: 16px;
+	z-index: 1;
+	transition: all 0.3s ease;
+	pointer-events: none;
+}
+
+/*让 gradient-animation 这个元素的位置上下左右的移动*/
+@keyframes gradientAnmi {
+	0% {
+		transform: translate(-50%, -50%);
+	}	
+	25% {
+		transform: translate(-38%, -50%);
+		scale: 1.3;
+		rotate: 180deg;
+	}
+	50% {
+		transform: translate(-22%, -50%);
+		scale: 1.2;
+	}
+	100% {
+		transform: translate(-50%, -50%);
+	}
+}
+

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CSS+SVG实现文字沿路径运动</title>
+	<h3>CSS+SVG实现文字沿路径运动</h3>
+</head>
+<body>
+	<!-- 
+		删除 stroke 属性
+		增加 id="wavePath" 属性
+		增加 <text></text> 标签, 放入文字并填充颜色
+		增加 <textPath></textPath> 标签, 添加 id 属性, textPath href="#wavePath", 让文字呈现在路径上
+		增加 <animation></animation> 标签, 添加 attributeName="startOffset" 属性, 
+			初始值 from="-50%", 让文字从路径的开头开始运动
+			结束值 to="150%", 让文字移动到哪里
+			持续时间 dur="3s", 让文字运动的速度
+			是否循环, repeatCount="indefinite", 让文字无限循环运动
+	-->
+	<svg width="1480" height="320" viewBox="0 0 1483 277" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<path id="wavePath" d="M0.5 167.5C130.5 167.5 262.5 1 472.5 1C682.5 1 842.5 276.5 1109 276.5C1322.2 276.5 1446.83 160.833 1482.5 103"/>
+		<text fill="#3290FF">
+			<textPath href="#wavePath" x="50" y="150">
+				<animate
+					attributeName="startOffset"
+					from="-50%"
+					to="150%"
+					dur="3s"
+					repeatCount="indefinite"
+				></animate>
+				Hellow SVG Animation Hellow SVG Animation Hellow SVG Animation Hellow SVG Animation
+			</textPath>
+		</text>
+	</svg>
+		
+</body>
+</html>

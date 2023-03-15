@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>按钮渐变色边框动画</title>
+	<style>
+		body {
+			background: black;
+		}
+
+		/*动画记得定义在顶部！！*/
+		@keyframes borderAnimation {
+			from {
+				filter: hue-rotate(0deg);
+			}
+			to {
+				filter: hue-rotate(360deg);
+			}
+		}
+
+		.border-box {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 300px;
+			height: 300px;
+			text-align: center;
+			font-weight: bold;
+			font-size: 30px;
+			line-height: 300px;
+			color: white;
+			border: 5px solid;
+			/*👇文字*/
+			background-image: linear-gradient(45deg, #ffadad, #ffd6a5, #fdffb6, #9bf6ff, #a0c4ff, #bdb2ff, #ffc6ff);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent; /*👈文字变透明, 露出底部的渐变色！*/
+			/*👇边框*/
+			border-image: linear-gradient(45deg, #ffadad, #ffd6a5, #fdffb6, #9bf6ff, #a0c4ff, #bdb2ff, #ffc6ff);
+			border-image-slice: 0.5; /* 1表示将整个边框均匀地切片为一个单元格，然后将 `border-image` 属性的渐变颜色应用到这个单元格上*/
+			animation: borderAnimation 3s infinite linear; /*一种实现方式是利用 :;before 伪元素的旋转实现渐变动画, 另一种是利用色相的变化实现伪元素*/
+		}
+	</style>
+</head>
+<body>
+	<div class="border-box">
+		按钮渐变色动画
+	</div>
+</body>
+</html>
