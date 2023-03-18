@@ -3,23 +3,207 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	color; rgba(255,255,255,0.6);
+	color: rgba(255,255,255,0.8);
 }
 
+
+/* icon 颜色 */
+.icon-font path{
+	stroke: rgba(255,255,255,0.8);
+}
+
+/* 顶部系统按钮 */
+.btn-item {
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+}
+
+.btn-item:nth-child(1) {
+	background: #eb5a56;
+}
+
+.btn-item:nth-child(2) {
+	background: #f8bc33;
+}
+
+.btn-item:nth-child(3) {
+	background: #62cb44;
+}
+
+
+/* 背景容器 */
 .wrap {
 	width: 100%;
 	height: 100vh;
-	backrgound-image: url('../src/ab.jpg') center no-repeat;
+	background-image: url('./src/ab.jpg');
 	display: flex;
 	background-size: cover;
 	align-items: center;
-	justicy-content: center;
+	justify-content: center;
+	background-position: top;
 }
 
+
+/* 导航栏菜单 */
 .nav {
 	width: 110px;
-	overflow: hieedn;
-	background: rgba(0,0,0,0.8)
+	height: 900px;
+	overflow: hidden;
+	background: rgba(0,0,0,0.8);
 	transition: 0.5s all;
 	border-radius: 20px;
+	backdrop-filter: blur(20px); /* 背景模糊, 毛玻璃效果 */
+}
+
+/* hover 时导航变宽 */
+.nav:hover {
+	width: 240px;
+}
+
+.btn {
+	width: 60px;
+	height: 10px;
+	display: flex;
+	justify-content: space-between;
+	margin-left: 24px;
+	margin-top: 24px;
+}
+
+.icon {
+	display: flex;
+	height: 80px;
+	margin-left: 24px;
+	align-items: center;
+	gap: 16px;
+	margin-top: 24px;
+}
+
+/* 头像 */
+.icon-img {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 64px;
+	aspect-ratio: 1/1; /* 固定比例 */
+	border-radius: 50%;
+	background: rgba(255,255,255,0.2);
+}
+
+.icon .icon-img img{
+	height: 54px;
+	aspect-ratio: 1/1; /* 固定比例 */
+}
+
+
+/* 用户名 */
+.icon-con {
+	width: 0px;
+	opacity: 0;
+	white-space: nowrap;
+	transition: .5s all;
+	transform: translateX(-4px);
+}
+
+.icon-con p {
+	font-size: 12px;
+}
+
+.icon-con p:nth-child(2) {
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.nav:hover .icon-con {
+	width: 120px;
+	opacity: 1;
+	transform: translateX(0px);
+}
+
+/* 分割线 */
+.line {
+	width: 78px;
+	height: 1px;
+	background: rgba(255,255,255,0.2);
+	margin: 12px 16px;
+	transition: .5s;
+}
+
+.nav:hover .line{
+	width: 210px;
+}
+
+.title {
+	width: 60px;
+	margin: 12px 0px 8px 24px;
+}
+
+.title p {
+	font-size: 14px;
+}
+
+.menu, .server{
+	margin-left: 24px;
+	margin-right: 16px;
+}
+
+.item {
+	display: flex;
+	align-items: center;
+	position: relative;
+	transition: .5s;
+	border-radius: 6px;
+}
+
+.item:hover {
+	background: rgba(255,255,255,0.1);
+}
+
+/* 列表 item */
+.licon {
+	width: 60px;
+	height: 60px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.con {
+	width: 0px; /*🔥先隐藏列表*/
+	height: 48px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	position: relative;
+	left: -20px;
+	opacity: 0;
+	transition: 0.5s all;
+}
+
+/* 🔥鼠标 hover 时显示 item */
+.nav:hover .con {
+	width: 160px;
+	display: flex;
+	juestify-content: center;
+	align-items: center;
+	opacity: 1;
+}
+
+.light {
+	width: 3px;
+	/* height: 58px; */
+	height: 0px;
+	background: #9933f8;
+	position: absolute;
+	left: 1px;
+	transition: .5s all;
+	border-top-left-radius: 6px;
+	border-bottom-left-radius: 6px;
+	opacity: 0;
+}
+
+.item:hover .light {
+	opacity: 1;
+	height: 58px;
 }
