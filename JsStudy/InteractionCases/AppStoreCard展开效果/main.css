@@ -1,0 +1,51 @@
+:root {
+	font-size: 1rem;
+	font-family: Helvetica;
+	background-color: #727272;
+	--body-width: 480px;
+	--card-width: 420px;
+	--card-height: 278px;
+	--img-height-normal: 226px; /*图片展开前的高度*/
+	--img-height-expanded: 320px; /*图片展开后的高度*/
+}
+
+body {
+	width: var(--body-width);
+	background-color: #eee;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-height: 100vh;
+	padding: 1rem 0 ;
+}
+
+.card {
+	width: var(--card-width);
+	height: var(--card-height);
+	background-color: #fff;
+	border-radius: 1rem;
+	box-shadow: 0 .2rem 2rem rgba(0, 0, 0, .2)
+}
+
+.card img {
+	display: block;
+	width: 100%;
+	height: var(--img-height-normal);
+	object-fit: cover;
+	/* 不能用 overflow， 因为 overflow 不能做动画！ */
+	border-top-left-radius: 1rem;
+	border-top-right-radius: 1rem;
+}
+
+.card h4 {
+	font-size: 32px;
+	margin: 0;
+	font-seize: bold;
+	font-weight: bold;
+	background-color: #fff;
+	padding: .8rem 1.2rem;
+	padding-bottom: 0;
+	line-height: 2rem;
+	latter-spacing: -0.5px;
+}
