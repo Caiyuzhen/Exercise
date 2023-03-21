@@ -4,7 +4,7 @@
 	background-color: #727272;
 	--body-width: 480px;
 	--card-width: 420px;
-	--card-height: 278px;
+	--card-height: 288px;
 	--img-height-normal: 226px; /*图片展开前的高度*/
 	--img-height-expanded: 320px; /*图片展开后的高度*/
 }
@@ -25,7 +25,9 @@ body {
 	height: var(--card-height);
 	background-color: #fff;
 	border-radius: 1rem;
-	box-shadow: 0 .2rem 2rem rgba(0, 0, 0, .2)
+	box-shadow: 0 .2rem 2rem rgba(0, 0, 0, .2);
+	margin: 1rem 0;
+	transition: .3s all cubic-bezier(0, 1, .95, 1.05)
 }
 
 .card img {
@@ -48,4 +50,47 @@ body {
 	padding-bottom: 0;
 	line-height: 2rem;
 	latter-spacing: -0.5px;
+}
+
+/* ⚡️分两层是因为在点击卡片的时候, 要计算内容容器的宽高 
+	外层做展开的动画, 内层设置高度
+*/
+.card .content-wrapper { /*通过 js 控制容器的高度*/
+	height: 0;
+	overflow: hidden;
+}
+
+.card .content {
+	padding: 0 1.2rem;
+	background-color: #fff;
+	overflow: auto; /*🔥内容可以滚动*/
+}
+
+.card p {
+	font-size: 1.2rem;
+	line-height: 1.5rem;
+}
+
+
+/* ⚡️card active class 卡片展开的效果 —————————————————————————————————————— */
+.card.active { /*整个卡片的激活状态*/
+	/*点击后放大卡片*/
+	transform: translateY(var(--cardScrollToTop)) scale(calc(480/420)); /*🔥【核心】放大倍数 body / 卡片 = */
+	transform-origin: 50% 0; /*改变放大的中心点*/
+	border-radius: 0;
+}
+
+.card.active h4 {
+
+}
+
+.card.active img {
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	height: var(--img-height-expanded); 
+	
+}
+
+.card.active .content-wrapper {
+	height: 100vh; /*根据内容的宽度进行展开*/
 }
