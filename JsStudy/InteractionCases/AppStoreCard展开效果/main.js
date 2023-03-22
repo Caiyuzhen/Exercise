@@ -12,6 +12,17 @@ cards.forEach((card) => {
 		this.classList.toggle('active');/*⚡️⚡️ toggle 更简单！点击后添加, 再点击就去除！*/
 
 
+		// 🔥【核心】计算正文需要滚动的高度 = 窗口总高度 - 卡片图片的高度
+		let imgHeight = (this.querySelector('img').offsetHeight) * 480 / 420 //图片展开后的高度
+		let titleHeight = (this.querySelector('h4').offsetHeight) * 480 / 420 //标题的高度
+		let allHeight = window.innerHeight  //窗口总高
+		let contentScrollHeight = (allHeight - imgHeight - titleHeight) / (480 / 420)//正文需要滚动的高度
+		//为什么要处以 * 480 / 420 ? 因为正文的字体大小是 480 / 420, 所以要除以这个比例, 才能得到正文的高度
+		// console.log(contentScrollHeight);
+		this.querySelector('.content').style.height = contentScrollHeight + 'px'//把计算回来的高度给到 content
+
+
+		
 		// ⚡️【核心】 避免展开卡片后还能滚动 body 导致穿帮, 判断 card 是否有 active 这个类
 		if (this.classList.contains('active')) {
 			document.body.style.overflow = 'hidden'; //禁止最外层的 body 滚动, 避免穿帮

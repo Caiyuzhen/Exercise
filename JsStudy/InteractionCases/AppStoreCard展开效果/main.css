@@ -58,6 +58,8 @@ body {
 .card .content-wrapper { /*通过 js 控制容器的高度*/
 	height: 0;
 	overflow: hidden;
+	transition: all 0.3s ease-in-out;
+	opacity: 0.8;
 }
 
 .card .content {
@@ -81,7 +83,7 @@ body {
 }
 
 .card.active h4 {
-
+	padding-bottom: .8rem;
 }
 
 .card.active img {
@@ -93,4 +95,6 @@ body {
 
 .card.active .content-wrapper {
 	height: 100vh; /*根据内容的宽度进行展开*/
+	transition: all .3s ease-in;
+	opacity: 1;
 }
