@@ -15,7 +15,7 @@
 
 
 
-const { Application, Sprite, Texture, Assets, Text } = PIXI //取出属性
+const { Application, Container, Sprite, Texture, Assets, Text, Graphics } = PIXI //取出属性
 // console.log(Application)
 
 
@@ -42,31 +42,59 @@ async function main() {
 
 
 	// ⚡️2. 演员在后台准备 ——————————————————————————————————————————————————————————————————
-	// 方法一(有异步的问题):
+	// 🌝🌝 添加图形元素 - 方法一(有异步的问题):
 	const sprite = Sprite.from('./src/img/character.png')//本质上也是生成一个 Texture 类型的数据在内存呢当中
 
 
-	// 方法二(有异步的问题):
+	// 🌝🌝 添加图形元素 - 方法二(有异步的问题):
 	const texture = Texture.from('./src/img/character2.png')
 	const sprite2 = new Sprite(texture)
 
 
-
-	// 方法三(没有异步的问题):
+	// 🌝🌝 添加图形元素 - 方法三(没有异步的问题):
 	Assets.add('abcMan', './src/img/character3.png') //相当于先在内存地址上【标记】一份数据
 	const texture3 = await Assets.load('abcMan') //读取【标记】在 Assets 的数据
 	const sprite3 = new Sprite(texture3)
 
 
+	// 🌝🌝 内嵌字体的方式
+	await Assets.load('./src/font/FuturaNowHeadlineBlack.ttf')
 
 
-	// 添加文字
-	const SmartText = new Text('Zeno', {
-		fontFamily: 'Arial',
-		fontSize: 24,
-		fill: 0xff1010,
+	// 🌝🌝 添加文字元素
+	const smartText = new Text('Zeno\nDesign', {
+		fontFamily: 'FuturaNowHeadlineBlack',
+		fontSize: 64,
+		lineHeight: 32,
+		fill: '#191970',
 		align: 'center',
+		wordWrap: true,//允许文本换行
+		wordWrapWidth: 2 //换行的宽度
 	})
+
+
+	// 🌝🌝 添加图形（矩形）元素  ——  相当于画了一个图形并贴在一个平面上, 可以独立控制, 比如 clear
+	const rect = new Graphics()
+	rect.beginFill('#70195f')
+	.drawRect(0, 0, 200, 200) //坐标 + 尺寸
+	.endFill() //可以链式的调用, 因为都会返回 rect 本身！
+
+
+	// 🌝🌝 添加图形（圆角矩形）元素  ——  相当于画了一个图形并贴在一个平面上, 可以独立控制, 比如 clear
+	const roundRect = new Graphics()
+	rect.beginFill('#70195f')
+	.drawRoundedRect(400, 20, 200, 200, 20) //坐标 + 尺寸
+	.endFill() 
+	//可以链式的调用, 因为都会返回 rect 本身！可以继续画第二个图形
+	.beginFill('#0b8d7e')
+	.drawRoundedRect(800, 20, 100, 100, 12) 
+
+
+	// 🌝🌝 添加图形（线段）元素  ——  相当于画了一个图形并贴在一个平面上, 可以独立控制, 比如 clear
+	const line = new Graphics()
+	line.lineStyle(10, '#25c399', 1)
+	.moveTo(600, 40)
+	.lineTo(100, 300)
 
 
 
@@ -74,10 +102,14 @@ async function main() {
 
 
 	// ⚡️3. 演员上场 ——————————————————————————————————————————————————————————————————
-	app.stage.addChild(sprite)
-	app.stage.addChild(sprite2)
-	app.stage.addChild(sprite3)
-	app.stage.addChild(SmartText)
+	app.stage.addChild(sprite, sprite2, sprite3)
+	app.stage.addChild(smartText)
+	app.stage.addChild(rect, roundRect, line)
+
+	// 也可以用打组的方式进行添加
+	// const container = new Container()
+	// container.addChild(sprite, sprite2, sprite3)
+	// app.stage.addChild(container)
 
 	setTimeout(()=>{
 		console.log(sprite.width) //👀异步输出的数据才是正确的!
@@ -85,6 +117,13 @@ async function main() {
 	},200)
 
 	console.log(sprite3.width) //👀没有异步的问题
+
+
+
+
+	// ⚡️4. 演员进行表演 ——————————————————————————————————————————————————————————————————
+	smartText.position.x = 320
+
 }
 
 
