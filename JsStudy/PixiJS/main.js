@@ -290,7 +290,7 @@ async function main() {
 		const animatedOfRunMan= new AnimatedSprite(finallyTextureArray)
 
 		app.stage.addChild(animatedOfRunMan) //🔥把设置好的动画元素渲染到舞台上
-		animatedOfRunMan.animationSpeed = 0.2 //🔥设置动画的速度
+		animatedOfRunMan.animationSpeed = 0.1 //🔥设置动画的速度
 		animatedOfRunMan.play() //🔥播放动画
 
 
@@ -338,7 +338,6 @@ async function main() {
 						console.log('更新了:', obj.x)
 					},
 				})
-
 				boxIsShow = !boxIsShow
 			} else {
 
@@ -351,25 +350,78 @@ async function main() {
 						console.log('更新了:', obj.x)
 					},
 				})
+				boxIsShow = !boxIsShow
 			}
 		})
 
 
 		// ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
-		// 让元素沿着某个方向去移动
+		// 让元素沿着某个方向去移动 - A
 		const ball = new Graphics()
 		ball.beginFill('#1b0000')
-		ball.drawCircle(0,0,50)
+		ball.drawCircle(0,0,20)
 		ball.endFill()
-		ball.x = app.screen.width / 2
-		ball.y = app.screen.height / 2
+		ball.x = app.screen.width / 2 - 400
+		ball.y = app.screen.height / 2 -100
 		app.stage.addChild(ball)
 
 		app.ticker.add(()=>{
-			ball.x += 1
-			ball.y += 1
+			ball.x -= 1
+			ball.y -= 1
 		})
 		
+
+
+		// ⚡️让元素沿着某个方向去移动 - B
+		// 三角函数, 可以参考以下网站 https://www.shuxuele.com/sine-cosine-tangent.html
+		const ball2 = new Graphics()
+		ball2.beginFill('#d01f9b')
+		ball2.drawCircle(0,0,50)
+		ball2.endFill()
+		ball2.x = app.screen.width / 2
+		ball2.y = app.screen.height / 2
+		app.stage.addChild(ball2)
+
+		
+		let zz = 10 // 斜边 (🔥控制速度)
+		let radian = 0.1 // 弧度值 (🔥控制方向)
+		let xx = Math.cos(radian) * zz // ⚡️ 邻边 (当前运动到的值) -> 每次变化的值！
+		let yy = Math.sin(radian) * zz // ⚡️ 对边 (当前运动的值) -> 每次变化的值！
+
+		let ballX = ball.x // 承接累加起来的值
+		let ballY = ball.y // 承接累加起来的值
+
+
+		app.ticker.add(() => {
+			ballX += xx
+			ballY += yy
+
+			ball2.x = ballX
+			ball2.y = ballY
+
+			// 🔥判断元素是否在边界内
+				// 一些物理学的库: https://github.com/schteppe/p2.js/
+				// 【🚀前提！】假设元素锚点已经移动到中心
+				// ⚡️⚡️ 左边边界  ball2.x > ball2.width / 2
+				// ⚡️⚡️ 右边边界  ball2.x < app.screen.width - ball2.width / 2
+				// ⚡️⚡️ 上边边界  ball2.y> ball2.height / 2
+				// ⚡️⚡️ 下边边界  ball2.y < app.screen.height - ball2.height / 2
+		
+			if(ball2.x <= ball2.width / 2 || ball2.x >= app.screen.width - ball2.width / 2) { //在左右内
+				console.log('出左边界 或 出右边界')
+				radian = Math.PI - radian //⚡️⚡️ 派 - 弧度值（入射角） = 反射角
+				xx = Math.cos(radian) * zz 
+				yy = Math.sin(radian) * zz
+
+			} else if(ball2.y <= ball2.height / 2 || ball2.y >= app.screen.height - ball2.height / 2) {
+				console.log('出上边界 或 出下边界')
+				radian = 2 * Math.PI - radian //因为派转过去了, 所以 X 2 派
+				xx = Math.cos(radian) * zz 
+				yy = Math.sin(radian) * zz
+			}
+		})
+
+
 
 }
 
