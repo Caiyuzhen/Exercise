@@ -23,7 +23,7 @@
 
 
 
-const { Application, Container, Sprite, Texture, Assets, Text, Graphics, AnimatedSprite } = PIXI //取出属性
+const { Application, Container, Sprite, Texture, Assets, Text, Graphics, AnimatedSprite, BlurFilter, DisplacementFilter } = PIXI //解构取出 PIXI.JS 内的属性
 // console.log(Application)
 
 
@@ -422,6 +422,52 @@ async function main() {
 		})
 
 
+		// 👀 滤镜效果 ————————————————————————————————————————————————————————————————————————————————————————————————
+		// 滤镜 api文档 https://filters.pixijs.download/main/docs/index.html
+		// 总文档 pixijs.download/release/docs/PIXI.Filter.html
+		// 效果预览 https://filters.pixijs.download/main/demo/index.html?enabled=KawaseBlurFilter
+
+		// 🌟 模糊滤镜 🌟
+		const blurFilter = new BlurFilter()
+		blurFilter.strength = 1 // 模糊程度
+		// blurFilter.quality = 1 // 模糊质量
+		blurFilter.blur =12 // 模糊程度
+		monster.filters = [blurFilter] // 🚀给元素添加滤镜(要用一个数组, 因为可以添加多个滤镜)
+
+
+
+		// 🌟 置换滤镜 DisplacementFilter 🌟
+		const container = new PIXI.Container();
+
+		// 黑白置换的材质元素
+		Assets.add('replaceImg', 'src/img/replaceEle.png')
+		const replaceImg = await Assets.load('replaceImg')
+		const replaceEleTexture = new Sprite(replaceImg)
+		replaceEleTexture.scale.set(3.5)
+		replaceEleTexture.zIndex = 11
+		app.stage.addChild(replaceEleTexture)
+
+
+		// 要被置换滤镜的 target 图片
+		Assets.add('ui', 'src/img/ui.jpg')
+		const uiEleTexture = await Assets.load('ui')
+		const uiEleShow = new Sprite(uiEleTexture)
+		uiEleShow.scale.set(0.5)
+		app.stage.addChild(uiEleShow)
+
+		
+		// 将元素添加到容器中
+		container.addChild(replaceEleTexture, uiEleShow)
+		app.stage.addChild(container)
+
+
+		// 将元素前置一层(前提是两个元素都需要在容器内！！)
+		container.setChildIndex(replaceEleTexture, container.getChildIndex(replaceEleTexture) + 1)
+
+
+		const displacementFilter = new DisplacementFilter(replaceEleTexture) //给纹理元素添加置换滤镜
+		uiEleShow.filters = [displacementFilter] //把添加过置换滤镜的纹理元素添加到目标元素上
+		
 
 }
 
