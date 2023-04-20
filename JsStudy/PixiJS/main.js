@@ -24,7 +24,16 @@
 
 
 const { Application, Container, Sprite, Texture, Assets, Text, Graphics, AnimatedSprite, BlurFilter, DisplacementFilter } = PIXI //解构取出 PIXI.JS 内的属性
+// const ShockwaveFilter = PIXI.filters.ShockwaveFilter //解构出【⚡️外置滤镜库】
+
+const ShockwaveFilter = PIXI.filters.ShockwaveFilter
+
+// console.log(PIXI.filters)
 // console.log(Application)
+// console.log(PIXI.filters)
+
+
+
 
 
 
@@ -437,38 +446,91 @@ async function main() {
 
 
 		// 🌟 置换滤镜 DisplacementFilter 🌟
-		const container = new PIXI.Container();
+		const container = new Container();
 
 		// 黑白置换的材质元素
-		Assets.add('replaceImg', 'src/img/replaceEle.png')
+		Assets.add('replaceImg', 'src/img/water.png')
 		const replaceImg = await Assets.load('replaceImg')
-		const replaceEleTexture = new Sprite(replaceImg)
-		replaceEleTexture.scale.set(3.5)
-		replaceEleTexture.zIndex = 11
-		app.stage.addChild(replaceEleTexture)
+		const replaceTexture = new Sprite(replaceImg)
+		replaceTexture.scale.set(7.5)  //👈👈控制置换的程度
+		replaceTexture.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT //🔥🔥让纹理进行重复！！
+		app.stage.addChild(replaceTexture)
 
 
 		// 要被置换滤镜的 target 图片
-		Assets.add('ui', 'src/img/ui.jpg')
-		const uiEleTexture = await Assets.load('ui')
-		const uiEleShow = new Sprite(uiEleTexture)
-		uiEleShow.scale.set(0.5)
-		app.stage.addChild(uiEleShow)
+		Assets.add('ui', 'src/img/scene.jpg')
+		const sceneEleLoad = await Assets.load('ui')
+		const scene = new Sprite(sceneEleLoad)
+		scene.scale.set(0.1) 
+		scene.addChild(replaceTexture) //🔥🔥置换滤镜要添加为图片的子集！不然 texture 会撑满图片！！
+		app.stage.addChild(scene)
 
 		
+
 		// 将元素添加到容器中
-		container.addChild(replaceEleTexture, uiEleShow)
-		app.stage.addChild(container)
+		// container.addChild(replaceTexture, scene)
+		// app.stage.addChild(container)
 
 
 		// 将元素前置一层(前提是两个元素都需要在容器内！！)
-		container.setChildIndex(replaceEleTexture, container.getChildIndex(replaceEleTexture) + 1)
+		// container.setChildIndex(replaceTexture, container.getChildIndex(replaceTexture) + 1)
 
 
-		const displacementFilter = new DisplacementFilter(replaceEleTexture) //给纹理元素添加置换滤镜
-		uiEleShow.filters = [displacementFilter] //把添加过置换滤镜的纹理元素添加到目标元素上
+		const displacementFilter = new DisplacementFilter(replaceTexture) //给纹理元素添加置换滤镜
+		scene.filters = [displacementFilter] //把添加过置换滤镜的纹理元素添加到目标元素上
 		
 
+		// 🔥🔥让图片产生持续变化的效果
+		app.ticker.add(() => {
+			replaceTexture.x += 1 // 改变滤镜的位置, 就能实现不断动的效果了, 因为滤镜已经是图片的子元素, 并且滤镜是无限平铺的
+		})
+
+		// 鼠标 hover 时, 改变滤镜的位置
+		scene.interactive = true
+		scene.on('pointermove', (e) => {
+			replaceTexture.x = e.data.global.x // e.data.x 表示鼠标的 x 位置
+			replaceTexture.y = e.data.global.y // e.data.y 表示鼠标的 y 位置
+			// console.log(e.data.global.x, e.data.global.y)
+		})
+
+
+
+
+
+		// 🌟 水波纹滤镜 🌟  new ShockwaveFilter (center, options, time)
+		// 要被添加波纹效果的的 target 图片
+		Assets.add('waveImg', 'src/img/back.jpg')
+		const waveImgEleLoad = await Assets.load('waveImg')
+		const waveImg = new Sprite(waveImgEleLoad)
+		waveImg.x = 0
+		waveImg.scale.set(0.2) 
+		waveImg.addChild(replaceTexture) //🔥🔥置换滤镜要添加为图片的子集！不然 texture 会撑满图片！！
+		app.stage.addChild(waveImg)
+
+		const wave = new ShockwaveFilter([300, 300], {
+			radius: 200,
+			wavelength: 100,
+			amplitude: 20,
+			speed: 80
+		}, 0) //👈time = 0 , 让 time 值变大的话波纹就会展开
+
+
+		// 给图片添加波纹效果
+		waveImg.filters = [wave] //因为可以添加多个滤镜, 所以是个数组
+		// console.log(wave)
+
+		app.ticker.add((delta) => { //回调的执行的时间差 -> delta
+			wave.time += 0.05
+			if(wave.time > 3) { //如果波纹展开后, 的时间大于 3 秒, 就重置波纹
+				wave.time = 0
+			}
+		})
+
+		// 🔥 鼠标点哪里, 哪里就有波纹 （可以多做几个 filter， 就可以实现多个波纹的效果了）
+		waveImg.interactive = true
+		waveImg.on('click', (e) => {
+			wave.center = [e.client.x, e.client.y] //🔥改变波纹中心
+		})
 }
 
 
