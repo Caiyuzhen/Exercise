@@ -10,7 +10,7 @@ console.log(buffer2)
 
 
 /* 
-	1.同步与异步
+	同步与异步
 		回调/异步方式/Promise (async await)方式 - 不会阻塞进程
 		同步方式 - 会阻塞进程
 
@@ -72,6 +72,32 @@ console.log(buffer2)
 		3. 修改文件或目录的权限或所有组
 			chown(path[, uid, gid], callback)
 
+	🔥 路径相关操作 __________________________________________
+		1.创建符号链接
+			symlink(target, path[, type], callback)
+		
+		2.将指定路径解析为绝对路径
+			realpath(path[, options], callback)
+		3.获取指定路径的文件或目录的详细信息（包含文件大小、创建、修改时间等）
+
+	🔥 Path 模块(处理文件夹路径) __________________________________________
+		1.将多个路径拼接为一个完整路径, 并返回
+			join([...paths])
+
+		2.将多个路径拼接为一个完整的绝对路径, 并返回
+			resolve([...paths])
+
+		3.规范化路径, 去除融于的分隔符, 和 、.. 等符号, 并返回
+			normalize(path)
+
+		4.获取路径中的文件名, 指定扩展名（可选）
+			basename(path[, ext])
+
+		5.获取路径中的目录名
+			dirname(path)
+
+		6.获取路径中的扩展名
+			extname(path)
 
  */
 
