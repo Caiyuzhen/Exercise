@@ -8,7 +8,8 @@ const btn4 = document.querySelector('.btn-4')
 const form = document.querySelector('form')
 const input2 = document.querySelector('.input2')
 const btn5 = document.querySelector('.btn-5')
-const formData = new FormData(form) //👈获取表单元素后传入进行 new ！
+
+const btn6 = document.querySelector('.btn-6')
 
 
 
@@ -26,7 +27,13 @@ btn1.addEventListener('click', async () => {
 })
 
 
-// 🌟 能放到 body 内的数据类型有: ArrayBuffer, Blob, string, URLSearchParams, FormData
+/* 🌟 能放到 body 内的数据类型有 5 种: 
+		ArrayBuffer, 
+		Blob, 
+		string 比如 URLSearchParams, 
+		FormData,
+		ReadableStream,
+*/
 
 
 
@@ -108,26 +115,51 @@ btn4.addEventListener('click', async () => { //点击后发送图片给服务端
 
 
 
-// 发送 表单 到服务端 —————————————————————————————————————————————————————-
-input2.addEventListener('change', (e) => {
-	const file = input2.files[0]; // 取出表单数据
-	formData.append('formDataPng', file); //这个名字在服务端那边会用!
+// 发送 【表单】 到服务端 —————————————————————————————————————————————————————
+input2.addEventListener('change', (e) => { // 下拉菜单
+	// const file = input2.files[0]; // 取出表单数据
+	// const formData = new FormData() //👈 进行 new 来解析表单数据！！
+	// // console.log(file);
+	// formData.append('formDataPng', file); //这个名字在服务端那边会用!
 })
 
+
 btn5.addEventListener('click', async () => { //点击后发送图片给服务端
-	if(formData) {
-		const response = await fetch('http://127.0.0.1:8899/formDataDetail', {
-			method: 'POST',
-			body: formData,
-			// headers: {
-			// 	'Content-Type': 'multipart/form-data', //🔥 form 建议不设置
-			// }
-		})
-	
-		const data = await response.text();
-		console.log(data);
-	} else {
-		alert('请先选择文件')
-		console.log('请先选择文件');
-	}
+		const file = input2.files[0]; // 取出表单数据
+		// console.log(file);
+
+		if(file.size > 0) { // 判断是否选择了文件
+			const formData = new FormData() //👈 进行 new 来解析表单数据！！
+			formData.append('formDataPng', file); // 🔥🔥这个名字在服务端那边会用!
+
+			const response = await fetch('http://127.0.0.1:8899/formDataDetail', {
+				method: 'POST',
+				body: formData,
+				headers: {
+					'Content-Length': file.size   //🔥 设置文件的字节数 !!
+				},
+			})
+		
+			const data = await response.text();
+			console.log(data);
+		} else {
+			alert('请先选择文件')
+			console.log('请先选择文件');
+		}
+})
+
+
+
+// 发送 blob 数据 到服务端 (少用, 一般要传数组的话, 可以转为 JSON 进行传输, 比较方便） —————————————————————————————————————————————————————
+const blobData = new Blob([new Int32Array([1, 2, 3, 4])], {type: 'application/octet-stream'}); // 创建定型数组类型的数据
+btn6.addEventListener('click', async () => { 
+	const response = await fetch('http://127.0.0.1:8899/sendBlob', {
+		method: 'POST',
+		body: blobData, //👈数据放这里
+		headers: {
+			"Content-Type": 'application/octet-stream'  //🔥 设置文件的字节数 !!
+		},
+	})
+	const data = await response.text();
+	console.log(data);
 })

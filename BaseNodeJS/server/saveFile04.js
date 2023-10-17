@@ -2,7 +2,7 @@ const http = require('http')
 const url = require('url')
 const fs = require('fs')
 const queryString = require('querystring')
-const { formidable, errors: formidableErrors } = require('formidable')
+const { formidable, errors: formidableErrors } = require('formidable') // npm i formidable 安装表单处理工具
 
 
 
@@ -118,14 +118,16 @@ const server = http.createServer(async (req, res) => {
 		})
 	}
 
-	// 🌟 接收表单数据的请求 (通过 formiable 库) ——————————————————————————————————————————————————
+
+
+	// 🌟 接收表单数据的请求 (通过 formiable 库, 好处是不用自己去拼接数据) ——————————————————————————————————————————————————
 	if(pathname === '/formDataDetail') {
-		const form = formidable();
+		const form = formidable(); // 实例化一个 formidable 对象
 		try {
-			// console.log(222, form)
-			data = await form.parse(req);// 解析请求
+			data = await form.parse(req);// 解析 req 请求, 所有表单数据都能取到
 			console.log(data) //👈打印表单数据
-			fs.rename(data[1].pngImg[0].filepath, './' + data[1].pngImg[0].originalFilename, (err) => {
+
+			fs.rename(data[1].formDataPng[0].filepath, './' + data[1].formDataPng[0].originalFilename, (err) => { //🔥【formDataPng 是自己写的名字！】 【filepath 为临时保存的路径】, originalFilename 为原始文件名 , 【./ 为转存到当前目录下】
 			if (err) {
 				console.log(err)
 			}
@@ -143,6 +145,31 @@ const server = http.createServer(async (req, res) => {
 			return;
 		}
 		res.writeHead(200, { 'Content-Type': 'text/plain', 'Access-Control-Allow-Origin': '*', });
+		res.end('success');
+	}
+
+
+	// 🌟 接收 blob 数据 (处理逻辑跟图片类似) ——————————————————————————————————————————————————
+	if(pathname === '/sendBlob') {
+		const data = [];
+
+		req.on('data', (chunk) => {
+			data.push(chunk);
+		})
+
+		req.on('end', () => {
+			const body = Buffer.concat(data);
+
+			const Int32ArrayData = new Int32Array(body); // 🔥🔥 还原为定型数组内的数据 {[1, 2, 3, 4]}
+			console.log(Int32ArrayData);
+		})
+		console.log('成功设置 blob 数据!');
+		res.writeHead(200, { 
+			'Content-Type': 'text/html; charset=utf-8', 
+			'Access-Control-Allow-Origin': '*',
+			'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+			'Access-Control-Allow-Headers': 'Content-Type', 
+		}); 
 		res.end('success');
 	}
 })
