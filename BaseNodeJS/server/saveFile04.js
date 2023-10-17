@@ -2,12 +2,13 @@ const http = require('http')
 const url = require('url')
 const fs = require('fs')
 const queryString = require('querystring')
+const { formidable, errors: formidableErrors } = require('formidable')
 
 
 
 // encoding 可以设置文件的编码方式, 文字才需要设置！！ 视频跟图片不需要设置（默认处理成二进制的数据就行了）
 // 写入数据一般不需要设置编码方式, 读取一般也不需要
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
 	// fs.readFile('someNote.txt', { encoding: 'utf8' }, (err, data) => {
 	// 	if(err) {
 	// 		console.log(err);
@@ -25,7 +26,7 @@ const server = http.createServer((req, res) => {
 	console.log(query);
 
 
-	// 🌟 处理简单 get 请求, 通过 url 携带参数
+	// 🌟 处理简单 get 请求, 通过 url 携带参数 ——————————————————————————————————————————————————
 	if(pathname === '/sendQuery') {
 		res.writeHead(200, { 
 			'Content-Type': 'text/html; charset=utf-8', 
@@ -38,7 +39,7 @@ const server = http.createServer((req, res) => {
 	}
 
 
-	// 🌟 处理简单 Post 请求, 通过 请求体 携带参数 -> ⚠️ 原生 Node 的话就需要对请求做拼接 !!!
+	// 🌟 处理简单 Post 请求, 通过 请求体 携带参数 -> ⚠️ 原生 Node 的话就需要对请求做拼接 !!! ——————————————————————————————————————————————————
 	if(pathname === '/sendPost') {
 		const data = [];
 		req.on('data', (chunk) => { // 每次接收到数据就会触发, 然后把数据 push 到 data 内, 这个数据已经被处理成为 buffer 的状态了 !!
@@ -62,6 +63,7 @@ const server = http.createServer((req, res) => {
 	}
 
 
+	// 🌟 处理 JSON 请求 ——————————————————————————————————————————————————
 	if(pathname === '/sendPostWithJson') {
 		const data = [];
 		req.on('data', (chunk) => { // 每次接收到数据就会触发, 然后把数据 push 到 data 内, 这个数据已经被处理成为 buffer 的状态了 !!
@@ -86,7 +88,7 @@ const server = http.createServer((req, res) => {
 	
 
 
-
+	// 🌟 接收图片的请求 ——————————————————————————————————————————————————
 	if(pathname === '/sendPNGFileData') {
 		const data = [];
 		req.on('data', (chunk) => { // 每次接收到数据就会触发, 然后把数据 push 到 data 内, 这个数据已经被处理成为 buffer 的状态了 !!
@@ -102,7 +104,7 @@ const server = http.createServer((req, res) => {
 			}); 
 
 			const body = Buffer.concat(data); // 处理 png 格式的数据就保持 【二进制】 而不用转为字符串
-			fs.writeFile('test.png', body, (err) => {// 🔥🔥把图片的二进制数据保存在硬盘上！
+			fs.writeFile('test.png', body, (err) => {// 🔥🔥设置图片的扩展名并把图片的二进制数据保存在硬盘上！
 				if(err) {
 					console.log(err);
 					return;
@@ -114,6 +116,34 @@ const server = http.createServer((req, res) => {
 			console.log(req.url, '获得了浏览器发来的 Post 请求');
 			res.end('🌛 Post3 Success!') // 请求都要有响应, 不然浏览器会一直等待
 		})
+	}
+
+	// 🌟 接收表单数据的请求 (通过 formiable 库) ——————————————————————————————————————————————————
+	if(pathname === '/formDataDetail') {
+		const form = formidable();
+		try {
+			// console.log(222, form)
+			data = await form.parse(req);// 解析请求
+			console.log(data) //👈打印表单数据
+			fs.rename(data[1].pngImg[0].filepath, './' + data[1].pngImg[0].originalFilename, (err) => {
+			if (err) {
+				console.log(err)
+			}
+		})
+
+		} catch (err) {
+			// example to check for a very specific error
+			if (err.code === formidableErrors.maxFieldsExceeded) {
+
+		}
+			// console.error(err);
+			console.log('error', err)
+			res.writeHead(err.httpCode || 400, { 'Content-Type': 'text/plain', 'Access-Control-Allow-Origin': '*', });
+			res.end(String(err));
+			return;
+		}
+		res.writeHead(200, { 'Content-Type': 'text/plain', 'Access-Control-Allow-Origin': '*', });
+		res.end('success');
 	}
 })
 
