@@ -151,12 +151,14 @@ const server = http.createServer(async (req, res) => {
 
 	// 🌟 接收 blob 数据 (处理逻辑跟图片类似) ——————————————————————————————————————————————————
 	if(pathname === '/sendBlob') {
-		const data = [];
+		const data = []; // 用来存储图片数据
 
+		// 获取图片数据
 		req.on('data', (chunk) => {
 			data.push(chunk);
 		})
 
+		// 获取完图片数据后进行数据的处理
 		req.on('end', () => {
 			const body = Buffer.concat(data);
 
@@ -170,7 +172,7 @@ const server = http.createServer(async (req, res) => {
 			'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
 			'Access-Control-Allow-Headers': 'Content-Type', 
 		}); 
-		res.end('success');
+		res.end('success'); // 🚗 发送响应给【客户端】
 	}
 })
 
